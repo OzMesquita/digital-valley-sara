@@ -1,6 +1,4 @@
 /build/
 /target/
-.classpath
-.project
-/.settings/
+
 /src/main/resources/.env
