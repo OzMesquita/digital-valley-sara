@@ -4,7 +4,7 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>indexAutor.jsp</welcome-file>
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
@@ -71,7 +71,7 @@
   
   <servlet-mapping>
     <servlet-name>CadastrarAvaliador</servlet-name>
-    <url-pattern>/cadastrarAvaliador</url-pattern>
+    <url-pattern>/webapp/jsp/cadastrarAvaliador</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Autenticacao</servlet-name>
@@ -79,46 +79,46 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>EditarCriterio</servlet-name>
-    <url-pattern>/editarCriterio</url-pattern>
+    <url-pattern>/webapp/jsp/editarCriterio</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdicionarCoordenador</servlet-name>
-    <url-pattern>/adicionarCoordenador</url-pattern>
+    <url-pattern>/webapp/jsp/adicionarCoordenador</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdicionarCriterio</servlet-name>
-    <url-pattern>/adicionarCriterio</url-pattern>
+    <url-pattern>/webapp/jsp/adicionarCriterio</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdicionarTrilha</servlet-name>
-    <url-pattern>/adicionarTrilha</url-pattern>
+    <url-pattern>/webapp/jsp/AdicionarTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AlterarPeriodo</servlet-name>
-    <url-pattern>/alterarPeriodo</url-pattern>
+    <url-pattern>/webapp/jsp/alterarPeriodo</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdicionarPeriodo</servlet-name>
-    <url-pattern>/adicionarPeriodo</url-pattern>
+    <url-pattern>/webapp/jsp/adicionarPeriodo</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>RemoverPeriodo</servlet-name>
-    <url-pattern>/removerPeriodo</url-pattern>
+    <url-pattern>/webapp/jsp/removerPeriodo</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>RemoverTrilha</servlet-name>
-    <url-pattern>/removerTrilha</url-pattern>
+    <url-pattern>/webapp/jsp/removerTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>RemoverAvaliador</servlet-name>
-    <url-pattern>/removerAvaliador</url-pattern>
+    <url-pattern>/webapp/jsp/removerAvaliador</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>RemoverCriterio</servlet-name>
-    <url-pattern>/removerCriterio</url-pattern>
+    <url-pattern>/webapp/jsp/removerCriterio</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>RemoverCoordenadorTrilha</servlet-name>
-  	<url-pattern>/removerCoordenadorTrilha</url-pattern>
+  	<url-pattern>/webapp/jsp/removerCoordenadorTrilha</url-pattern>
   </servlet-mapping>
 </web-app>

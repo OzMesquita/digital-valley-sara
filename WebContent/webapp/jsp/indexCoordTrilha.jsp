@@ -69,6 +69,7 @@
         for(int i = 0; i < idEventos.size(); i++){
         	Evento evento = idEventos.get(i).getEvento();
         	evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
+        	eventos.add(evento);
         }
         
         for(int i = 0; i < idTrilhas.size(); i++){
