@@ -1,19 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <groupId>br.com.n2s</groupId>
-  <artifactId>sara</artifactId>
+  <groupId>br.n2s.com</groupId>
+  <artifactId>digital-valley-sara</artifactId>
+  <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-
-  <name>sara</name>
+  <name>digital-valley-sara Maven Webapp</name>
   <url>http://maven.apache.org</url>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -22,7 +15,7 @@
       <scope>test</scope>
     </dependency>
     
-		<dependency>
+    <dependency>
 			<groupId>com.github.shyiko.dotenv</groupId>
 			<artifactId>dotenv</artifactId>
 			<version>0.1.1</version>
@@ -82,7 +75,9 @@
     		<artifactId>commons-fileupload</artifactId>
     		<version>1.3.3</version>
 		</dependency>
-
     
   </dependencies>
+  <build>
+    <finalName>digital-valley-sara</finalName>
+  </build>
 </project>

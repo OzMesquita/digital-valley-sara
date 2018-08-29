@@ -210,7 +210,7 @@
 							    </td>
 							    
 							    <td>
-			        				<form action="removerTrilha.jsp" method="post" onsubmit="return confirm('Deseja remover esta trilha?');">
+			        				<form action="RemoverTrilha" method="post" onsubmit="return confirm('Deseja remover esta trilha?');">
 			        					<input type="hidden" value="gt<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="trilha">
 							            <button class="btn btn-primary" type = "submit">Remover Trilha</button>
 							        </form>
