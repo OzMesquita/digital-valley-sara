@@ -16,7 +16,6 @@ import br.com.n2s.sara.model.Usuario;
 /**
  * Servlet implementation class RemoverTrilha
  */
-@WebServlet("/RemoverTrilha")
 public class RemoverTrilha extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,19 +33,20 @@ public class RemoverTrilha extends HttpServlet {
 		Trilha trilha = new Trilha();
 		DAOTrilha daoTrilha = new DAOTrilha();
 		
+		int idTrilha = Integer.parseInt(request.getParameter("trilha")) ;
+		
 		evento = (Evento) session.getAttribute("evento");
-		trilha = (Trilha) session.getAttribute("trilha");
-		daoTrilha.delete(trilha.getIdTrilha());
+		daoTrilha.delete(idTrilha);
 		
 		for(int i = 0; i < evento.getTrilhas().size(); i++){
-			if(evento.getTrilhas().get(i).equals(trilha)){
+			if(evento.getTrilhas().get(i).getIdTrilha()== idTrilha){
 				evento.getTrilhas().remove(i);
 				break;
 			}
 		}
 		
 		session.setAttribute("evento", evento);
-		response.sendRedirect("gerenciaEvento.jsp");
+		response.sendRedirect("indexCoordTrilha.jsp");
 	}
 
 }

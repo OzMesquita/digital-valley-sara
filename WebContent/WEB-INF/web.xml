@@ -112,7 +112,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>RemoverTrilha</servlet-name>
-    <url-pattern>/webapp/jsp/removerTrilha</url-pattern>
+    <url-pattern>/webapp/jsp/RemoverTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>RemoverAvaliador</servlet-name>
