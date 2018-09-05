@@ -123,7 +123,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -183,14 +183,14 @@
                               	List<Evento> eventos = daoEvento.read();
                                 
                               	 
-                              	 for(Evento evento : eventos){ 
-                              	 	session.setAttribute("e"+Integer.toString(evento.getIdEvento()), evento); %>
+                              	 for(Evento evento : eventos){ %>
+                                      
                                       <tr>
                                          <td><%= evento.getNome() %> </td>
                    						 <td><%= evento.getLocalizacao()%> </td>
                                          <td><%= evento.getDataInicial() %> </td>
                                          <td><form action="paginaEvento.jsp" method="post"> 
-                           					<input type="hidden" value="e<%= evento.getIdEvento()%>" name="evento"> 
+                           					<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento"> 
                           					<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
                        					 </form> 
                    						</td>

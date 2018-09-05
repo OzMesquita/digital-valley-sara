@@ -1,6 +1,4 @@
-<%-- <%@page import="br.com.n2s.sara.controller.EventoController"%> --%>
 <%@page import="java.util.List"%>
-<%-- <%@page import="br.com.n2s.sara.controller.TrilhaController"%> --%>
 <%@page import="br.com.n2s.sara.dao.*"%>
 <%@page import="br.com.n2s.sara.controller.*"%>
 <%@page import="br.com.n2s.sara.model.*" %>

@@ -1,17 +1,10 @@
-<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
-<%@page import="br.com.n2s.sara.dao.DAOCoordenacaoTrilha"%>
-<%@page import="br.com.n2s.sara.dao.DAOCoordenacaoEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOEvento"%>
-<%@page import="java.util.List"%>
+<%@page import="br.com.n2s.sara.dao.DAOTrilha" %>
 <%@ page import="br.com.n2s.sara.model.*" %>
-<%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-	
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
@@ -51,52 +44,23 @@
         Author URL: https://bootstrapmade.com
     ======================================================= -->
 
+ 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body>
-    <% 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-    	DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
-    	DAOCoordenacaoTrilha daoCoordenacaoTrilha = new DAOCoordenacaoTrilha();
-    
-        List<CoordenacaoEvento> idEventos = daoCoordenacaoEvento.read(usuario.getCpf());
-        		
-        List<CoordenacaoTrilha> idTrilhas = daoCoordenacaoTrilha.readById(usuario.getCpf());
-        List<Evento> eventos = new ArrayList<Evento>();
-        List<Trilha> trilhas = new ArrayList<Trilha>();
-        DAOEvento daoEvento = new DAOEvento();
-        
-        
-        for(int i = 0; i < idEventos.size(); i++){
-        	Evento evento = idEventos.get(i).getEvento();
-        	evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
-        	eventos.add(evento);
-        }
-        
-        for(int i = 0; i < idTrilhas.size(); i++){
-        	Evento ev = idTrilhas.get(i).getTrilha().getEvento();
-        	Boolean achou = false;
-        	
-        	for(int j = 0; j < eventos.size(); i++){
-        		if(eventos.get(j).getIdEvento() == ev.getIdEvento()){
-        			eventos.get(j).getTrilhas().add(idTrilhas.get(i).getTrilha());
-        			achou = true;
-        			break;
-        		}
-        	}
-        	
-        	if(!achou){
-            	ev.setTrilhas(new ArrayList<Trilha>());
-            	ev.getTrilhas().add(idTrilhas.get(i).getTrilha());
-            	eventos.add(ev);	
-        	}
-        }
-        
-       	
-    %>
+ <body>
  
   <!-- container section start -->
   <section id="container" class="">
      
+     	<%
+	     	Usuario usuario = (Usuario) session.getAttribute("usuario");
+     	
+     		String idEvento = request.getParameter("idEvento");
+     		Evento evento = (new DAOEvento().getEvento(Integer.parseInt(idEvento)));
+     		evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
+	        
+     		session.setAttribute("usuario", usuario);
+	        session.setAttribute("evento", evento);
+     	%>
       
         <header class="header dark-bg">
             <div class="toggle-nav">
@@ -158,7 +122,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -186,10 +150,10 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Eventos Coordenados</h3>
+					<h3 class="page-header"><i class="fa fa-table"></i> Trilhas Coordenadas </h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Eventos Coordenados</li>
+						<li><i class="icon_document_alt"></i>Trilhas Coordenadas</li>
 					</ol>
 				</div>
 			</div>
@@ -200,38 +164,59 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Eventos Coordenados
+                              Trilhas Coordenadas
                           </header>
                           
                           <table class="table table-striped table-advance table-hover">
                            <tbody>
                               <tr>                               
-                                 <th><i class="icon_documents_alt"></i> Evento</th>
-                                 <th><i class="icon_pin"></i> Local</th>
-                                 <th><i class="icon_calendar"></i> Data</th>
+                                 <th><i class="icon_documents_alt"></i> Trilha</th>
+                                 <th><i class="icon_document_alt"></i> Descrição </th>
+                                 <th></th>
+                                 <th></th>
                                  <th></th>
                               </tr>
                               
-							  <% 
-		            		  for(int i=0; i < eventos.size(); i++){
-              				
-			            			Evento evento = eventos.get(i);
-              						session.setAttribute("ce" + evento.getIdEvento(), evento);
-             				  %>                              
-                            	 
-                              <tr>
-                                 <td><%= evento.getNome() %> </td>
-           						 <td><%= evento.getLocalizacao()%> </td>
-                                 <td><%= evento.getDataInicial() %> </td>
-                                 <td><form action="gerenciaEvento.jsp" method="post"> 
-                   					<input type="hidden" value="ce<%= evento.getIdEvento()%>" name="geEvento"> 
-                  					<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
-               					 </form> 
-           						</td>
-                              </tr>                              			 
-                              <% }
-                                 
-                              %>
+			       		  <%     
+			       			for(int i = 0; i < evento.getTrilhas().size(); i++){
+			                
+			               %>
+			               
+			               <tr>
+			                   
+			                   <td><%= evento.getTrilhas().get(i).getNome() %> </td> 
+			                   <td><%= evento.getTrilhas().get(i).getDescricao() %></td>
+			                   <td> <form action="gerenciarTrilha.jsp" method="post"> 
+			                           <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha"> 
+			                           <button class="btn btn-primary" type = "submit"> Alterar Dados</button>
+			                       </form> 
+			                   </td>
+			                   <% 
+						            if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){
+			        			%>
+			        			<td>
+			        				<form action="gerenciarCoordenadoresTrilha.jsp" method="post">
+			        					<input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">
+							            <button class="btn btn-primary" type = "submit"> Gerenciar Coordenadores</button>
+							        </form>
+							    </td>
+							    
+							    <td>
+			        				<form action="RemoverTrilha" method="post" onsubmit="return confirm('Deseja remover esta trilha?');">
+			        					<input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">
+							            <button class="btn btn-primary" type = "submit">Remover Trilha</button>
+							        </form>
+							    </td>	
+							    <% 
+							        }
+							    %>
+			                   
+			               </tr>
+			               
+			            <%  
+			            }
+			        %>    
+
                                  
                            </tbody>
                         </table>
@@ -239,12 +224,26 @@
                   </div>
               </div>
               <!-- page end-->
-
-
+			
+			<center>
+		    <%
+		    	if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){
+		    %>
+				    <form action="adicionarTrilha.jsp" method="post">
+				        <button class="btn btn-primary" type = "submit">Adicionar Trilha</button>
+				    </form>
+				    
+				    <br />
+				    
+				    <form action="gerenciarCoordenadoresEvento.jsp" method="post">
+				        <button class="btn btn-primary" type = "submit">Gerenciar Coordenadores do Evento</button>
+				    </form>
+		    <%  } %>
+		    </center>
+		
   </section>
   <!-- container section start -->
 
-    
     <!-- javascripts -->
     <script src="../js/jquery.js"></script>
 	<script src="../js/jquery-ui-1.10.4.min.js"></script>
@@ -368,7 +367,6 @@
     });
 
   </script>
-    
     
 </body>
 </html>

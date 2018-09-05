@@ -15,6 +15,7 @@ public class Facade {
 	}
 	
 	public static Usuario buscarUsuarioPorCPF(String cpf) {
+		
 		Usuario user = new Usuario();
 		DAOUsuario daoUser = new DAOUsuario();
 		user = daoUser.getUsuario(cpf);

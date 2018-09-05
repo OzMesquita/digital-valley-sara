@@ -1,9 +1,4 @@
-<%-- 
-    Document   : gerencia
-    Created on : 16/04/2018, 11:21:47
-    Author     : Hugo
---%>
-
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@ page import="br.com.n2s.sara.model.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -48,26 +43,19 @@
         Author URL: https://bootstrapmade.com
     ======================================================= -->
 
- 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
- <body>
- 
+
+	<%
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    String idTrilha = request.getParameter("idTrilha");
+	    Trilha trilha = (new DAOTrilha().getTrilha(Integer.parseInt(idTrilha)));
+	    session.setAttribute("trilha", trilha);
+	%>
+
   <!-- container section start -->
   <section id="container" class="">
      
-     	<%
-	     	Usuario usuario = (Usuario) session.getAttribute("usuario");
-	        String chave = request.getParameter("geEvento");
-	        Evento evento;
-	        if(chave != null){
-	        	evento = (Evento) session.getAttribute(chave);
-	        }else{
-	        	evento = (Evento) session.getAttribute("evento");
-	        }
-	        
-	        session.setAttribute("usuario", usuario);
-	        session.setAttribute("evento", evento);
-     	%>
       
         <header class="header dark-bg">
             <div class="toggle-nav">
@@ -157,101 +145,60 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Trilhas Coordenadas </h3>
+					<h3 class="page-header"><i class="fa fa-table"></i> Gerenciar Trilha </h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Trilhas Coordenadas</li>
+						<li><i class="icon_document_alt"></i> Gerenciar Trilha </li>
 					</ol>
 				</div>
 			</div>
       
       <!-- page start-->
-              
+
               <div class="row">
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Trilhas Coordenadas
+                              Gerenciar Trilha
                           </header>
                           
                           <table class="table table-striped table-advance table-hover">
                            <tbody>
-                              <tr>                               
-                                 <th><i class="icon_documents_alt"></i> Trilha</th>
-                                 <th><i class="icon_document_alt"></i> Descrição </th>
-                                 <th></th>
-                                 <th></th>
-                                 <th></th>
+                           
+                              <tr>
+                              	<td>
+                              		<form action="gerenciarAvaliadoresTrilha.jsp" method="post">
+					            		<button class="btn btn-primary" type = "submit" name="gerAv">Gerenciar Avaliadores</button>
+					        		</form>
+                              	</td>  
+                              	
+                              	<td>
+                              		<form action="gerenciarPeriodosTrilha.jsp" method="post">
+					            		<button class="btn btn-primary" type = "submit" name="gerPer">Gerenciar Períodos</button>
+					        		</form>
+                              	</td> 
+                              	
+                              	<td>
+                              		<form action="gerenciaCriterios.jsp" method="post">
+					            		<button class="btn btn-primary" type = "submit" name="gerCri">Gerenciar Critérios de Avaliação</button>
+					        		</form>
+                              	</td>                            
                               </tr>
                               
-			       		  <%     
-			       			for(int i=0; i < evento.getTrilhas().size(); i++){
-			                
-			                	session.setAttribute("gt"+Integer.toString(evento.getTrilhas().get(i).getIdTrilha()), evento.getTrilhas().get(i));
-			               %>
-			               
-			               <tr>
-			                   
-			                   <td><%= evento.getTrilhas().get(i).getNome() %> </td> 
-			                   <td><%= evento.getTrilhas().get(i).getDescricao() %></td>
-			                   <td> <form action="manterTrilha.jsp" method="post"> 
-			                           <input type="hidden" value="gt<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="trilha"> 
-			                           <button class="btn btn-primary" type = "submit"> Alterar Dados</button>
-			                       </form> 
-			                   </td>
-			                   <% 
-						            if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){
-			        			%>
-			        			<td>
-			        				<form action="gerenciarCoordenadorTrilha.jsp" method="post">
-			        					<input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="estaTrilha">
-							            <button class="btn btn-primary" type = "submit"> Gerenciar Coordenadores</button>
-							        </form>
-							    </td>
-							    
-							    <td>
-			        				<form action="RemoverTrilha" method="post" onsubmit="return confirm('Deseja remover esta trilha?');">
-			        					<input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="trilha">
-							            <button class="btn btn-primary" type = "submit">Remover Trilha</button>
-							        </form>
-							    </td>
-							    <% 
-							        }
-							    %>
-			                   
-			               </tr>
-			               
-			            <%  
-			            }
-			        %>    
-
-                                 
                            </tbody>
                         </table>
                       </section>
                   </div>
               </div>
+
               <!-- page end-->
-			
-			<center>
-		    <%
-		    	if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){
-		    %>
-				    <form action="adicionaTrilha.jsp" method="post">
-				        <button class="btn btn-primary" type = "submit">Adicionar Trilha</button>
-				    </form>
-				    
-				    <br />
-				    
-				    <form action="gerenciarCoordenadoresEvento.jsp" method="post">
-				        <button class="btn btn-primary" type = "submit">Gerenciar Coordenadores do Evento</button>
-				    </form>
-		    <%  } %>
-		    </center>
-		
+
+
   </section>
   <!-- container section start -->
-
+        
+    </body>
+    
     <!-- javascripts -->
     <script src="../js/jquery.js"></script>
 	<script src="../js/jquery-ui-1.10.4.min.js"></script>
@@ -375,6 +322,5 @@
     });
 
   </script>
-    
-</body>
+
 </html>

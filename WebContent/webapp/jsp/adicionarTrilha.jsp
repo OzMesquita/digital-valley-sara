@@ -34,10 +34,11 @@
 </head>
 
 <body>
-	<%
+	<%	
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		Evento evento = (Evento) session.getAttribute("evento");
 		session.setAttribute("evento", evento);
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		
 		
 	%>
 
@@ -105,7 +106,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>

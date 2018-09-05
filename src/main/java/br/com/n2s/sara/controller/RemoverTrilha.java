@@ -33,20 +33,21 @@ public class RemoverTrilha extends HttpServlet {
 		Trilha trilha = new Trilha();
 		DAOTrilha daoTrilha = new DAOTrilha();
 		
-		int idTrilha = Integer.parseInt(request.getParameter("trilha")) ;
+		int idTrilha = Integer.parseInt(request.getParameter("idTrilha")) ;
 		
-		evento = (Evento) session.getAttribute("evento");
 		daoTrilha.delete(idTrilha);
 		
+		evento = (Evento) session.getAttribute("evento");
+		
 		for(int i = 0; i < evento.getTrilhas().size(); i++){
-			if(evento.getTrilhas().get(i).getIdTrilha()== idTrilha){
+			if(evento.getTrilhas().get(i).getIdTrilha() == idTrilha){
 				evento.getTrilhas().remove(i);
 				break;
 			}
 		}
 		
 		session.setAttribute("evento", evento);
-		response.sendRedirect("indexCoordTrilha.jsp");
+		response.sendRedirect("eventosCoordenados.jsp");
 	}
 
 }

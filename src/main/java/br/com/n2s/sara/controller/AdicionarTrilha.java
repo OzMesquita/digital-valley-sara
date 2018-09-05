@@ -40,7 +40,7 @@ public class AdicionarTrilha extends HttpServlet {
 		
 		daoTrilha.create(trilha);
 		
-		response.sendRedirect("indexCoordTrilha.jsp");
+		response.sendRedirect("eventosCoordenados.jsp");
 	}
 
 }

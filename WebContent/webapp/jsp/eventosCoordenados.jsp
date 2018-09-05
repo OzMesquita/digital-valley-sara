@@ -1,14 +1,17 @@
-<%-- 
-    Document   : manterTrilha
-    Created on : 18/04/2018, 08:37:08
-    Author     : Hugo
---%>
-
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
+<%@page import="br.com.n2s.sara.dao.DAOCoordenacaoTrilha"%>
+<%@page import="br.com.n2s.sara.dao.DAOCoordenacaoEvento"%>
+<%@page import="br.com.n2s.sara.dao.DAOEvento"%>
+<%@page import="java.util.List"%>
 <%@ page import="br.com.n2s.sara.model.*" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
@@ -48,16 +51,55 @@
         Author URL: https://bootstrapmade.com
     ======================================================= -->
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
-
-	<%
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
-	    String key = request.getParameter("trilha");
-	    Trilha trilha = (Trilha) session.getAttribute(key);
-	    session.setAttribute("trilha", trilha);
-	%>
-
+<body>
+    <% 
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+    	
+    	DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
+    	DAOCoordenacaoTrilha daoCoordenacaoTrilha = new DAOCoordenacaoTrilha();
+    	
+        List<CoordenacaoEvento> coordenacaoEvento = daoCoordenacaoEvento.read(usuario.getCpf()); //Nesta linha estão sendo buscados todos os eventos coordenados pelo usuário da sessão
+        		
+        
+        //List<CoordenacaoTrilha> idTrilhas = daoCoordenacaoTrilha.readById(usuario.getCpf());
+        
+        List<Evento> eventos = new ArrayList<Evento>();
+        //List<Trilha> trilhas = new ArrayList<Trilha>();
+        DAOEvento daoEvento = new DAOEvento();
+        
+        
+        for(int i = 0; i < coordenacaoEvento.size(); i++){
+        	
+        	Evento evento = coordenacaoEvento.get(i).getEvento();
+        	//evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
+        	eventos.add(evento);
+        }
+        
+        /**
+        
+        for(int i = 0; i < idTrilhas.size(); i++){
+        	Evento ev = idTrilhas.get(i).getTrilha().getEvento();
+        	Boolean achou = false;
+        	
+        	for(int j = 0; j < eventos.size(); i++){
+        		if(eventos.get(j).getIdEvento() == ev.getIdEvento()){
+        			eventos.get(j).getTrilhas().add(idTrilhas.get(i).getTrilha());
+        			achou = true;
+        			break;
+        		}
+        	}
+        	
+        	if(!achou){
+            	ev.setTrilhas(new ArrayList<Trilha>());
+            	ev.getTrilhas().add(idTrilhas.get(i).getTrilha());
+            	eventos.add(ev);	
+        	}
+        }
+        */
+       	
+    %>
+ 
   <!-- container section start -->
   <section id="container" class="">
      
@@ -122,7 +164,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -150,59 +192,60 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Manter Trilha </h3>
+					<h3 class="page-header"><i class="fa fa-table"></i> Eventos Coordenados</h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i> Manter Trilha </li>
+						<li><i class="icon_document_alt"></i>Eventos Coordenados</li>
 					</ol>
 				</div>
 			</div>
       
       <!-- page start-->
-
+              
               <div class="row">
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Manter Trilha
+                              Eventos Coordenados
                           </header>
                           
                           <table class="table table-striped table-advance table-hover">
                            <tbody>
-                           
-                              <tr>
-                              	<td>
-                              		<form action="gerenciaAvaliadores.jsp" method="post">
-					            		<button class="btn btn-primary" type = "submit" name="gerAv">Gerenciar Avaliadores</button>
-					        		</form>
-                              	</td>  
-                              	
-                              	<td>
-                              		<form action="gerenciaPeriodos.jsp" method="post">
-					            		<button class="btn btn-primary" type = "submit" name="gerPer">Gerenciar PerÃ­odos</button>
-					        		</form>
-                              	</td> 
-                              	
-                              	<td>
-                              		<form action="gerenciaCriterios.jsp" method="post">
-					            		<button class="btn btn-primary" type = "submit" name="gerCri">Gerenciar CritÃ©rios de AvaliaÃ§Ã£o</button>
-					        		</form>
-                              	</td>                            
+                              <tr>                               
+                                 <th><i class="icon_documents_alt"></i> Evento</th>
+                                 <th><i class="icon_pin"></i> Local</th>
+                                 <th><i class="icon_calendar"></i> Data</th>
+                                 <th></th>
                               </tr>
                               
+							  <% 
+		            		  for(Evento evento : eventos){ %>                              
+                            	 
+                              <tr>
+                                 <td><%= evento.getNome() %> </td>
+           						 <td><%= evento.getLocalizacao()%> </td>
+                                 <td><%= evento.getDataInicial() %> </td>
+                                 <td><form action="gerenciarTrilhasCoordenadas.jsp" method="post"> 
+                   					<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento"> 
+                  					<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
+               					 </form> 
+           						</td>
+                              </tr>                              			 
+                              <% }
+                                 
+                              %>
+                                 
                            </tbody>
                         </table>
                       </section>
                   </div>
               </div>
-
               <!-- page end-->
 
 
   </section>
   <!-- container section start -->
-        
-    </body>
+
     
     <!-- javascripts -->
     <script src="../js/jquery.js"></script>
@@ -327,5 +370,7 @@
     });
 
   </script>
-
+    
+    
+</body>
 </html>

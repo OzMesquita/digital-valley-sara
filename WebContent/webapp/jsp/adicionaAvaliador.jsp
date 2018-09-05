@@ -12,10 +12,13 @@
     	<%
     		Trilha trilha = (Trilha) session.getAttribute("trilha");
     		session.setAttribute("trilha", trilha);
+    		
+    		
+    		
     	%>
-        <form action="buscaAvaliador.jsp" method="POST">
-            <p>Busca por CPF:</p>
-            <p>CPF: <input type="text" name="cpf" required></p>
+        <form action="CadastrarAvaliador" method="POST">
+            <p>Buscar por CPF:</p>
+            <p>CPF: <input type="text" name="cpfAvaliador" required></p>
             
             <input type="submit" value="Buscar">
         </form>
