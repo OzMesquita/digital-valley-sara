@@ -7,6 +7,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>digital-valley-sara Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -16,10 +17,10 @@
     </dependency>
     
     <dependency>
-			<groupId>com.github.shyiko.dotenv</groupId>
-			<artifactId>dotenv</artifactId>
-			<version>0.1.1</version>
-		</dependency>
+		<groupId>com.github.shyiko.dotenv</groupId>
+		<artifactId>dotenv</artifactId>
+		<version>0.1.1</version>
+	</dependency>
 		 <dependency>
 			<groupId>br.com.n2s</groupId>
 			<artifactId>core.n2s</artifactId>
@@ -79,5 +80,14 @@
   </dependencies>
   <build>
     <finalName>digital-valley-sara</finalName>
+ 	<plugins>
+ 		<plugin>            
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+             <webXml>\WebContent\WEB-INF\web.xml</webXml>        
+        </configuration>
+    </plugin>
+ 	</plugins>
   </build>
 </project>

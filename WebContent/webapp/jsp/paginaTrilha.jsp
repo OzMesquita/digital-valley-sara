@@ -13,6 +13,7 @@
             String nome = request.getParameter("trilha");
             Trilha trilha = (Trilha) session.getAttribute(nome);
             ArrayList<Usuario> autores = (ArrayList<Usuario>) session.getAttribute("autores");
+            session.setAttribute("trilha", trilha);
             session.setAttribute("autores", autores);
         %>
         <h2><%= trilha.getNome()%></h2>

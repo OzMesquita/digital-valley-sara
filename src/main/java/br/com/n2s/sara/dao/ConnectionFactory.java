@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
+
+
 public class ConnectionFactory {
 	
 	
@@ -14,8 +17,8 @@ public class ConnectionFactory {
 	
 	public Connection getConnection()  {
 		
-		try {
-			
+		try {		
+			/*System.out.println(Constantes.getDATABASE_CONF_DIR());*/
 			Class.forName("org.postgresql.Driver");
 			return DriverManager.getConnection(url, usuario, senha);
 			

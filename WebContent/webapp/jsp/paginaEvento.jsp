@@ -59,6 +59,7 @@
 	    String nome = request.getParameter("evento");
     	Evento evento = (Evento) session.getAttribute(nome);
     	evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
+    	session.setAttribute("evento", evento);
 
     %>
   		

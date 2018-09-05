@@ -1,9 +1,10 @@
-package br.com.n2s.sara.util;
+package util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
 import br.com.n2s.sara.dao.DAOUsuario;
 import br.com.n2s.sara.model.Usuario;
 

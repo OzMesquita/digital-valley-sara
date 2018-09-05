@@ -4,3 +4,4 @@
 .settings
 .project
 /src/main/resources/.env
+/WebContent/WEB-INF/faces-config.xml

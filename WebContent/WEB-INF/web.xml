@@ -67,6 +67,11 @@
   	<servlet-name>RemoverCoordenadorTrilha</servlet-name>
   	<servlet-class>br.com.n2s.sara.controller.RemoverCoordenadorTrilha</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>SalvarArquivo</servlet-name>
+  	<servlet-class>br.com.n2s.sara.controller.SalvarArquivo</servlet-class>
+  </servlet>
+  
   
   
   <servlet-mapping>
@@ -120,5 +125,9 @@
   <servlet-mapping>
   	<servlet-name>RemoverCoordenadorTrilha</servlet-name>
   	<url-pattern>/webapp/jsp/removerCoordenadorTrilha</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SalvarArquivo</servlet-name>
+  	<url-pattern>/webapp/jsp/SalvarArquivo</url-pattern>
   </servlet-mapping>
 </web-app>
