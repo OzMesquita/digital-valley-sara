@@ -116,7 +116,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>RemoverAvaliador</servlet-name>
-    <url-pattern>/webapp/jsp/removerAvaliador</url-pattern>
+    <url-pattern>/webapp/jsp/RemoverAvaliador</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>RemoverCriterio</servlet-name>

@@ -11,7 +11,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+			
+			
             <form action="CadastrarAvaliador" method="post">
 	            <p>Nome: <input type="text" name="nome"> </p>
 	            <p>Sobrenome: <input type="text" name="sobrenome"> </p>

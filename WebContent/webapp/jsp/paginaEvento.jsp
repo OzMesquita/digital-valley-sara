@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.dao.DAOEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@ page import="br.com.n2s.sara.model.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -56,8 +57,8 @@
 	<% 
 		Usuario usuario = (Usuario) session.getAttribute("usuario"); 
 		
-	    String nome = request.getParameter("evento");
-    	Evento evento = (Evento) session.getAttribute(nome);
+	    String idEvento = request.getParameter("idEvento");
+    	Evento evento = (new DAOEvento().getEvento(Integer.parseInt(idEvento))); 
     	evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
     	session.setAttribute("evento", evento);
 

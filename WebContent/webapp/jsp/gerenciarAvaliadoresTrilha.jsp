@@ -176,8 +176,8 @@
                               </tr>
 							
 							<% 
-           						 for(int i=0; i < avaliadores.size(); i++){
-					                session.setAttribute(avaliadores.get(i).getCpf(), avaliadores.get(i));
+           						 for(int i = 0; i < avaliadores.size(); i++){
+					                
               				 %>
 							  
 									<tr>
@@ -186,8 +186,8 @@
 					                   <td><%= avaliadores.get(i).getSobrenome()%> </td>
 					                   <td><%= avaliadores.get(i).getEmail()%> </td>
 					                   <td><%= avaliadores.get(i).getCpf() %> </td>									
-									   <td><form action="removeAvaliador.jsp" method="post" onsubmit="return confirm('Deseja remover este avaliador?');"> 
-                           					<input type="hidden" value="<%= avaliadores.get(i).getCpf() %>" name="avaliador"> 
+									   <td><form action="RemoverAvaliador" method="post" onsubmit="return confirm('Deseja remover este avaliador?');"> 
+                           					<input type="hidden" value="<%= avaliadores.get(i).getCpf() %>" name="cpfAvaliador"> 
                            						<button class="btn btn-primary" type = "submit">Remover</button>
                       						 </form> 
                   					   </td>
@@ -204,7 +204,9 @@
 			
 			
 		  <center> 
-		  	<form action="adicionaAvaliador.jsp" method="post">
+		  	<form action="cadastrarAvaliador.jsp" method="post">
+		  		<p>Buscar por CPF:</p>
+            	<p>CPF: <input type="text" name="cpfAvaliador" required></p>
 				<button class="btn btn-primary" type = "submit">Adicionar Avaliador</button> 
        		 </form> 
 		  </center>

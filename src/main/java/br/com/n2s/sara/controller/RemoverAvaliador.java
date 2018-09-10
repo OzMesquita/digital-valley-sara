@@ -17,7 +17,7 @@ import br.com.n2s.sara.util.Facade;
 /**
  * Servlet implementation class RemoverAvaliador
  */
-@WebServlet("/RemoverAvaliador")
+
 public class RemoverAvaliador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,15 +34,15 @@ public class RemoverAvaliador extends HttpServlet {
 		
 		Trilha trilha = new Trilha();
 		trilha= (Trilha) session.getAttribute("trilha");
-		String cpf = request.getParameter("cpf");
+		String cpfAvaliador = request.getParameter("cpfAvaliador");
 		
-		Usuario avaliador = Facade.buscarUsuarioPorCPF(cpf);
+		Usuario avaliador = Facade.buscarUsuarioPorCPF(cpfAvaliador);
 		AvaliaTrilha avTrilha = new AvaliaTrilha();
 		avTrilha.setAvaliador(avaliador);
 		avTrilha.setTrilha(trilha);
 		
-		DAOAvaliaTrilha daoAVTrilha = new DAOAvaliaTrilha();
-		daoAVTrilha.delete(avTrilha);
+		DAOAvaliaTrilha daoAvTrilha = new DAOAvaliaTrilha();
+		daoAvTrilha.delete(avTrilha);
 		
 		for(int i=0;i < trilha.getAvaliadores().size();i++) {
 			if(trilha.getAvaliadores().get(i).equals(avaliador)) {
@@ -52,7 +52,7 @@ public class RemoverAvaliador extends HttpServlet {
 		}
 		
 		session.setAttribute("trilha", trilha);
-		response.sendRedirect("gerenciaEvento.jsp");
+		response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
 	}
 
 }
