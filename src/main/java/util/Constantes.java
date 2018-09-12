@@ -21,13 +21,13 @@ public class Constantes {
 			ARTICLES_DIR = dotEnv.get("ARTICLE_SARA_DIR");
 	}
 	
-	 public static String getEMAIL_CONF_DIR() {
+	 public static String getEmailConfDir() {
 		return EMAIL_CONF_DIR;
 	}
-	 public static String getDATABASE_CONF_DIR() {
+	 public static String getDatabaseConfDir() {
 		return DATABASE_CONF_DIR;
 	}
-	 public static String getARTICLES_DIR() {
+	 public static String getArticlesDir() {
 		return ARTICLES_DIR;
 	}
 	 

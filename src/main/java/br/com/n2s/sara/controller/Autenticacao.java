@@ -9,8 +9,7 @@ import dao.UsuarioDAO;
 import model.Usuario;
 import dao.DAOFactory;
 import util.Facade;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 
 public class Autenticacao extends HttpServlet{
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
