@@ -54,9 +54,10 @@
 <body>
 
     <% 	
-    	DAOUsuario daoUsuario = new DAOUsuario();
+    	/* DAOUsuario daoUsuario = new DAOUsuario();
     	Usuario usuario = daoUsuario.getUsuario("100");
-    	session.setAttribute("usuario", usuario);
+    	session.setAttribute("usuarioSara", usuario); */
+    	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
 	%>
     
   <!-- container section start -->

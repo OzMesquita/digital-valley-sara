@@ -13,7 +13,7 @@
 
 <%
 		CoordenacaoTrilha coordenador = new CoordenacaoTrilha() ;
-	/* 	Usuario user = (Usuario) session.getAttribute("usuario");  so entra aqui se já tiver autorização */
+	/* 	Usuario user = (Usuario) session.getAttribute("usuarioSara");  so entra aqui se já tiver autorização */
 		
 	%>
 	<form action="transformaUsuarioCoordTrilha.jsp" method="post">

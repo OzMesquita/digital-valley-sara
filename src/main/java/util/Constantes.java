@@ -9,6 +9,7 @@ public class Constantes {
 	private static String EMAIL_CONF_DIR;
 	private static String DATABASE_CONF_DIR;
 	private static String ARTICLES_DIR;
+	private static String DATABASE_CONF_DIR_SARA;
 	
 	private Constantes() {
 		//não deve ter nada aqui
@@ -19,6 +20,7 @@ public class Constantes {
 			DATABASE_CONF_DIR = dotEnv.get("DATABASE_CONF_DIR");
 			EMAIL_CONF_DIR = dotEnv.get("EMAIL_CONF_DIR");
 			ARTICLES_DIR = dotEnv.get("ARTICLE_SARA_DIR");
+			DATABASE_CONF_DIR_SARA = dotEnv.get("DATABASE_CONF_DIR_SARA");
 	}
 	
 	 public static String getEmailConfDir() {
@@ -31,6 +33,9 @@ public class Constantes {
 		return ARTICLES_DIR;
 	}
 	 
+	public static String getDatabaseConfDirSara() {
+		return DATABASE_CONF_DIR_SARA;
+	} 
 	 
 }
 

@@ -52,7 +52,7 @@
 <body>
 
     <% 	
-    	Usuario usuario = (Usuario) session.getAttribute("usuario");
+    	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
     	
     	String key = request.getParameter("criterioTrilha");
 		CriterioTrilha criterioTrilha = (CriterioTrilha) session.getAttribute(key);

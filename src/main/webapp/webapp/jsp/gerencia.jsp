@@ -9,7 +9,7 @@
     <body>
     <center>
         <% 
-            Usuario user = (Usuario) session.getAttribute("usuario");
+            Usuario user = (Usuario) session.getAttribute("usuarioSara");
             String chave = request.getParameter("geEvento");
             Evento evento = (Evento) session.getAttribute(chave);
         %>

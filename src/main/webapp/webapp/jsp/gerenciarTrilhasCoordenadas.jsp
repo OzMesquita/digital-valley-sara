@@ -52,13 +52,13 @@
   <section id="container" class="">
      
      	<%
-	     	Usuario usuario = (Usuario) session.getAttribute("usuario");
+	     	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
      	
      		String idEvento = request.getParameter("idEvento");
      		Evento evento = (new DAOEvento().getEvento(Integer.parseInt(idEvento)));
      		evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
 	        
-     		session.setAttribute("usuario", usuario);
+     		session.setAttribute("usuarioSara", usuario);
 	        session.setAttribute("evento", evento);
      	%>
       

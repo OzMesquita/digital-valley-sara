@@ -47,7 +47,7 @@
 </head>
 
 	<%
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
 	    String idTrilha = request.getParameter("idTrilha");
 	    Trilha trilha = (new DAOTrilha().getTrilha(Integer.parseInt(idTrilha)));
 	    session.setAttribute("trilha", trilha);

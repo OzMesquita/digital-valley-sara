@@ -54,7 +54,7 @@
   <section id="container" class="">
      
      	<%
-	     	Usuario usuario = (Usuario) session.getAttribute("usuario");
+	     	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
      		Trilha trilha = (Trilha) session.getAttribute("trilha");
     		session.setAttribute("trilha", trilha);
     		List<Usuario> avaliadores = new DAOAvaliaTrilha().getAvaliadores(trilha.getIdTrilha());

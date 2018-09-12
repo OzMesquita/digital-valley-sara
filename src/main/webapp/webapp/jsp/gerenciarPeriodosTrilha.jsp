@@ -54,7 +54,7 @@
   <section id="container" class="">
      
      	<%
-	     	Usuario usuario = (Usuario) session.getAttribute("usuario");
+	     	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
      		DAOPeriodo daoPeriodo = new DAOPeriodo();
      		Trilha trilha = (Trilha) session.getAttribute("trilha");
          	List<Periodo> periodos = daoPeriodo.readById(trilha.getIdTrilha()); 

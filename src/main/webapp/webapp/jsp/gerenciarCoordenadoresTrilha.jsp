@@ -31,7 +31,7 @@
     
     
     	UsuarioController userCon = new UsuarioController(); //cria um controler
-    	Usuario usuario = (Usuario) session.getAttribute("usuario");  //recebe o cpf, vai na sessao e procura o usuário
+    	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");  //recebe o cpf, vai na sessao e procura o usuário
 
     	
     	

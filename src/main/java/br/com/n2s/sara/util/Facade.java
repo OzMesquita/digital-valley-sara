@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import br.com.n2s.sara.dao.DAOUsuario;
 import br.com.n2s.sara.model.Usuario;
+import util.Constantes;
 
 
 public class Facade {
@@ -23,7 +24,7 @@ public class Facade {
 	public static String[] lerArquivoBancoDeDados() {
 		String[] bd = new String[3];
 		try {			
-			FileReader arquivo = new FileReader(Constantes.getDATABASE_CONF_DIR());
+			FileReader arquivo = new FileReader(Constantes.getDatabaseConfDirSara());
 			BufferedReader reader = new BufferedReader(arquivo);
 			try {
 				bd[0] = reader.readLine();

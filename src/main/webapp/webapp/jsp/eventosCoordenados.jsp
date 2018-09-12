@@ -54,7 +54,7 @@
 </head>
 <body>
     <% 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
     	
     	DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
     	DAOCoordenacaoTrilha daoCoordenacaoTrilha = new DAOCoordenacaoTrilha();

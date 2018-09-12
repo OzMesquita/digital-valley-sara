@@ -151,7 +151,7 @@
     </center> --%>
 
     <% 	
-    	Usuario usuario = (Usuario) session.getAttribute("usuario");
+    	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
 	%>
     
   <!-- container section start -->

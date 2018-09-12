@@ -55,7 +55,7 @@
 </head>
     <body>
 	<% 
-		Usuario usuario = (Usuario) session.getAttribute("usuario"); 
+		Usuario usuario = (Usuario) session.getAttribute("usuarioSara"); 
 		
 	    String idEvento = request.getParameter("idEvento");
     	Evento evento = (new DAOEvento().getEvento(Integer.parseInt(idEvento))); 

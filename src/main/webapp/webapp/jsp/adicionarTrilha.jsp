@@ -35,7 +35,7 @@
 
 <body>
 	<%	
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
 		Evento evento = (Evento) session.getAttribute("evento");
 		session.setAttribute("evento", evento);
 		

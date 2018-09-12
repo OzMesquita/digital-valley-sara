@@ -10,6 +10,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import br.com.n2s.sara.dao.DAOUsuario;
+import br.com.n2s.sara.model.NivelUsuario;
 import dao.UsuarioDAO;
 import model.Pessoa;
 import model.Usuario;
@@ -36,12 +39,27 @@ public class AutenticadoFiltro implements Filter {
 				Pessoa user = Facade.buscarPessoaPorId(id);
 				if (token.equals(user.getUsuario().getTokenUsuario()) && id == user.getId() && !token.equals("null")) {
 					UsuarioDAO userDAO = DAOFactory.criarUsuarioDAO();
+					br.com.n2s.sara.model.Usuario userSara = new br.com.n2s.sara.model.Usuario();
+					if (br.com.n2s.sara.util.Facade.buscarUsuarioPorCPF(user.getCpf()) == null){
+						userSara.setCpf(user.getCpf());
+						userSara.setEmail(user.getEmail());
+						userSara.setNome(user.getNome());
+						userSara.setSobrenome(" ");
+						userSara.setTipo(NivelUsuario.AUTOR);
+						br.com.n2s.sara.dao.DAOUsuario daoUser = new DAOUsuario();
+						daoUser.create(userSara);
+					}else {
+						userSara = br.com.n2s.sara.util.Facade.buscarUsuarioPorCPF(user.getCpf());
+					}
+					session.setAttribute("usuarioSara", userSara);
 					session.setAttribute("usuario", user.getUsuario());
 					chain.doFilter(request, response);
 				}else {
 					((HttpServletResponse) response).sendRedirect("/Controle_de_Acesso/");
 				}
-			}else if(true){
+			}else if(session.getAttribute("usuarioSara") != null && ((br.com.n2s.sara.model.Usuario)session.getAttribute("usuarioSara")).getCpf().equals(((Usuario)session.getAttribute("usuario")).getPessoa().getCpf()) &&
+					session.getAttribute("usuario")!= null && DAOFactory.criarUsuarioDAO().buscarTokenTemp(((Usuario)session.getAttribute("usuario")).getPessoa().getId())!=null &&
+					((Usuario)session.getAttribute("usuario")).getTokenUsuario().equals(DAOFactory.criarUsuarioDAO().buscarTokenTemp(((Usuario)session.getAttribute("usuario")).getPessoa().getId()))){
 				chain.doFilter(request, response);
 			}else {
 				((HttpServletResponse) response).sendRedirect("/Controle_de_Acesso/");
