@@ -177,7 +177,7 @@
 							
 							 <%
 							 	for(int i = 0; i < periodos.size(); i++){
-            						session.setAttribute("p"+Integer.toString(periodos.get(i).getIdPeriodo()), periodos.get(i));
+            						
            					 %>
 							  
 									<tr>
@@ -185,14 +185,14 @@
                 					   <td><%=periodos.get(i).getDataInicial() %></td>
                 					   <td><%=periodos.get(i).getDataFinal() %></td>							
 									  <td>
-					                    <form action="alteraPeriodo.jsp" method="post">
-					                    	<input type="hidden" value="p<%=Integer.toString(periodos.get(i).getIdPeriodo())%>" name="periodo">
+					                    <form action="EditarPeriodo" method="post">
+					                    	<input type="hidden" value="<%=periodos.get(i).getIdPeriodo()%>" name="idPeriodo">
 					                    	<button class="btn btn-primary" type = "submit">Alterar</button>
 					                    </form>
 						                </td>
 						                <td>
 						                    <form action="RemoverPeriodo" method="post" onsubmit="return confirm('Deseja remover este período?');">
-						                    	<input type="hidden" value="p<%=Integer.toString(periodos.get(i).getIdPeriodo())%>" name="periodo">
+						                    	<input type="hidden" value="<%=periodos.get(i).getIdPeriodo()%>" name="periodo">
 						                    	<button class="btn btn-primary" type = "submit">Remover</button>
 						                    </form>
 						                </td>
@@ -209,8 +209,8 @@
 			
 			
 		  <center> 
-		  	<form action="adicionaPeriodo.jsp" method="post">
-				<button class="btn btn-primary" type = "submit">Adicionar Período</button> 
+		  	<form action="adicionarPeriodo.jsp" method="post">
+		  		<button class="btn btn-primary" type = "submit">Adicionar Período</button> 
        		 </form>
        	  </center>
 		

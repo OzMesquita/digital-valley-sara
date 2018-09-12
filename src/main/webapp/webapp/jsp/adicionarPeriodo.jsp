@@ -1,11 +1,6 @@
 <%@page import="br.com.n2s.sara.model.Trilha"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDate"%>
-<%-- 
-    Document   : adicionaPeriodo
-    Created on : 18/04/2018, 11:18:16
-    Author     : Hugo
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,10 +13,11 @@
         	Trilha trilha = (Trilha) session.getAttribute("trilha");
         	session.setAttribute("trilha", trilha);
             LocalDate time = LocalDate.now();
+            
             String dia_atual = time.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         %>
     <center>		  
-        <form action="confirmaPeriodo.jsp" method="POST">
+        <form action="AdicionarPeriodo" method="POST">
             <p>Tipo: <select name="descricao">
 					  <option value="SUBMISSAO_MANUSCRITO">Período de Submissão</option>
 					  <option value="AVALIACAO">Período de Avaliaçâo</option>
