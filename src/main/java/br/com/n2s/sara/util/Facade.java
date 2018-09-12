@@ -14,10 +14,12 @@ public class Facade {
 	}
 	
 	public static Usuario buscarUsuarioPorCPF(String cpf) {
-		Usuario user = new Usuario();
-		DAOUsuario daoUser = new DAOUsuario();
-		user = daoUser.getUsuario(cpf);
-		return user;
+		
+		Usuario usuario = new Usuario();
+		DAOUsuario daoUsuario = new DAOUsuario();
+		usuario = daoUsuario.getUsuario(cpf);
+	
+		return usuario;
 	}
 	
 	public static String[] lerArquivoBancoDeDados() {

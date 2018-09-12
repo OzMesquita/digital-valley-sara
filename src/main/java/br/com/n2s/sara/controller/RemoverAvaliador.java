@@ -30,21 +30,21 @@ public class RemoverAvaliador extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
 		
 		Trilha trilha = new Trilha();
-		trilha= (Trilha) session.getAttribute("trilha");
+		
+		trilha = (Trilha) session.getAttribute("trilha");
 		String cpfAvaliador = request.getParameter("cpfAvaliador");
 		
 		Usuario avaliador = Facade.buscarUsuarioPorCPF(cpfAvaliador);
-		AvaliaTrilha avTrilha = new AvaliaTrilha();
-		avTrilha.setAvaliador(avaliador);
-		avTrilha.setTrilha(trilha);
-		
 		DAOAvaliaTrilha daoAvTrilha = new DAOAvaliaTrilha();
+		AvaliaTrilha avTrilha = daoAvTrilha.getAvaliaTrilha(cpfAvaliador, trilha.getIdTrilha());
+		
 		daoAvTrilha.delete(avTrilha);
 		
-		for(int i=0;i < trilha.getAvaliadores().size();i++) {
+		for(int i = 0; i < trilha.getAvaliadores().size(); i++) {
 			if(trilha.getAvaliadores().get(i).equals(avaliador)) {
 				trilha.getAvaliadores().remove(i);
 				break;
@@ -52,7 +52,7 @@ public class RemoverAvaliador extends HttpServlet {
 		}
 		
 		session.setAttribute("trilha", trilha);
-		response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
+		response.sendRedirect("eventosCoordenados.jsp");
 	}
 
 }

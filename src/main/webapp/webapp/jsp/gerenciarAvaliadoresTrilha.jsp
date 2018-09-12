@@ -120,7 +120,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -204,10 +204,10 @@
 			
 			
 		  <center> 
-		  	<form action="cadastrarAvaliador.jsp" method="post">
-		  		<p>Buscar por CPF:</p>
+		  	<form action="AdicionarAvaliador" method="post">
+		  		<p>Adicionar Avaliador:</p>
             	<p>CPF: <input type="text" name="cpfAvaliador" required></p>
-				<button class="btn btn-primary" type = "submit">Adicionar Avaliador</button> 
+				<button class="btn btn-primary" type = "submit">Buscar por CPF</button> 
        		 </form> 
 		  </center>
 		
