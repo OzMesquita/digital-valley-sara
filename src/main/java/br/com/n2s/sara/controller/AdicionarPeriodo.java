@@ -28,11 +28,12 @@ public class AdicionarPeriodo extends HttpServlet {
 		
 		
 		Trilha trilha = (Trilha) session.getAttribute("trilha");
+		
 		DAOPeriodo daoPeriodo = new DAOPeriodo();
 		Periodo periodo = new Periodo();
-	/*	Periodo periodo = (Periodo) session.getAttribute("periodo");*/
-		Periodo ultimoP = trilha.getPeriodos().get(trilha.getPeriodos().size() - 1);
-		periodo.setDescricao( DescricaoPeriodo.valueOf(request.getParameter("descricao")) );
+		//Periodo periodo = (Periodo) session.getAttribute("periodo");
+		
+		periodo.setDescricao(DescricaoPeriodo.valueOf(request.getParameter("descricao")));
 		periodo.setDataInicial(LocalDate.parse((String)request.getParameter("dataInicial"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		periodo.setDataFinal(LocalDate.parse((String)request.getParameter("dataFinal"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		periodo.setTrilha(trilha);
@@ -40,7 +41,7 @@ public class AdicionarPeriodo extends HttpServlet {
 			daoPeriodo.create(periodo);
 		}
 		
-		response.sendRedirect("gerenciaPeriodos.jsp");
+		response.sendRedirect("eventosCoordenados.jsp");
 	}
 
 }
