@@ -1,6 +1,7 @@
 package br.com.n2s.sara.model;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Trabalho {
 	
@@ -10,6 +11,7 @@ public class Trabalho {
 	private String resumo;
 	private StatusTrabalho status;
 	private Trilha trilha; // Trilha a qual o trabalho está associado
+	private ArrayList<Usuario> autores;
 	private Usuario autor;
 	private String endereco;//Substitui versao final
 
@@ -60,5 +62,11 @@ public class Trabalho {
 	}
 	public void setTrilha(Trilha trilha) {
 		this.trilha = trilha;
+	}
+	public ArrayList<Usuario> getAutores() {
+		return autores;
+	}
+	public void setAutores(ArrayList<Usuario> autores) {
+		this.autores = autores;
 	}
 }
