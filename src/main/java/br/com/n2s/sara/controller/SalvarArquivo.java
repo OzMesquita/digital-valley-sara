@@ -83,7 +83,7 @@ public class SalvarArquivo extends HttpServlet {
 	    }
         trabalho.setEndereco(endereco);
         DAOTrabalho daoTrabalho = new DAOTrabalho();
-        daoTrabalho.create(trabalho);      
+        trabalho.setIdTrabalho(daoTrabalho.create(trabalho));      
         
         response.sendRedirect("indexAutor.jsp");
 	    

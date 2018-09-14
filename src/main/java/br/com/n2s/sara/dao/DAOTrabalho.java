@@ -8,8 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Trabalho;
+import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Facade;
 
 public class DAOTrabalho {
 
@@ -17,7 +21,7 @@ public class DAOTrabalho {
 
 	public DAOTrabalho(){}
 
-	public void create(Trabalho trabalho){
+	public int create(Trabalho trabalho){
 
 		this.connection = new ConnectionFactory().getConnection(); 	
 
@@ -35,9 +39,14 @@ public class DAOTrabalho {
 			stmt.setString(5, trabalho.getEndereco().toString());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 
-			stmt.execute();
+			ResultSet rs = stmt.executeQuery();
 			stmt.close();
+			int idTrabalho = rs.getInt("idTrabalho");
+			rs.close();
+			trabalho.setIdTrabalho(idTrabalho);
 			this.connection.close();
+			adicionaAutores(trabalho);
+			return idTrabalho;
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -73,7 +82,9 @@ public class DAOTrabalho {
 					e.printStackTrace();
 				}*/
 				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));
-
+				ArrayList autores = (ArrayList) pegarUsuarios(trabalho);
+				trabalho.setAutores( autores );
+				trabalho.setAutor((Usuario) autores.get(0));
 				trabalhos.add(trabalho);
 			}
 
@@ -166,6 +177,42 @@ public class DAOTrabalho {
 			throw new RuntimeException(e);
 		}
 
+	}
+	private void adicionaAutores(Trabalho t) {
+		this.connection = new ConnectionFactory().getConnection();
+		String sql = "INSERT INTO sara.autorTrabalho" + "(idTrabalho, idAutor)"+"values(?,?)";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, t.getIdTrabalho());
+			stmt.setString(2, t.getAutor().getCpf());
+			for (Usuario u :t.getAutores()) {
+				stmt.setInt(1, t.getIdTrabalho());
+				stmt.setString(2,u.getCpf());
+				stmt.executeQuery();
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private List<Usuario> pegarUsuarios(Trabalho t){
+		ArrayList<Usuario> autores = new ArrayList();
+		String sql = "select * from sara.autorTrabalho where idTrabalho = ?";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, t.getIdTrabalho());
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				autores.add(Facade.buscarUsuarioPorCPF(rs.getString("idAutor")));
+			}
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+		return autores;
 	}
 
 }
