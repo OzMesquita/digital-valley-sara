@@ -34,8 +34,8 @@
     <servlet-class>br.com.n2s.sara.controller.AdicionarTrilha</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>AlterarPeriodo</servlet-name>
-    <servlet-class>br.com.n2s.sara.controller.AlterarPeriodo</servlet-class>
+    <servlet-name>EditarPeriodo</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.EditarPeriodo</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>AdicionarPeriodo</servlet-name>
@@ -100,8 +100,8 @@
     <url-pattern>/webapp/jsp/AdicionarTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>AlterarPeriodo</servlet-name>
-    <url-pattern>/webapp/jsp/AlterarPeriodo</url-pattern>
+    <servlet-name>EditarPeriodo</servlet-name>
+    <url-pattern>/webapp/jsp/EditarPeriodo</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdicionarPeriodo</servlet-name>

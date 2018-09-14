@@ -185,7 +185,7 @@
                 					   <td><%=periodos.get(i).getDataInicial() %></td>
                 					   <td><%=periodos.get(i).getDataFinal() %></td>							
 									  <td>
-					                    <form action="EditarPeriodo" method="post">
+					                    <form action="editarPeriodo.jsp" method="post">
 					                    	<input type="hidden" value="<%=periodos.get(i).getIdPeriodo()%>" name="idPeriodo">
 					                    	<button class="btn btn-primary" type = "submit">Alterar</button>
 					                    </form>

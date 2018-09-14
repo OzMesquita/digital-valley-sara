@@ -19,15 +19,18 @@ import br.com.n2s.sara.model.Trilha;
 /**
  * Servlet implementation class AlterarPeriodo
  */
-@WebServlet("/AlterarPeriodo")
-public class AlterarPeriodo extends HttpServlet {
+
+public class EditarPeriodo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		
+		HttpSession session = request.getSession();
 		Trilha trilha = (Trilha) session.getAttribute("trilha");
 		DAOPeriodo daoPeriodo = new DAOPeriodo();
+		
 		Periodo periodo = (Periodo) session.getAttribute("periodo");
+		
 		periodo.setDescricao( DescricaoPeriodo.valueOf(request.getParameter("descricao")) );
 		periodo.setDataInicial(LocalDate.parse((String)request.getParameter("dataInicial"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		periodo.setDataFinal(LocalDate.parse((String)request.getParameter("dataFinal"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -35,7 +38,7 @@ public class AlterarPeriodo extends HttpServlet {
 
 		daoPeriodo.update(periodo);
 		
-		response.sendRedirect("gerenciaPeriodos.jsp");
+		response.sendRedirect("eventosCoordenados.jsp");
 	}
 
 }
