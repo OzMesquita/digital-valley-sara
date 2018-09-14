@@ -121,7 +121,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -192,7 +192,7 @@
 						                </td>
 						                <td>
 						                    <form action="RemoverPeriodo" method="post" onsubmit="return confirm('Deseja remover este período?');">
-						                    	<input type="hidden" value="<%=periodos.get(i).getIdPeriodo()%>" name="periodo">
+						                    	<input type="hidden" value="<%=periodos.get(i).getIdPeriodo()%>" name="idPeriodo">
 						                    	<button class="btn btn-primary" type = "submit">Remover</button>
 						                    </form>
 						                </td>
