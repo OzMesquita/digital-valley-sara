@@ -19,7 +19,7 @@
         <h2><%= trilha.getNome()%></h2>
         <p><%= trilha.getDescricao()%></p>
         
-        <form action="submterTrabalho.jsp" method="post">
+        <form action="SalvarArquivo" method="post" enctype="multipart/form-data">
             <p>Título: </p>
             <p><input type="text" name="titulo" size="80"></p>
             <p>Resumo:</p> 
@@ -48,7 +48,7 @@
             
         </form>
         <br/>
-        <form action="SalvarArquivo" method="post" enctype="multipart/form-data">
+        <>
         	<input type="file" name="trabalho">
         	<input type="submit" value="enviar">
         </form>
