@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.model.Periodo;
+import br.com.n2s.sara.model.Trilha;
 
 /**
  * Servlet implementation class RemoverPeriodo
@@ -32,13 +33,24 @@ public class RemoverPeriodo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		HttpSession session = request.getSession();
-		Periodo periodo = new Periodo();
-		String key = request.getParameter("periodo");
 		
-		periodo = (Periodo) session.getAttribute(key);
+		Periodo periodo = new Periodo();
+		String idPeriodo = request.getParameter("idPeriodo");
+		Trilha trilha = (Trilha) session.getAttribute("trilha");
 		DAOPeriodo daoPeriodo = new DAOPeriodo();
+		
+		periodo = daoPeriodo.getPeriodo(Integer.parseInt(idPeriodo));
+		
 		daoPeriodo.delete(periodo.getIdPeriodo());
-		response.sendRedirect("gerenciaPeriodos.jsp");
+		
+		for (int i = 0; i < trilha.getPeriodos().size(); i++) {
+			if (trilha.getPeriodos().get(i).equals(periodo)) {
+				trilha.getPeriodos().remove(i);
+				break;
+			}
+		}
+		
+		response.sendRedirect("eventosCoordenados.jsp");
 	}
 
 }
