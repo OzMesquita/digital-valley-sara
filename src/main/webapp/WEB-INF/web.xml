@@ -22,8 +22,8 @@
     <servlet-class>br.com.n2s.sara.controller.EditarCriterio</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>AdicionarCoordenador</servlet-name>
-    <servlet-class>br.com.n2s.sara.controller.AdicionarCoordenador</servlet-class>
+    <servlet-name>AdicionarCoordenadorEvento</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.AdicionarCoordenadorEvento</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>AdicionarCriterio</servlet-name>
@@ -92,8 +92,8 @@
     <url-pattern>/webapp/jsp/EditarCriterio</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>AdicionarCoordenador</servlet-name>
-    <url-pattern>/webapp/jsp/AdicionarCoordenador</url-pattern>
+    <servlet-name>AdicionarCoordenadorEvento</servlet-name>
+    <url-pattern>/webapp/jsp/AdicionarCoordenadorEvento</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdicionarCriterio</servlet-name>

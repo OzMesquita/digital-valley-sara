@@ -201,7 +201,7 @@
 			
 			
 		  <center> 
-		  	<form action="adicionarCoordenador.jsp" method="post">
+		  	<form action="adicionarCoordenadorEvento.jsp" method="post">
 				<button class="btn btn-primary" type = "submit">Adicionar Coordenador</button> 
        		 </form> 
 		  </center>
