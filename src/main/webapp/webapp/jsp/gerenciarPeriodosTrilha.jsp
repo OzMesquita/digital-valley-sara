@@ -183,7 +183,7 @@
 									<tr>
 					                   <td><%=periodos.get(i).getDescricao().toString() %></td>
                 					   <td><%=periodos.get(i).getDataInicial() %></td>
-                					   <td><%=periodos.get(i).getDataFinal() %></td>							
+                					   <td><%=periodos.get(i).getDataFinal() %></td>
 									  <td>
 					                    <form action="editarPeriodo.jsp" method="post">
 					                    	<input type="hidden" value="<%=periodos.get(i).getIdPeriodo()%>" name="idPeriodo">

@@ -43,13 +43,6 @@ public class RemoverPeriodo extends HttpServlet {
 		
 		daoPeriodo.delete(periodo.getIdPeriodo());
 		
-		for (int i = 0; i < trilha.getPeriodos().size(); i++) {
-			if (trilha.getPeriodos().get(i).equals(periodo)) {
-				trilha.getPeriodos().remove(i);
-				break;
-			}
-		}
-		
 		response.sendRedirect("eventosCoordenados.jsp");
 	}
 
