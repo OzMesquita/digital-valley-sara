@@ -12,7 +12,6 @@ import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.dao.DAOEvento;
-@WebServlet("/Submissao")
 public class Submissao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,16 +30,16 @@ public class Submissao extends HttpServlet {
 		HttpSession session = request.getSession();
 		DAOTrilha daoTrilha = new DAOTrilha();
 		DAOEvento daoEvento = new DAOEvento();
-		String pagina = "/webapp/jsp/indexAutor.jsp";
-		if (request.getAttribute("Evento") != null && request.getAttribute("Trilha") != null) {
+		String pagina = "/Sara/webapp/jsp/indexAutor.jsp";
+		if (request.getParameter("Evento") != null && request.getParameter("Trilha") != null) {
 			try {
-				int id = Integer.parseInt(request.getAttribute("Trilha").toString());
+				int id = Integer.parseInt(request.getParameter("Trilha").toString());
 				Trilha trilha = daoTrilha.getTrilha(id);
-				id = Integer.parseInt(request.getAttribute("Evento").toString());
+				id = Integer.parseInt(request.getParameter("Evento").toString());
 				Evento evento = daoEvento.getEvento(id);
 				session.setAttribute("evento", evento);
 				session.setAttribute("trilha", trilha);
-				pagina = "/webapp/jsp/paginaTrilha.jsp";
+				pagina = "/Sara/webapp/jsp/paginaTrilha.jsp";
 				response.sendRedirect(pagina);
 			}catch (Exception e) {
 				
@@ -48,9 +47,9 @@ public class Submissao extends HttpServlet {
 			}
 		}else {
 			if (session.getAttribute("trilha") != null && session.getAttribute("evento") != null) {
-				response.sendRedirect("/webapp/jsp/paginaTrilha.jsp");
+				response.sendRedirect("/Sara/webapp/jsp/paginaTrilha.jsp");
 			}else {
-				response.sendRedirect("/webapp/jsp/indexAutor.jsp");
+				response.sendRedirect("/Sara/webapp/jsp/indexAutor.jsp");
 			}
 		}
 		
