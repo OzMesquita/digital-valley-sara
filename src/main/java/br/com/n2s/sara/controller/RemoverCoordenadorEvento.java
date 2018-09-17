@@ -19,12 +19,16 @@ public class RemoverCoordenadorEvento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String chave = request.getParameter("coordenacaoEvento");
-		CoordenacaoEvento coordenacaoEvento = (CoordenacaoEvento) session.getAttribute(chave);
-		DAOCoordenacaoEvento daoCoor = new DAOCoordenacaoEvento();
-		daoCoor.delete(coordenacaoEvento.getCoordenador().getCpf());
-		response.sendRedirect("gerenciaEvento.jsp");
+		
+		String cpfCoordenador = request.getParameter("cpfCoordenador");
+		
+		DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
+		CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
+		coordenacaoEvento = daoCoordenacaoEvento.getCoordenacaoEvento(cpfCoordenador);
+		
+		daoCoordenacaoEvento.delete(coordenacaoEvento);
+		
+		response.sendRedirect("eventosCoordenados.jsp");
 	}
 
 }

@@ -123,7 +123,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -178,15 +178,13 @@
 							
 							<%
 								for (int i = 0; i < lista.size(); i++){
-							    
-							  		session.setAttribute("c" + lista.get(i).getCoordenador().getCpf() + "e" + Integer.toString(lista.get(i).getEvento().getIdEvento()), lista.get(i));
 							%>
 							  
 									<tr>
 										<td><%= daoUsuario.getUsuario(lista.get(i).getCoordenador().getCpf()).getNome() %></td>
 										<td><%= daoUsuario.getUsuario(lista.get(i).getCoordenador().getCpf()).getCpf() %></td>
-									 	<td><form action="removerCoordenador.jsp" method="post" onsubmit="return confirm('Deseja remover este Coordenador?');"> 
-							                	<input type="hidden" value="c<%=lista.get(i).getCoordenador().getCpf()%>e<%= Integer.toString(lista.get(i).getEvento().getIdEvento())%>" name="coordenacaoEvento"> 
+									 	<td><form action="RemoverCoordenadorEvento" method="post" onsubmit="return confirm('Deseja remover este Coordenador?');"> 
+							                	<input type="hidden" value="<%=lista.get(i).getCoordenador().getCpf()%>" name="cpfCoordenador"> 
 							                	<button class="btn btn-primary" type = "submit">Remover Coordenador</button>
 							             	</form> 
 							        	</td>
