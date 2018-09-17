@@ -185,7 +185,7 @@
                               <%
                               	 
                               for(int i=0; i < evento.getTrilhas().size(); i++){
-                                  session.setAttribute("t"+Integer.toString(evento.getTrilhas().get(i).getIdTrilha()), evento.getTrilhas().get(i));
+                                  
                                  %>
                                  
                                  <tr>
@@ -194,7 +194,7 @@
                                      <td><%= evento.getTrilhas().get(i).getDescricao() %></td> 
                                      <td>Período de submissão (ajeitar)></td>
                                      <td> <form action="paginaTrilha.jsp" method="post"> 
-                                             <input type="hidden" value="t<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="trilha"> 
+                                             <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha"> 
                                              <button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
                                          </form> 
                                      </td>

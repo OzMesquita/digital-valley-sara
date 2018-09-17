@@ -119,7 +119,10 @@ public class DAOTrabalho {
 				trabalho.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
 				trabalho.setEndereco(rs.getString("endereco"));
 				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));				
-				
+				ArrayList <Usuario> autores = pegarUsuarios(trabalho);
+				trabalho.setAutor(autores.get(0));
+				autores.remove(0);
+				trabalho.setAutores(autores);
 				rs.close();
 				stmt.close();
 				this.connection.close();
@@ -196,7 +199,7 @@ public class DAOTrabalho {
 		}
 	}
 	
-	private List<Usuario> pegarUsuarios(Trabalho t){
+	private ArrayList<Usuario> pegarUsuarios(Trabalho t){
 		ArrayList<Usuario> autores = new ArrayList();
 		String sql = "select * from sara.autorTrabalho where idTrabalho = ?";
 		try {
