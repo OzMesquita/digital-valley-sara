@@ -117,7 +117,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -179,7 +179,7 @@
                               	</td> 
                               	
                               	<td>
-                              		<form action="gerenciaCriterios.jsp" method="post">
+                              		<form action="gerenciarCriteriosTrilha.jsp" method="post">
 					            		<button class="btn btn-primary" type = "submit" name="gerCri">Gerenciar Critérios de Avaliação</button>
 					        		</form>
                               	</td>                            

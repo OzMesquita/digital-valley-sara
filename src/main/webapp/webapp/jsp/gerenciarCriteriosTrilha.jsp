@@ -54,103 +54,7 @@
 </head>
 <body>
 	
-<%-- 	<center>
-        <%
-			//PEGAR TODOS OS CRITERIOS CADASTRADOS DA TRILHA
-			
-			Trilha trilha = (Trilha) session.getAttribute("trilha");
-        	session.setAttribute("trilha", trilha);
-			
-			CriterioController critCon = new CriterioController();
-			CriterioTrilhaController criterioTrilhaController = new CriterioTrilhaController();
-			
-        	//List<Criterio> criterios = critCon.listar();
-        	
-      		List<CriterioTrilha> listCriterioTrilha = criterioTrilhaController.listar();
-        	
-      		if(trilha.getCriterioTrilha() == null){%>
-        	
-	        	<h1>Selecionar Critério Existente</h1>
-	        	<table border="1">
-	            <tr>
-	                <th>Critérios Existentes</th>
-	            </tr>
-		<% 
-				for(int i = 0; i < listCriterioTrilha.size(); i++){
-	                
-	               session.setAttribute("critTri"+listCriterioTrilha.get(i).getIdCriterioTrilha(), listCriterioTrilha.get(i));
-	               %>
-	               
-	               <tr>
-	                   <td><%=listCriterioTrilha.get(i).getNome()%></td>
-	                   <td><form action="visualizarCriterio.jsp" method="post"> 
-	                           <input type="hidden" value="critTri<%= listCriterioTrilha.get(i).getIdCriterioTrilha()%>" name="criterioTrilha"> 
-	                           <button type="submit">Visualizar</button>
-	                       </form> 
-	                   </td>
-	                   <td><form action="selecionarCriterioTrilha.jsp" method="post"> 
-	                           <input type="hidden" value="critTri<%= listCriterioTrilha.get(i).getIdCriterioTrilha()%>" name="criterioTrilha"> 
-	                           <button type="submit">Selecionar</button>
-	                       </form> 
-	                   </td>
-	            <%}%>
-	       
-				</table>
-				
-				<h1>Criar Novos Critérios</h1>
-			
-       <% 	}else{
-    	   		List<Criterio> criterios = critCon.obterCriteriosPorTrilha(trilha.getCriterioTrilha().getIdCriterioTrilha());
-        %>
-        
-		        <h1>Criar Novos Critérios</h1>
-		        
-		        <%if(!criterios.isEmpty()){ %>
-		        <table border="1">
-		            <tr>
-		                <th>Critérios</th>
-		            </tr>
-			<% 
-		            for(int i=0; i < criterios.size(); i++){
-		                
-		               session.setAttribute("crit"+criterios.get(i).getIdCriterio(), criterios.get(i));
-		               %>
-		               
-		               <tr>
-		                   <td><%=criterios.get(i).getDescricao()%></td>
-		                   <td><form action="alterarCriterio.jsp" method="post"> 
-		                           <input type="hidden" value="crit<%= criterios.get(i).getIdCriterio()%>" name="criterio"> 
-		                           <button type="submit">Alterar</button>
-		                       </form> 
-		                   </td>
-		                   
-		                   <td><form action="removerCriterio.jsp" method="post" id="formRemover" onsubmit="return confirm('Deseja remover este critério?');"> 
-		                           <input type="hidden" value="crit<%= criterios.get(i).getIdCriterio()%>" name="criterio"> 
-		                           <button type="submit">Remover</button>
-		                       </form> 
-		                   </td>
-		                   
-		            <%}%>
-		       <% }
-        }%>
-	</table>
-    	
-    	<br />
-    	
-       	<p>
-        <form action="adicionarCriterio.jsp" method="post">
-            <input type="submit" name="addCri" value="Adicionar Critério">
-        </form>
-        </p>
-        
-        <br />
-        
-       	<br /> <br /> <br />
-       	
-		<input type="button" value="Voltar" onClick="history.go(-1)">       
-    </center> --%>
-
-    <% 	
+	<% 	
     	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
 	%>
     
@@ -218,7 +122,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -262,10 +166,10 @@
               	DAOCriterio daoCriterio = new DAOCriterio();
               	DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
       			
-      			
-          	
-        		List<CriterioTrilha> listaCriterioTrilha = daoCriterioTrilha.read();
-              	if(trilha.getCriterioTrilha() == null){%>
+      			List<CriterioTrilha> listaCriterioTrilha = daoCriterioTrilha.read();
+              	
+      			if(trilha.getCriterioTrilha() == null){%>
+              
               <div class="row">
                   <div class="col-lg-12">
                       <section class="panel">
@@ -315,7 +219,7 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Criar Novos Critérios
+                             Critérios de Avaliação
                           </header>
                           
                           <table class="table table-striped table-advance table-hover">
@@ -330,14 +234,12 @@
                               <%
                           	
                 		        for(int i=0; i < criterios.size(); i++){
-                		                
-                			    	session.setAttribute("crit"+criterios.get(i).getIdCriterio(), criterios.get(i));
-	               					%>
+	               			 	%>
                                       <tr>
                                          <td><%=criterios.get(i).getDescricao()%></td>
                                          <td><%=criterios.get(i).getPeso()%></td>
-		                   				 <td><form action="alterarCriterio.jsp" method="post"> 
-		                           				<input type="hidden" value="crit<%= criterios.get(i).getIdCriterio()%>" name="criterio"> 
+		                   				 <td><form action="editarCriterio.jsp" method="post"> 
+		                           				<input type="hidden" value="<%= criterios.get(i).getIdCriterio()%>" name="idCriterio"> 
 		                           				<button class="btn btn-primary" type="submit">Alterar</button>
 		                       				</form> 
 		                   				</td>

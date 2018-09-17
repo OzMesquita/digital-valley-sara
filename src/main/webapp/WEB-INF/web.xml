@@ -18,8 +18,8 @@
     <servlet-class>br.com.n2s.sara.controller.Autenticacao</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>EditarCriterio</servlet-name>
-    <servlet-class>br.com.n2s.sara.controller.EditarCriterio</servlet-class>
+    <servlet-name>RemoverItemCriterio</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.RemoverItemCriterio</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>AdicionarCoordenadorEvento</servlet-name>
@@ -77,7 +77,10 @@
     <servlet-name>RemoverCoordenadorEvento</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.RemoverCoordenadorEvento</servlet-class>
   </servlet>
-  
+  <servlet>
+    <servlet-name>AdicionarItemCriterio</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.AdicionarItemCriterio</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>CadastrarAvaliador</servlet-name>
@@ -88,8 +91,8 @@
     <url-pattern>/autentica</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>EditarCriterio</servlet-name>
-    <url-pattern>/webapp/jsp/EditarCriterio</url-pattern>
+    <servlet-name>RemoverItemCriterio</servlet-name>
+    <url-pattern>/webapp/jsp/RemoverItemCriterio</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdicionarCoordenadorEvento</servlet-name>
@@ -132,16 +135,20 @@
     <url-pattern>/webapp/jsp/RemoverCoordenadorTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>SalvarArquivo</servlet-name> 
+    <servlet-name>SalvarArquivo</servlet-name>
     <url-pattern>/webapp/jsp/SalvarArquivo</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
-    <servlet-name>RemoverCoordenadorEvento</servlet-name> 
+  <servlet-mapping>
+    <servlet-name>RemoverCoordenadorEvento</servlet-name>
     <url-pattern>/webapp/jsp/RemoverCoordenadorEvento</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>AdicionarAvaliador</servlet-name> 
+    <servlet-name>AdicionarAvaliador</servlet-name>
     <url-pattern>/webapp/jsp/AdicionarAvaliador</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AdicionarItemCriterio</servlet-name>
+    <url-pattern>/webapp/jsp/AdicionarItemCriterio</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>FiltroAutenticado</filter-name>
