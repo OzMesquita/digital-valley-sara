@@ -105,7 +105,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -148,7 +148,7 @@
 							<header class="panel-heading"> Formulário de Adição de Coordenadores </header>
 							<div class="panel-body">
 								<div class="form">
-									<form action="confirmarAdicaoCoordenador.jsp" method="post" id = "formEnviar">
+									<form action="AdicionarCoordenadorEvento" method="post" id = "formEnviar">
 										<div class="form-validate form-horizontal" id="feedback_form">
 											<div class="form-group ">
 												<label for="cemail" class="control-label col-lg-2">CPF 
@@ -162,7 +162,7 @@
 
 											<div class="form-group">
 												<div class="col-lg-offset-2 col-lg-10">
-													<button id = "sucesso" class="btn btn-primary" type="submit"onclick = "validation();">Salvar</button>
+													<button id = "sucesso" class="btn btn-primary" type="submit"onclick = "validation();">Adicionar</button>
 												</div>
 											</div>
 										</div>

@@ -187,7 +187,7 @@
 					                   <td><%= avaliadores.get(i).getEmail()%> </td>
 					                   <td><%= avaliadores.get(i).getCpf() %> </td>									
 									   <td><form action="RemoverAvaliador" method="post" onsubmit="return confirm('Deseja remover este avaliador?');"> 
-                           					<input type="hidden" value="<%= avaliadores.get(i).getCpf() %>" name="cpfAvaliador"> 
+                           					<input type="hidden" value="<%= avaliadores.get(i).getCpf()%>" name="cpfAvaliador"> 
                            						<button class="btn btn-primary" type = "submit">Remover</button>
                       						 </form> 
                   					   </td>

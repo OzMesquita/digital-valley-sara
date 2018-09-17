@@ -183,14 +183,14 @@ public class DAOCoordenacaoEvento {
 	}
 
 
-	public void delete(String cpfCoordenador){
+	public void delete(CoordenacaoEvento coordenacaoEvento){
 
 		this.connection = new ConnectionFactory().getConnection(); 
 		String sql = "delete from sara.CoordenacaoEvento where cpfCoordenador = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, cpfCoordenador);
+			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
 			stmt.execute();
 			stmt.close();
 			this.connection.close();
