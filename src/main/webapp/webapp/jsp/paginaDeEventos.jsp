@@ -1,18 +1,25 @@
+<%@page import="br.com.n2s.sara.dao.DAOEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page import="br.com.n2s.sara.model.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <style>
+        table{    
+            border-spacing: 10px; 
+        }
+    </style>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
     <meta name="author" content="GeeksLabs">
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>SARA</title>
+    <title>Sara</title>
 
     <!-- Bootstrap CSS -->    
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -44,32 +51,24 @@
         Author URL: https://bootstrapmade.com
     ======================================================= -->
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
     <body>
-    
-      <!-- container section start -->
-  <section id="container" class="">
-     
 	<% 
+		Usuario usuario = (Usuario) session.getAttribute("usuarioSara"); 
 		
-		Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
-		
-        Trilha trilha;
-        Evento evento;
-        	if(session.getAttribute("trilha")!=null){
-            	 trilha = (Trilha) session.getAttribute("trilha");
-        		 evento = (Evento) session.getAttribute("evento");
-        	}else{
-        		DAOTrilha daoTrilha = new DAOTrilha();
-        		int idTrilha = Integer.parseInt(request.getParameter("idTrilha"));
-        		trilha = daoTrilha.getTrilha(idTrilha);
-        		
-        	}
-        	
+	    String idEvento = request.getParameter("idEvento");
+    	Evento evento = (new DAOEvento().getEvento(Integer.parseInt(idEvento))); 
+    	evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
+    	session.setAttribute("evento", evento);
+
     %>
+  		
+  		<!-- container section start -->
+  		<section id="container" class="">
+     
       
-      <header class="header dark-bg">
+        <header class="header dark-bg">
             <div class="toggle-nav">
                 <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
             </div>
@@ -157,10 +156,10 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Submissão</h3>
+					<h3 class="page-header"><i class="fa fa-table"></i><%= evento.getNome()%></h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Submissão</li>
+						<li><i class="icon_document_alt"></i><%= evento.getNome()%></li>
 					</ol>
 				</div>
 			</div>
@@ -171,45 +170,51 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Submissão
+                              <%= evento.getNome()%>
                           </header>
-                        <center>
-                        <table class="table table-striped table-advance table-hover">
-	                        <tbody>
-				                    <tr>                               
-				                       <th><h2><%= trilha.getNome()%></h2> </th>
-				                    </tr>
-				                    
-				                   	<tr>
-				                    	<td>
-				    						<p><%= trilha.getDescricao()%></p>
-				    							
-											        <form action="SalvarArquivo" method="post" enctype="multipart/form-data">
-											            <p>Título: </p>
-											            <p><input type="text" name="titulo" size="80"></p>
-											            <p>Resumo:</p> 
-											            <p><textarea name="resumo" cols="80" rows="15" maxlength="1000"></textarea> </p>
-											            <p>Palavras-chave: (Separe por vírgula)</p>
-											            <p><input type="text" name="palavras_chave" size="80"></p>
-											            
-								     					<br/>
-										         		<input type="file" name="trabalho">
-										         		<br/>
-										          		<input type="submit" value="Enviar">
-										        	</form>
-									        	
-				                   		</td>
-				                   </tr>
-	                       </tbody>
-	                   </table>
-                     </section>
+                          
+                          <table class="table table-striped table-advance table-hover">
+                           <tbody>
+                              <tr>                               
+                                 <th><i class="icon_documents_alt"></i> Trilha</th>
+                                 <th><i class="icon_document_alt"></i> Descrição</th>
+                                 <th><i class="icon_calendar"></i> Período de Submissão</th>
+                                 <th></th>
+                              </tr>
+                              
+                              <%
+                              	 
+                              for(int i=0; i < evento.getTrilhas().size(); i++){
+                                  
+                                 %>
+                                 
+                                 <tr>
+                                     
+                                     <td><%= evento.getTrilhas().get(i).getNome() %> </td> 
+                                     <td><%= evento.getTrilhas().get(i).getDescricao() %></td> 
+                                     <td>Período de submissão (ajeitar)></td>
+                                     <td> <form action="paginaDeSubmissao.jsp" method="post"> 
+                                             <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha"> 
+                                             <button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
+                                         </form> 
+                                     </td>
+                                     
+                                 </tr>
+                                 
+                              <%}%>    
+                                 
+                           </tbody>
+                        </table>
+                      </section>
                   </div>
               </div>
               <!-- page end-->
+
+    
   </section>
   <!-- container section start -->
     
-    <!-- javascripts -->
+        <!-- javascripts -->
     <script src="../js/jquery.js"></script>
 	<script src="../js/jquery-ui-1.10.4.min.js"></script>
     <script src="../js/jquery-1.8.3.min.js"></script>
@@ -332,5 +337,7 @@
     });
 
   </script>
+    
+    
     </body>
 </html>

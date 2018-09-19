@@ -190,7 +190,7 @@
                                          <td><%= evento.getNome() %> </td>
                    						 <td><%= evento.getLocalizacao()%> </td>
                                          <td><%= evento.getDataInicial() %> </td>
-                                         <td><form action="paginaEvento.jsp" method="post"> 
+                                         <td><form action="paginaDeEventos.jsp" method="post"> 
                            					<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento"> 
                           					<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
                        					 </form> 
