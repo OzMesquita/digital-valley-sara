@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.management.RuntimeErrorException;
+import javax.naming.spi.DirStateFactory.Result;
 
 import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Trabalho;
+import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.util.Facade;
 
@@ -180,6 +182,37 @@ public class DAOTrabalho {
 			throw new RuntimeException(e);
 		}
 
+	}
+	public ArrayList<Trabalho> readTrilha(int idTrilha){
+		ArrayList<Trabalho> trabalhos = new ArrayList<>();
+		this.connection = new ConnectionFactory().getConnection();
+		String sql = "SELECT * FROM sara.trabalho WHERE idtrilha = ?";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1,idTrilha);
+			ResultSet rs = stmt.executeQuery();
+			DAOTrilha daoTrilha = new DAOTrilha();
+			Trilha trilha = daoTrilha.getTrilha(idTrilha);
+			while(rs.next()){
+				Trabalho trabalho = new Trabalho();
+				trabalho.setIdTrabalho(rs.getInt("idTrabalho"));
+				trabalho.setTitulo(rs.getString("titulo"));
+				trabalho.setPalavrasChaves(rs.getString("palavrasChaves"));
+				trabalho.setResumo(rs.getString("resumo"));
+				trabalho.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
+				trabalho.setEndereco(rs.getString("endereco"));
+				trabalho.setTrilha(trilha);				
+				ArrayList <Usuario> autores = pegarUsuarios(trabalho);
+				trabalho.setAutor(autores.get(0));
+				autores.remove(0);
+				trabalho.setAutores(autores);	
+				trabalhos.add(trabalho);
+			}			
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
+		return trabalhos;
 	}
 	private void adicionaAutores(Trabalho t) {
 		this.connection = new ConnectionFactory().getConnection();
