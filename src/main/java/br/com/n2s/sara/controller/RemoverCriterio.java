@@ -32,16 +32,15 @@ public class RemoverCriterio extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		HttpSession session = request.getSession();
-		String chave = request.getParameter("criterio");
-		Criterio criterio = new Criterio();
-		
-		criterio = (Criterio) session.getAttribute(chave);
+		int idCriterio = Integer.parseInt(request.getParameter("idCriterio"));
 		
 		DAOCriterio daoCriterio = new DAOCriterio();
-		daoCriterio.delete(criterio.getIdCriterio());
 		
-		response.sendRedirect("gerenciaCriterios.jsp");
+		Criterio criterio = daoCriterio.getCriterio(idCriterio);
+		
+		daoCriterio.delete(criterio);
+		
+		response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 		
 	}
 

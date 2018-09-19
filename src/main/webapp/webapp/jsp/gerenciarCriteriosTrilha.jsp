@@ -244,8 +244,8 @@
 		                       				</form> 
 		                   				</td>
 		                   
-		                   				<td><form action="removerCriterio.jsp" method="post" id="formRemover" onsubmit="return confirm('Deseja remover este critério?');"> 
-		                           				<input type="hidden" value="crit<%= criterios.get(i).getIdCriterio()%>" name="criterio"> 
+		                   				<td><form action="RemoverCriterio" method="post" id="formRemover" onsubmit="return confirm('Deseja remover este critério?');"> 
+		                           				<input type="hidden" value="<%= criterios.get(i).getIdCriterio()%>" name="idCriterio"> 
 		                           				<button class="btn btn-primary" type="submit">Remover</button>
 		                       				</form> 
 		                   				</td>

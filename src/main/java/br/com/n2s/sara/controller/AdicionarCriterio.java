@@ -46,68 +46,17 @@ public class AdicionarCriterio extends HttpServlet {
 
 		String descricaoCriterio = request.getParameter("descricaoCriterio");
 		int pesoCriterio = Integer.parseInt(request.getParameter("pesoCriterio"));
-
-		//ArrayList<String> itensDescricao = new ArrayList<String>();
-		//ArrayList<Integer> itensPeso = new ArrayList<Integer>();
-
-		//String desc = "";
-		//String peso = "";
-
+		
 		criterio.setDescricao(descricaoCriterio);
 		criterio.setPeso(pesoCriterio);
-
-		if(trilha.getCriterioTrilha() != null){ //Caso a trilha já possua um CriterioTrilha, apenas associa o novo critério com este CriterioTrilha
-			criterio.setCriterioTrilha(trilha.getCriterioTrilha());
-
-		}else {
-
-			String nomeCriterioTrilha = request.getParameter("nomeCriterioTrilha");
-
-			CriterioTrilha criterioTrilha = new CriterioTrilha();
-			criterioTrilha.setNome(nomeCriterioTrilha);
-			criterioTrilha.setDataCriacao(LocalDate.now());
-
-			DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
-			daoCriterioTrilha.create(criterioTrilha);
-
-			criterioTrilha = daoCriterioTrilha.getCriterioTrilha(daoCriterioTrilha.getLastId());
-			criterio.setCriterioTrilha(criterioTrilha);
-
-			trilha.setCriterioTrilha(criterioTrilha);
-			DAOTrilha daoTrilha = new DAOTrilha();
-			daoTrilha.update(trilha);
-		}
-
-		DAOCriterio daoCriterio = new DAOCriterio();
-		daoCriterio.create(criterio);		
 		
-		response.sendRedirect("gerenciaCriterios.jsp");
+		criterio.setCriterioTrilha(trilha.getCriterioTrilha());
+		
+		new DAOCriterio().create(criterio);
 
-		/* Item item = new Item();
-		ItemController itemCont = new ItemController();
+		response.sendRedirect("eventosCoordenados.jsp");
 
-		for(int i = 0; i < 20; i++){
-			desc = request.getParameter("descricao" + i);
-			peso = request.getParameter("peso" + i);
-
-			if (desc != "" && peso != "" && desc != null && peso != null) {
-				//itensDescricao.add(desc);
-				//itensPeso.add(Integer.parseInt(peso));
-				item.setDescricao(desc);
-				item.setPeso(Integer.parseInt(peso));
-				item.setCriterio(crit);
-
-				itemCont.criar(item);
-			} 
-		}
-		 */
-
-		/* System.out.println("TAMANHO: " + itensDescricao.size());
-
-		for(int i = 0; i < itensPeso.size(); i++){
-			System.out.println(itensDescricao.get(i));
-			System.out.println(itensPeso.get(i));
-		}   */
+		
 	}
 
 }

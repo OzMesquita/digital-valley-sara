@@ -183,14 +183,14 @@ public class DAOCriterio {
 	}
 
 
-	public void delete(int idCriterio){
+	public void delete(Criterio criterio){
 		
 		this.connection = new ConnectionFactory().getConnection();
 		String sql = "delete from sara.Criterio where idCriterio = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, idCriterio);
+			stmt.setInt(1, criterio.getIdCriterio());
 			stmt.execute();
 			stmt.close();
 			this.connection.close();
