@@ -81,6 +81,10 @@
     <servlet-name>AdicionarItemCriterio</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.AdicionarItemCriterio</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>SelecionarCriterioTrilha</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.SelecionarCriterioTrilha</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>CadastrarAvaliador</servlet-name>
@@ -149,6 +153,10 @@
   <servlet-mapping>
     <servlet-name>AdicionarItemCriterio</servlet-name>
     <url-pattern>/webapp/jsp/AdicionarItemCriterio</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SelecionarCriterioTrilha</servlet-name>
+    <url-pattern>/webapp/jsp/SelecionarCriterioTrilha</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>FiltroAutenticado</filter-name>

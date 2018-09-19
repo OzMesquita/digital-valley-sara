@@ -188,18 +188,17 @@
 							 <%	                              	 
                               	 for(int i = 0; i < listaCriterioTrilha.size(); i++){
 	                
-	              	 				session.setAttribute("critTri"+listaCriterioTrilha.get(i).getIdCriterioTrilha(), listaCriterioTrilha.get(i));
 	               					%>
                                       <tr>
                                          <td><%=listaCriterioTrilha.get(i).getNome()%></td>
-                                         <td><form action="visualizarCriterio.jsp" method="post"> 
-	                           					<input type="hidden" value="critTri<%= listaCriterioTrilha.get(i).getIdCriterioTrilha()%>" name="criterioTrilha"> 
+                                         <td><form action="visualizarCriterioTrilha.jsp" method="post"> 
+	                           					<input type="hidden" value="<%= listaCriterioTrilha.get(i).getIdCriterioTrilha()%>" name="idCriterioTrilha"> 
 	                           					<button class="btn btn-primary" type="submit">Visualizar</button>
 	                       					</form> 
                    						</td>
                    						<td>
-                   							<form action="selecionarCriterioTrilha.jsp" method="post"> 
-	                           					<input type="hidden" value="critTri<%= listaCriterioTrilha.get(i).getIdCriterioTrilha()%>" name="criterioTrilha"> 
+                   							<form action="SelecionarCriterioTrilha" method="post"> 
+	                           					<input type="hidden" value="<%= listaCriterioTrilha.get(i).getIdCriterioTrilha()%>" name="idCriterioTrilha"> 
 	                           					<button class="btn btn-primary" type="submit">Selecionar</button>
 	                       					</form>
                    						</td>

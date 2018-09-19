@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.dao.DAOCriterio"%>
 <%@page import="br.com.n2s.sara.dao.DAOItem"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Item"%>
@@ -54,11 +55,13 @@
 		<%
 			Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
 		
-			String key = request.getParameter("criterioTrilha");
-			CriterioTrilha criterioTrilha = (CriterioTrilha) session.getAttribute(key);
+			//String key = request.getParameter("criterioTrilha");
+			CriterioTrilha criterioTrilha = (CriterioTrilha) session.getAttribute("criterioTrilha");
 			
-			String keyCriterio = request.getParameter("criterio");
-			Criterio criterio = (Criterio) session.getAttribute(keyCriterio);
+			int idCriterio = Integer.parseInt(request.getParameter("idCriterio"));
+			Criterio criterio = new DAOCriterio().getCriterio(idCriterio);
+			
+			session.setAttribute("criterio", criterio);
 			
 			DAOItem daoItem = new DAOItem();
 			List<Item> itens = daoItem.readById(criterio.getIdCriterio());
@@ -128,7 +131,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>

@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.dao.DAOCriterioTrilha"%>
 <%@page import="br.com.n2s.sara.dao.DAOCriterio"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Criterio"%>
@@ -54,8 +55,9 @@
     <% 	
     	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
     	
-    	String key = request.getParameter("criterioTrilha");
-		CriterioTrilha criterioTrilha = (CriterioTrilha) session.getAttribute(key);
+    	int idCriterioTrilha = Integer.parseInt(request.getParameter("idCriterioTrilha"));
+		CriterioTrilha criterioTrilha = new DAOCriterioTrilha().getCriterioTrilha(idCriterioTrilha);
+		session.setAttribute("criterioTrilha", criterioTrilha);
 		
 		DAOCriterio daoCriterio = new DAOCriterio();
 		List<Criterio> criterios = daoCriterio.obterCriteriosPorTrilha(criterioTrilha.getIdCriterioTrilha());
@@ -125,7 +127,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -181,13 +183,12 @@
 						<% 
 								for(int i = 0; i < criterios.size(); i++){ 
 								
-								session.setAttribute("criterio"+criterios.get(i).getIdCriterio(), criterios.get(i)); %>
-					               
+					       %>        
 					               <tr>
 					                   <td><%=criterios.get(i).getDescricao()%></td>
 					                   <td><%=criterios.get(i).getPeso()%></td>
 					                   <td><form action="visualizarItensCriterio.jsp" method="post"> 
-					                           <input type="hidden" value="criterio<%= criterios.get(i).getIdCriterio()%>" name="criterio"> 
+					                           <input type="hidden" value="<%= criterios.get(i).getIdCriterio()%>" name="idCriterio"> 
 					                           <button class="btn btn-primary" type="submit">Visualizar Itens</button>
 					                       </form> 
 					                   </td>

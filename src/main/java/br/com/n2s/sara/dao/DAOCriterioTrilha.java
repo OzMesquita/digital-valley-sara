@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.n2s.sara.model.CriterioTrilha;
+import br.com.n2s.sara.model.Usuario;
 
 
 public class DAOCriterioTrilha {
@@ -17,6 +18,7 @@ public class DAOCriterioTrilha {
 	private Connection connection;
 
 	public DAOCriterioTrilha(){}
+
 
 	public CriterioTrilha create(CriterioTrilha criterioTrilha){
 		
@@ -31,9 +33,6 @@ public class DAOCriterioTrilha {
 			stmt.setString(2, criterioTrilha.getNome());
 			
 			stmt.execute();
-			ResultSet rs = stmt.getGeneratedKeys();
-			criterioTrilha.setIdCriterioTrilha(rs.getInt(1));
-			rs.close();
 			stmt.close();
 			this.connection.close();
 			
