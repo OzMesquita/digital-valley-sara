@@ -1,14 +1,9 @@
-<%@page import="java.util.List"%>
-<%@page import="br.com.n2s.sara.dao.*"%>
-<%@page import="br.com.n2s.sara.controller.*"%>
-<%@page import="br.com.n2s.sara.model.*" %>
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<%@ page import="br.com.n2s.sara.model.*" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-    
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,20 +46,29 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
-<body>
-
-    <% 	
-    	/* DAOUsuario daoUsuario = new DAOUsuario();
-    	Usuario usuario = daoUsuario.getUsuario("100");
-    	session.setAttribute("usuarioSara", usuario); */
-    	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
-	%>
+    <body>
     
-  <!-- container section start -->
+      <!-- container section start -->
   <section id="container" class="">
      
+	<% 
+		Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
+		
+        Trilha trilha;
+        Evento evento;
+        	
+        if (session.getAttribute("trilha") != null) {
+            trilha = (Trilha) session.getAttribute("trilha");
+        	evento = (Evento) session.getAttribute("evento");
+        }else {
+        	DAOTrilha daoTrilha = new DAOTrilha();
+        	int idTrilha = Integer.parseInt(request.getParameter("idTrilha"));
+        	trilha = daoTrilha.getTrilha(idTrilha);
+        }
+        	
+    %>
       
-        <header class="header dark-bg">
+      <header class="header dark-bg">
             <div class="toggle-nav">
                 <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
             </div>
@@ -152,10 +156,10 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Eventos Abertos</h3>
+					<h3 class="page-header"><i class="fa fa-table"></i> Submissão</h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Eventos Abertos</li>
+						<li><i class="icon_document_alt"></i>Submissão</li>
 					</ol>
 				</div>
 			</div>
@@ -166,52 +170,40 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Eventos Abertos
+                              Submissão
                           </header>
-                          
-                          <table class="table table-striped table-advance table-hover">
-                           <tbody>
-                              <tr>                               
-                                 <th><i class="icon_documents_alt"></i> Evento</th>
-                                 <th><i class="icon_pin"></i> Local</th>
-                                 <th><i class="icon_calendar"></i> Data</th>
-                                 <th></th>
-                              </tr>
-                              
-                              <%
-                              	 
-                              	DAOEvento daoEvento = new DAOEvento();
-                              	List<Evento> eventos = daoEvento.read();
-                                
-                              	 
-                              	 for(Evento evento : eventos){ %>
-                                      
-                                      <tr>
-                                         <td><%= evento.getNome() %> </td>
-                   						 <td><%= evento.getLocalizacao()%> </td>
-                                         <td><%= evento.getDataInicial() %> </td>
-                                         <td><form action="paginaDeEventos.jsp" method="post"> 
-                           					<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento"> 
-                          					<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
-                       					 </form> 
-                   						</td>
-                                      </tr>                              			 
-                              <% }
-                                 
-                              %>
-                                 
-                           </tbody>
-                        </table>
-                      </section>
+                        <table class="table table-striped table-advance table-hover">
+	                        <tbody>
+				                    <tr>                               
+				                       <th><h2><%= trilha.getDescricao() %></h2> </th>
+				                    </tr>
+				                   	<tr>
+				                    	<td>
+									        <form action="SalvarArquivo" method="post" enctype="multipart/form-data">
+									            <p>Título: </p>
+									            <p><input type="text" name="titulo" size="80"></p>
+									            <p>Resumo:</p> 
+									            <p><textarea name="resumo" cols="80" rows="15" maxlength="1000"></textarea> </p>
+									            <p>Palavras-chave: (Separe por vírgula)</p>
+									            <p><input type="text" name="palavras_chave" size="80"></p>
+									            
+						     					<br/>
+								         		<input type="file" name="trabalho">
+								         		<br/>
+								          		<input type="submit" value="Enviar">
+								        	</form>
+				                   		</td>
+				                   </tr>
+	                       </tbody>
+	                   </table>
+                     </section>
                   </div>
               </div>
+         </section>
               <!-- page end-->
-
-
   </section>
   <!-- container section start -->
-
-
+    
     <!-- javascripts -->
     <script src="../js/jquery.js"></script>
 	<script src="../js/jquery-ui-1.10.4.min.js"></script>
@@ -335,6 +327,5 @@
     });
 
   </script>
-
-</body>
+    </body>
 </html>

@@ -128,7 +128,7 @@
 					
 					<% case COORDENADOR_EVENTO: 
 					   case COORDENADOR_TRILHA: %>
-					<li><a class="" href="indexCoordTrilha.jsp"> <i
+					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
@@ -193,7 +193,7 @@
                                      <td><%= evento.getTrilhas().get(i).getNome() %> </td> 
                                      <td><%= evento.getTrilhas().get(i).getDescricao() %></td> 
                                      <td>Período de submissão (ajeitar)></td>
-                                     <td> <form action="paginaTrilha.jsp" method="post"> 
+                                     <td> <form action="paginaDeSubmissao.jsp" method="post"> 
                                              <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha"> 
                                              <button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
                                          </form> 
@@ -213,44 +213,6 @@
     
   </section>
   <!-- container section start -->
-
-    
- <%--        <% 
-            String nome = request.getParameter("evento");
-            Evento evento = (Evento) session.getAttribute(nome);
-            evento.setTrilhas(new TrilhaController().listar(evento.getIdEvento()));
-        %>
-        <h2><%= evento.getNome()%></h2>
-        <p><%= evento.getDescricao()%></p>
-        <p><%= evento.getLocalizacao()%></p>
-        <p><%= evento.getDataInicial()%></p>
-        
-        <table border="1" >
-        <tr>
-            <th>Trilha</th>
-            <th>Descrição</th>
-            <th>Data</th>
-        </tr>
-        <% 
-            for(int i=0; i < evento.getTrilhas().size(); i++){
-                session.setAttribute("t"+Integer.toString(evento.getTrilhas().get(i).getIdTrilha()), evento.getTrilhas().get(i));
-               %>
-               
-               <tr>
-                   
-                   <td><%= evento.getTrilhas().get(i).getNome() %> </td> 
-                   <td>Descrição</td> 
-                   <td>Data</td>
-                   <td> <form action="paginaTrilha.jsp" method="post"> 
-                           <input type="hidden" value="t<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="trilha"> 
-                           <button type="submit">pressione</button>
-                       </form> 
-                   </td>
-                   
-               </tr>
-               
-            <%}
-        %>     --%>
     
         <!-- javascripts -->
     <script src="../js/jquery.js"></script>

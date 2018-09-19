@@ -146,7 +146,7 @@
 							<header class="panel-heading"> Cadastrar Critério de Avaliação </header>
 							<div class="panel-body">
 								<div class="form">
-									<form action="confirmarCriterio.jsp" method="post" id = "formEnviar">
+									<form action="AdicionarCriterio" method="post" id = "formEnviar">
 							            
 							            				
 										<div class="form-validate form-horizontal" id="feedback_form">
