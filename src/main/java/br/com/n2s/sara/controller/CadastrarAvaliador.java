@@ -23,29 +23,29 @@ public class CadastrarAvaliador extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		
-		String nome=request.getParameter("nome");
-		String sobrenome=request.getParameter("sobrenome");
-		String cpf=request.getParameter("cpf");
-		String email=request.getParameter("email");
+		String nome = request.getParameter("nome");
+		String sobrenome = request.getParameter("sobrenome");
+		String cpf = request.getParameter("cpf");
+		String email = request.getParameter("email");
 		
-		Usuario user = new Usuario();
-		user.setNome(nome);
-		user.setSobrenome(sobrenome);
-		user.setCpf(cpf);
-		user.setEmail(email);
-		user.setTipo(NivelUsuario.AVALIADOR);
-		DAOUsuario daoUsuario= new DAOUsuario();
-		daoUsuario.create(user);		
+		Usuario usuario = new Usuario();
+		usuario.setNome(nome);
+		usuario.setSobrenome(sobrenome);
+		usuario.setCpf(cpf);
+		usuario.setEmail(email);
+		usuario.setTipo(NivelUsuario.AVALIADOR);
+		DAOUsuario daoUsuario = new DAOUsuario();
+		daoUsuario.create(usuario);		
 		
 		HttpSession session = request.getSession();
 		Trilha trilha = (Trilha) session.getAttribute("trilha");
-		DAOAvaliaTrilha daoAvaliaTrilha=new DAOAvaliaTrilha();
+		DAOAvaliaTrilha daoAvaliaTrilha = new DAOAvaliaTrilha();
 		AvaliaTrilha avaliaTrilha = new AvaliaTrilha();
-		avaliaTrilha.setAvaliador(user);
+		avaliaTrilha.setAvaliador(usuario);
 		avaliaTrilha.setTrilha(trilha);
 		daoAvaliaTrilha.create(avaliaTrilha);
 		
-		response.sendRedirect("gerenciaAvaliadores.jsp");
+		response.sendRedirect("eventosCoordenados.jsp");
 	}
 
 }

@@ -14,11 +14,7 @@
 <meta name="keyword"
 	content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
 <link rel="shortcut icon" href="img/favicon.png">
-
-<title>Cadastro de Eventos</title>
-
 <link href="../SweetAlert/sweetalert.css" rel="stylesheet">
-
 <!-- Bootstrap CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <!-- bootstrap theme -->
@@ -30,7 +26,6 @@
 <!-- Custom styles -->
 <link href="../css/style.css" rel="stylesheet">
 <link href="../css/style-responsive.css" rel="stylesheet" />
-
 </head>
 
 <body>
