@@ -173,6 +173,7 @@
                                  <th><i class="icon_document_alt"></i> Data Início</th>
                                  <th><i class="icon_documents_alt"></i> Data Fim</th>
                               	 <th></th>
+                              	 <th></th>
                               </tr>
 							
 							 <%

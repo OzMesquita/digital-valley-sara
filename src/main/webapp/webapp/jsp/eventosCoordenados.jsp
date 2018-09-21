@@ -60,43 +60,15 @@
     	DAOCoordenacaoTrilha daoCoordenacaoTrilha = new DAOCoordenacaoTrilha();
     	
         List<CoordenacaoEvento> coordenacaoEvento = daoCoordenacaoEvento.read(usuario.getCpf()); //Nesta linha estão sendo buscados todos os eventos coordenados pelo usuário da sessão
-        		
-        
-        //List<CoordenacaoTrilha> idTrilhas = daoCoordenacaoTrilha.readById(usuario.getCpf());
         
         List<Evento> eventos = new ArrayList<Evento>();
-        //List<Trilha> trilhas = new ArrayList<Trilha>();
         DAOEvento daoEvento = new DAOEvento();
-        
         
         for(int i = 0; i < coordenacaoEvento.size(); i++){
         	
         	Evento evento = coordenacaoEvento.get(i).getEvento();
-        	//evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
         	eventos.add(evento);
         }
-        
-        /**
-        
-        for(int i = 0; i < idTrilhas.size(); i++){
-        	Evento ev = idTrilhas.get(i).getTrilha().getEvento();
-        	Boolean achou = false;
-        	
-        	for(int j = 0; j < eventos.size(); i++){
-        		if(eventos.get(j).getIdEvento() == ev.getIdEvento()){
-        			eventos.get(j).getTrilhas().add(idTrilhas.get(i).getTrilha());
-        			achou = true;
-        			break;
-        		}
-        	}
-        	
-        	if(!achou){
-            	ev.setTrilhas(new ArrayList<Trilha>());
-            	ev.getTrilhas().add(idTrilhas.get(i).getTrilha());
-            	eventos.add(ev);	
-        	}
-        }
-        */
        	
     %>
  

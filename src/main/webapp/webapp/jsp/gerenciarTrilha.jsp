@@ -45,6 +45,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
+<body>
 
 	<%
 		Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
@@ -197,7 +198,7 @@
   </section>
   <!-- container section start -->
         
-    </body>
+    
     
     <!-- javascripts -->
     <script src="../js/jquery.js"></script>
@@ -239,7 +240,7 @@
 	<script src="../js/sparklines.js"></script>	
 	<script src="../js/charts.js"></script>
 	<script src="../js/jquery.slimscroll.min.js"></script>
-  <script>
+  	<script>
 
       //knob
       $(function() {
@@ -322,5 +323,5 @@
     });
 
   </script>
-
+</body>
 </html>
