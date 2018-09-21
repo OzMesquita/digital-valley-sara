@@ -272,50 +272,6 @@
   </section>
   <!-- container section start -->
 	
-	<script>
-        /* $(".formRemover").onClick(function(){
-        
-        this.addEventListener('submit', function(e) {   
-        var form = this;
-         e.preventDefault();
-          swal({
-                title: "Deseja Remover?",
-                text: "Este critério será excluído.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#4cd964",
-                confirmButtonText: "Sim, quero remover.", 
-                cancelButtonText: "Não",       
-                closeOnConfirm: false
-            },
-            function(isConfirm) {
-                if (isConfirm) {
-                    swal({
-                        title: "Critério Removido!",			  
-				        timer: 1000,
-				        type: "success",
-				        showConfirmButton: false
-                    }, function() {
-                        form.submit();
-                    });
-                    
-                } 
-            });
-        });
-        }); */
-        
-        //document.getElementById("formRemover").onsubmit = function() {confirmarRemocao()};
-
-        function confirmarRemocao(){
-        	decisao = confirm("Deseja remover?");
-        	
-        	if(decisao){
-        		return true;
-        	}else{
-        		return false;
-        	}
-        }
-        
         <!-- javascripts -->
         <script src="../js/jquery.js"></script>
     	<script src="../js/jquery-ui-1.10.4.min.js"></script>
