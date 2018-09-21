@@ -65,7 +65,8 @@
         	int idTrilha = Integer.parseInt(request.getParameter("idTrilha"));
         	trilha = daoTrilha.getTrilha(idTrilha);
         }
-        	
+        session.setAttribute("trilha", trilha);
+        
     %>
       
       <header class="header dark-bg">
@@ -186,7 +187,16 @@
 									            <p><textarea name="resumo" cols="80" rows="15" maxlength="1000"></textarea> </p>
 									            <p>Palavras-chave: (Separe por vírgula)</p>
 									            <p><input type="text" name="palavras_chave" size="80"></p>
-									            
+									            <div id="divAutorBase" style="display:none;">
+														Nome: <input type="text" name="nomeAutor" />
+														Email: <input type="text" name="emailAutor" />
+														CPF: <input type="text" name="cpfAutor">
+														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
+												</div>
+											    <div id="divAutorList">
+											    </div>
+											    <input type="button" value="Adicionar Autor" onclick="autorList.insert()" />
+						     					<br/>
 						     					<br/>
 								         		<input type="file" name="trabalho">
 								         		<br/>
@@ -244,6 +254,31 @@
 	<script src="../js/sparklines.js"></script>	
 	<script src="../js/charts.js"></script>
 	<script src="../js/jquery.slimscroll.min.js"></script>
+	<!-- este é o script para gerar os campos do autor -->
+	<script>
+     var  autorList = {
+	    'init': function()
+	    {
+	        this.divAutorList = document.getElementById('divAutorList');
+	        this.divAutorBase = document.getElementById('divAutorBase');
+	    },
+	    
+	    'insert': function()
+	    {
+	        var newDiv = this.divAutorBase.cloneNode(true);
+	        newDiv.style.display = '';
+	        console.log('newDiv => ', newDiv);
+	        this.divAutorList.appendChild(newDiv);
+	    },
+	    
+	    'remove': function(el)
+	    {
+	        el.parentNode.removeChild(el);
+	    }
+		};
+	autorList.init();
+	</script>
+	
   <script>
 
       //knob
