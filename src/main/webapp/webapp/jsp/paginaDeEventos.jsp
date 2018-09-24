@@ -1,6 +1,11 @@
+<%@page import="java.util.Formatter"%>
+<%@page import="br.com.n2s.sara.util.Facade"%>
 <%@page import="br.com.n2s.sara.dao.DAOEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@ page import="br.com.n2s.sara.model.*" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.Date" %>
+<%@page import="java.time.LocalDate" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -191,14 +196,29 @@
                                  <tr>
                                      
                                      <td><%= evento.getTrilhas().get(i).getNome() %> </td> 
-                                     <td><%= evento.getTrilhas().get(i).getDescricao() %></td> 
-                                     <td>Período de submissão (ajeitar)></td>
-                                     <td> <form action="paginaDeSubmissao.jsp" method="post"> 
+                                     <td><%= evento.getTrilhas().get(i).getDescricao() %></td>
+                                     <% evento.getTrilhas().get(i).setPeriodos(Facade.atualizarPeriodos(evento.getTrilhas().get(i))); %> 
+                                     <% Periodo atual = Facade.periodoAtual(evento.getTrilhas().get(i));
+                                     String periodoSubmissao = "";
+                                     if (atual==null ||atual.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL)){
+                                    	 periodoSubmissao = "Fora do prazo";
+                                   	 }else if(atual.getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL) || atual.getDescricao().equals(DescricaoPeriodo.SUBMISSAO_MANUSCRITO)){
+                                    	 periodoSubmissao = atual.getDataInicial()+" a " + atual.getDataFinal();
+                                    	}else if(atual.getDescricao().equals(DescricaoPeriodo.AVALIACAO)){
+                                    	 	periodoSubmissao = "Em Avaliação";
+                                    	 }
+                                     	
+                                     %>                                                                        
+                                     <td><%=periodoSubmissao%></td>
+                                     <td>
+                                     	<%if( atual!=null && (DescricaoPeriodo.SUBMISSAO_MANUSCRITO.equals(atual.getDescricao()) || DescricaoPeriodo.SUBMISSAO_FINAL.equals(atual.getDescricao())) && Facade.dataValida(atual) ) {%>
+                                     	 <form action="paginaDeSubmissao.jsp" method="post"> 
                                              <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha"> 
                                              <button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
-                                         </form> 
+                                         </form>
+                                         <%} %> 
                                      </td>
-                                     
+                                   
                                  </tr>
                                  
                               <%}%>    

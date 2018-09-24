@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trilha;
 
 public class DAOTrilha {
@@ -59,7 +60,6 @@ public class DAOTrilha {
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
 				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
-				
 				trilhas.add(trilha);
 
 			}
@@ -122,7 +122,7 @@ public List<Trilha> readById(int id){
 			ResultSet rs = stmt.executeQuery();
 			DAOEvento daoEvento = new DAOEvento();
 			DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
-			
+			DAOPeriodo daoPeriodo = new DAOPeriodo();
 			if(rs.next()){
 
 				Trilha trilha = new Trilha();
@@ -132,11 +132,9 @@ public List<Trilha> readById(int id){
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
 				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
-				
 				rs.close();
 				stmt.close();
 				this.connection.close();
-
 				return trilha;
 			}else{
 				return null;
