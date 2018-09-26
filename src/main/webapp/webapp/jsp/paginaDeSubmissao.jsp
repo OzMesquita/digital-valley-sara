@@ -48,8 +48,8 @@
 </head>
     <body>
     
-      <!-- container section start -->
-  <section id="container" class="">
+    <!-- container section start -->
+  	<section id="container" class="">
      
 	<% 
 		Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
@@ -212,6 +212,7 @@
          </section>
               <!-- page end-->
   </section>
+</section>
   <!-- container section start -->
     
     <!-- javascripts -->

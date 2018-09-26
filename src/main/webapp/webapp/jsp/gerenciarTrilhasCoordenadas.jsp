@@ -197,7 +197,7 @@
 			        			<!--  
 			        			<td>
 			        				<form action="gerenciarCoordenadoresTrilha.jsp" method="post">
-			        					<input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">
+			        					<input type="hidden" value="" name="idTrilha">
 							            <button class="btn btn-primary" type = "submit"> Gerenciar Coordenadores</button>
 							        </form>
 							    </td>
@@ -243,6 +243,7 @@
 		    </center>
 		
   </section>
+</section>
   <!-- container section start -->
 
     <!-- javascripts -->
