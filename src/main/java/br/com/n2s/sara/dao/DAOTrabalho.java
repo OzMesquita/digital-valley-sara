@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class DAOTrabalho {
 				+ "values (?,?,?,?,?,?)";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = null;
+			stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, trabalho.getTitulo());
 			stmt.setString(2, trabalho.getPalavrasChaves());
@@ -41,9 +43,14 @@ public class DAOTrabalho {
 			stmt.setString(4, trabalho.getStatus().toString());
 			stmt.setString(5, trabalho.getEndereco().toString());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
-
-			int idTrabalho = stmt.executeUpdate();
-			stmt.close(); 
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			int idTrabalho= 0 ;
+			while (rs.next()) {
+				idTrabalho = rs.getInt("idtrabalho");
+			}
+			stmt.close();
+			rs.close();
 			trabalho.setIdTrabalho(idTrabalho);
 			this.connection.close();
 			adicionaAutores(trabalho);
