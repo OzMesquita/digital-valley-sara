@@ -27,8 +27,8 @@ public class DAOTrabalho {
 
 		this.connection = new ConnectionFactory().getConnection(); 	
 
-		String sql = "insert into sara.Usuario"  
-				+ "(titulo, palavrasChaves, resumo, status, endereco, idTrilha)"
+		String sql = "insert into sara.Trabalho"  
+				+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha)"
 				+ "values (?,?,?,?,?,?)";
 
 		try {
@@ -41,10 +41,8 @@ public class DAOTrabalho {
 			stmt.setString(5, trabalho.getEndereco().toString());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 
-			ResultSet rs = stmt.executeQuery();
-			stmt.close();
-			int idTrabalho = rs.getInt("idTrabalho");
-			rs.close();
+			int idTrabalho = stmt.executeUpdate(sql);
+			stmt.close(); 
 			trabalho.setIdTrabalho(idTrabalho);
 			this.connection.close();
 			adicionaAutores(trabalho);
@@ -169,7 +167,7 @@ public class DAOTrabalho {
 	public void delete(int idTrabalho){
 		
 		this.connection = new ConnectionFactory().getConnection();
-		String sql = "delete from sara.Usuario where idTrabalho = ?";
+		String sql = "delete from sara.Trabalho where idTrabalho = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
