@@ -12,6 +12,7 @@ import javax.management.RuntimeErrorException;
 import javax.naming.spi.DirStateFactory.Result;
 
 import br.com.n2s.sara.model.StatusTrabalho;
+import br.com.n2s.sara.model.Submissao;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
@@ -41,7 +42,7 @@ public class DAOTrabalho {
 			stmt.setString(5, trabalho.getEndereco().toString());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 
-			int idTrabalho = stmt.executeUpdate(sql);
+			int idTrabalho = stmt.executeUpdate();
 			stmt.close(); 
 			trabalho.setIdTrabalho(idTrabalho);
 			this.connection.close();
@@ -213,39 +214,24 @@ public class DAOTrabalho {
 		return trabalhos;
 	}
 	private void adicionaAutores(Trabalho t) {
-		this.connection = new ConnectionFactory().getConnection();
-		String sql = "INSERT INTO sara.autorTrabalho" + "(idTrabalho, idAutor)"+"values(?,?)";
-		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, t.getIdTrabalho());
-			stmt.setString(2, t.getAutor().getCpf());
-			for (Usuario u :t.getAutores()) {
-				stmt.setInt(1, t.getIdTrabalho());
-				stmt.setString(2,u.getCpf());
-				stmt.executeQuery();
-			}
-			stmt.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+		DAOSubmissao daoSubmissao = new DAOSubmissao();
+		Submissao submissao = new Submissao();
+		submissao.setAutor(t.getAutor());
+		submissao.setTrabalho(t);
+		daoSubmissao.create(submissao);
+		for (Usuario u : t.getAutores()) {
+			submissao.setAutor(u);
+			daoSubmissao.create(submissao);
 		}
 	}
 	
 	private ArrayList<Usuario> pegarUsuarios(Trabalho t){
-		ArrayList<Usuario> autores = new ArrayList();
-		String sql = "select * from sara.autorTrabalho where idTrabalho = ?";
-		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, t.getIdTrabalho());
-			ResultSet rs = stmt.executeQuery();
-			
-			while(rs.next()) {
-				autores.add(Facade.buscarUsuarioPorCPF(rs.getString("idAutor")));
-			}
-		}catch (Exception e) {
-			throw new RuntimeException(e);
+		ArrayList<Usuario> autores = new ArrayList<Usuario>();
+		DAOSubmissao daoSubmissao = new DAOSubmissao();
+		ArrayList <Submissao> submissoes = (ArrayList<Submissao>) daoSubmissao.readByTrabalho(t.getIdTrabalho());
+		for (Submissao sub : submissoes) {
+			autores.add(sub.getAutor());
 		}
-		
-		
 		return autores;
 	}
 

@@ -12,8 +12,10 @@ import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.dao.DAOUsuario;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Periodo;
+import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
+import model.Email;
 import util.Constantes;
 
 
@@ -80,4 +82,16 @@ public class Facade {
 		}
 		return atual;
 	}
+	
+	public static void EnviarEmail(Trabalho t) {
+		if(t != null) {
+			String msg = "";
+			msg = "Este é um email Teste por favor desconsidere";
+			String email = "bolodecenoura@alu.ufc.br";
+			Email e = new Email();
+			e.sendEmail("Teste", msg, t.getAutor().getEmail(), t.getAutor().getNome());
+		}
+		
+	}
+	
 }

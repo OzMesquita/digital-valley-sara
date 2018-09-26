@@ -23,6 +23,7 @@ import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Facade;
 
 /**
  * Servlet implementation class SalvarArquivoController
@@ -95,7 +96,7 @@ public class SalvarArquivo extends HttpServlet {
         trabalho.setEndereco(endereco);
         DAOTrabalho daoTrabalho = new DAOTrabalho();
         trabalho.setIdTrabalho(daoTrabalho.create(trabalho));      
-        
+        Facade.EnviarEmail(trabalho);
         response.sendRedirect("indexAutor.jsp");
 	    
 

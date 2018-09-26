@@ -69,6 +69,34 @@ public class DAOSubmissao {
 			throw new RuntimeException(e);
 		}
 	}
+	public List<Submissao> readByTrabalho(int idTrabalho){
+		
+		this.connection = new ConnectionFactory().getConnection();
+		String sql = "select * from sara.Submissao where trabalho=?";
+		try{
+			List<Submissao> submissoes = new ArrayList<Submissao>();
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			stmt.setInt(1, idTrabalho);
+			ResultSet rs = stmt.executeQuery();
+			DAOUsuario usuarioController = new DAOUsuario();
+
+			while(rs.next()){
+
+				Submissao submissao= new Submissao();
+				submissao.setAutor(usuarioController.getUsuario(rs.getString("cpfautor")));
+				submissao.setTrabalho(new DAOTrabalho().getTrabalho(rs.getInt("idtrabalho")));
+				submissoes.add(submissao);
+			}
+
+			rs.close();
+			stmt.close();
+			this.connection.close();
+			return submissoes;
+
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+	}
 
 	public Submissao getSubmissao(int idtrabalho){
 		
