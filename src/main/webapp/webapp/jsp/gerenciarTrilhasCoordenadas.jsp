@@ -128,7 +128,7 @@
 					</a></li>
 					
 					<% case AVALIADOR: %>
-					<li><a class="" href="indexAvaliador.jsp"> <i
+					<li><a class="" href="avaliacao.jsp"> <i
 							class="icon_document_alt"></i> <span>Avaliar</span>
 
 					</a></li>
@@ -194,13 +194,14 @@
 			                   <% 
 						            if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){
 			        			%>
+			        			<!--  
 			        			<td>
 			        				<form action="gerenciarCoordenadoresTrilha.jsp" method="post">
 			        					<input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">
 							            <button class="btn btn-primary" type = "submit"> Gerenciar Coordenadores</button>
 							        </form>
 							    </td>
-							    
+							    -->
 							    <td>
 			        				<form action="RemoverTrilha" method="post" onsubmit="return confirm('Deseja remover esta trilha?');">
 			        					<input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">

@@ -111,7 +111,7 @@
 					</a></li>
 					
 					<% case AVALIADOR: %>
-					<li><a class="" href="indexAvaliador.jsp"> <i
+					<li><a class="" href="avaliacao.jsp"> <i
 							class="icon_document_alt"></i> <span>Avaliar</span>
 
 					</a></li>
