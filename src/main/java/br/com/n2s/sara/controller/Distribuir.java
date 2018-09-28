@@ -16,6 +16,7 @@ import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.*;
+import br.com.n2s.sara.util.Facade;
 
 
 /**
@@ -31,20 +32,19 @@ public class Distribuir extends HttpServlet {
 		Trilha trilha = new Trilha();
 		DAOTrilha daoTrilha = new DAOTrilha();
 		trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
-		if(trilha!=null) {
+		if(trilha==null) {
 			response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");	
 		}
 		Periodo periodo = new Periodo();
-		DAOPeriodo daoPeriodo = new DAOPeriodo();
-		periodo = daoPeriodo.getPeriodo(trilha.getIdTrilha());
+		periodo = Facade.periodoAtual(trilha);
 		if(periodo.getDescricao()!=DescricaoPeriodo.AVALIACAO) {
 			response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
 		}
 		DAOAvaliaTrilha daoAvaliaTrilha = new DAOAvaliaTrilha();
 		DAOTrabalho daoTrabalho = new DAOTrabalho();
-		ArrayList<Trabalho> trabalhos = new ArrayList();
-		trabalhos = (ArrayList) daoTrabalho.readTrilha(trilha.getIdTrilha());
-		ArrayList<Usuario> avaliadores = (ArrayList) daoAvaliaTrilha.getAvaliadores(trilha.getIdTrilha());
+		ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();
+		trabalhos = (ArrayList<Trabalho>) daoTrabalho.readTrilha(trilha.getIdTrilha());
+		ArrayList<Usuario> avaliadores = (ArrayList<Usuario>) daoAvaliaTrilha.getAvaliadores(trilha.getIdTrilha());
 		if(trabalhos.size()>0) {
 			int razao = trabalhos.size() / avaliadores.size();
 			int alocados = 0;
