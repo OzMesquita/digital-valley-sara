@@ -189,8 +189,15 @@
 			                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
 			                       </form> 
 			                   </td>
+			                   <td>
+				                   <form action="DownloadTrabalho" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho"> 
+				                           <button class="btn btn-primary" type = "submit"> Download</button>
+				                   </form> 
+			                   </td>
+			                   
 			               </tr>
-			        			<!--  
+			        		 
 							    <% 
 							        }
 							    %>
