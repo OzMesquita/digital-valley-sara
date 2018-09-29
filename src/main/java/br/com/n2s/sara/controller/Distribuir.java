@@ -22,7 +22,7 @@ import br.com.n2s.sara.util.Facade;
 /**
  * Servlet implementation class Distribuir
  */
-
+@WebServlet("/Distribuir")
 public class Distribuir extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -66,15 +66,17 @@ public class Distribuir extends HttpServlet {
 					}
 			alocados=0;
 			while (resto>0) {
-				if(! (isAutor(avaliadores.get(alocados).getCpf(), trabalhos.get(0))) ) {
-					SalvarAvaliador(avaliadores.get(alocados), trabalhos.get(0));
-					trabalhos.remove(0);
-					resto--;
-					alocados++;
+				if (!trabalhos.isEmpty()) {
+					if(! (isAutor(avaliadores.get(alocados).getCpf(), trabalhos.get(0))) ) {
+						SalvarAvaliador(avaliadores.get(alocados), trabalhos.get(0));
+						trabalhos.remove(0);
+						resto--;
+						alocados++;
+					}
 				}
 			}		
 		}
-		
+		response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
 	}
 	private  void SalvarAvaliador(Usuario av, Trabalho t) {
 		DAOAvaliaTrabalho daoAvaliaTrab = new DAOAvaliaTrabalho();
@@ -87,9 +89,11 @@ public class Distribuir extends HttpServlet {
 		if (cpf.equals(t.getAutor().getCpf())) {
 			return true;
 		}
-		for (Usuario u : t.getAutores()) {
-			if(u.getCpf().equals(cpf))
-				return true;
+		if(!t.getAutores().isEmpty()) {
+			for (Usuario u : t.getAutores()) {
+				if(u.getCpf().equals(cpf))
+					return true;
+			}
 		}
 		return false;
 	}

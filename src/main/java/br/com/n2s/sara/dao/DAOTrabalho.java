@@ -210,12 +210,14 @@ public class DAOTrabalho {
 				autores.remove(0);
 				trabalho.setAutores(autores);	
 				trabalhos.add(trabalho);
-			}			
+			}
+			stmt.close();
+			rs.close();
+			this.connection.close();
+			return trabalhos;
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
-		return trabalhos;
 	}
 	private void adicionaAutores(Trabalho t) {
 		DAOSubmissao daoSubmissao = new DAOSubmissao();
