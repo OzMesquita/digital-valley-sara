@@ -85,6 +85,10 @@
     <servlet-name>SelecionarCriterioTrilha</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.SelecionarCriterioTrilha</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Distribuir</servlet-name>
+  	<servlet-class>br.com.n2s.sara.controller.Distribuir</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>CadastrarAvaliador</servlet-name>
@@ -158,6 +162,11 @@
     <servlet-name>SelecionarCriterioTrilha</servlet-name>
     <url-pattern>/webapp/jsp/SelecionarCriterioTrilha</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Distribuir</servlet-name>
+  	<url-mapping>/webapp/jsp/Distribuir</url-mapping>
+  </servlet-mapping>
+  
   <filter>
     <filter-name>FiltroAutenticado</filter-name>
     <filter-class>br.com.n2s.sara.filter.AutenticadoFiltro</filter-class>

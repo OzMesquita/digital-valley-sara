@@ -22,7 +22,7 @@ import br.com.n2s.sara.util.Facade;
 /**
  * Servlet implementation class Distribuir
  */
-@WebServlet("/Distribuir")
+
 public class Distribuir extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,11 +35,11 @@ public class Distribuir extends HttpServlet {
 		if(trilha==null) {
 			response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");	
 		}
-		Periodo periodo = new Periodo();
+		/*Periodo periodo = new Periodo();
 		periodo = Facade.periodoAtual(trilha);
 		if(periodo.getDescricao()!=DescricaoPeriodo.AVALIACAO) {
 			response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
-		}
+		}*/
 		DAOAvaliaTrilha daoAvaliaTrilha = new DAOAvaliaTrilha();
 		DAOTrabalho daoTrabalho = new DAOTrabalho();
 		ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();

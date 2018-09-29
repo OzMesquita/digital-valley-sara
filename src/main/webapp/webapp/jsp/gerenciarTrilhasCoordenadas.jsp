@@ -191,6 +191,11 @@
 			                           <button class="btn btn-primary" type = "submit"> Alterar Dados</button>
 			                       </form> 
 			                   </td>
+			                   <td><form action="Distribuir" method="post">
+			                   			<input type="hidden" value="<%=evento.getTrilhas().get(i).getIdTrilha() %>" name="idTrilha">
+			                   			<button class="btn btn-primary" type="submit">Distribuir Trabalhos</button>
+			                   		</form>
+			                   </td>
 			                   <% 
 						            if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){
 			        			%>

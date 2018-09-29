@@ -46,7 +46,7 @@ public class DAOTrabalho {
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			int idTrabalho= 0 ;
-			while (rs.next()) {
+			if (rs.next()) {
 				idTrabalho = rs.getInt("idtrabalho");
 			}
 			stmt.close();
