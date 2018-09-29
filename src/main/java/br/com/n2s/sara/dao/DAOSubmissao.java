@@ -13,6 +13,7 @@ import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Submissao;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Facade;
 
 public class DAOSubmissao {
 
@@ -69,29 +70,27 @@ public class DAOSubmissao {
 			throw new RuntimeException(e);
 		}
 	}
-	public List<Submissao> readByTrabalho(int idTrabalho){
+	public List<Usuario> getAutores(int idTrabalho){
 		
 		this.connection = new ConnectionFactory().getConnection();
-		String sql = "select * from sara.Submissao where trabalho=?";
+		String sql = "select * from sara.submissao where idtrabalho=?";
 		try{
-			List<Submissao> submissoes = new ArrayList<Submissao>();
+			List<Usuario> autores = new ArrayList<Usuario>();
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
-			DAOUsuario usuarioController = new DAOUsuario();
+			DAOUsuario daoUsuario = new DAOUsuario();
 
 			while(rs.next()){
-
-				Submissao submissao= new Submissao();
-				submissao.setAutor(usuarioController.getUsuario(rs.getString("cpfautor")));
-				submissao.setTrabalho(new DAOTrabalho().getTrabalho(rs.getInt("idtrabalho")));
-				submissoes.add(submissao);
+				Usuario autor= new Usuario();
+				autor = daoUsuario.getUsuario(rs.getString("cpfautor"));				
+				autores.add(autor);
 			}
 
 			rs.close();
 			stmt.close();
 			this.connection.close();
-			return submissoes;
+			return autores;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
@@ -162,5 +161,31 @@ public class DAOSubmissao {
 			throw new RuntimeException(e);
 		}
 
+	}
+	public List<Submissao> readByAutor(String idAutor){
+		
+		this.connection = new ConnectionFactory().getConnection();
+		String sql = "select * from sara.submissao where cpfautor = ?";
+
+		try{
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			stmt.setString(1, idAutor);			
+			ResultSet rs = stmt.executeQuery();
+			ArrayList<Submissao> submissoes = new ArrayList<Submissao>();
+			DAOUsuario daoUsuario = new DAOUsuario();
+			DAOTrabalho daoTrabalho =new DAOTrabalho();
+			Submissao submissao = new Submissao();
+			submissao.setAutor(daoUsuario.getUsuario(idAutor));
+			while(rs.next()){				
+				submissao.setTrabalho(daoTrabalho.getTrabalho(rs.getInt("idtrabalho")));
+				submissoes.add(submissao);
+			}
+			rs.close();
+			stmt.close();
+			this.connection.close();
+			return submissoes;
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}
 	}
 }

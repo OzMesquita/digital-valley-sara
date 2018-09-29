@@ -51,7 +51,7 @@ public class SalvarArquivo extends HttpServlet {
 		trabalho.setPalavrasChaves(request.getParameter("palavras_chave"));
 		trabalho.setResumo(request.getParameter("resumo"));
 		trabalho.setStatus(StatusTrabalho.ENVIADO);
-		//Aqui ele está pegando a lista de Autores do trabalho
+		//Aqui ele estï¿½ pegando a lista de Autores do trabalho
 		ArrayList <br.com.n2s.sara.model.Usuario> autores = new ArrayList();
 			String [] nomesAutores = request.getParameterValues("nomeAutor");
 			String [] emailAutores = request.getParameterValues("emailAutor");
@@ -70,18 +70,18 @@ public class SalvarArquivo extends HttpServlet {
 			}			
 		}
 		trabalho.setAutores(autores);
-		//Aqui está tratando do arquivo
-		File dir = new File(util.Constantes.getArticlesDir()+nomeEvento.getNome()+File.separator+nomeTrilha.getNome()+File.separator);
+		//Aqui estï¿½ tratando do arquivo
+		File dir = new File(util.Constantes.getArticlesDir()+File.separator+nomeEvento.getNome()+File.separator+nomeTrilha.getNome()+File.separator);
 		if( !dir.isDirectory() ){
 	        dir.mkdirs();
 	    }
 		
 	    for(Part part: request.getParts()){    	           	
 	        
-	        //Isso é só para pegar a data/hora de maneira interessante
+	        //Isso Ã© para pegar a data/hora de maneira interessante
 	    	Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Brazil/East"));
 	    	int ano = calendar.get(Calendar.YEAR);
-	    	int mes = calendar.get(Calendar.MONTH); // O mês vai de 0 a 11.
+	    	int mes = calendar.get(Calendar.MONTH); // O mï¿½s vai de 0 a 11.
 	    	int dia = calendar.get(Calendar.DAY_OF_MONTH);
 	    	int hora = calendar.get(Calendar.HOUR_OF_DAY);
 	    	int minuto = calendar.get(Calendar.MINUTE);

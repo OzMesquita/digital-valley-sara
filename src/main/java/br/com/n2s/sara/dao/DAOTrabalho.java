@@ -105,7 +105,7 @@ public class DAOTrabalho {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	public Trabalho getTrabalho(int idTrabalho){
 		
 		this.connection = new ConnectionFactory().getConnection();
@@ -116,9 +116,7 @@ public class DAOTrabalho {
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
 			DAOTrilha daoTrilha = new DAOTrilha();
-			
-			/*if(rs.next()){         Espera visualizar apenas de 1 trabalho*/
-
+			if(rs.next()) {	
 				Trabalho trabalho = new Trabalho();
 				trabalho.setIdTrabalho(rs.getInt("idTrabalho"));
 				trabalho.setTitulo(rs.getString("titulo"));
@@ -127,18 +125,17 @@ public class DAOTrabalho {
 				trabalho.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
 				trabalho.setEndereco(rs.getString("endereco"));
 				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));				
+				rs.close();
+				stmt.close();
 				ArrayList <Usuario> autores = pegarUsuarios(trabalho);
 				trabalho.setAutor(autores.get(0));
 				autores.remove(0);
 				trabalho.setAutores(autores);
-				rs.close();
-				stmt.close();
 				this.connection.close();
 				return trabalho;
-				
-			
-				/* n�o tem resposta do if			}else{
-				return null;*/
+			}else {
+				return null;
+			}
 		}	
 		catch(SQLException e){
 			throw new RuntimeException(e);
@@ -235,10 +232,7 @@ public class DAOTrabalho {
 	private ArrayList<Usuario> pegarUsuarios(Trabalho t){
 		ArrayList<Usuario> autores = new ArrayList<Usuario>();
 		DAOSubmissao daoSubmissao = new DAOSubmissao();
-		ArrayList <Submissao> submissoes = (ArrayList<Submissao>) daoSubmissao.readByTrabalho(t.getIdTrabalho());
-		for (Submissao sub : submissoes) {
-			autores.add(sub.getAutor());
-		}
+		autores = (ArrayList<Usuario>) daoSubmissao.getAutores(t.getIdTrabalho());	
 		return autores;
 	}
 

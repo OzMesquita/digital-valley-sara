@@ -2,7 +2,6 @@
 <%@page import="java.util.List"%>
 <%-- <%@page import="br.com.n2s.sara.controller.TrilhaController"%> --%>
 <%@page import="br.com.n2s.sara.dao.*"%>
-<%@page import="br.com.n2s.sara.controller.*"%>
 <%@page import="br.com.n2s.sara.model.*" %>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -173,14 +172,30 @@
                           </header>
                           
                           <table class="table table-striped table-advance table-hover">
+                          <%DAOSubmissao daoSubmissao = new DAOSubmissao();
+                          ArrayList<Submissao> submissoes = (ArrayList<Submissao>) daoSubmissao.readByAutor(usuario.getCpf());                         
+                          %>
+                          
                            <tbody>
                               <tr>                               
                                  <th><i class="icon_documents_alt"></i> Evento</th>
+                                 <th><i class="icon_documents_alt"></i> Trilha</th>
+                                 <th><i class="icon_documents_alt"></i> Título</th>
                                  <th><i class="icon_pin"></i> Status</th>
                                  <th><i class="icon_cogs"></i> Ação</th>
                               </tr>
-                              
-                                 
+                              <%
+                              for (Submissao s : submissoes){
+                            	  if(s.getTrabalho()!=null){
+                              %>
+                              <tr>
+                              	<td><%=s.getTrabalho().getTrilha().getEvento().getNome()%></td>
+                              	<td><%=s.getTrabalho().getTrilha().getNome() %></td>
+                              	<td><%=s.getTrabalho().getTitulo() %></td>
+                              	<td><%=s.getTrabalho().getStatus().toString()%></td>
+                              	
+                              </tr>
+                              <%}} %>                                 
                            </tbody>
                         </table>
                       </section>
