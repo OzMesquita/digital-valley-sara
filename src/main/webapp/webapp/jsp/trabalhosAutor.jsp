@@ -18,7 +18,7 @@
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>Sistema HelpDesk</title>
+    <title>SARAk</title>
 
     <!-- Bootstrap CSS -->    
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -108,7 +108,7 @@
 			<div id="sidebar" class="nav-collapse ">
 				<!-- sidebar menu start-->
 				<ul class="sidebar-menu">
-					<li class="active"><a class="" href="indexCliente.jsp"> <i
+					<li class="active"><a class="" href="indexAutor.jsp"> <i
 							class="icon_house_alt"></i> <span>Home</span>
 					</a>
 					
