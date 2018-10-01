@@ -148,7 +148,7 @@ public class DAOSubmissao {
 	public void delete(Submissao submissao){
 		
 		this.connection = new ConnectionFactory().getConnection();
-		String sql = "delete from sara.Usuario where idtrabalho = ?";
+		String sql = "delete from sara.Submissao where idtrabalho = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -165,7 +165,7 @@ public class DAOSubmissao {
 	public void delete(int idTrabalho){
 		
 		this.connection = new ConnectionFactory().getConnection();
-		String sql = "delete from sara.Usuario where idtrabalho = ?";
+		String sql = "delete from sara.Submissao where idtrabalho = ?";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -179,7 +179,7 @@ public class DAOSubmissao {
 		}
 
 	}
-	public List<Submissao> readByAutor(String idAutor){
+	public List<Trabalho> readByAutor(String idAutor){
 		
 		this.connection = new ConnectionFactory().getConnection();
 		String sql = "select * from sara.submissao where cpfautor = ?";
@@ -188,14 +188,11 @@ public class DAOSubmissao {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setString(1, idAutor);			
 			ResultSet rs = stmt.executeQuery();
-			ArrayList<Submissao> submissoes = new ArrayList<Submissao>();
-			DAOUsuario daoUsuario = new DAOUsuario();
-			DAOTrabalho daoTrabalho =new DAOTrabalho();
-			Submissao submissao = new Submissao();
-			submissao.setAutor(daoUsuario.getUsuario(idAutor));
-			while(rs.next()){				
-				submissao.setTrabalho(daoTrabalho.getTrabalho(rs.getInt("idtrabalho")));
-				submissoes.add(submissao);
+			ArrayList<Trabalho> submissoes = new ArrayList<Trabalho>();
+			Trabalho trabalho = new Trabalho();
+			while(rs.next()){
+				trabalho = new DAOTrabalho().getTrabalho(rs.getInt("idtrabalho")); 
+				submissoes.add(trabalho);
 			}
 			rs.close();
 			stmt.close();
