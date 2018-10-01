@@ -193,8 +193,14 @@
                               	<td><%=s.getTrabalho().getTrilha().getNome() %></td>
                               	<td><%=s.getTrabalho().getTitulo() %></td>
                               	<td><%=s.getTrabalho().getStatus().toString()%></td>
-                              	
-                              </tr>
+                              	<td>
+                              		<form action="paginaDeSubmissao.jsp" method="post" onsubmit="return confirm('Deseja substituir este trabalho? Esta ação irá deletar todas as informações referente a atual submissão.');"> 
+                   						<input type="hidden" value="<%= s.getTrabalho().getTrilha().getIdTrilha()%>" name="idTrilha">
+                   						<input type="hidden" value="<%= s.getTrabalho().getTrilha().getEvento().getIdEvento()%>" name="idEvento"> 
+                   						<input type="hidden" value="<%= s.getTrabalho().getIdTrabalho()%>" name="idTrabalho">  
+                  						<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i>Substituir</button>
+               					 	</form> 
+                              	</tr>
                               <%}} %>                                 
                            </tbody>
                         </table>
