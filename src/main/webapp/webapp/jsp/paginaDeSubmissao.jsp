@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.dao.DAOEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="br.com.n2s.sara.model.*" %>
@@ -62,10 +63,14 @@
         	evento = (Evento) session.getAttribute("evento");
         }else {
         	DAOTrilha daoTrilha = new DAOTrilha();
+        	DAOEvento daoEvento = new DAOEvento();
         	int idTrilha = Integer.parseInt(request.getParameter("idTrilha"));
         	trilha = daoTrilha.getTrilha(idTrilha);
+        /* 	int idEvento = Integer.parseInt( request.getParameter("idEvento") );
+        	evento = daoEvento.getEvento(idEvento); */
         }
         session.setAttribute("trilha", trilha);
+/*         session.setAttribute("evento", evento); */
         
     %>
       
@@ -185,8 +190,14 @@
 									            <p><input type="text" name="titulo" size="80"></p>
 									            <p>Resumo:</p> 
 									            <p><textarea name="resumo" cols="80" rows="15" maxlength="1000"></textarea> </p>
-									            <p>Palavras-chave: (Separe por vírgula)</p>
+									            <p>Palavras-chave: (Separe como ponto e vírgula)</p>
 									            <p><input type="text" name="palavras_chave" size="80"></p>
+									            
+									            <p>Autor Principal</p>
+									            Nome: <input type="text" value="<%=usuario.getNome()%>" disabled="disabled" name="Autor" />
+												Email: <input type="text" value="<%=usuario.getEmail() %>" name="autor" disabled="disabled"/>
+												CPF: <input type="text" name="cpfAutor" value="<%=usuario.getCpf()%>" disabled="disabled">
+												<br/>
 									            <div id="divAutorBase" style="display:none;">
 														Nome: <input type="text" name="nomeAutor" />
 														Email: <input type="text" name="emailAutor" />
@@ -195,8 +206,9 @@
 												</div>
 											    <div id="divAutorList">
 											    </div>
-											    <input type="button" value="Adicionar Autor" onclick="autorList.insert()" />
+											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />
 						     					<br/>
+						     					<%-- <input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho"> --%>
 						     					<br/>
 								         		<input type="file" name="trabalho">
 								         		<br/>

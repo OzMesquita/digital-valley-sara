@@ -162,6 +162,23 @@ public class DAOSubmissao {
 		}
 
 	}
+	public void delete(int idTrabalho){
+		
+		this.connection = new ConnectionFactory().getConnection();
+		String sql = "delete from sara.Usuario where idtrabalho = ?";
+
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, idTrabalho);
+			stmt.execute();
+			stmt.close();
+			this.connection.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
 	public List<Submissao> readByAutor(String idAutor){
 		
 		this.connection = new ConnectionFactory().getConnection();

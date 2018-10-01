@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.n2s.sara.dao.DAOSubmissao;
 import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
@@ -31,8 +32,8 @@ import br.com.n2s.sara.util.Facade;
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024, // 1MB
-        maxFileSize = 1024 * 1024 * 4,   // 4MB
-        maxRequestSize = 1024 * 1024 * 4 // 4MB
+        maxFileSize = 1024 * 1024 * 10,   // 10MB
+        maxRequestSize = 1024 * 1024 * 10 // 10MB
         )
 public class SalvarArquivo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -97,6 +98,15 @@ public class SalvarArquivo extends HttpServlet {
         DAOTrabalho daoTrabalho = new DAOTrabalho();
         trabalho.setIdTrabalho(daoTrabalho.create(trabalho));      
         Facade.EnviarEmail(trabalho);
+        
+        // Essas linhas só serão executadas caso aja alguma substituição
+        String idSubstituir = request.getParameter("idTrabalho");
+        if(idSubstituir != null) {
+        	daoTrabalho.delete(Integer.parseInt(idSubstituir));
+        	new DAOSubmissao().delete(Integer.parseInt(idSubstituir));
+        }
+        
+        
         response.sendRedirect("indexAutor.jsp");
 	    
 
