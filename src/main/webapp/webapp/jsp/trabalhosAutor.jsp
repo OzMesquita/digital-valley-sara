@@ -198,7 +198,8 @@
                    						<input type="hidden" value="<%= t.getTrilha().getEvento().getIdEvento()%>" name="idEvento"> 
                    						<input type="hidden" value="<%= t.getIdTrabalho()%>" name="idTrabalho">  
                   						<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i>Substituir</button>
-               					 	</form> 
+               					 	</form>
+               					 <	 
                               	</tr>
                               <%}} %>                                 
                            </tbody>

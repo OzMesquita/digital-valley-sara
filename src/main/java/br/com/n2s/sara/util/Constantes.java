@@ -20,7 +20,7 @@ public class Constantes {
 		DATABASE_CONF_DIR = dotEnv.get("DATABASE_CONF_DIR");
 		EMAIL_CONF_DIR = dotEnv.get("EMAIL_CONF_DIR");
 		ARTICLES_DIR = dotEnv.get("ARTICLE_SARA_DIR");
-		APP_GUARDIAO_URL = dotEnv.get(APP_GUARDIAO_URL);
+		APP_GUARDIAO_URL = dotEnv.get("APP_GUARDIAO_URL");
 	}
 
 	public static String getEMAIL_CONF_DIR() {
