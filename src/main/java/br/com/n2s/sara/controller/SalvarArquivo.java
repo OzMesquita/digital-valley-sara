@@ -60,8 +60,9 @@ public class SalvarArquivo extends HttpServlet {
 		if (nomesAutores != null && emailAutores != null && cpfAutores != null) {
 			Usuario autor= new Usuario();
 			for (int i=0;i<nomesAutores.length;i++) {
-				if ( nomesAutores[i]=="" || cpfAutores[i]=="" || emailAutores[i]=="" )
+				if ( nomesAutores[i].isEmpty() || cpfAutores[i].isEmpty() || emailAutores[i].isEmpty() ) {
 					continue;
+				}
 				autor.setNome(nomesAutores[i]);
 				autor.setCpf(cpfAutores[i]);
 				autor.setEmail(emailAutores[i]);
@@ -100,10 +101,15 @@ public class SalvarArquivo extends HttpServlet {
         Facade.EnviarEmail(trabalho);
         
         // Essas linhas só serão executadas caso aja alguma substituição
-        String idSubstituir = request.getParameter("idTrabalho");
-        if(idSubstituir != null) {
-        	daoTrabalho.delete(Integer.parseInt(idSubstituir));
-        	new DAOSubmissao().delete(Integer.parseInt(idSubstituir));
+        
+        if(request.getParameter("idTrabalho") != null) {
+        	int idTrabalho = Integer.parseInt(request.getParameter("idTrabalho"));
+        	Trabalho tAntigo = daoTrabalho.getTrabalho(idTrabalho); 
+        	File arquivo = new File(tAntigo.getEndereco());
+        	arquivo.delete();
+        	new DAOSubmissao().delete(idTrabalho);
+        	daoTrabalho.delete(idTrabalho);
+        	
         }
         
         

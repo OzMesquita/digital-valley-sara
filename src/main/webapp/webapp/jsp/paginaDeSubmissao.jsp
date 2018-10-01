@@ -63,14 +63,16 @@
         	evento = (Evento) session.getAttribute("evento");
         }else {
         	DAOTrilha daoTrilha = new DAOTrilha();
-        	DAOEvento daoEvento = new DAOEvento();
         	int idTrilha = Integer.parseInt(request.getParameter("idTrilha"));
         	trilha = daoTrilha.getTrilha(idTrilha);
-        /* 	int idEvento = Integer.parseInt( request.getParameter("idEvento") );
-        	evento = daoEvento.getEvento(idEvento); */
+        	 if(request.getParameter("idEvento") != null){
+	         	int idEvento = Integer.parseInt( request.getParameter("idEvento") );
+	         	DAOEvento daoEvento = new DAOEvento();
+	        	evento = daoEvento.getEvento(idEvento);
+	        	session.setAttribute("evento", evento);
+	        }  
         }
         session.setAttribute("trilha", trilha);
-/*         session.setAttribute("evento", evento); */
         
     %>
       
@@ -194,9 +196,9 @@
 									            <p><input type="text" name="palavras_chave" size="80"></p>
 									            
 									            <p>Autor Principal</p>
-									            Nome: <input type="text" value="<%=usuario.getNome()%>" disabled="disabled" name="Autor" />
+									            Nome: <input type="text" value="<%=usuario.getNome()%>" disabled="disabled" name="autor" />
 												Email: <input type="text" value="<%=usuario.getEmail() %>" name="autor" disabled="disabled"/>
-												CPF: <input type="text" name="cpfAutor" value="<%=usuario.getCpf()%>" disabled="disabled">
+												CPF: <input type="text" name="autor" value="<%=usuario.getCpf()%>" disabled="disabled">
 												<br/>
 									            <div id="divAutorBase" style="display:none;">
 														Nome: <input type="text" name="nomeAutor" />
@@ -208,9 +210,11 @@
 											    </div>
 											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />
 						     					<br/>
-						     					<%-- <input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho"> --%>
+						     					<%if (request.getParameter("idTrabalho") != null){%>
+						     					<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
+						     					<%}%>
 						     					<br/>
-								         		<input type="file" name="trabalho">
+								         		<input type="file" required="required" name="trabalho">
 								         		<br/>
 								          		<input type="submit" value="Enviar">
 								        	</form>
