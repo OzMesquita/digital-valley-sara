@@ -3,6 +3,7 @@
 <%@page import="br.com.n2s.sara.model.Periodo"%>
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.model.Trilha"%>
+<%@page import="br.com.n2s.sara.util.Constantes"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -87,7 +88,7 @@
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li>
-                                <a href="sairConta.jsp"><i class="icon_key_alt"></i> Sair</a>
+                                <a id="sair" href="<%=Constantes.getAppGuardiaoUrl()%>/logout">Sair</a>
                             </li>
                         </ul>
                     </li>

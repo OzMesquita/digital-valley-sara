@@ -6,6 +6,7 @@
 <%@page import="br.com.n2s.sara.model.Criterio"%>
 <%@page import="br.com.n2s.sara.model.Item"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
+<%@page import="br.com.n2s.sara.util.Constantes"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,7 +97,7 @@
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li>
-                                <a href="sairConta.jsp"><i class="icon_key_alt"></i> Sair</a>
+                                <a id="sair" href="<%=Constantes.getAppGuardiaoUrl()%>/logout">Sair</a>
                             </li>
                         </ul>
                     </li>

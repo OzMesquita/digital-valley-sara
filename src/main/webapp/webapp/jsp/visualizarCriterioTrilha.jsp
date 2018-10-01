@@ -4,6 +4,7 @@
 <%@page import="br.com.n2s.sara.model.Criterio"%>
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.model.CriterioTrilha"%>
+<%@page import="br.com.n2s.sara.util.Constantes"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -93,7 +94,7 @@
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li>
-                                <a href="sairConta.jsp"><i class="icon_key_alt"></i> Sair</a>
+                                <a id="sair" href="<%=Constantes.getAppGuardiaoUrl()%>/logout">Sair</a>
                             </li>
                         </ul>
                     </li>
