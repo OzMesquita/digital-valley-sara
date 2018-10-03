@@ -188,7 +188,7 @@
 				                    </tr>
 				                   	<tr>
 				                    	<td>
-									        <form action="SalvarArquivo" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
+									        <form action="SalvarArquivo" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
 									            <p>Título: </p>
 									            <p><input type="text" name="titulo" size="80"></p>
 									            <p>Resumo:</p> 
@@ -215,7 +215,7 @@
 						     					<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
 						     					<%}%>
 						     					<br/>
-								         		<input type="file" id="file_Input" required="required" name="trabalho">
+								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
 								         		<br/>
 								          		<input type="submit" value="Enviar">
 								        	</form>
@@ -235,7 +235,7 @@
     <!-- javascripts -->
     
     <!-- verificação do arquivo -->
-    <script>
+    <script>	
     function tamanho (){
     	var tamanhoArquivo = parseInt(document.getElementById("file_Input").files[0].size);
       	if(tamanhoArquivo > 5242880 ){
