@@ -95,7 +95,7 @@ public class Facade {
 					msg = "Prezado "+u.getNome() +",\r\n" + 
 							"\r\n" + 
 							"\r\n" + 
-							"Seu trabalho "+ t.getTitulo() +" para o evento "+t.getTrilha().getEvento().getNome()+" foi submetido com sucesso na trilha"+t.getTrilha().getNome()+".\r\n" + 
+							"Seu trabalho "+ t.getTitulo() +" para o evento "+t.getTrilha().getEvento().getNome()+" foi submetido com sucesso na trilha "+t.getTrilha().getNome()+".\r\n" + 
 							"Agradecemos a sua participação!\r\n" + 
 							"\r\n" + 
 							"E-mail automático, não responda.\r\n" + 

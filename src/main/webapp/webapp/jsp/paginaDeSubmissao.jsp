@@ -188,7 +188,7 @@
 				                    </tr>
 				                   	<tr>
 				                    	<td>
-									        <form action="SalvarArquivo" method="post" enctype="multipart/form-data">
+									        <form action="SalvarArquivo" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
 									            <p>Título: </p>
 									            <p><input type="text" name="titulo" size="80"></p>
 									            <p>Resumo:</p> 
@@ -215,7 +215,7 @@
 						     					<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
 						     					<%}%>
 						     					<br/>
-								         		<input type="file" required="required" name="trabalho">
+								         		<input type="file" id="file_Input" required="required" name="trabalho">
 								         		<br/>
 								          		<input type="submit" value="Enviar">
 								        	</form>
@@ -233,6 +233,50 @@
   <!-- container section start -->
     
     <!-- javascripts -->
+    
+    <!-- verificação do arquivo -->
+    <script>
+    function tamanho (){
+    	var tamanhoArquivo = parseInt(document.getElementById("file_Input").files[0].size);
+      	if(tamanhoArquivo > 5242880 ){
+      			 alert("TAMANHO DO ARQUIVO EXCEDE O PERMITIDO (5MB)!");
+                document.getElementById('form').reset();
+            }
+    };
+    
+    var _validFileExtensions = [".pdf"];    
+    function Validate(oForm) {
+        var arrInputs = oForm.getElementsByTagName("input");
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions.length; j++) {
+                        var sCurExtension = _validFileExtensions[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!blnValid) {
+                        alert("Desculpe, " + sFileName + " é inválido, as extensões permitidas são: " + _validFileExtensions.join(", "));
+                        return false;
+                    }
+                }
+            }
+        }
+      
+        return true;
+    }
+    
+    </script>
+    
+    
+    
+    
     <script src="../js/jquery.js"></script>
 	<script src="../js/jquery-ui-1.10.4.min.js"></script>
     <script src="../js/jquery-1.8.3.min.js"></script>
@@ -296,6 +340,7 @@
 		};
 	autorList.init();
 	</script>
+	
 	
   <script>
 
