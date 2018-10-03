@@ -19,15 +19,6 @@ import br.com.n2s.sara.model.Usuario;
 import model.Email;
 import util.Constantes;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 
 public class Facade {
@@ -104,7 +95,7 @@ public class Facade {
 					msg = "Prezado "+u.getNome() +",\r\n" + 
 							"\r\n" + 
 							"\r\n" + 
-							"Seu trabalho "+ t.getTitulo() +" para o evento "+t.getTrilha().getEvento().getNome()+" foi submetido com sucesso na "+t.getTrilha().getNome()+".\r\n" + 
+							"Seu trabalho "+ t.getTitulo() +" para o evento "+t.getTrilha().getEvento().getNome()+" foi submetido com sucesso na trilha"+t.getTrilha().getNome()+".\r\n" + 
 							"Agradecemos a sua participação!\r\n" + 
 							"\r\n" + 
 							"E-mail automático, não responda.\r\n" + 
@@ -112,7 +103,7 @@ public class Facade {
 							"Sistema SARA -  Submissão Avaliação e Revisão de Artigos\r\n" + 
 							"Por: Núcleo de Soluções em Software - N2S\r\n" + 
 							"\r\n" + 
-							"(logo do Sara e do N2S)";
+							"Núcleo de Solução em Software- N2S";
 					e.sendEmail("Submissão de trabalho - SARA- Submissão, Avaliação e Revisão de Artigos", msg, u.getEmail(), u.getNome());
 				}
 			}
