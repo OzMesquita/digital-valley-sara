@@ -17,6 +17,7 @@ import dao.UsuarioDAO;
 import model.Pessoa;
 import model.Usuario;
 import dao.DAOFactory;
+import util.Constantes;
 import util.Facade;
 
 public class AutenticadoFiltro implements Filter {
@@ -57,14 +58,14 @@ public class AutenticadoFiltro implements Filter {
 				}else {
 					HttpServletRequest rq = (HttpServletRequest) request;
 					session.setAttribute("URL", rq.getRequestURL());
-					((HttpServletResponse) response).sendRedirect("/Controle_de_Acesso/");
+					((HttpServletResponse) response).sendRedirect(Constantes.getAppGuardiaoUrl() + "/");
 				}
 			}else if(session.getAttribute("usuarioSara") != null && ((br.com.n2s.sara.model.Usuario)session.getAttribute("usuarioSara")).getCpf().equals(((Usuario)session.getAttribute("usuario")).getPessoa().getCpf()) &&
 					session.getAttribute("usuario")!= null && DAOFactory.criarUsuarioDAO().buscarTokenTemp(((Usuario)session.getAttribute("usuario")).getPessoa().getId())!=null &&
 					((Usuario)session.getAttribute("usuario")).getTokenUsuario().equals(DAOFactory.criarUsuarioDAO().buscarTokenTemp(((Usuario)session.getAttribute("usuario")).getPessoa().getId()))){
 				chain.doFilter(request, response);
 			}else {
-				((HttpServletResponse) response).sendRedirect("/Controle_de_Acesso/");
+				((HttpServletResponse) response).sendRedirect(Constantes.getAppGuardiaoUrl() + "/");
 			}
 		}				
 	}
