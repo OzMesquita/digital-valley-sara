@@ -2,6 +2,7 @@ package br.com.n2s.sara.util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -17,6 +18,16 @@ import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
 import model.Email;
 import util.Constantes;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 
 public class Facade {
@@ -86,12 +97,27 @@ public class Facade {
 	public static void EnviarEmail(Trabalho t) {
 		if(t != null) {
 			String msg = "";
-			msg = "Este é um email Teste por favor desconsidere";
-			String email = "bolodecenoura@alu.ufc.br";
+			t.getAutores().add(t.getAutor());
 			Email e = new Email();
-			e.sendEmail("Teste", msg, t.getAutor().getEmail(), t.getAutor().getNome());
+			if (!t.getAutores().isEmpty()) {
+				for (Usuario u : t.getAutores()){
+					msg = "Prezado "+u.getNome() +",\r\n" + 
+							"\r\n" + 
+							"\r\n" + 
+							"Seu trabalho "+ t.getTitulo() +" para o evento "+t.getTrilha().getEvento().getNome()+" foi submetido com sucesso na "+t.getTrilha().getNome()+".\r\n" + 
+							"Agradecemos a sua participação!\r\n" + 
+							"\r\n" + 
+							"E-mail automático, não responda.\r\n" + 
+							"\r\n" + 
+							"Sistema SARA -  Submissão Avaliação e Revisão de Artigos\r\n" + 
+							"Por: Núcleo de Soluções em Software - N2S\r\n" + 
+							"\r\n" + 
+							"(logo do Sara e do N2S)";
+					e.sendEmail("Submissão de trabalho - SARA- Submissão, Avaliação e Revisão de Artigos", msg, u.getEmail(), u.getNome());
+				}
+			}
 		}
 		
 	}
-	
+
 }
