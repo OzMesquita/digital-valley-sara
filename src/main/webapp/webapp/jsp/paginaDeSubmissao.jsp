@@ -204,15 +204,15 @@
 									            <p>Autor Principal</p>
 									            Nome: <input type="text" value="<%=usuario.getNome()%>" disabled="disabled" name="autor" />
 												Email: <input type="text" value="<%=usuario.getEmail() %>" name="autor" disabled="disabled"/>
-												CPF: <input type="text" id="cpf" name="cpf" size="14" value="<%=usuario.getCpf()%>" pattern="([0-9]{14})" disabled="disabled">
+												CPF: <input type="text" id="cpf" name="cpf" size="14" value="<%=usuario.getCpf()%>" disabled="disabled">
 												<br/>
 									            <div id="divAutorBase" style="display:none;">
-														Nome: <input type="text" name="nomeAutor" required/>
-														Email: <input type="text" name="emailAutor" required />
-														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)"  required name="cpfAutor">
+														Nome: <input type="text" name="nomeAutor" />
+														Email: <input type="text" name="emailAutor"  />
+														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)"  name="cpfAutor">
 														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
 												</div>
-											    <div id="divAutorList" onLoad="validacao();" onChange="validacao();">
+											    <div id="divAutorList" >
 											    </div>
 											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />
 						     					<br/>
@@ -220,7 +220,8 @@
 						     					<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
 						     					<%}%>
 						     					<br/>
-								         		<input type="file" id="file_Input" name="Anexar Trabalho" required="required" onChange="tamanho();" name="trabalho">
+											<label>Anexar Trabalho</label>
+								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
 								         		<br/>
 								          		<input type="submit" value="Enviar">
 								        	</form>
