@@ -47,6 +47,11 @@
     ======================================================= -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+	<script type="text/javascript" src="../js/jquery.maskedinput.js"></script>
+    <script type="text/javascript" src="../js/jquery-validate.js"></script>
+    <script type="text/javascript" src="../js/jquery.mask.min.js"></script>
+	<script src="../js/validacao.js" type="text/javascript"></script>
 </head>
     <body>
     
@@ -199,15 +204,15 @@
 									            <p>Autor Principal</p>
 									            Nome: <input type="text" value="<%=usuario.getNome()%>" disabled="disabled" name="autor" />
 												Email: <input type="text" value="<%=usuario.getEmail() %>" name="autor" disabled="disabled"/>
-												CPF: <input type="text" name="autor" value="<%=usuario.getCpf()%>" disabled="disabled">
+												CPF: <input type="text" id="cpf" name="cpf" size="14" value="<%=usuario.getCpf()%>" pattern="([0-9]{14})" disabled="disabled">
 												<br/>
 									            <div id="divAutorBase" style="display:none;">
-														Nome: <input type="text" name="nomeAutor" />
-														Email: <input type="text" name="emailAutor" />
-														CPF: <input type="text" name="cpfAutor">
+														Nome: <input type="text" name="nomeAutor" required/>
+														Email: <input type="text" name="emailAutor" required />
+														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)"  required name="cpfAutor">
 														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
 												</div>
-											    <div id="divAutorList">
+											    <div id="divAutorList" onLoad="validacao();" onChange="validacao();">
 											    </div>
 											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />
 						     					<br/>
@@ -215,7 +220,7 @@
 						     					<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
 						     					<%}%>
 						     					<br/>
-								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
+								         		<input type="file" id="file_Input" name="Anexar Trabalho" required="required" onChange="tamanho();" name="trabalho">
 								         		<br/>
 								          		<input type="submit" value="Enviar">
 								        	</form>
@@ -271,13 +276,26 @@
       
         return true;
     }
+    function Cpf(v){
+
+    	v=v.replace(/\D/g,"")
+
+    	v=v.replace(/(\d{3})(\d)/,"$1.$2")
+
+    	v=v.replace(/(\d{3})(\d)/,"$1.$2")
+
+
+
+    	v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+
+    	return v
+
+    	}
+    
     
     </script>
     
-    
-    
-    
-    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery.js"></script> 
 	<script src="../js/jquery-ui-1.10.4.min.js"></script>
     <script src="../js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="../js/jquery-ui-1.9.2.custom.min.js"></script>

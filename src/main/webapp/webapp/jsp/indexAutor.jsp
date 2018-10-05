@@ -3,6 +3,7 @@
 <%@page import="br.com.n2s.sara.controller.*"%>
 <%@page import="br.com.n2s.sara.model.*" %>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.time.format.DateTimeFormatter" %>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -185,12 +186,13 @@
                               	List<Evento> eventos = daoEvento.read();
                                 
                               	 
-                              	 for(Evento evento : eventos){ %>
+                              	 for(Evento evento : eventos){ 
+                              	 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");%>
                                       
                                       <tr>
                                          <td><%= evento.getNome() %> </td>
                    						 <td><%= evento.getLocalizacao()%> </td>
-                                         <td><%= evento.getDataInicial() %> </td>
+                                         <td><%= formatter.format(evento.getDataInicial()) %> </td>
                                          <td><form action="paginaDeEventos.jsp" method="post"> 
                            					<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento"> 
                           					<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>

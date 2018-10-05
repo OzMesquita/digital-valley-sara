@@ -6,6 +6,7 @@
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.Date" %>
 <%@page import="java.time.LocalDate" %>
+<%@page import="java.time.format.DateTimeFormatter" %>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -204,13 +205,14 @@
                                      if (atual==null ||atual.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL)){
                                     	 periodoSubmissao = "Fora do prazo";
                                    	 }else if(atual.getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL) || atual.getDescricao().equals(DescricaoPeriodo.SUBMISSAO_MANUSCRITO)){
-                                    	 periodoSubmissao = atual.getDataInicial()+" a " + atual.getDataFinal();
+                                   		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");                                 
+                                   		 periodoSubmissao = formatter.format(atual.getDataInicial()) +" a " + formatter.format(atual.getDataFinal());
                                     	}else if(atual.getDescricao().equals(DescricaoPeriodo.AVALIACAO)){
                                     	 	periodoSubmissao = "Em Avaliação";
                                     	 }
                                      	
                                      %>                                                                        
-                                     <td><%=periodoSubmissao%></td>
+                                     <td ><%=periodoSubmissao%></td>
                                      <td>
                                      	<%if( atual!=null && (DescricaoPeriodo.SUBMISSAO_MANUSCRITO.equals(atual.getDescricao()) || DescricaoPeriodo.SUBMISSAO_FINAL.equals(atual.getDescricao())) && Facade.dataValida(atual) ) {%>
                                      	 <form action="paginaDeSubmissao.jsp" method="post"> 
@@ -275,6 +277,8 @@
 	<script src="../js/sparklines.js"></script>	
 	<script src="../js/charts.js"></script>
 	<script src="../js/jquery.slimscroll.min.js"></script>
+	<script src="../js/jquery.mask.min.js"></script>
+	<script src="../js/validacao.js"></script>
   <script>
 
       //knob
