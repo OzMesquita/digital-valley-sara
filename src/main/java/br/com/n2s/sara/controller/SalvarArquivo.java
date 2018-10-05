@@ -56,7 +56,7 @@ public class SalvarArquivo extends HttpServlet {
 		ArrayList <br.com.n2s.sara.model.Usuario> autores = new ArrayList();
 			String [] nomesAutores = request.getParameterValues("nomeAutor");
 			String [] emailAutores = request.getParameterValues("emailAutor");
-			String [] cpfAutores = removerMascara(request.getParameterValues("cpfAutor"));
+			String [] cpfAutores = request.getParameterValues("cpfAutor").replaceAll("[.-]", "");
 		if (nomesAutores != null && emailAutores != null && cpfAutores != null) {
 			Usuario autor= new Usuario();
 			for (int i=0;i<nomesAutores.length;i++) {
@@ -125,9 +125,6 @@ public class SalvarArquivo extends HttpServlet {
 	        }
 	    }
 	    return null;
-	}
-	public String removerMascara(String str){
-    		return str.replaceAll("[.-]", "");
 	}
 
 }
