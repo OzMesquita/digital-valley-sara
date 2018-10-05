@@ -127,7 +127,7 @@ public class SalvarArquivo extends HttpServlet {
 	    return null;
 	}
 	public String removerMascara(String str){
-    		return str.replaceAll("\\D", "");
+    		return str.replaceAll("[.-]", "");
 	}
 
 }
