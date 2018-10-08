@@ -61,10 +61,13 @@
 	<% 
 		Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
 		
-        Trilha trilha;
-        Evento evento;
-        	
-        if (session.getAttribute("trilha") != null) {
+		DAOEvento daoEvento = new DAOEvento();
+		DAOTrilha daoTrilha = new DAOTrilha();
+        Evento evento = (Evento) session.getAttribute("evento");
+        evento = daoEvento.getEvento(evento.getIdEvento());
+        Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
+        
+       /*  if (session.getAttribute("trilha") != null) {
             trilha = (Trilha) session.getAttribute("trilha");
         	evento = (Evento) session.getAttribute("evento");
         }else {
@@ -78,7 +81,7 @@
 	        	session.setAttribute("evento", evento);
 	        }  
         }
-        session.setAttribute("trilha", trilha);
+        session.setAttribute("trilha", trilha); */
         
     %>
       
