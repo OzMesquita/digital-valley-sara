@@ -47,7 +47,7 @@ public class GerarRelatorio extends HttpServlet {
 		try {
 			//preparou o pdf
 			Document document = new Document();
-			PdfWriter.getInstance(document, new FileOutputStream(Constantes.getARTICLES_DIR()));
+			PdfWriter.getInstance(document, new FileOutputStream(Constantes.getTEMP_DIR()+"relatorio_de_submissoes_"+evento.getNome()));
 			document.open();
 
 			// cabecalho

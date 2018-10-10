@@ -11,6 +11,7 @@ public class Constantes {
 	private static String ARTICLES_DIR;
 	private static String APP_GUARDIAO_URL;
 	private static String LOGO_UFC;
+	private static String TEMP_DIR;
 	private Constantes() {
 		//não deve ter nada aqui
 	}
@@ -22,6 +23,7 @@ public class Constantes {
 		ARTICLES_DIR = dotEnv.get("ARTICLE_SARA_DIR");
 		APP_GUARDIAO_URL = dotEnv.get("APP_GUARDIAO_URL");
 		LOGO_UFC = dotEnv.get("LOGO_UFC");
+		TEMP_DIR = dotEnv.get("TEMP_DIR");
 	}
 
 	public static String getEMAIL_CONF_DIR() {
@@ -39,6 +41,9 @@ public class Constantes {
 	}
 	public static String getLOGO_UFC() {
 		return LOGO_UFC;
+	}
+	public static String getTEMP_DIR() {
+		return TEMP_DIR;
 	}
 
 }
