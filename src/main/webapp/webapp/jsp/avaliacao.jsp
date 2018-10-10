@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.model.StatusTrabalho"%>
 <%@page import="br.com.n2s.sara.dao.DAOAvaliaTrabalho"%>
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
@@ -177,9 +178,11 @@
                                  <th></th>
                               </tr>
                               
-			       		  <%     
+                              
+			       		  <%
+			       		  	
 			       			for(int i = 0; i < trabalhos.size(); i++){
-			                
+			                	if (trabalhos.get(i).getStatus().equals(StatusTrabalho.ENVIADO)){
 			               %>
 			               
 			               <tr>
@@ -200,7 +203,7 @@
 			               </tr>
 			        		 
 							    <% 
-							        }
+							        }}
 							    %>
                            </tbody>
                         </table>

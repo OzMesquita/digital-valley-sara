@@ -4,5 +4,5 @@ public enum StatusTrabalho {
 	ENVIADO,
 	REJEITADO,
 	ACEITO,
-	ACEITO_COM_RESTRICAO
+	ACEITO_COM_RESTRICAO,
 }

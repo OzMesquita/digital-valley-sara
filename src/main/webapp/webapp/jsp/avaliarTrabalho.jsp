@@ -176,12 +176,15 @@
 				                    </tr>
 				                   	<tr>
 				                    	<td>
-									        <form action="SalvarArquivo" method="post" enctype="multipart/form-data">
+									        <form action="SalvarAvaliacao" method="post">
 									           
-									            <p>Feedback:</p> 
-									            <p><textarea name="resumo" cols="80" rows="15" maxlength="1000"></textarea> </p>
-									            <input type="radio" name="situacao" value="aceitar"> Aceitar<br>
-  												<input type="radio" name="situacao" value="rejeitar"> Rejeitar<br>
+									            <p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
+									            <p><textarea name="feedback" cols="80" rows="15" maxlength="5000" required></textarea></p>
+									            <p>Decisão final sobre o trabalho:</p>
+									            <input type="radio" name="status" value="aceitar" required> Aceitar<br>
+  												<input type="radio" name="status" value="rejeitar" required> Rejeitar<br>
+  												<br>
+  												<input type="submit" value="Enviar Avaliação">
 								        	</form>
 				                   		</td>
 				                   </tr>

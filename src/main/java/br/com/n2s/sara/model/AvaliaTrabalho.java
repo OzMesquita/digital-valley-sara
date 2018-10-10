@@ -4,7 +4,21 @@ public class AvaliaTrabalho {
 	
 	private Usuario avaliador;
 	private Trabalho trabalho;
+	private String feedback;
+	private StatusTrabalho status;
 	
+	public String getFeedback() {
+		return feedback;
+	}
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+	public StatusTrabalho getStatus() {
+		return status;
+	}
+	public void setStatus(StatusTrabalho status) {
+		this.status = status;
+	}
 	public Usuario getAvaliador() {
 		return avaliador;
 	}

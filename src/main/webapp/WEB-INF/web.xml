@@ -86,15 +86,17 @@
     <servlet-class>br.com.n2s.sara.controller.SelecionarCriterioTrilha</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>Distribuir</servlet-name>
-  	<servlet-class>br.com.n2s.sara.controller.Distribuir</servlet-class>
+    <servlet-name>Distribuir</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.Distribuir</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>DownloadTrabalho</servlet-name>
-  	<servlet-class>br.com.n2s.sara.controller.DownloadTrabalho</servlet-class>
+    <servlet-name>DownloadTrabalho</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.DownloadTrabalho</servlet-class>
   </servlet>
-
-  
+  <servlet>
+    <servlet-name>SalvarAvaliacao</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.SalvarAvaliacao</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>CadastrarAvaliador</servlet-name>
     <url-pattern>/webapp/jsp/CadastrarAvaliador</url-pattern>
@@ -168,14 +170,17 @@
     <url-pattern>/webapp/jsp/SelecionarCriterioTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>Distribuir</servlet-name>
-  	<url-pattern>/webapp/jsp/Distribuir</url-pattern>
+    <servlet-name>Distribuir</servlet-name>
+    <url-pattern>/webapp/jsp/Distribuir</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>DownloadTrabalho</servlet-name>
-  	<url-pattern>/webapp/jsp/DownloadTrabalho</url-pattern>
+    <servlet-name>DownloadTrabalho</servlet-name>
+    <url-pattern>/webapp/jsp/DownloadTrabalho</url-pattern>
   </servlet-mapping>
-
+  <servlet-mapping>
+    <servlet-name>SalvarAvaliacao</servlet-name>
+    <url-pattern>/webapp/jsp/SalvarAvaliacao</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>FiltroAutenticado</filter-name>
     <filter-class>br.com.n2s.sara.filter.AutenticadoFiltro</filter-class>
