@@ -1,7 +1,11 @@
 package br.com.n2s.sara.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -43,11 +47,11 @@ public class GerarRelatorio extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("evento")));
-		
+		File arquivo = new File(Constantes.getTEMP_DIR()+"relatorio_de_submissoes_"+evento.getNome()+".pdf");
 		try {
 			//preparou o pdf
 			Document document = new Document();
-			PdfWriter.getInstance(document, new FileOutputStream(Constantes.getTEMP_DIR()+"relatorio_de_submissoes_"+evento.getNome()));
+			PdfWriter.getInstance(document, new FileOutputStream(arquivo.getAbsolutePath()));
 			document.open();
 
 			// cabecalho
@@ -120,13 +124,19 @@ public class GerarRelatorio extends HttpServlet {
 		            document.add(table);
 	            
 	            }
-	            Paragraph assAluno = new Paragraph(
-	            		"\n\n(Assinatura(s) do(s) Responsável(is))");
-				assAluno.setAlignment(Paragraph.ALIGN_CENTER);
-				document.add(assAluno);
 				document.close();				
 				
-				System.out.println("tudo certo aqui");
+				Path path = arquivo.toPath();
+		        
+		        String nome = arquivo.getName();
+		        int tamanho = (int) arquivo.length();
+		
+		        response.setContentType(Files.probeContentType(path)); // tipo do conteúdo
+		        response.setContentLength(tamanho);  // opcional
+		        response.setHeader("Content-Disposition", "attachment; filename=\"" + nome + "\"");
+		        OutputStream output = response.getOutputStream();
+		        Files.copy(path, output);
+				
 			} catch (DocumentException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -137,7 +147,7 @@ public class GerarRelatorio extends HttpServlet {
 				// TODO: handle exception
 				System.out.println("ERRO ERRO ERRO");
 			}			
-			
+
 		}		
 	
 
