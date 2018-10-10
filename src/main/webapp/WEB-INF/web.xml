@@ -2,13 +2,11 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.4">
   <display-name>digital-valley-sara</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>/webapp/indexAutor.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>/webapp/jsp/indexAutor.jsp</welcome-file>
   </welcome-file-list>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
   <servlet>
     <servlet-name>CadastrarAvaliador</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.CadastrarAvaliador</servlet-class>
@@ -82,6 +80,10 @@
     <servlet-class>br.com.n2s.sara.controller.AdicionarItemCriterio</servlet-class>
   </servlet>
   <servlet>
+	<servlet-name>SalvarAvaliacao</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.SalvarAvaliacao</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>SelecionarCriterioTrilha</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.SelecionarCriterioTrilha</servlet-class>
   </servlet>
@@ -92,10 +94,6 @@
   <servlet>
     <servlet-name>DownloadTrabalho</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.DownloadTrabalho</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>SalvarAvaliacao</servlet-name>
-    <servlet-class>br.com.n2s.sara.controller.SalvarAvaliacao</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CadastrarAvaliador</servlet-name>
@@ -170,16 +168,32 @@
     <url-pattern>/webapp/jsp/SelecionarCriterioTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+<<<<<<< HEAD
     <servlet-name>Distribuir</servlet-name>
     <url-pattern>/webapp/jsp/Distribuir</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>DownloadTrabalho</servlet-name>
     <url-pattern>/webapp/jsp/DownloadTrabalho</url-pattern>
+||||||| merged common ancestors
+  	<servlet-name>Distribuir</servlet-name>
+  	<url-pattern>/webapp/jsp/Distribuir</url-pattern>
+=======
+    <servlet-name>Distribuir</servlet-name>
+    <url-pattern>/webapp/jsp/Distribuir</url-pattern>
+>>>>>>> 23803377db5ff2dbcb9090f699c3577d95a809cf
   </servlet-mapping>
   <servlet-mapping>
+<<<<<<< HEAD
     <servlet-name>SalvarAvaliacao</servlet-name>
     <url-pattern>/webapp/jsp/SalvarAvaliacao</url-pattern>
+||||||| merged common ancestors
+  	<servlet-name>DownloadTrabalho</servlet-name>
+  	<url-pattern>/webapp/jsp/DownloadTrabalho</url-pattern>
+=======
+    <servlet-name>DownloadTrabalho</servlet-name>
+    <url-pattern>/webapp/jsp/DownloadTrabalho</url-pattern>
+>>>>>>> 23803377db5ff2dbcb9090f699c3577d95a809cf
   </servlet-mapping>
   <filter>
     <filter-name>FiltroAutenticado</filter-name>

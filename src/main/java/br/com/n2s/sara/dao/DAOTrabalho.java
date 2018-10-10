@@ -84,6 +84,7 @@ public class DAOTrabalho {
 				ArrayList autores = (ArrayList) pegarUsuarios(trabalho);
 				trabalho.setAutores( autores );
 				trabalho.setAutor((Usuario) autores.get(0));
+				trabalho.getAutores().remove(0);
 				trabalhos.add(trabalho);
 			}
 
