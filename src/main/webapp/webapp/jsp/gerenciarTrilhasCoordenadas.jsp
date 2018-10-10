@@ -213,7 +213,8 @@
 			        					<input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">
 							            <button class="btn btn-primary" type = "submit">Remover Trilha</button>
 							        </form>
-							    </td>	
+							    </td>
+							   	
 							    <% 
 							        }
 							    %>
@@ -245,6 +246,12 @@
 				    <form action="gerenciarCoordenadoresEvento.jsp" method="post">
 				        <button class="btn btn-primary" type = "submit">Gerenciar Coordenadores do Evento</button>
 				    </form>
+				    <br/>
+				     <form action="GerarRelatorio" method="post" >
+			        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+					    <button class="btn btn-primary" type = "submit">Gerar Relatório</button>
+					</form>
+						 
 		    <%  } %>
 		    </center>
 		

@@ -229,7 +229,7 @@
 								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
 								         		<br/>
 								         		<p style="font-size: 9; color:red;">(*)Campos Obrigatórios</p>
-								          		<input type="submit" value="Enviar">
+								          		<input type="submit" onsubmit="verificacao();" value="Enviar">
 								        	</form>
 				                   		</td>
 				                   </tr>
@@ -239,12 +239,34 @@
                   </div>
               </div>
          </section>
+         
               <!-- page end-->
   </section>
 </section>
   <!-- container section start -->
     
     <!-- javascripts -->
+    
+    <!-- verificação geral -->
+    <script  type="text/javascript">
+    	function verificacao(){
+    		var cpfs = document.getElementById("cpf");
+    		for (var i=0;i <cpfs.length;i++){
+    			for(var j=1+1; j<cpfs; i++){
+    				if(j=i){
+    					break;
+    				}else{
+    					var cpf1 = cpfs[i];
+    					var cpf2 = cpfs[j];
+    					console(cpf1);console(cpf2);
+    					if (cpf1.value == cpf2.value){
+    						alert("ERRO: CPFS REPETIDOS! POR FAVOR VERIFICAR.");
+    					}
+    				}
+    			}
+    		}
+    	}    
+    </script>
     
     <!-- verificação do arquivo -->
     <script>	

@@ -103,7 +103,7 @@ public class DAOEvento {
 
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				this.connection.close();				
 				return evento;
 			}else{
 				return null;

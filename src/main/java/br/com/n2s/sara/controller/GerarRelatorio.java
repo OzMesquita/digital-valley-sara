@@ -46,8 +46,9 @@ public class GerarRelatorio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("evento")));
-		File arquivo = new File(Constantes.getTEMP_DIR()+"relatorio_de_submissoes_"+evento.getNome()+".pdf");
+		Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
+		evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
+		File arquivo = new File(Constantes.getTEMP_DIR()+File.separator+"relatorio_de_submissoes_"+evento.getNome()+".pdf");
 		try {
 			//preparou o pdf
 			Document document = new Document();
@@ -61,31 +62,32 @@ public class GerarRelatorio extends HttpServlet {
 				image.scaleAbsoluteWidth(90);
 				image.scaleAbsoluteHeight(60);
 				document.add(image);
-				Paragraph cabecalho = new Paragraph("UNIVERDADE FEDERAL DO CEAR¡ \n"
-						+ "CAMPUS RUSSAS \n" + evento.getNome() + "\n");
+				Paragraph cabecalho = new Paragraph("UNIVERDADE FEDERAL DO CEAR√Å \n"
+						+ "CAMPUS RUSSAS \n\n" + evento.getNome() + "\n\n\n");
 				cabecalho.setAlignment(Paragraph.ALIGN_CENTER);
 				document.add(cabecalho);
 				Font bold = new Font(FontFamily.UNDEFINED, 12, Font.BOLD, BaseColor.BLACK);
 				Font normal = new Font(FontFamily.UNDEFINED, 12, Font.NORMAL, BaseColor.BLACK);
 			//Conteudo
-	            PdfPTable t = new PdfPTable(3);
-	            PdfPCell cell = new PdfPCell();
-	            cell.setBorder(PdfPCell.NO_BORDER);
-	            cell.addElement(image);
-	            t.addCell(cell);
-	            PdfPCell cell1 = new PdfPCell();
-	            cell1.setBorder(PdfPCell.NO_BORDER);
-	            cell1.setColspan(2);
-	            normal.setColor(10, 10, 10);
-	            normal.setSize(15);
-	            t.addCell(cell1);
-	           // document.add(t);
-	            normal.setSize(10);
-	            PdfPTable table = new PdfPTable(2);
-	           
+	                       
 	            for (Trilha trilha: evento.getTrilhas()) {
+	            	PdfPTable t = new PdfPTable(3);
+		            PdfPCell cell = new PdfPCell();
+		            cell.setBorder(PdfPCell.NO_BORDER);
+		            cell.addElement(image);
+		            t.addCell(cell);
+		            PdfPCell cell1 = new PdfPCell();
+		            cell1.setBorder(PdfPCell.NO_BORDER);
+		            cell1.setColspan(2);
+		            normal.setColor(10, 10, 10);
+		            normal.setSize(15);
+		            t.addCell(cell1);
+		           // document.add(t);
+		            normal.setSize(10);
+		            PdfPTable table = new PdfPTable(2);
 	            	int i = 1;
-	            	Paragraph tituloTrilha = new Paragraph(trilha.getNome().toUpperCase() +"- Trabalhos submetidos"+ evento.getTrilhas().size());
+	            	ArrayList<Trabalho> trabalhos = new DAOTrabalho().readTrilha(trilha.getIdTrilha());
+	            	Paragraph tituloTrilha = new Paragraph(trilha.getNome().toUpperCase() +"- QUANTIA DE TRABALHOS ENVIADOS: "+ trabalhos.size() + "\n\n");
 	            	tituloTrilha.setAlignment(Paragraph.ALIGN_CENTER);
 	            	document.add(tituloTrilha);
 		            PdfPCell coluna1 = new PdfPCell(new Paragraph("Titulo", normal));
@@ -99,14 +101,13 @@ public class GerarRelatorio extends HttpServlet {
 		            table.addCell(coluna2);
 		            
 		            //Percorrer as trilhas
-		            ArrayList<Trabalho> trabalhos = new DAOTrabalho().readTrilha(trilha.getIdTrilha()); 
+		             
 		            for (Trabalho trabalho: trabalhos) {
-		            	
-		            	table.addCell(i+" - "+trabalho.getTitulo().toUpperCase());
-		            	
+		            	table.addCell(i+" - "+trabalho.getTitulo().toUpperCase());		            	
 		            	String nomeAutor = trabalho.getAutor().getNome().toUpperCase();
 		            	for (Usuario u : trabalho.getAutores()) {
-		            		nomeAutor = nomeAutor + "; " + u.getNome().toUpperCase();
+		            		if(u != null)
+		            			nomeAutor = nomeAutor + ", " + u.getNome().toUpperCase();
 		            	}
 		            	PdfPCell autores = new PdfPCell(new Paragraph(nomeAutor));
 		            	autores.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -123,7 +124,7 @@ public class GerarRelatorio extends HttpServlet {
 		        String nome = arquivo.getName();
 		        int tamanho = (int) arquivo.length();
 		
-		        response.setContentType(Files.probeContentType(path)); // tipo do conte˙do
+		        response.setContentType(Files.probeContentType(path)); // tipo do conteÔøΩdo
 		        response.setContentLength(tamanho);  // opcional
 		        response.setHeader("Content-Disposition", "attachment; filename=\"" + nome + "\"");
 		        OutputStream output = response.getOutputStream();

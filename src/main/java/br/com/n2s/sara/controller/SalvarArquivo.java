@@ -65,12 +65,23 @@ public class SalvarArquivo extends HttpServlet {
 				if ( nomesAutores[i].isEmpty() || cpfAutores[i].isEmpty() || emailAutores[i].isEmpty() ) {
 					continue;
 				}
-				autor.setNome(nomesAutores[i]);
-				autor.setCpf(cpfAutores[i].replaceAll("[.-]", ""));
-				autor.setEmail(emailAutores[i]);
-				autor.setSobrenome(" ");
-				autor.setTipo(NivelUsuario.AUTOR);
-				autores.add(autor);
+				boolean teste = false;
+				for (Usuario u : autores) {
+					if (u.getCpf().equals(cpfAutores[i].replaceAll("[.-]", ""))) { 
+						teste = true;
+						break;
+					}else {
+						teste = false;
+					}
+				}
+				if(!teste) {
+					autor.setNome(nomesAutores[i]);
+					autor.setCpf(cpfAutores[i].replaceAll("[.-]", ""));
+					autor.setEmail(emailAutores[i]);
+					autor.setSobrenome(" ");
+					autor.setTipo(NivelUsuario.AUTOR);
+					autores.add(autor);
+				}
 			}			
 		}
 		trabalho.setAutores(autores);
