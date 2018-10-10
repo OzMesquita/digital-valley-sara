@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.n2s.sara.dao.DAOEvento;
 import br.com.n2s.sara.dao.DAOSubmissao;
 import br.com.n2s.sara.dao.DAOTrabalho;
+import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.StatusTrabalho;
@@ -41,8 +43,8 @@ public class SalvarArquivo extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Trilha nomeTrilha = (Trilha) session.getAttribute("trilha");
-		Evento nomeEvento = (Evento) session.getAttribute("evento");
+		Trilha nomeTrilha = new DAOTrilha().getTrilha(Integer.parseInt(request.getParameter("trilha")));
+		Evento nomeEvento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("evento")));
 		Usuario userLogado = (br.com.n2s.sara.model.Usuario) session.getAttribute("usuarioSara");
 		String endereco=null;
 		br.com.n2s.sara.model.Trabalho trabalho = new Trabalho();

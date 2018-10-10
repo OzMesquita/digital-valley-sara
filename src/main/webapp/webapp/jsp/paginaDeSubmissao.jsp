@@ -197,6 +197,8 @@
 				                   	<tr>
 				                    	<td>
 									        <form action="SalvarArquivo" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
+									            <input type="hidden" name="trilha" value="<%=trilha.getIdTrilha()%>" />
+									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
 									            <p>*Título:</p>
 									            <p><input type="text" required="required" name="titulo" size="80"></p>
 									            <p>Resumo/Abstract (Opcional):</p> 
@@ -220,7 +222,7 @@
 											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />
 						     					<br/>
 						     					<%if (request.getParameter("idTrabalho") != null){%>
-						     					<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
+						     						<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
 						     					<%}%>
 						     					<br/>
 												<label>*Anexar Trabalho:</label>
