@@ -80,15 +80,6 @@ public class DAOTrabalho {
 				trabalho.setPalavrasChaves(rs.getString("palavrasChaves"));
 				trabalho.setResumo(rs.getString("resumo"));
 				trabalho.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
-				/*N�o � para listar o conte�do dos trabalhos
-				 * 
-				 * 
-				 * try {
-					trabalho.setManuscrito(rs.getString("manuscrito")));
-					trabalho.setVersaoFinal(FileManipulation.transStringToFile(rs.getString("versaofinal")));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}*/
 				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));
 				ArrayList autores = (ArrayList) pegarUsuarios(trabalho);
 				trabalho.setAutores( autores );

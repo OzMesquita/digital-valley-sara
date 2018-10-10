@@ -76,6 +76,7 @@ public class SalvarArquivo extends HttpServlet {
 		trabalho.setAutores(autores);
 		//Aqui est� tratando do arquivo
 		File dir = new File(util.Constantes.getArticlesDir()+File.separator+nomeEvento.getNome()+File.separator+nomeTrilha.getNome()+File.separator);
+		
 		if( !dir.isDirectory() ){
 	        dir.mkdirs();
 	    }
