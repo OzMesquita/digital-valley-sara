@@ -197,10 +197,10 @@
 				                   	<tr>
 				                    	<td>
 									        <form action="SalvarArquivo" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
-									            <p>Título: </p>
-									            <p><input type="text" name="titulo" size="80"></p>
-									            <p>Resumo:</p> 
-									            <p><textarea name="resumo" cols="80" rows="15" maxlength="1000"></textarea> </p>
+									            <p>*Título:</p>
+									            <p><input type="text" required="required" name="titulo" size="80"></p>
+									            <p>Resumo/Abstract (Opcional):</p> 
+									            <p><textarea name="resumo" cols="80" rows="15" maxlength="5000"></textarea> </p>
 									            <p>Palavras-chave: (Separe como ponto e vírgula)</p>
 									            <p><input type="text" name="palavras_chave" size="80"></p>
 									            
@@ -223,9 +223,10 @@
 						     					<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
 						     					<%}%>
 						     					<br/>
-											<label>Anexar Trabalho</label>
+												<label>*Anexar Trabalho:</label>
 								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
 								         		<br/>
+								         		<p style="font-size: 9; color:red;">(*)Campos Obrigatórios</p>
 								          		<input type="submit" value="Enviar">
 								        	</form>
 				                   		</td>
