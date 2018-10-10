@@ -82,8 +82,9 @@ public class GerarRelatorio extends HttpServlet {
 	           // document.add(t);
 	            normal.setSize(10);
 	            PdfPTable table = new PdfPTable(2);
-	            
+	           
 	            for (Trilha trilha: evento.getTrilhas()) {
+	            	int i = 1;
 	            	Paragraph tituloTrilha = new Paragraph(trilha.getNome().toUpperCase() +"- Trabalhos submetidos"+ evento.getTrilhas().size());
 	            	tituloTrilha.setAlignment(Paragraph.ALIGN_CENTER);
 	            	document.add(tituloTrilha);
@@ -100,8 +101,9 @@ public class GerarRelatorio extends HttpServlet {
 		            //Percorrer as trilhas
 		            ArrayList<Trabalho> trabalhos = new DAOTrabalho().readTrilha(trilha.getIdTrilha()); 
 		            for (Trabalho trabalho: trabalhos) {
-		            	table.addCell(trabalho.getTitulo().toUpperCase());
-
+		            	
+		            	table.addCell(i+" - "+trabalho.getTitulo().toUpperCase());
+		            	
 		            	String nomeAutor = trabalho.getAutor().getNome().toUpperCase();
 		            	for (Usuario u : trabalho.getAutores()) {
 		            		nomeAutor = nomeAutor + "; " + u.getNome().toUpperCase();
@@ -109,18 +111,8 @@ public class GerarRelatorio extends HttpServlet {
 		            	PdfPCell autores = new PdfPCell(new Paragraph(nomeAutor));
 		            	autores.setHorizontalAlignment(Element.ALIGN_CENTER);
 		            	table.addCell(autores);
+		            	i++;
 		            }
-		            	
-		            
-		        	/*for (int i=0;i<resultado.size();i++) {
-						Object[] participante = resultado.get(i);
-						table.addCell(((ParticipanteBeans) participante[0]).getCandidato().getNome().toUpperCase());
-						
-						PdfPCell resu  = new PdfPCell(new Paragraph(participante[2].toString().toLowerCase()));
-						resu.setHorizontalAlignment(Element.ALIGN_CENTER);
-						table.addCell(resu);
-		                //table.addCell(participante[2].toString().toLowerCase());
-					}*/
 		            document.add(table);
 	            
 	            }
