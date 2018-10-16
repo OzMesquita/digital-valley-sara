@@ -103,8 +103,11 @@ public class GerarRelatorio extends HttpServlet {
 		            //Percorrer as trilhas
 		             
 		            for (Trabalho trabalho: trabalhos) {
-		            	table.addCell(i+" - "+trabalho.getTitulo().toUpperCase());		            	
-		            	String nomeAutor = trabalho.getAutor().getNome().toUpperCase();
+		            	table.addCell(i+" - "+trabalho.getTitulo().toUpperCase());
+		            	String nomeAutor = "";
+		            	if (!trabalho.getAutor().getNome().isEmpty()) {	
+		            		nomeAutor = trabalho.getAutor().getNome().toUpperCase();
+		            	}
 		            	for (Usuario u : trabalho.getAutores()) {
 		            		if(u != null)
 		            			nomeAutor = nomeAutor + ", " + u.getNome().toUpperCase();
