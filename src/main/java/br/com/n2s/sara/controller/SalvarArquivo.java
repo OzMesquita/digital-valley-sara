@@ -60,7 +60,6 @@ public class SalvarArquivo extends HttpServlet {
 			String [] emailAutores = request.getParameterValues("emailAutor");
 			String [] cpfAutores = request.getParameterValues("cpfAutor");
 		if (nomesAutores != null && emailAutores != null && cpfAutores != null) {
-			Usuario autor= new Usuario();
 			for (int i=0;i<nomesAutores.length;i++) {
 				if ( nomesAutores[i].isEmpty() || cpfAutores[i].isEmpty() || emailAutores[i].isEmpty() ) {
 					continue;
@@ -75,6 +74,7 @@ public class SalvarArquivo extends HttpServlet {
 					}
 				}
 				if(!teste) {
+					Usuario autor= new Usuario();
 					autor.setNome(nomesAutores[i]);
 					autor.setCpf(cpfAutores[i].replaceAll("[.-]", ""));
 					autor.setEmail(emailAutores[i]);
