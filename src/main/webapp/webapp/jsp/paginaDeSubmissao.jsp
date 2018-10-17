@@ -218,7 +218,7 @@
 									            <div id="divAutorBase">
 														Nome: <input type="text" name="nomeAutor" required="required"/>
 														Email: <input type="text" name="emailAutor" required="required" />
-														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)" required="required" name="cpfAutor">
+														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)" onblur="validarCPF(this.value);"  required="required" name="cpfAutor">
 														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
 												</div>
 											    <div id="divAutorList" >
@@ -230,6 +230,7 @@
 						     					<%}%>
 						     					<br/>
 												<label>*Anexar Trabalho:</label>
+												
 								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
 								         		<br/>
 								         		<p style="font-size: 9; color:red;">(*)Campos Obrigatórios</p>
@@ -269,6 +270,7 @@
     				}
     			}
     		}
+    		CPF();
     	}    
     </script>
     
@@ -323,9 +325,53 @@
 
     	return v
 
-    	}
+    }
     
+    function validarCPF(cpf) {	
+    	cpf = cpf.replace(/[^\d]+/g,'');	
+    	if(cpf == '') return false;	
+    	// Elimina CPFs invalidos conhecidos	
+    	if (cpf.length != 11 || 
+    		cpf == "00000000000" || 
+    		cpf == "11111111111" || 
+    		cpf == "22222222222" || 
+    		cpf == "33333333333" || 
+    		cpf == "44444444444" || 
+    		cpf == "55555555555" || 
+    		cpf == "66666666666" || 
+    		cpf == "77777777777" || 
+    		cpf == "88888888888" || 
+    		cpf == "99999999999")
+    			alert("CPF INVÁLIDO");		
+    	// Valida 1o digito	
+    	add = 0;	
+    	for (i=0; i < 9; i ++)		
+    		add += parseInt(cpf.charAt(i)) * (10 - i);	
+    		rev = 11 - (add % 11);	
+    		if (rev == 10 || rev == 11)		
+    			rev = 0;	
+    		if (rev != parseInt(cpf.charAt(9)))		
+    			return false;		
+    	// Valida 2o digito	
+    	add = 0;	
+    	for (i = 0; i < 10; i ++)		
+    		add += parseInt(cpf.charAt(i)) * (11 - i);	
+    	rev = 11 - (add % 11);	
+    	if (rev == 10 || rev == 11)	
+    		rev = 0;	
+    	if (rev != parseInt(cpf.charAt(10)))
+    		alert("CPF INVÁLIDO");;		
+    	return true;   
+    }
     
+	 function CPF(){
+    	  var mensagem = 'CPF Inválido'
+    	  if ( validarCPF(document.getElementById('cpf').value) === true ) {
+    	    mensagem = 'CPF Válido'
+    	  }
+
+    	  alert(mensagem);
+    };
     </script>
     
     <script src="../js/jquery.js"></script> 
