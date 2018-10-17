@@ -203,7 +203,7 @@
                    						<input type="hidden" value="<%= t.getIdTrabalho()%>" name="idTrabalho">  
                   						<button class="btn btn-primary" type = "submit">Download</button>
                					 	</form>
-               					 	
+               					 	<br>
                					 	<form action="ApagarTrabalho" method="post" onsubmit="return confirm('Deseja apagar este trabalho? Esta ação irá deletar todas as informações referente a atual submissão.');"> 
                    						<input type="hidden" value="<%= t.getTrilha().getIdTrilha()%>" name="idTrilha">
                    						<input type="hidden" value="<%= t.getTrilha().getEvento().getIdEvento()%>" name="idEvento"> 
