@@ -211,10 +211,14 @@
 												Email: <input type="text" value="<%=usuario.getEmail() %>" name="autor" disabled="disabled"/>
 												CPF: <input type="text" id="cpf" name="cpf" size="14" value="<%=usuario.getCpf()%>" disabled="disabled">
 												<br/>
-									            <div id="divAutorBase" style="display:none;">
-														Nome: <input type="text" name="nomeAutor" />
-														Email: <input type="text" name="emailAutor"  />
-														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)"  name="cpfAutor">
+												<br/>
+												Adicione seu orientador e, se houver, adicione os co-autores: 
+												<br/>
+												<br/>
+									            <div id="divAutorBase">
+														Nome: <input type="text" name="nomeAutor" required="required"/>
+														Email: <input type="text" name="emailAutor" required="required" />
+														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)" required="required" name="cpfAutor">
 														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
 												</div>
 											    <div id="divAutorList" >
@@ -375,8 +379,6 @@
 	    'insert': function()
 	    {
 	        var newDiv = this.divAutorBase.cloneNode(true);
-	        newDiv.style.display = '';
-	        console.log('newDiv => ', newDiv);
 	        this.divAutorList.appendChild(newDiv);
 	    },
 	    
