@@ -200,7 +200,7 @@
 									            <input type="hidden" name="trilha" value="<%=trilha.getIdTrilha()%>" />
 									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
 									            <p>*Título:</p>
-									            <p><input type="text" required="required" name="titulo" size="80"></p>
+									            <p><input type="text" onKeyPress="this.value=value.toUpperCase()" required="required" name="titulo" size="80"></p>
 									            <p>Resumo/Abstract (Opcional):</p> 
 									            <p><textarea name="resumo" cols="80" rows="15" maxlength="5000"></textarea> </p>
 									            <p>Palavras-chave: (Separe como ponto e vírgula)</p>
