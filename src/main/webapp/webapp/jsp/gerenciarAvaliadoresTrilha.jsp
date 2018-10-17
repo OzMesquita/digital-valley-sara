@@ -207,7 +207,7 @@
 		  <center> 
 		  	<form action="AdicionarAvaliador" method="post">
 		  		<p>Adicionar Avaliador:</p>
-            	<p>CPF: <input type="text" name="cpfAvaliador" onkeypress="this.value = Cpf(this.value)" onblur="validarCPF(this.value)" required></p>
+            	<p>CPF: <input type="text" name="cpfAvaliador" maxlength="14" onkeypress="this.value = Cpf(this.value)" onblur="validarCPF(this.value)" required></p>
 				<button class="btn btn-primary" type = "submit">Buscar por CPF</button> 
        		 </form> 
 		  </center>
