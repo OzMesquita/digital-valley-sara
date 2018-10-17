@@ -42,7 +42,7 @@ public class AdicionarAvaliador extends HttpServlet {
 		DAOAvaliaTrilha daoAvaliaTrilha = new DAOAvaliaTrilha();
 		AvaliaTrilha avaliaTrilha;
 
-		String cpfAvaliador = request.getParameter("cpfAvaliador");
+		String cpfAvaliador = request.getParameter("cpfAvaliador").replaceAll("[.-]", "");
 
 		Usuario usuario = new Usuario();
 		usuario = Facade.buscarUsuarioPorCPF(cpfAvaliador);
