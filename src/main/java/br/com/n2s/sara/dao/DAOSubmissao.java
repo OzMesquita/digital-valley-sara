@@ -70,7 +70,7 @@ public class DAOSubmissao {
 			throw new RuntimeException(e);
 		}
 	}
-	public List<Usuario> getAutores(int idTrabalho){
+		public List<Usuario> getAutores(int idTrabalho){
 		
 		this.connection = new ConnectionFactory().getConnection();
 		String sql = "select * from sara.submissao where idtrabalho=?";
@@ -79,12 +79,35 @@ public class DAOSubmissao {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
-			DAOUsuario daoUsuario = new DAOUsuario();
 
 			while(rs.next()){
 				Usuario autor= new Usuario();
-				autor = daoUsuario.getUsuario(rs.getString("cpfautor"));				
+				autor.setCpf(rs.getString("cpfautor"));				
 				autores.add(autor);
+			}
+
+			rs.close();
+			stmt.close();
+			this.connection.close();
+			return autores;
+
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+	}
+	
+public List<String> getCPFAutores(int idTrabalho){
+		
+		this.connection = new ConnectionFactory().getConnection();
+		String sql = "select * from sara.submissao where idtrabalho=?";
+		try{
+			List<String> autores = new ArrayList<String>();
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			stmt.setInt(1, idTrabalho);
+			ResultSet rs = stmt.executeQuery();			
+
+			while(rs.next()){
+				autores.add(rs.getString("cpfautor"));
 			}
 
 			rs.close();
