@@ -50,13 +50,13 @@ public class Distribuir extends HttpServlet {
 			int alocados = 0;
 			int resto = trabalhos.size() % avaliadores.size();
 			for(Usuario av :avaliadores) {
-					for(Trabalho t : trabalhos)
+					for(int i=0;i<=trabalhos.size();i++)
 						if(alocados <= razao) {	
-							if(isAutor(av.getCpf(), t)) {
+							if(isAutor(av.getCpf(), trabalhos.get(i))) {
 								continue;
 							}else {
-								SalvarAvaliador(av, t);
-								trabalhos.remove(t);
+								SalvarAvaliador(av, trabalhos.get(i));
+								trabalhos.remove(trabalhos.get(i));
 								alocados ++;
 							}
 						}else { 
@@ -83,6 +83,8 @@ public class Distribuir extends HttpServlet {
 		AvaliaTrabalho avalia = new AvaliaTrabalho();
 		avalia.setAvaliador(av);
 		avalia.setTrabalho(t);
+		avalia.setFeedback("");
+		avalia.setStatus(StatusTrabalho.ENVIADO);
 		daoAvaliaTrab.create(avalia);
 	}
 	private boolean isAutor(String cpf, Trabalho t) {
