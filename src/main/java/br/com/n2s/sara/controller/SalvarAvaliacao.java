@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.n2s.sara.dao.DAOAvaliaTrabalho;
+import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.model.AvaliaTrabalho;
 import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Trabalho;
@@ -45,12 +46,16 @@ public class SalvarAvaliacao extends HttpServlet {
 		if (status.equals("aceitar")) {
 			avaliaTrabalho.setFeedback(feedback);
 			avaliaTrabalho.setStatus(StatusTrabalho.ACEITO);
+			trabalho.setStatus(StatusTrabalho.ACEITO);
 			new DAOAvaliaTrabalho().update(avaliaTrabalho);
+			new DAOTrabalho().update(trabalho);
 			response.sendRedirect("avaliacao.jsp");
 		}else {
 			avaliaTrabalho.setFeedback(feedback);
 			avaliaTrabalho.setStatus(StatusTrabalho.REJEITADO);
 			new DAOAvaliaTrabalho().update(avaliaTrabalho);
+			trabalho.setStatus(StatusTrabalho.REJEITADO);
+			new DAOTrabalho().update(trabalho);
 			response.sendRedirect("avaliacao.jsp");
 		}
 		

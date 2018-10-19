@@ -182,7 +182,7 @@
 			       		  <%
 			       		  	
 			       			for(int i = 0; i < trabalhos.size(); i++){
-			                	if (trabalhos.get(i).getStatus().equals(StatusTrabalho.ENVIADO)){
+			                	if (trabalhos.get(i).getStatus().equals(StatusTrabalho.EM_AVALIACAO)){
 			               %>
 			               
 			               <tr>

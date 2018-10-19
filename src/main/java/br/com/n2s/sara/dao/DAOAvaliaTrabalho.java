@@ -155,7 +155,8 @@ public class DAOAvaliaTrabalho {
 				avalia.setAvaliador(daoUser.getUsuario((rs.getString("idavaliador"))));
 				avalia.setTrabalho(daoTrab.getTrabalho(rs.getInt("idtrabalho")));
 				avalia.setFeedback(rs.getString("feedback"));
-				stmt.setString(4, avalia.getStatus().toString());
+				avalia.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
+				
 
 				rs.close();
 				stmt.close();

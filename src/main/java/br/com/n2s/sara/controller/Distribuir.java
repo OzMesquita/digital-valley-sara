@@ -50,8 +50,8 @@ public class Distribuir extends HttpServlet {
 			int alocados = 0;
 			int resto = trabalhos.size() % avaliadores.size();
 			for(Usuario av :avaliadores) {
-					for(int i=0;i<=trabalhos.size();i++)
-						if(alocados <= razao) {	
+					for(int i=0;i<trabalhos.size();i++)
+						if(alocados < razao) {	
 							if(isAutor(av.getCpf(), trabalhos.get(i))) {
 								continue;
 							}else {
@@ -72,11 +72,13 @@ public class Distribuir extends HttpServlet {
 						trabalhos.remove(0);
 						resto--;
 						alocados++;
-					}
+					}else {
+						alocados--;
+					}					
 				}
 			}		
 		}
-		response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
+		response.sendRedirect("indexAutor.jsp");
 	}
 	private  void SalvarAvaliador(Usuario av, Trabalho t) {
 		DAOAvaliaTrabalho daoAvaliaTrab = new DAOAvaliaTrabalho();
@@ -84,8 +86,10 @@ public class Distribuir extends HttpServlet {
 		avalia.setAvaliador(av);
 		avalia.setTrabalho(t);
 		avalia.setFeedback("");
-		avalia.setStatus(StatusTrabalho.ENVIADO);
+		avalia.setStatus(StatusTrabalho.EM_AVALIACAO);
 		daoAvaliaTrab.create(avalia);
+		t.setStatus(StatusTrabalho.EM_AVALIACAO);
+		new DAOTrabalho().update(t);
 	}
 	private boolean isAutor(String cpf, Trabalho t) {
 		if (cpf.equals(t.getAutor().getCpf())) {

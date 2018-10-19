@@ -137,7 +137,7 @@ public class DAOTrabalho {
 	public void update(Trabalho trabalho){
 		
 		this.connection = new ConnectionFactory().getConnection();
-		String sql = "update sara.Trabalho set titulo = ?, palavrasChaves = ? resumo = ?, status = ?, endereco = ?, idTrilha = ?"
+		String sql = "update sara.Trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?"
 				+ " where idTrabalho  = ?";
 
 		try {
@@ -149,7 +149,7 @@ public class DAOTrabalho {
 			stmt.setString(4, trabalho.getStatus().toString());
 			stmt.setString(5, trabalho.getEndereco());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
-			
+			stmt.setInt(7, trabalho.getIdTrabalho());
 
 			stmt.execute();
 			stmt.close();
