@@ -83,6 +83,8 @@ public class Distribuir extends HttpServlet {
 		AvaliaTrabalho avalia = new AvaliaTrabalho();
 		avalia.setAvaliador(av);
 		avalia.setTrabalho(t);
+		avalia.setFeedback("");
+		avalia.setStatus(StatusTrabalho.ENVIADO);
 		daoAvaliaTrab.create(avalia);
 	}
 	private boolean isAutor(String cpf, Trabalho t) {
