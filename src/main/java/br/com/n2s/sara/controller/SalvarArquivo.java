@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.TimeZone;
 
 import javax.servlet.http.Part;
@@ -101,10 +102,11 @@ public class SalvarArquivo extends HttpServlet {
 	    	int dia = calendar.get(Calendar.DAY_OF_MONTH);
 	    	int hora = calendar.get(Calendar.HOUR_OF_DAY);
 	    	int minuto = calendar.get(Calendar.MINUTE);
-	        String nome = dia+"_"+mes+"_"+ano+"_"+hora+"_"+minuto+"_";
+	    	Random random = new Random();
+	        String nome = dia+"_"+mes+"_"+ano+"_"+hora+"_"+minuto+"_"+random.nextInt(1000);
 	    	//Acima tudo que eu fiz foi construir uma super string para completar essa hora
 	    	
-			File arquivo = new File(dir.getAbsolutePath() + File.separator+ nome + getFileName(part)); 
+			File arquivo = new File(dir.getAbsolutePath() + File.separator+ nome + ".pdf"); 
 	        part.write( arquivo.getAbsolutePath() );
 	        endereco = arquivo.getAbsolutePath();
 	     //Salvou o Arquivo no Servidor	        

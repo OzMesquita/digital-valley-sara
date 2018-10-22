@@ -249,7 +249,13 @@
 				    <br/>
 				     <form action="GerarRelatorio" method="post" >
 			        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
-					    <button class="btn btn-primary" type = "submit">Gerar Relatório</button>
+			        	<input type="hidden" value="relatorioInicial" name="tipoRelatorio">
+					    <button class="btn btn-primary" type = "submit">Gerar Relatório Final</button>
+					</form>				     
+					<form action="GerarRelatorio" method="post" >
+			        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+			        	<input type="hidden" value="relatorioFinal" name="tipoRelatorio">
+					    <button class="btn btn-primary" type = "submit">Gerar Relatório Final</button>
 					</form>
 						 
 		    <%  } %>
