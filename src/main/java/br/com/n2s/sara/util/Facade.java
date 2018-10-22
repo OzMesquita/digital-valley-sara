@@ -8,15 +8,21 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.apache.http.params.CoreConnectionPNames;
+
 import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.dao.DAOUsuario;
 import br.com.n2s.sara.model.DescricaoPeriodo;
+import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
+import dao.DAOFactory;
+import dao.PessoaDAO;
 import model.Email;
+import model.Pessoa;
 import util.Constantes;
 
 
@@ -112,8 +118,19 @@ public class Facade {
 	}
 	
 	public static Usuario buscarUsuarioGuardiao(String cpf){
+		PessoaDAO pDAO = DAOFactory.criarPessoaDAO();
+		Pessoa p = pDAO.buscarPorCpf(cpf);
+		if (p==null) {
+			return null;
+		}else {
+			Usuario usuario = new Usuario();
+			usuario.setNome(p.getNome());
+			usuario.setCpf(p.getCpf());
+			usuario.setEmail(p.getEmail());
+			usuario.setTipo(NivelUsuario.AUTOR);
+			return usuario;
+		}
 		
-		return null;
 	}
 
 }
