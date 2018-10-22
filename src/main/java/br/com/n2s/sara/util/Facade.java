@@ -110,5 +110,10 @@ public class Facade {
 		}
 		
 	}
+	
+	public static Usuario buscarUsuarioGuardiao(String cpf){
+		
+		return null;
+	}
 
 }
