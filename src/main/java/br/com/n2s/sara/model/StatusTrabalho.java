@@ -6,4 +6,5 @@ public enum StatusTrabalho {
 	REJEITADO,
 	ACEITO,
 	ACEITO_COM_RESTRICAO,
+	ACEITO_FINAL,
 }
