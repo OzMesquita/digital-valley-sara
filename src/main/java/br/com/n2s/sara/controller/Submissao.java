@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.TimeZone;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,12 +27,22 @@ import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.dao.DAOEvento;
 import br.com.n2s.sara.dao.DAOSubmissao;
 import br.com.n2s.sara.dao.DAOTrabalho;
+
+
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024, // 1MB
+        maxFileSize = 1024 * 1024 * 10,   // 10MB
+        maxRequestSize = 1024 * 1024 * 10 // 10MB
+        )
 public class Submissao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Trilha nomeTrilha = new DAOTrilha().getTrilha(Integer.parseInt(request.getParameter("trilha")));
-		Evento nomeEvento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("evento")));
+		HttpSession session = request.getSession();
+		int idTrilha = Integer.parseInt(request.getParameter("trilha"));
+		int idEvento = Integer.parseInt(request.getParameter("evento"));
+		Trilha nomeTrilha = new DAOTrilha().getTrilha(idTrilha);
+		Evento nomeEvento = new DAOEvento().getEvento(idEvento);
 		String endereco=null;
 		br.com.n2s.sara.model.Trabalho trabalho = new Trabalho();
         trabalho.setTrilha(nomeTrilha);

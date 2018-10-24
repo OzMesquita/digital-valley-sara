@@ -199,6 +199,7 @@
 									        <form action="Submissao" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
 									            <input type="hidden" name="trilha" value="<%=trilha.getIdTrilha()%>" />
 									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
+									            <input type="hidden" name="idTrabalho" value="<%=request.getParameter("idTrabalho") %>">
 									            <p>*Título:</p>
 									            <p><input type="text" onblur="this.value=value.toUpperCase()" required="required" name="titulo" size="80"></p>
 									            <p>Resumo/Abstract (Opcional):</p> 

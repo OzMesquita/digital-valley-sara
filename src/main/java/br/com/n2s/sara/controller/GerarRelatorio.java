@@ -51,7 +51,12 @@ public class GerarRelatorio extends HttpServlet {
 		Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
 		evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
 		String tipoRelatorio = request.getParameter("tipoRelatorio");
-		File arquivo = new File(Constantes.getTEMP_DIR()+File.separator+"relatorio_de_submissoes_"+evento.getNome()+".pdf");
+		File arquivo;
+		if (tipoRelatorio.equals("relatorioFinal")) {
+			 arquivo = new File(Constantes.getTEMP_DIR()+File.separator+"relatorio_de_submissoes_final"+evento.getNome()+".pdf");
+		}else {
+			 arquivo = new File(Constantes.getTEMP_DIR()+File.separator+"relatorio_de_submissoes_"+evento.getNome()+".pdf");
+		}
 		try {
 			//preparou o pdf
 			Document document = new Document();
@@ -72,7 +77,7 @@ public class GerarRelatorio extends HttpServlet {
 				Font bold = new Font(FontFamily.UNDEFINED, 12, Font.BOLD, BaseColor.BLACK);
 				Font normal = new Font(FontFamily.UNDEFINED, 12, Font.NORMAL, BaseColor.BLACK);
 				//Conteudo
-				if(tipoRelatorio == "relatorioInicial"){
+				if(tipoRelatorio.equals("relatorioInicial")){
 		            for (Trilha trilha: evento.getTrilhas()) {
 		            	PdfPTable t = new PdfPTable(3);
 			            PdfPCell cell = new PdfPCell();
@@ -106,17 +111,23 @@ public class GerarRelatorio extends HttpServlet {
 			            for (Trabalho trabalho: trabalhos) {
 			            	table.addCell(i+" - "+trabalho.getTitulo().toUpperCase());
 			            	String nomeAutor = "";
-			            	if (trabalho.getAutor() != null) {	
-			            		nomeAutor = trabalho.getAutor().getNome().toUpperCase();
+			            	if (trabalho.getAutor() != null ) {
+			            		Usuario u = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(trabalho.getAutor().getCpf());			            		
+			            		if(u!=null) {	
+			            			nomeAutor = u.getNome().toUpperCase();
+			            			}else {
+			            				nomeAutor = trabalho.getAutor().getCpf();
+			            			}
 			            	}
 			            	for (Usuario u : trabalho.getAutores()) {
 			            		if(u != null) {
-			            			if(u.getNome()=="" || u.getNome()==null) {
+			            			if(u.getNome()==null) {
 			            				Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(u.getCpf());
 			            				if (usuario == null) {
-			            					nomeAutor = nomeAutor + ", "+ usuario.getNome(); 
+			            					nomeAutor = nomeAutor + ", "+u.getCpf(); 
 			            				}else {
-			            					nomeAutor = nomeAutor + ", "+usuario.getCpf();
+			            					nomeAutor = nomeAutor + ", "+ usuario.getNome();
+			            					
 			            				}
 			            			}else {
 			            				nomeAutor = nomeAutor + ", " + u.getNome().toUpperCase();
@@ -130,7 +141,7 @@ public class GerarRelatorio extends HttpServlet {
 			            }
 			            document.add(table);
 		            }
-				}else if (tipoRelatorio=="relatorioFinal") {
+				}else if (tipoRelatorio.equals("relatorioFinal")) {
 		            for (Trilha trilha: evento.getTrilhas()) {
 		            	PdfPTable t = new PdfPTable(3);
 			            PdfPCell cell = new PdfPCell();
@@ -148,7 +159,7 @@ public class GerarRelatorio extends HttpServlet {
 			            PdfPTable table = new PdfPTable(2);
 		            	int i = 1;
 		            	ArrayList<Trabalho> trabalhos = new DAOTrabalho().readTrilha(trilha.getIdTrilha());
-		            	Paragraph tituloTrilha = new Paragraph(trilha.getNome().toUpperCase() +"- QUANTIA DE TRABALHOS ENVIADOS: "+ trabalhos.size() + "\n\n");
+		            	Paragraph tituloTrilha = new Paragraph(trilha.getNome().toUpperCase() + "\n\n");
 		            	tituloTrilha.setAlignment(Paragraph.ALIGN_CENTER);
 		            	document.add(tituloTrilha);
 			            PdfPCell coluna1 = new PdfPCell(new Paragraph("Titulo", normal));
@@ -162,20 +173,25 @@ public class GerarRelatorio extends HttpServlet {
 			            table.addCell(coluna2);
 			            //Percorrer as trilhas
 			            for (Trabalho trabalho: trabalhos) {
-			            	if(trabalho.getStatus()== StatusTrabalho.ACEITO) {
+			            	if(trabalho.getStatus()== StatusTrabalho.ACEITO_FINAL) {
 			            		table.addCell(i+" - "+trabalho.getTitulo().toUpperCase());
 				            	String nomeAutor = "";
-				            	if (trabalho.getAutor() != null) {	
-				            		nomeAutor = trabalho.getAutor().getNome().toUpperCase();
+				            	if (trabalho.getAutor() != null) {
+				            		Usuario u = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(trabalho.getAutor().getCpf());			            		
+				            		if(u!=null) {	
+				            			nomeAutor = u.getNome().toUpperCase();
+				            			}else {
+				            				nomeAutor = trabalho.getAutor().getCpf();
+				            			}
 				            	}
 				            	for (Usuario u : trabalho.getAutores()) {
 				            		if(u != null) {
-				            			if(u.getNome()=="" || u.getNome()==null) {
+				            			if(u.getNome()==null) {
 				            				Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(u.getCpf());
-				            				if (usuario == null) {
+				            				if (usuario != null) {
 				            					nomeAutor = nomeAutor + ", "+ usuario.getNome(); 
 				            				}else {
-				            					nomeAutor = nomeAutor + ", "+usuario.getCpf();
+				            					nomeAutor = nomeAutor + ", "+u.getCpf();
 				            				}
 				            			}else {
 				            				nomeAutor = nomeAutor + ", " + u.getNome().toUpperCase();

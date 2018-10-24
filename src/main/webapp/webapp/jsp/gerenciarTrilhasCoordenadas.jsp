@@ -250,8 +250,9 @@
 				     <form action="GerarRelatorio" method="post" >
 			        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
 			        	<input type="hidden" value="relatorioInicial" name="tipoRelatorio">
-					    <button class="btn btn-primary" type = "submit">Gerar Relatório Final</button>
-					</form>				     
+					    <button class="btn btn-primary" type = "submit">Gerar Relatório de Trabalhos Submetidos</button>
+					</form>
+					<br/>		     
 					<form action="GerarRelatorio" method="post" >
 			        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
 			        	<input type="hidden" value="relatorioFinal" name="tipoRelatorio">
