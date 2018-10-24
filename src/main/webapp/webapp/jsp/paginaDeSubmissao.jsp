@@ -197,7 +197,12 @@
 				                    </tr>
 				                   	<tr>
 				                    	<td>
-									        <form action="SalvarArquivo" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
+				                    	<%String s = "";
+				                    	if (request.getParameter("tipoSubmissao") != null && request.getParameter("tipoSubmissao")=="submissaoFinal"){
+				                    			 s = "Submissao";
+				                    	}else{
+				                    			 s = "SalvarArquivo";}%>
+									        <form action="<%=s%>" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
 									            <input type="hidden" name="trilha" value="<%=trilha.getIdTrilha()%>" />
 									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
 									            <p>*Título:</p>
