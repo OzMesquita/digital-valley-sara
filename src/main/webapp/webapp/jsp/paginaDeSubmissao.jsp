@@ -64,8 +64,7 @@
 		
 		DAOEvento daoEvento = new DAOEvento();
 		DAOTrilha daoTrilha = new DAOTrilha();
-        Evento evento = (Evento) session.getAttribute("evento");
-        evento = daoEvento.getEvento(evento.getIdEvento());
+        Evento evento = daoEvento.getEvento(Integer.parseInt(request.getParameter("idEvento")));
         Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
         
        /*  if (session.getAttribute("trilha") != null) {
@@ -198,7 +197,7 @@
 				                   	<tr>
 				                    	<td>
 				                    	<%String s = "";
-				                    	if (request.getParameter("tipoSubmissao") != null && request.getParameter("tipoSubmissao")=="submissaoFinal"){
+				                    	if (request.getParameter("tipoSubmissao") != null && request.getParameter("tipoSubmissao").equals("submissaoFinal")){
 				                    			 s = "Submissao";
 				                    	}else{
 				                    			 s = "SalvarArquivo";}%>

@@ -219,7 +219,7 @@
 									            
 								          			<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 									           		<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />
-									            	<input type="hidden" name="idEvento" value="<%= trabalho.getIdTrabalho()%>" />
+									            	<input type="hidden" name="idTrabalho" value="<%= trabalho.getIdTrabalho()%>" />
 									            	<input type="hidden" name="tipoSubmissao" value="submissaoFinal" />
 									            	<button class="btn btn-primary" type = "submit">Submeter Versão Final</button>
 									            

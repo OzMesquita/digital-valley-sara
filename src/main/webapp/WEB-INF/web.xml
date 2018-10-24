@@ -106,6 +106,10 @@
 		<servlet-name>GerarRelatorio</servlet-name>
 		<servlet-class>br.com.n2s.sara.controller.GerarRelatorio</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Submissao</servlet-name>
+		<servlet-class>br.com.n2s.sara.controller.Submissao</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>CadastrarAvaliador</servlet-name>
 		<url-pattern>/webapp/jsp/CadastrarAvaliador</url-pattern>
@@ -197,6 +201,10 @@
 	<servlet-mapping>
 		<servlet-name>SalvarAvaliacao</servlet-name>
 		<url-pattern>/webapp/jsp/SalvarAvaliacao</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Submissao</servlet-name>
+		<url-pattern>/webapp/jsp/Submissao</url-pattern>
 	</servlet-mapping>
 	<filter>
 		<filter-name>FiltroAutenticado</filter-name>
