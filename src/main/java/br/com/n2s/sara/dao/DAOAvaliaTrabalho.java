@@ -102,7 +102,7 @@ public class DAOAvaliaTrabalho {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	public AvaliaTrabalho getAvaliaTrabalho(String idAvaliador){
 
 		this.connection = new ConnectionFactory().getConnection();

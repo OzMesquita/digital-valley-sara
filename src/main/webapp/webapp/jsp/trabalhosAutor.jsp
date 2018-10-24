@@ -200,11 +200,17 @@
                    						<input type="hidden" value="<%= t.getIdTrabalho()%>" name="idTrabalho">  
                   						<button class="btn btn-primary" type = "submit">Substituir</button>
                					 	</form> --%>
-               					 	
-	               					 	<form action="DownloadTrabalho" method="post" >                  					 
+               					 		<%--
+               					 		<form action="DownloadTrabalho" method="post" >                  					 
 	                   						<input type="hidden" value="<%= t.getIdTrabalho()%>" name="idTrabalho">  
 	                  						<button class="btn btn-primary" type = "submit">Download</button>
 	               					 	</form>
+               					 		 --%>
+	               					 	<form action="detalhesTrabalho.jsp" method="post" >                  					 
+	                   						<input type="hidden" value="<%= t.getIdTrabalho()%>" name="idTrabalho">  
+	                  						<button class="btn btn-primary" type = "submit">Detalhes</button>
+	               					 	</form>
+	               					 	
                					 	<br>
                               	</tr>
                               <%}} %>                                 

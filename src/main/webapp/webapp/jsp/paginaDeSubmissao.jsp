@@ -3,7 +3,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page import="br.com.n2s.sara.model.*" %>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,10 +174,10 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Submiss√£o</h3>
+					<h3 class="page-header"><i class="fa fa-table"></i> Submiss„o</h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Submiss√£o</li>
+						<li><i class="icon_document_alt"></i>Submiss„o</li>
 					</ol>
 				</div>
 			</div>
@@ -187,7 +188,7 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Submiss√£o
+                              Submiss„o
                           </header>
                         <table class="table table-striped table-advance table-hover">
 	                        <tbody>
@@ -199,11 +200,11 @@
 									        <form action="SalvarArquivo" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
 									            <input type="hidden" name="trilha" value="<%=trilha.getIdTrilha()%>" />
 									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
-									            <p>*T√≠tulo:</p>
-									            <p><input type="text" onKeyPress="this.value=value.toUpperCase()" required="required" name="titulo" size="80"></p>
+									            <p>*TÌtulo:</p>
+									            <p><input type="text" onblur="this.value=value.toUpperCase()" required="required" name="titulo" size="80"></p>
 									            <p>Resumo/Abstract (Opcional):</p> 
 									            <p><textarea name="resumo" cols="80" rows="15" maxlength="5000"></textarea> </p>
-									            <p>Palavras-chave: (Separe como ponto e v√≠rgula)</p>
+									            <p>Palavras-chave: (Separe como ponto e vÌrgula)</p>
 									            <p><input type="text" name="palavras_chave" size="80"></p>
 									            
 									            <p>Autor Principal</p>
@@ -233,7 +234,7 @@
 												
 								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
 								         		<br/>
-								         		<p style="font-size: 9; color:red;">(*)Campos Obrigat√≥rios</p>
+								         		<p style="font-size: 9; color:red;">(*)Campos ObrigatÛrios</p>
 								          		<input type="submit" onsubmit="verificacao();" value="Enviar">
 								        	</form>
 				                   		</td>
@@ -252,7 +253,7 @@
     
     <!-- javascripts -->
     
-    <!-- verifica√ß√£o geral -->
+    <!-- verificaÁ„o geral -->
     <script  type="text/javascript">
     	function verificacao(){
     		var cpfs = document.getElementById("cpf");
@@ -274,7 +275,7 @@
     	}    
     </script>
     
-    <!-- verifica√ß√£o do arquivo -->
+    <!-- verificaÁ„o do arquivo -->
     <script>	
     function tamanho (){
     	var tamanhoArquivo = parseInt(document.getElementById("file_Input").files[0].size);
@@ -302,7 +303,7 @@
                     }
                     
                     if (!blnValid) {
-                        alert("Desculpe, " + sFileName + " √© inv√°lido, as extens√µes permitidas s√£o: " + _validFileExtensions.join(", "));
+                        alert("Desculpe, " + sFileName + " È inv·lido, as extensıes permitidas s„o: " + _validFileExtensions.join(", "));
                         return false;
                     }
                 }
@@ -342,7 +343,7 @@
     		cpf == "77777777777" || 
     		cpf == "88888888888" || 
     		cpf == "99999999999")
-    			alert("CPF INV√ÅLIDO");		
+    			alert("CPF INV¡LIDO");		
     	// Valida 1o digito	
     	add = 0;	
     	for (i=0; i < 9; i ++)		
@@ -360,14 +361,14 @@
     	if (rev == 10 || rev == 11)	
     		rev = 0;	
     	if (rev != parseInt(cpf.charAt(10)))
-    		alert("CPF INV√ÅLIDO");;		
+    		alert("CPF INV¡LIDO");;		
     	return true;   
     }
     
 	 function CPF(){
-    	  var mensagem = 'CPF Inv√°lido'
+    	  var mensagem = 'CPF Inv·lido'
     	  if ( validarCPF(document.getElementById('cpf').value) === true ) {
-    	    mensagem = 'CPF V√°lido'
+    	    mensagem = 'CPF V·lido'
     	  }
 
     	  alert(mensagem);
@@ -413,7 +414,7 @@
 	<script src="../js/sparklines.js"></script>	
 	<script src="../js/charts.js"></script>
 	<script src="../js/jquery.slimscroll.min.js"></script>
-	<!-- este √© o script para gerar os campos do autor -->
+	<!-- este È o script para gerar os campos do autor -->
 	<script>
      var  autorList = {
 	    'init': function()
