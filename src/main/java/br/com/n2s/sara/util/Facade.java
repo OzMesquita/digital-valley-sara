@@ -75,10 +75,12 @@ public class Facade {
 				return true;
 		return false;
 	}
+	
 	public static Periodo periodoAtual(Trilha t) {
 		Periodo atual = null;
 		for (Periodo p : t.getPeriodos()) {
-			if ( (LocalDate.now().isBefore(p.getDataFinal()) || LocalDate.now().isEqual(p.getDataFinal())) && (LocalDate.now().isAfter(p.getDataInicial()) || LocalDate.now().isEqual(p.getDataInicial())) ){
+			if ( (LocalDate.now().isBefore(p.getDataFinal()) || LocalDate.now().isEqual(p.getDataFinal())) && 
+					(LocalDate.now().isAfter(p.getDataInicial()) || LocalDate.now().isEqual(p.getDataInicial())) ){
 				atual = p;
 				break;
 			}else{

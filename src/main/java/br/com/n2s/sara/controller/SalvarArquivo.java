@@ -102,8 +102,9 @@ public class SalvarArquivo extends HttpServlet {
 	    	int dia = calendar.get(Calendar.DAY_OF_MONTH);
 	    	int hora = calendar.get(Calendar.HOUR_OF_DAY);
 	    	int minuto = calendar.get(Calendar.MINUTE);
+	    	int segundo = calendar.get(Calendar.SECOND);
 	    	Random random = new Random();
-	        String nome = dia+"_"+mes+"_"+ano+"_"+hora+"_"+minuto+"_"+random.nextInt(1000);
+	        String nome = dia+"_"+mes+"_"+ano+"_"+hora+"_"+minuto+"_"+segundo+random.nextInt(10000);
 	    	//Acima tudo que eu fiz foi construir uma super string para completar essa hora
 	    	
 			File arquivo = new File(dir.getAbsolutePath() + File.separator+ nome + ".pdf"); 
