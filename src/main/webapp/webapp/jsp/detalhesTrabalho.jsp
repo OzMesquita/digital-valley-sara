@@ -215,7 +215,7 @@
 									           	
 									           	<h4>Status: <%= trabalho.getStatus() %> </h4> 
 									            
-									            <% if (trabalho.getStatus().equals(StatusTrabalho.ACEITO)) { %>
+									            <% if (Facade.periodoAtual(trabalho.getTrilha()).getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL) && trabalho.getStatus().equals(StatusTrabalho.ACEITO)) { %>
 									            
 								          			<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 									           		<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />
