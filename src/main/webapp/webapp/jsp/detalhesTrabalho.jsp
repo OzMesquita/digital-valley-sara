@@ -165,10 +165,10 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Submiss„o</h3>
+					<h3 class="page-header"><i class="fa fa-table"></i> Submiss√£o</h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Submiss„o</li>
+						<li><i class="icon_document_alt"></i>Submiss√£o</li>
 					</ol>
 				</div>
 			</div>
@@ -179,7 +179,7 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Submiss„o
+                              Submiss√£o
                           </header>
                         <table class="table table-striped table-advance table-hover">
 	                        <tbody>
@@ -189,7 +189,7 @@
 									        <form action="submissaoFinal.jsp" id="form" method="post" >
 									         	
 									         	
-									         	<h4>TÌtulo:</h4>
+									         	<h4>T√≠tulo:</h4>
 									         	<p><%= trabalho.getTitulo() %>"</p>
 									            
 									            <% if (!trabalho.getResumo().equals("")) { %>
@@ -206,12 +206,12 @@
 									           	
 									           	 <% } %>
 									           	
-									           	<% if (Facade.periodoAtual(trabalho.getTrilha()).getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL)) { %>
+									           	<% //if (Facade.periodoAtual(trabalho.getTrilha()).getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL)) { %>
 									           	
 									           		<h4>Feedback do Avaliador</h4>
 									           		<p> <textarea cols="100" rows="10" disabled="disabled"><%= avaliaTrabalho.getFeedback()%></textarea></p>
 									           	
-									           	<% } %>
+									           	<% //} %>
 									           	
 									           	<h4>Status: <%= trabalho.getStatus() %> </h4> 
 									            
@@ -220,7 +220,7 @@
 								          			<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 									           		<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />
 									            	<input type="hidden" name="idTrabalho" value="<%= trabalho.getIdTrabalho()%>" />
-									            	<button class="btn btn-primary" type = "submit">Submeter Vers„o Final</button>
+									            	<button class="btn btn-primary" type = "submit">Submeter Vers√£o Final</button>
 									            
 									            <% } %>
 								        	</form>
@@ -245,7 +245,7 @@
     
     <!-- javascripts -->
     
-    <!-- verificaÁ„o geral -->
+    <!-- verifica√ß√£o geral -->
     <script  type="text/javascript">
     	function verificacao(){
     		var cpfs = document.getElementById("cpf");
@@ -267,7 +267,7 @@
     	}    
     </script>
     
-    <!-- verificaÁ„o do arquivo -->
+    <!-- verifica√ß√£o do arquivo -->
     <script>	
     function tamanho (){
     	var tamanhoArquivo = parseInt(document.getElementById("file_Input").files[0].size);
@@ -295,7 +295,7 @@
                     }
                     
                     if (!blnValid) {
-                        alert("Desculpe, " + sFileName + " È inv·lido, as extensıes permitidas s„o: " + _validFileExtensions.join(", "));
+                        alert("Desculpe, " + sFileName + " √© inv√°lido, as extens√µes permitidas s√£o: " + _validFileExtensions.join(", "));
                         return false;
                     }
                 }
@@ -335,7 +335,7 @@
     		cpf == "77777777777" || 
     		cpf == "88888888888" || 
     		cpf == "99999999999")
-    			alert("CPF INV¡LIDO");		
+    			alert("CPF INV√ÅLIDO");		
     	// Valida 1o digito	
     	add = 0;	
     	for (i=0; i < 9; i ++)		
@@ -353,14 +353,14 @@
     	if (rev == 10 || rev == 11)	
     		rev = 0;	
     	if (rev != parseInt(cpf.charAt(10)))
-    		alert("CPF INV¡LIDO");;		
+    		alert("CPF INV√ÅLIDO");;		
     	return true;   
     }
     
 	 function CPF(){
-    	  var mensagem = 'CPF Inv·lido'
+    	  var mensagem = 'CPF Inv√°lido'
     	  if ( validarCPF(document.getElementById('cpf').value) === true ) {
-    	    mensagem = 'CPF V·lido'
+    	    mensagem = 'CPF V√°lido'
     	  }
 
     	  alert(mensagem);
@@ -406,7 +406,7 @@
 	<script src="../js/sparklines.js"></script>	
 	<script src="../js/charts.js"></script>
 	<script src="../js/jquery.slimscroll.min.js"></script>
-	<!-- este È o script para gerar os campos do autor -->
+	<!-- este √© o script para gerar os campos do autor -->
 	<script>
      var  autorList = {
 	    'init': function()
