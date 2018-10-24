@@ -190,7 +190,7 @@
 									         	
 									         	
 									         	<h4>Título:</h4>
-									         	<p><input type="text" size="100" value="<%= trabalho.getTitulo() %>" disabled="disabled"></p>
+									         	<p><%= trabalho.getTitulo() %>"</p>
 									            
 									            <% if (!trabalho.getResumo().equals("")) { %>
 									           	
