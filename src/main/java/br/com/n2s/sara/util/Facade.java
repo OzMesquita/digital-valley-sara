@@ -78,6 +78,7 @@ public class Facade {
 	
 	public static Periodo periodoAtual(Trilha t) {
 		Periodo atual = null;
+		t.setPeriodos((ArrayList) new DAOPeriodo().readById(t.getIdTrilha()));
 		for (Periodo p : t.getPeriodos()) {
 			if ( (LocalDate.now().isBefore(p.getDataFinal()) || LocalDate.now().isEqual(p.getDataFinal())) && 
 					(LocalDate.now().isAfter(p.getDataInicial()) || LocalDate.now().isEqual(p.getDataInicial())) ){
