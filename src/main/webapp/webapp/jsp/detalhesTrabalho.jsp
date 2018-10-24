@@ -186,7 +186,7 @@
 				                    
 				                   	<tr>
 				                    	<td>
-									        <form action="paginaDeSubmissao.jsp" id="form" method="post" enctype="multipart/form-data">
+									        <form action="submissaoFinal.jsp" id="form" method="post" >
 									         	
 									         	
 									         	<h4>Título:</h4>
@@ -220,7 +220,6 @@
 								          			<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 									           		<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />
 									            	<input type="hidden" name="idTrabalho" value="<%= trabalho.getIdTrabalho()%>" />
-									            	<input type="hidden" name="tipoSubmissao" value="submissaoFinal" />
 									            	<button class="btn btn-primary" type = "submit">Submeter Versão Final</button>
 									            
 									            <% } %>

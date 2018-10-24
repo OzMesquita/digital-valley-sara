@@ -28,19 +28,8 @@ import br.com.n2s.sara.dao.DAOSubmissao;
 import br.com.n2s.sara.dao.DAOTrabalho;
 public class Submissao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Submissao() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Trilha nomeTrilha = new DAOTrilha().getTrilha(Integer.parseInt(request.getParameter("trilha")));
 		Evento nomeEvento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("evento")));
 		String endereco=null;

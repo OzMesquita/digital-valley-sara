@@ -196,7 +196,7 @@
 				                    </tr>
 				                   	<tr>
 				                    	<td>				                    	
-									        <form action="SalvarArquivo" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
+									        <form action="Submissao" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
 									            <input type="hidden" name="trilha" value="<%=trilha.getIdTrilha()%>" />
 									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
 									            <p>*Título:</p>
@@ -205,32 +205,7 @@
 									            <p><textarea name="resumo" cols="80" rows="15" maxlength="5000"></textarea> </p>
 									            <p>Palavras-chave: (Separe como ponto e vírgula)</p>
 									            <p><input type="text" name="palavras_chave" size="80"></p>
-									            
-									            <!-- Verificacao  -->
-									            
-									            <p>Autor Principal</p>
-									            Nome: <input type="text" value="<%=usuario.getNome()%>" disabled="disabled" name="autor" />
-												Email: <input type="text" value="<%=usuario.getEmail() %>" name="autor" disabled="disabled"/>
-												CPF: <input type="text" id="cpf" name="cpf" size="14" value="<%=usuario.getCpf()%>" disabled="disabled">
-												<br/>
-												<br/>
-												Adicione seu orientador e, se houver, adicione os co-autores: 
-												<br/>
-												<br/>
-									            <div id="divAutorBase">
-														Nome: <input type="text" name="nomeAutor" required="required"/>
-														Email: <input type="text" name="emailAutor" required="required" />
-														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)" onblur="validarCPF(this.value);"  required="required" name="cpfAutor">
-														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
-												</div>
-											    <div id="divAutorList" >
-											    </div>
-											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />
-						     					<br/>
-						     					
-						     					<%if (request.getParameter("idTrabalho") != null){%>
-						     						<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
-						     					<%}%>
+									            								            
 						     					<br/>
 												<label>*Anexar Trabalho:</label>
 												

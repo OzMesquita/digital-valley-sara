@@ -214,9 +214,11 @@
                                      %>                                                                        
                                      <td ><%=periodoSubmissao%></td>
                                      <td>
-                                     	<%if( atual!=null && (DescricaoPeriodo.SUBMISSAO_MANUSCRITO.equals(atual.getDescricao()) || DescricaoPeriodo.SUBMISSAO_FINAL.equals(atual.getDescricao())) && Facade.dataValida(atual) ) {%>
+                                     	<%if( atual!=null && (DescricaoPeriodo.SUBMISSAO_MANUSCRITO.equals(atual.getDescricao())) ) {%>
                                      	 <form action="paginaDeSubmissao.jsp" method="post"> 
-                                             <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha"> 
+                                             <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">
+                                              <input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+                                              
                                              <button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
                                          </form>
                                          <%} %> 
