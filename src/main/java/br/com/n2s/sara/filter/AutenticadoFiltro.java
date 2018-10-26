@@ -56,8 +56,6 @@ public class AutenticadoFiltro implements Filter {
 					session.setAttribute("usuario", user.getUsuario());
 					chain.doFilter(request, response);
 				}else {
-					HttpServletRequest rq = (HttpServletRequest) request;
-					session.setAttribute("URL", rq.getRequestURL());
 					((HttpServletResponse) response).sendRedirect(Constantes.getAppGuardiaoUrl() + "/");
 				}
 			}else if(session.getAttribute("usuarioSara") != null && ((br.com.n2s.sara.model.Usuario)session.getAttribute("usuarioSara")).getCpf().equals(((Usuario)session.getAttribute("usuario")).getPessoa().getCpf()) &&
