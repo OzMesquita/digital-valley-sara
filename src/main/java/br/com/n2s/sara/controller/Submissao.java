@@ -79,11 +79,11 @@ public class Submissao extends HttpServlet {
 		     //Salvou o Arquivo no Servidor	        
 		    }
 		    
-		 if (isAutor(userLogado.getCpf(), trabalho)) {    
+		     
 	        trabalho.setEndereco(endereco);
 	        DAOTrabalho daoTrabalho = new DAOTrabalho();
 	        daoTrabalho.update(trabalho);      
-		 }
+		 
 		  
         response.sendRedirect("indexAutor.jsp");	    		
 	}
