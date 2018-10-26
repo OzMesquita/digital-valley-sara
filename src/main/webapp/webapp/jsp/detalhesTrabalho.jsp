@@ -212,7 +212,7 @@
 									           	
 									           	<h4>Status: <%= trabalho.getStatus() %> </h4> 
 									            
-									            <% if( trabalho.getStatus().equals(StatusTrabalho.ACEITO)) { %>
+									            <% if( trabalho.getStatus().equals(StatusTrabalho.ACEITO) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_FINAL) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_COM_RESTRICAO)) { %>
 									            
 								          			<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 									           		<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />

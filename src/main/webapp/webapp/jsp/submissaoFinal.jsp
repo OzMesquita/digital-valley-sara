@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.dao.DAOTrabalho"%>
 <%@page import="br.com.n2s.sara.dao.DAOEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="java.util.ArrayList"%>
@@ -191,8 +192,9 @@
                           </header>
                         <table class="table table-striped table-advance table-hover">
 	                        <tbody>
-				                    <tr>                               
-				                       <th><h2><%= trilha.getDescricao() %></h2> </th>
+				                    <tr>
+				                    <%Trabalho trabalho = new DAOTrabalho().getTrabalho(Integer.parseInt(request.getParameter("idTrabalho")));  %>                               
+				                       <th><h2>Submissão final para o trabalho <%= trabalho.getTitulo() %></h2> </th>
 				                    </tr>
 				                   	<tr>
 				                    	<td>				                    	
