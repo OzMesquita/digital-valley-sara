@@ -205,13 +205,10 @@
 									           		<p> <input type="text" size="100" value="<%= trabalho.getPalavrasChaves() %>" disabled="disabled"></p>
 									           	
 									           	 <% } %>
-									           	
-									           	<% //if (Facade.periodoAtual(trabalho.getTrilha()).getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL)) { %>
-									           	
+									           										           	
 									           		<h4>Feedback do Avaliador</h4>
 									           		<p> <textarea cols="100" rows="10" disabled="disabled"><%= avaliaTrabalho.getFeedback()%></textarea></p>
 									           	
-									           	<% //} %>
 									           	
 									           	<h4>Status: <%= trabalho.getStatus() %> </h4> 
 									            
