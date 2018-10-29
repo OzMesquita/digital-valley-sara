@@ -143,20 +143,20 @@ public class GerarRelatorio extends HttpServlet {
 		            }
 				}else if (tipoRelatorio.equals("relatorioFinal")) {
 		            for (Trilha trilha: evento.getTrilhas()) {
-		            	PdfPTable t = new PdfPTable(3);
+		            	PdfPTable t = new PdfPTable(1); //Criando a tabela com uma trilha
 			            PdfPCell cell = new PdfPCell();
 			            cell.setBorder(PdfPCell.NO_BORDER);
 			            cell.addElement(image);
 			            t.addCell(cell);
 			            PdfPCell cell1 = new PdfPCell();
 			            cell1.setBorder(PdfPCell.NO_BORDER);
-			            cell1.setColspan(2);
+			            cell1.setColspan(1);
 			            normal.setColor(10, 10, 10);
 			            normal.setSize(15);
 			            t.addCell(cell1);
 			           // document.add(t);
 			            normal.setSize(10);
-			            PdfPTable table = new PdfPTable(2);
+			            PdfPTable table = new PdfPTable(1);
 		            	int i = 1;
 		            	ArrayList<Trabalho> trabalhos = new DAOTrabalho().readTrilha(trilha.getIdTrilha());
 		            	Paragraph tituloTrilha = new Paragraph(trilha.getNome().toUpperCase() + "\n\n");
@@ -165,23 +165,24 @@ public class GerarRelatorio extends HttpServlet {
 			            PdfPCell coluna1 = new PdfPCell(new Paragraph("Titulo", normal));
 			            coluna1.setBackgroundColor(BaseColor.LIGHT_GRAY);
 			            coluna1.setHorizontalAlignment(Element.ALIGN_CENTER);
-			            PdfPCell coluna2 = new PdfPCell(new Paragraph("Autores", normal));
+			            /*PdfPCell coluna2 = new PdfPCell(new Paragraph("Autores", normal));
 			            coluna2.setBackgroundColor(BaseColor.LIGHT_GRAY);
-			            coluna2.setHorizontalAlignment(Element.ALIGN_CENTER);
-			            table.setWidths(new int[]{450, 200});
+			            coluna2.setHorizontalAlignment(Element.ALIGN_CENTER);*/
+			            table.setWidths(new int[]{650});
 			            table.addCell(coluna1);
-			            table.addCell(coluna2);
+			           /* table.addCell(coluna2);*/
 			            //Percorrer as trilhas
 			            for (Trabalho trabalho: trabalhos) {
+			            	StringBuilder strBuilder = new StringBuilder();
 			            	if(trabalho.getStatus()== StatusTrabalho.ACEITO_FINAL) {
-			            		table.addCell(i+" - "+trabalho.getTitulo().toUpperCase());
-				            	String nomeAutor = "";
+			            		strBuilder.append(i+" - "+trabalho.getTitulo().toUpperCase()+"\n\n");
 				            	if (trabalho.getAutor() != null) {
 				            		Usuario u = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(trabalho.getAutor().getCpf());			            		
 				            		if(u!=null) {	
-				            			nomeAutor = u.getNome().toUpperCase();
+				            			strBuilder.append(u.getNome().toUpperCase()+"\n");
+				            			strBuilder.append(u.getCpf()+"    "+u.getEmail()+"\n\n");
 				            			}else {
-				            				nomeAutor = trabalho.getAutor().getCpf();
+				            				strBuilder.append( trabalho.getAutor().getCpf());
 				            			}
 				            	}
 				            	for (Usuario u : trabalho.getAutores()) {
@@ -189,16 +190,18 @@ public class GerarRelatorio extends HttpServlet {
 				            			if(u.getNome()==null) {
 				            				Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(u.getCpf());
 				            				if (usuario != null) {
-				            					nomeAutor = nomeAutor + ", "+ usuario.getNome(); 
+				            					strBuilder.append("\n"+ usuario.getNome());
+				            					strBuilder.append("\n" + usuario.getCpf() +"     "+ usuario.getEmail()+"\n\n");
 				            				}else {
-				            					nomeAutor = nomeAutor + ", "+u.getCpf();
+				            					strBuilder.append("\n "+u.getCpf());
 				            				}
 				            			}else {
-				            				nomeAutor = nomeAutor + ", " + u.getNome().toUpperCase();
+				            				strBuilder.append("\n" + u.getNome().toUpperCase());
+				            				strBuilder.append("\n" + u.getCpf() +"     "+ u.getEmail()+"\n\n");
 				            			}
 				            		}	
 				            	}
-				            	PdfPCell autores = new PdfPCell(new Paragraph(nomeAutor));
+				            	PdfPCell autores = new PdfPCell(new Paragraph(strBuilder.toString()));
 				            	autores.setHorizontalAlignment(Element.ALIGN_CENTER);
 				            	table.addCell(autores);
 				            	i++;
