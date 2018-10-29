@@ -177,12 +177,14 @@ public class GerarRelatorio extends HttpServlet {
 			            	if(trabalho.getStatus()== StatusTrabalho.ACEITO_FINAL) {
 			            		strBuilder.append(i+" - "+trabalho.getTitulo().toUpperCase()+"\n\n");
 				            	if (trabalho.getAutor() != null) {
-				            		Usuario u = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(trabalho.getAutor().getCpf());			            		
-				            		if(u!=null) {	
-				            			strBuilder.append(u.getNome().toUpperCase()+"\n");
-				            			strBuilder.append(u.getCpf()+"    "+u.getEmail()+"\n\n");
+				            		Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(trabalho.getAutor().getCpf());			            		
+				            		if(usuario!=null) {	
+				            			strBuilder.append(usuario.getNome().toUpperCase()+"\n");
+				            			if(usuario.getCpf()!=null && usuario.getEmail()!=null) {
+				            				strBuilder.append(usuario.getCpf()+"    "+usuario.getEmail()+"\n\n");
+				            				}
 				            			}else {
-				            				strBuilder.append( trabalho.getAutor().getCpf());
+				            				strBuilder.append( trabalho.getAutor().getCpf()+"\n\n");
 				            			}
 				            	}
 				            	for (Usuario u : trabalho.getAutores()) {
@@ -197,7 +199,8 @@ public class GerarRelatorio extends HttpServlet {
 				            				}
 				            			}else {
 				            				strBuilder.append("\n" + u.getNome().toUpperCase());
-				            				strBuilder.append("\n" + u.getCpf() +"     "+ u.getEmail()+"\n\n");
+				            				if(u.getCpf()!=null && u.getEmail()!=null)
+				            					strBuilder.append("\n" + u.getCpf() +"     "+ u.getEmail()+"\n\n");
 				            			}
 				            		}	
 				            	}
@@ -227,7 +230,7 @@ public class GerarRelatorio extends HttpServlet {
 			} catch (DocumentException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("ERRO ERRO ERRO");
+				System.out.println("ERRO na documentação, na hora de gerar o pdf");
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
