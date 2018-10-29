@@ -80,14 +80,13 @@ public class Facade {
 		Periodo atual = null;
 		t.setPeriodos((ArrayList) new DAOPeriodo().readById(t.getIdTrilha()));
 		for (Periodo p : t.getPeriodos()) {
+			LocalDate.now();
 			if ( (LocalDate.now().isBefore(p.getDataFinal()) || LocalDate.now().isEqual(p.getDataFinal())) && 
 					(LocalDate.now().isAfter(p.getDataInicial()) || LocalDate.now().isEqual(p.getDataInicial())) ){
 				atual = p;
-				break;
 			}else{
-				if(p.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL )) {
+				if(p.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL) && p.getDataFinal().isAfter(LocalDate.now())) {
 					atual=p;
-					break;
 				}
 			}
 		}

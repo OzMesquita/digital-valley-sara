@@ -39,6 +39,7 @@ public class AutenticadoFiltro implements Filter {
 				int id = Integer.parseInt(request.getParameter("id"));
 				Pessoa user = Facade.buscarPessoaPorId(id);
 				if (token.equals(user.getUsuario().getTokenUsuario()) && id == user.getId() && !token.equals("null")) {
+					session.setAttribute("usuario", user.getUsuario());
 					UsuarioDAO userDAO = DAOFactory.criarUsuarioDAO();
 					br.com.n2s.sara.model.Usuario userSara = new br.com.n2s.sara.model.Usuario();
 					if (br.com.n2s.sara.util.Facade.buscarUsuarioPorCPF(user.getCpf()) == null){
@@ -52,8 +53,7 @@ public class AutenticadoFiltro implements Filter {
 					}else {
 						userSara = br.com.n2s.sara.util.Facade.buscarUsuarioPorCPF(user.getCpf());
 					}
-					session.setAttribute("usuarioSara", userSara);
-					session.setAttribute("usuario", user.getUsuario());
+					session.setAttribute("usuarioSara", userSara);					
 					chain.doFilter(request, response);
 				}else {
 					((HttpServletResponse) response).sendRedirect(Constantes.getAppGuardiaoUrl() + "/");

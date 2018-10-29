@@ -74,7 +74,7 @@
 		AvaliaTrabalho avaliaTrabalho = new DAOAvaliaTrabalho().getAvaliaTrabalho(idTrabalho);
 		List<Usuario> coAutores = new ArrayList<Usuario>(); 
 		coAutores = new DAOSubmissao().getAutores(idTrabalho);
-        
+		Periodo atual = Facade.periodoAtual(trabalho.getTrilha());
     %>
       
       <header class="header dark-bg">
@@ -179,7 +179,7 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Submiss√£o
+                              Submiss„o
                           </header>
                         <table class="table table-striped table-advance table-hover">
 	                        <tbody>
@@ -189,7 +189,7 @@
 									        <form action="submissaoFinal.jsp" id="form" method="post" >
 									         	
 									         	
-									         	<h4>T√≠tulo:</h4>
+									         	<h4>TÌtulo:</h4>
 									         	<p><%= trabalho.getTitulo() %>"</p>
 									            
 									            <% if (!trabalho.getResumo().equals("")) { %>
@@ -212,12 +212,13 @@
 									           	
 									           	<h4>Status: <%= trabalho.getStatus() %> </h4> 
 									            
-									            <% if( trabalho.getStatus().equals(StatusTrabalho.ACEITO) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_FINAL) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_COM_RESTRICAO)) { %>
+									            <% 
+									            if ( atual.getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL) && (trabalho.getStatus().equals(StatusTrabalho.ACEITO) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_FINAL) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_COM_RESTRICAO)) ) { %>
 									            
 								          			<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 									           		<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />
 									            	<input type="hidden" name="idTrabalho" value="<%= trabalho.getIdTrabalho()%>" />
-									            	<button class="btn btn-primary" type = "submit">Submeter Vers√£o Final</button>
+									            	<button class="btn btn-primary" type = "submit">Submeter Vers„o Final</button>
 									            
 									            <% } %>
 								        	</form>
