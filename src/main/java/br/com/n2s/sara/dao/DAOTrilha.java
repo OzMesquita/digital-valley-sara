@@ -32,7 +32,7 @@ public class DAOTrilha {
 			
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -66,7 +66,7 @@ public class DAOTrilha {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return trilhas;
 
 		}catch(SQLException e){
@@ -103,7 +103,7 @@ public List<Trilha> readById(int id){
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return trilhas;
 
 		}catch(SQLException e){
@@ -134,7 +134,7 @@ public List<Trilha> readById(int id){
 				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return trilha;
 			}else{
 				return null;
@@ -161,7 +161,7 @@ public List<Trilha> readById(int id){
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -179,7 +179,7 @@ public List<Trilha> readById(int id){
 			stmt.setInt(1, idTrilha);
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

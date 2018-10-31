@@ -38,7 +38,7 @@ public class DAOEvento {
 			evento.setIdEvento(rs.getInt(1));
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return evento;
 
 		} catch (SQLException e) {
@@ -73,7 +73,7 @@ public class DAOEvento {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return eventos;
 
 		}catch(SQLException e){
@@ -103,7 +103,7 @@ public class DAOEvento {
 
 				rs.close();
 				stmt.close();
-				this.connection.close();				
+				connection.close();				
 				return evento;
 			}else{
 				return null;
@@ -126,7 +126,7 @@ public class DAOEvento {
 
 			stmt.close();
 			rs.close();
-			this.connection.close();
+			connection.close();
 			return lastId;
 
 		}catch (SQLException e) {
@@ -153,7 +153,7 @@ public class DAOEvento {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -171,7 +171,7 @@ public class DAOEvento {
 			stmt.setInt(1, idEvento);
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

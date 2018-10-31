@@ -31,7 +31,7 @@ public class DAOCriterio {
 			
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -64,7 +64,7 @@ public class DAOCriterio {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return criterios;
 
 		}catch(SQLException e){
@@ -94,7 +94,7 @@ public class DAOCriterio {
 			
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return criterio;
 			}else{
 				return null;
@@ -131,7 +131,7 @@ public class DAOCriterio {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return criterios;
 
 		}catch(SQLException e){
@@ -154,7 +154,7 @@ public class DAOCriterio {
 			
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -174,7 +174,7 @@ public class DAOCriterio {
 
 			stmt.close();
 			rs.close();
-			this.connection.close();
+			connection.close();
 			return lastId;
 
 		}catch (SQLException e) {
@@ -193,7 +193,7 @@ public class DAOCriterio {
 			stmt.setInt(1, criterio.getIdCriterio());
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

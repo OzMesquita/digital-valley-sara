@@ -33,7 +33,7 @@ public class DAOUsuario {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -63,7 +63,7 @@ public class DAOUsuario {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return usuarios;
 
 		}catch(SQLException e){
@@ -91,7 +91,7 @@ public class DAOUsuario {
 
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return usuario;
 			}else{
 				return null;
@@ -120,7 +120,7 @@ public class DAOUsuario {
 			
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -138,7 +138,7 @@ public class DAOUsuario {
 			stmt.setString(1, cpf);
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

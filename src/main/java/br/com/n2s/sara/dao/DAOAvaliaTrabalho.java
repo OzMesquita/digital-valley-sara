@@ -35,7 +35,7 @@ public class DAOAvaliaTrabalho {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -67,7 +67,7 @@ public class DAOAvaliaTrabalho {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return avaliacoes;
 
 		}catch(SQLException e){
@@ -95,7 +95,7 @@ public class DAOAvaliaTrabalho {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return trabalhos;
 
 		}catch(SQLException e){
@@ -126,7 +126,7 @@ public class DAOAvaliaTrabalho {
 
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return avalia;
 			}else{
 				return null;
@@ -160,7 +160,7 @@ public class DAOAvaliaTrabalho {
 
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return avalia;
 			}else{
 				return null;
@@ -186,7 +186,7 @@ public class DAOAvaliaTrabalho {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -204,7 +204,7 @@ public class DAOAvaliaTrabalho {
 			stmt.setInt(1, avaliaTrabalho.getTrabalho().getIdTrabalho());
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

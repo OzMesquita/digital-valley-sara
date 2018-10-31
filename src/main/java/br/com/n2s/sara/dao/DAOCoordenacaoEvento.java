@@ -29,7 +29,7 @@ public class DAOCoordenacaoEvento {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -59,7 +59,7 @@ public class DAOCoordenacaoEvento {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return coordenacoes;
 
 		}catch(SQLException e){
@@ -91,7 +91,7 @@ public class DAOCoordenacaoEvento {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return coordenacoes;
 
 		}catch(SQLException e){
@@ -123,7 +123,7 @@ public class DAOCoordenacaoEvento {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return coordenacoes;
 
 		}catch(SQLException e){
@@ -151,7 +151,7 @@ public class DAOCoordenacaoEvento {
 
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return coordenacaoEvento;
 			}else{
 				return null;
@@ -175,7 +175,7 @@ public class DAOCoordenacaoEvento {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -193,7 +193,7 @@ public class DAOCoordenacaoEvento {
 			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

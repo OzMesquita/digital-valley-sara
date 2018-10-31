@@ -31,7 +31,7 @@ public class DAOItem {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -63,7 +63,7 @@ public class DAOItem {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return itens;
 
 		}catch(SQLException e){
@@ -98,7 +98,7 @@ public class DAOItem {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return itens;
 
 		}catch(SQLException e){
@@ -128,7 +128,7 @@ public class DAOItem {
 
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return item;
 			}else{
 				return null;
@@ -153,7 +153,7 @@ public class DAOItem {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -171,7 +171,7 @@ public class DAOItem {
 			stmt.setInt(1, item.getIdItem());
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -188,7 +188,7 @@ public class DAOItem {
 			stmt.setInt(1, idItem);
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

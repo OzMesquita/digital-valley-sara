@@ -34,7 +34,7 @@ public class DAOCriterioTrilha {
 			
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -66,7 +66,7 @@ public class DAOCriterioTrilha {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return criterioTrilhas;
 
 		}catch(SQLException e){
@@ -94,7 +94,7 @@ public class DAOCriterioTrilha {
 			
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return criterioTrilha;
 				
 			}else{
@@ -118,7 +118,7 @@ public class DAOCriterioTrilha {
 
 			stmt.close();
 			rs.close();
-			this.connection.close();
+			connection.close();
 			return lastId;
 
 		}catch (SQLException e) {
@@ -141,7 +141,7 @@ public class DAOCriterioTrilha {
 			
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -159,7 +159,7 @@ public class DAOCriterioTrilha {
 			stmt.setInt(1, idCriterioTrilha);
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

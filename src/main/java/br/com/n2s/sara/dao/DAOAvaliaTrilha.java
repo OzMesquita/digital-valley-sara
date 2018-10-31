@@ -32,7 +32,7 @@ public class DAOAvaliaTrilha {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -60,7 +60,7 @@ public class DAOAvaliaTrilha {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return avaliacoes;
 
 		}catch(SQLException e){
@@ -88,7 +88,7 @@ public class DAOAvaliaTrilha {
 				
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return avaliaTrilha;
 
 			}
@@ -119,7 +119,7 @@ public class DAOAvaliaTrilha {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return avaliadores;
 
 		}catch(SQLException e){
@@ -146,7 +146,7 @@ public class DAOAvaliaTrilha {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return trilhas;
 
 		}catch(SQLException e){
@@ -167,7 +167,7 @@ public class DAOAvaliaTrilha {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -186,7 +186,7 @@ public class DAOAvaliaTrilha {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

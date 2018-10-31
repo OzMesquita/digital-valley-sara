@@ -35,7 +35,7 @@ public class DAOSubmissao {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -63,7 +63,7 @@ public class DAOSubmissao {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return submissoes;
 
 		}catch(SQLException e){
@@ -88,7 +88,7 @@ public class DAOSubmissao {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return autores;
 
 		}catch(SQLException e){
@@ -112,7 +112,7 @@ public List<String> getCPFAutores(int idTrabalho){
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return autores;
 
 		}catch(SQLException e){
@@ -137,7 +137,7 @@ public List<String> getCPFAutores(int idTrabalho){
 
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return submissao;
 			}else{
 				return null;
@@ -160,7 +160,7 @@ public List<String> getCPFAutores(int idTrabalho){
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -178,7 +178,7 @@ public List<String> getCPFAutores(int idTrabalho){
 			stmt.setInt(1, submissao.getTrabalho().getIdTrabalho());
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -195,7 +195,7 @@ public List<String> getCPFAutores(int idTrabalho){
 			stmt.setInt(1, idTrabalho);
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -219,7 +219,7 @@ public List<String> getCPFAutores(int idTrabalho){
 			}
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return submissoes;
 		}catch(SQLException e){
 			throw new RuntimeException(e);

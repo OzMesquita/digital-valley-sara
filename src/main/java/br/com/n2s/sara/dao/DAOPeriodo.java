@@ -35,7 +35,7 @@ public class DAOPeriodo {
 			
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -67,7 +67,7 @@ public class DAOPeriodo {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return periodos;
 
 		}catch(SQLException e){
@@ -101,7 +101,7 @@ public class DAOPeriodo {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 			return periodos;
 
 		}catch(SQLException e){
@@ -131,7 +131,7 @@ public class DAOPeriodo {
 				
 				rs.close();
 				stmt.close();
-				this.connection.close();
+				connection.close();
 				return periodo;
 				
 			}else{
@@ -160,7 +160,7 @@ public class DAOPeriodo {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -177,7 +177,7 @@ public class DAOPeriodo {
 			stmt.setInt(1, idPeriodo);
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

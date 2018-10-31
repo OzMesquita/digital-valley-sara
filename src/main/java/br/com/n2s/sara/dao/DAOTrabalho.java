@@ -52,7 +52,7 @@ public class DAOTrabalho {
 			stmt.close();
 			rs.close();
 			trabalho.setIdTrabalho(idTrabalho);
-			this.connection.close();
+			connection.close();
 			adicionaAutores(trabalho);
 			return idTrabalho;
 
