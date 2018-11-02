@@ -233,34 +233,48 @@
               </div>
               <!-- page end-->
 			
-			<center>
+			
 		    <%
 		    	if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){
 		    %>
-				    <form action="adicionarTrilha.jsp" method="post">
-				        <button class="btn btn-primary" type = "submit">Adicionar Trilha</button>
-				    </form>
-				    
-				    <br />
-				    
-				    <form action="gerenciarCoordenadoresEvento.jsp" method="post">
-				        <button class="btn btn-primary" type = "submit">Gerenciar Coordenadores do Evento</button>
-				    </form>
-				    <br/>
-				     <form action="GerarRelatorio" method="post" >
-			        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
-			        	<input type="hidden" value="relatorioInicial" name="tipoRelatorio">
-					    <button class="btn btn-primary" type = "submit">Gerar Relatório de Trabalhos Submetidos</button>
-					</form>
-					<br/>		     
-					<form action="GerarRelatorio" method="post" >
-			        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
-			        	<input type="hidden" value="relatorioFinal" name="tipoRelatorio">
-					    <button class="btn btn-primary" type = "submit">Gerar Relatório Final</button>
-					</form>
+		    
+		    <table class="table table-striped table-advance table-hover">
+			    <tr>		
+			    	<td>
+					    <form action="adicionarTrilha.jsp" method="post">
+					        <button class="btn btn-primary" type = "submit">Adicionar Trilha</button>
+					    </form>
+					</td> 
+					<td>  
+						<form action="gerenciarCoordenadoresEvento.jsp" method="post">
+					        <button class="btn btn-primary" type = "submit">Gerenciar Coordenadores do Evento</button>
+					    </form>
+					</td>
+					<td>
+						<form action="GerarRelatorio" method="post" >
+				       		<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+				        	<input type="hidden" value="relatorioInicial" name="tipoRelatorio">
+						    <button class="btn btn-primary" type = "submit">Gerar Relatório de Trabalhos Submetidos</button>
+						</form>
+					</td>
+					<td>	     
+						<form action="GerarRelatorio" method="post" >
+				        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+				        	<input type="hidden" value="relatorioFinal" name="tipoRelatorio">
+						    <button class="btn btn-primary" type = "submit">Gerar Relatório Final</button>
+						</form>
+					</td>
+					<td>	     
+						<form action="relacaoDeTrabalhos.jsp" method="post" >
+				        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+						    <button class="btn btn-primary" type = "submit">Relação de Trabalhos</button>
+						</form>
+					</td>
+				</tr>
+			</table>
 						 
 		    <%  } %>
-		    </center>
+		    
 		
   </section>
 </section>
