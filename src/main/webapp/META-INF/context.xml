@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<Context path="/Sara">
+		<Resource
+			auth="Container"
+			name="jdbc/Sara"
+			type="javax.sql.DataSource"
+			url="jdbc:postgresql://192.169.1.2:5432/guardiao_teste"
+			driverClassName="org.postgresql.Driver"
+			username="postgres"
+			password="postgres"
+			maxActive="1" maxldle="5" maxWait="-1"/>
+	</Context>
