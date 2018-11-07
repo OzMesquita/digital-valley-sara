@@ -14,12 +14,12 @@ public class ConnectionFactory {
 	
 	
 	public Connection getConnection()  {
-		
+		Connection conn = null;
 		try {		
-			
 			String bd [] = Facade.lerArquivoBancoDeDados();
 			Class.forName("org.postgresql.Driver");
-			return DriverManager.getConnection(bd[0], bd[1], bd[2]);
+			conn = DriverManager.getConnection(bd[0], bd[1], bd[2]);
+			return conn;
 			
 		}catch (SQLException e) {
 			throw new RuntimeException(e);

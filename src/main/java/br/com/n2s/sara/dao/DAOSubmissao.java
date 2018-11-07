@@ -15,27 +15,25 @@ import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.util.Facade;
 
-public class DAOSubmissao {
-
-	private Connection connection;
+public class DAOSubmissao extends DAO {
 
 	public DAOSubmissao(){}
 
 	public void create(Submissao submissao){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "insert into sara.Submissao"  
 				+ "(cpfautor, idtrabalho)"
 				+ "values (?,?)";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, submissao.getAutor().getCpf());
 			stmt.setInt(2, submissao.getTrabalho().getIdTrabalho());
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -44,12 +42,12 @@ public class DAOSubmissao {
 
 	public List<Submissao> read(){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Submissao";
 
 		try{
 			List<Submissao> submissoes = new ArrayList<Submissao>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			DAOUsuario usuarioController = new DAOUsuario();
 
@@ -63,7 +61,7 @@ public class DAOSubmissao {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return submissoes;
 
 		}catch(SQLException e){
@@ -72,11 +70,11 @@ public class DAOSubmissao {
 	}
 		public List<Usuario> getAutores(int idTrabalho){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.submissao where idtrabalho=?";
 		try{
 			List<Usuario> autores = new ArrayList<Usuario>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
 
@@ -88,7 +86,7 @@ public class DAOSubmissao {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return autores;
 
 		}catch(SQLException e){
@@ -98,11 +96,11 @@ public class DAOSubmissao {
 	
 public List<String> getCPFAutores(int idTrabalho){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.submissao where idtrabalho=?";
 		try{
 			List<String> autores = new ArrayList<String>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();			
 
@@ -112,7 +110,7 @@ public List<String> getCPFAutores(int idTrabalho){
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return autores;
 
 		}catch(SQLException e){
@@ -122,11 +120,11 @@ public List<String> getCPFAutores(int idTrabalho){
 
 	public Submissao getSubmissao(int idtrabalho){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Submissao where idtrabalho = ?";
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idtrabalho);			
 			ResultSet rs = stmt.executeQuery();
 
@@ -137,7 +135,7 @@ public List<String> getCPFAutores(int idTrabalho){
 
 				rs.close();
 				stmt.close();
-				connection.close();
+				super.close();
 				return submissao;
 			}else{
 				return null;
@@ -149,18 +147,18 @@ public List<String> getCPFAutores(int idTrabalho){
 
 	public void update(Submissao submissao){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "update sara.Submissao set cpfautor = ?, idtrabalho = ? " 
 				+ " where idtrabalho = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, submissao.getAutor().getCpf());
 			stmt.setInt(2, submissao.getTrabalho().getIdTrabalho());
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -170,15 +168,15 @@ public List<String> getCPFAutores(int idTrabalho){
 
 	public void delete(Submissao submissao){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "delete from sara.Submissao where idtrabalho = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, submissao.getTrabalho().getIdTrabalho());
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -187,15 +185,15 @@ public List<String> getCPFAutores(int idTrabalho){
 	}
 	public void delete(int idTrabalho){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "delete from sara.Submissao where idtrabalho = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -204,11 +202,11 @@ public List<String> getCPFAutores(int idTrabalho){
 	}
 	public List<Trabalho> readByAutor(String idAutor){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.submissao where cpfautor = ?";
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, idAutor);			
 			ResultSet rs = stmt.executeQuery();
 			ArrayList<Trabalho> submissoes = new ArrayList<Trabalho>();
@@ -219,7 +217,7 @@ public List<String> getCPFAutores(int idTrabalho){
 			}
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return submissoes;
 		}catch(SQLException e){
 			throw new RuntimeException(e);

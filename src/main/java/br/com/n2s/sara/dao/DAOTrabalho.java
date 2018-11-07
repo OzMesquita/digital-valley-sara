@@ -19,23 +19,20 @@ import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.util.Facade;
 
-public class DAOTrabalho {
-
-	private Connection connection;
+public class DAOTrabalho extends DAO {
 
 	public DAOTrabalho(){}
 
 	public int create(Trabalho trabalho){
 
-		this.connection = new ConnectionFactory().getConnection(); 	
-
+		super.open();
 		String sql = "insert into sara.Trabalho"  
 				+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha)"
 				+ "values (?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = null;
-			stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, trabalho.getTitulo());
 			stmt.setString(2, trabalho.getPalavrasChaves());
@@ -52,7 +49,7 @@ public class DAOTrabalho {
 			stmt.close();
 			rs.close();
 			trabalho.setIdTrabalho(idTrabalho);
-			connection.close();
+			super.close();
 			adicionaAutores(trabalho);
 			return idTrabalho;
 
@@ -63,12 +60,12 @@ public class DAOTrabalho {
 
 	public List<Trabalho> read(){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Trabalho";
 
 		try{
 			List<Trabalho> trabalhos = new ArrayList<Trabalho>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			DAOTrilha daoTrilha = new DAOTrilha(); 
 
@@ -90,7 +87,7 @@ public class DAOTrabalho {
 
 			rs.close();
 			stmt.close();
-			this.connection.close();
+			super.close();
 			return trabalhos;
 
 		}catch(SQLException e){
@@ -100,11 +97,11 @@ public class DAOTrabalho {
 	
 	public Trabalho getTrabalho(int idTrabalho){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Trabalho where idTrabalho = ?";
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
 			DAOTrilha daoTrilha = new DAOTrilha();
@@ -123,7 +120,7 @@ public class DAOTrabalho {
 				trabalho.setAutor(autores.get(0));
 				autores.remove(0);
 				trabalho.setAutores(autores);
-				this.connection.close();
+				super.close();
 				return trabalho;
 			}else {
 				return null;
@@ -136,12 +133,12 @@ public class DAOTrabalho {
 
 	public void update(Trabalho trabalho){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "update sara.Trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?"
 				+ " where idTrabalho  = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 
 			stmt.setString(1, trabalho.getTitulo());
 			stmt.setString(2, trabalho.getPalavrasChaves());
@@ -153,7 +150,7 @@ public class DAOTrabalho {
 
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -163,15 +160,15 @@ public class DAOTrabalho {
 
 	public void delete(int idTrabalho){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "delete from sara.Trabalho where idTrabalho = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			stmt.execute();
 			stmt.close();
-			this.connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -180,10 +177,10 @@ public class DAOTrabalho {
 	}
 	public ArrayList<Trabalho> readTrilha(int idTrilha){
 		ArrayList<Trabalho> trabalhos = new ArrayList<>();
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "SELECT * FROM sara.trabalho WHERE idtrilha = ?";
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1,idTrilha);
 			ResultSet rs = stmt.executeQuery();
 			DAOTrilha daoTrilha = new DAOTrilha();
@@ -205,7 +202,7 @@ public class DAOTrabalho {
 			}
 			stmt.close();
 			rs.close();
-			this.connection.close();
+			super.close();
 			return trabalhos;
 		}catch (Exception e) {
 			throw new RuntimeException(e);

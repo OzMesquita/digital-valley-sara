@@ -11,42 +11,41 @@ import java.util.List;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trilha;
 
-public class DAOTrilha {
-
-	private Connection connection;
+public class DAOTrilha extends DAO {
 
 	public DAOTrilha(){}
 
 	public void create(Trilha trilha){
-		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "insert into sara.Trilha"  
 				+ "(nome, descricao, idEvento)"
 				+ "values (?,?,?)";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, trilha.getNome());
 			stmt.setString(2, trilha.getDescricao());
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
 			
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public List<Trilha> read(){
 		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "select * from sara.Trilha";
 
 		try{
 			List<Trilha> trilhas = new ArrayList<Trilha>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			DAOEvento daoEvento = new DAOEvento();
 			DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
@@ -66,22 +65,23 @@ public class DAOTrilha {
 
 			rs.close();
 			stmt.close();
-			connection.close();
 			return trilhas;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
 public List<Trilha> readById(int id){
 		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "select * from sara.Trilha where idEvento = ?";
 		
 		try{
 			List<Trilha> trilhas = new ArrayList<Trilha>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			DAOEvento daoEvento = new DAOEvento();
@@ -103,21 +103,21 @@ public List<Trilha> readById(int id){
 
 			rs.close();
 			stmt.close();
-			connection.close();
 			return trilhas;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public Trilha getTrilha(int idTrilha){
-		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "select * from sara.Trilha where idTrilha = ?";
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrilha);
 			ResultSet rs = stmt.executeQuery();
 			DAOEvento daoEvento = new DAOEvento();
@@ -134,25 +134,26 @@ public List<Trilha> readById(int id){
 				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
 				rs.close();
 				stmt.close();
-				connection.close();
+				
 				return trilha;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public void update(Trilha trilha){
-		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "update sara.Trilha set nome = ?, descricao = ?, idEvento = ?, "
 				+ "idCriterioTrilha = ? where idTrilha = ?";
 
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, trilha.getNome());
 			stmt.setString(2, trilha.getDescricao());
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
@@ -161,28 +162,29 @@ public List<Trilha> readById(int id){
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 
 	public void delete(int idTrilha){
-		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "delete from sara.Trilha where idTrilha = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrilha);
 			stmt.execute();
 			stmt.close();
-			connection.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 
 	}

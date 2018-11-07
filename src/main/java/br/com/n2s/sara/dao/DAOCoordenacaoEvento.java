@@ -9,27 +9,25 @@ import java.util.List;
 
 import br.com.n2s.sara.model.CoordenacaoEvento;
 
-public class DAOCoordenacaoEvento {
-
-	private Connection connection;
+public class DAOCoordenacaoEvento extends DAO {
 
 	public DAOCoordenacaoEvento() {}
 
 	public void create(CoordenacaoEvento coordenacaoEvento){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "insert into sara.CoordenacaoEvento"  
 				+ "(cpfCoordenador, idEvento)"
 				+ "values (?,?)";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
 			stmt.setInt(2, coordenacaoEvento.getEvento().getIdEvento());
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -38,13 +36,13 @@ public class DAOCoordenacaoEvento {
 
 	public List<CoordenacaoEvento> read(){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open(); 
 		String sql = "select * from sara.CoordenacaoEvento";
 
 		try{
 
 			List<CoordenacaoEvento> coordenacoes = new ArrayList<CoordenacaoEvento>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOEvento eventoController = new DAOEvento();
@@ -59,7 +57,7 @@ public class DAOCoordenacaoEvento {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return coordenacoes;
 
 		}catch(SQLException e){
@@ -68,14 +66,14 @@ public class DAOCoordenacaoEvento {
 	}
 
 	public List<CoordenacaoEvento> read(String cpfCoordenador){
-
-		this.connection = new ConnectionFactory().getConnection(); 
+		
+		super.open();
 		String sql = "select * from sara.CoordenacaoEvento where cpfCoordenador = ?";
 
 		try{
 
 			List<CoordenacaoEvento> coordenacoes = new ArrayList<CoordenacaoEvento>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfCoordenador);
 			ResultSet rs = stmt.executeQuery();
 			DAOUsuario usuarioController = new DAOUsuario();
@@ -91,7 +89,7 @@ public class DAOCoordenacaoEvento {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return coordenacoes;
 
 		}catch(SQLException e){
@@ -101,13 +99,13 @@ public class DAOCoordenacaoEvento {
 	
 	public List<CoordenacaoEvento> read(int idEvento){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "select * from sara.CoordenacaoEvento where idEvento = ?";
 
 		try{
 
 			List<CoordenacaoEvento> coordenacoes = new ArrayList<CoordenacaoEvento>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idEvento);
 			ResultSet rs = stmt.executeQuery();
 			DAOUsuario usuarioController = new DAOUsuario();
@@ -123,7 +121,7 @@ public class DAOCoordenacaoEvento {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return coordenacoes;
 
 		}catch(SQLException e){
@@ -133,13 +131,13 @@ public class DAOCoordenacaoEvento {
 	
 	public CoordenacaoEvento getCoordenacaoEvento(String cpfCoordenador){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "select * from sara.CoordenacaoEvento where cpfCoordenador = ?";
 		DAOUsuario usuarioController = new DAOUsuario();
 		DAOEvento eventoController = new DAOEvento();
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfCoordenador);
 			ResultSet rs = stmt.executeQuery();
 
@@ -151,7 +149,7 @@ public class DAOCoordenacaoEvento {
 
 				rs.close();
 				stmt.close();
-				connection.close();
+				super.close();
 				return coordenacaoEvento;
 			}else{
 				return null;
@@ -163,19 +161,19 @@ public class DAOCoordenacaoEvento {
 
 	public void update(CoordenacaoEvento coordenacaoEvento){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open(); 
 		String sql = "update sara.CoordenacaoEvento set cpfCoordenador = ?, idEvento = ? " 
 				+ " where cpfCoordenador = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
 			stmt.setInt(2, coordenacaoEvento.getEvento().getIdEvento());
 			stmt.setString(3, coordenacaoEvento.getCoordenador().getCpf());
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -185,15 +183,15 @@ public class DAOCoordenacaoEvento {
 
 	public void delete(CoordenacaoEvento coordenacaoEvento){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "delete from sara.CoordenacaoEvento where cpfCoordenador = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

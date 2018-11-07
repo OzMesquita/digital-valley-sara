@@ -10,28 +10,26 @@ import java.util.List;
 
 import br.com.n2s.sara.model.Item;
 
-public class DAOItem {
-
-	private Connection connection;
+public class DAOItem extends DAO{
 
 	public DAOItem() {}
 
 	public void create(Item item){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "insert into sara.Item"  
 				+ "(descricao, peso,  idCriterio)"
 				+ "values (?,?,?)";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, item.getDescricao());
 			stmt.setInt(2, item.getPeso());
 			stmt.setInt(3, item.getCriterio().getIdCriterio());
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -40,12 +38,12 @@ public class DAOItem {
 
 	public List<Item> read(){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "select * from sara.Item";
 
 		try{
 			List<Item> itens = new ArrayList<Item>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			DAOCriterio daoCriterio = new DAOCriterio();
 
@@ -63,7 +61,7 @@ public class DAOItem {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return itens;
 
 		}catch(SQLException e){
@@ -73,12 +71,12 @@ public class DAOItem {
 
 	public List<Item> readById(int id){
 
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Item where idCriterio = ?";
 
 		try{
 			List<Item> itens = new ArrayList<Item>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			DAOCriterio daoCriterio = new DAOCriterio();
@@ -98,7 +96,7 @@ public class DAOItem {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return itens;
 
 		}catch(SQLException e){
@@ -108,11 +106,11 @@ public class DAOItem {
 
 	public Item getItem(int idItem){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "select * from sara.Item where idItem = ?";
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idItem);
 			ResultSet rs = stmt.executeQuery();
 			DAOCriterio daoCriterio = new DAOCriterio();
@@ -128,7 +126,7 @@ public class DAOItem {
 
 				rs.close();
 				stmt.close();
-				connection.close();
+				super.close();
 				return item;
 			}else{
 				return null;
@@ -140,12 +138,12 @@ public class DAOItem {
 
 	public void update(Item item){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "update sara.Item set descricao = ? peso = ?, idCriterio = ?"
 				+ " where idItem = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, item.getDescricao());
 			stmt.setInt(2, item.getPeso());
 			stmt.setInt(3, item.getCriterio().getIdCriterio());
@@ -153,7 +151,7 @@ public class DAOItem {
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -163,15 +161,15 @@ public class DAOItem {
 
 	public void delete(Item item){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "delete from sara.Item where idItem = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, item.getIdItem());
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -180,15 +178,15 @@ public class DAOItem {
 
 	public void delete(int idItem){
 
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "delete from sara.Item where idItem = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idItem);
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

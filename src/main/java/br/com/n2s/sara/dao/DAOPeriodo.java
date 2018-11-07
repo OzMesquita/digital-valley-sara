@@ -12,22 +12,20 @@ import java.util.List;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Periodo;
 
-public class DAOPeriodo {
-
-	private Connection connection;
+public class DAOPeriodo extends DAO {
 
 	public DAOPeriodo() {}	
 
 	public void create(Periodo periodo){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		
 		String sql = "insert into sara.Periodo"  
 				+ "(dataInicial, dataFinal, descricao, idTrilha)"
 				+ "values (?,?,?,?)";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setDate(1, Date.valueOf(periodo.getDataInicial()));
 			stmt.setDate(2, Date.valueOf(periodo.getDataFinal()));
 			stmt.setString(3, periodo.getDescricao().toString());
@@ -35,7 +33,7 @@ public class DAOPeriodo {
 			
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -44,12 +42,12 @@ public class DAOPeriodo {
 
 	public List<Periodo> read(){ //read()
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Periodo";
 
 		try{
 			List<Periodo> periodos = new ArrayList<Periodo>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			DAOTrilha daoTrilha = new DAOTrilha();
 
@@ -67,7 +65,7 @@ public class DAOPeriodo {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return periodos;
 
 		}catch(SQLException e){
@@ -77,12 +75,12 @@ public class DAOPeriodo {
 	
 	public List<Periodo> readById(int id){ //read()
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Periodo where idtrilha = ?";
 
 		try{
 			List<Periodo> periodos = new ArrayList<Periodo>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			DAOTrilha daoTrilha = new DAOTrilha();
@@ -101,7 +99,7 @@ public class DAOPeriodo {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return periodos;
 
 		}catch(SQLException e){
@@ -111,11 +109,11 @@ public class DAOPeriodo {
 
 	public Periodo getPeriodo(int idPeriodo){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Periodo where idPeriodo = ?";
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idPeriodo);
 			ResultSet rs = stmt.executeQuery();
 			DAOTrilha daoTrilha = new DAOTrilha();
@@ -131,7 +129,7 @@ public class DAOPeriodo {
 				
 				rs.close();
 				stmt.close();
-				connection.close();
+				super.close();
 				return periodo;
 				
 			}else{
@@ -144,14 +142,14 @@ public class DAOPeriodo {
 
 	public void update(Periodo periodo){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "update sara.Periodo "
 				+ "set dataInicial = ?, dataFinal = ?, descricao = ?, idTrilha = ?" 
 				+ " where idPeriodo = ?";
 
 		try {
 			
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setDate(1, Date.valueOf(periodo.getDataInicial()));
 			stmt.setDate(2, Date.valueOf(periodo.getDataFinal()));
 			stmt.setString(3, periodo.getDescricao().toString());
@@ -160,7 +158,7 @@ public class DAOPeriodo {
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -169,15 +167,15 @@ public class DAOPeriodo {
 
 	public void delete(int idPeriodo){
 		
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "delete from sara.Periodo where idPeriodo = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idPeriodo);
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

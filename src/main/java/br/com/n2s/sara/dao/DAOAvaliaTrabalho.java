@@ -13,21 +13,19 @@ import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.util.Facade;
 
-public class DAOAvaliaTrabalho {
-
-	private Connection connection;
+public class DAOAvaliaTrabalho extends DAO {
 
 	public DAOAvaliaTrabalho(){}
 
 	public void create(AvaliaTrabalho avalia){
 
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "insert into sara.avaliatrabalho"  
 				+ "(idavaliador, idtrabalho, feedback, status)"
 				+ "values (?,?,?,?)";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, avalia.getAvaliador().getCpf());
 			stmt.setInt(2, avalia.getTrabalho().getIdTrabalho());
 			stmt.setString(3, avalia.getFeedback());
@@ -35,7 +33,7 @@ public class DAOAvaliaTrabalho {
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -43,13 +41,12 @@ public class DAOAvaliaTrabalho {
 	}
 
 	public List<AvaliaTrabalho> read(){
-
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Avaliatrabalho";
 
 		try{
 			List<AvaliaTrabalho> avaliacoes = new ArrayList<AvaliaTrabalho>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 
 			while(rs.next()){				
@@ -67,7 +64,7 @@ public class DAOAvaliaTrabalho {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return avaliacoes;
 
 		}catch(SQLException e){
@@ -78,13 +75,13 @@ public class DAOAvaliaTrabalho {
 
 
 	public List<Trabalho> read(String cpfAvaliador){
-
-		this.connection = new ConnectionFactory().getConnection();
+		
+		super.open();
 		String sql = "select * from sara.AvaliaTrabalho where idAvaliador = ?";
 
 		try{
 			List<Trabalho> trabalhos = new ArrayList<Trabalho>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfAvaliador);
 			ResultSet rs = stmt.executeQuery();
 
@@ -95,7 +92,7 @@ public class DAOAvaliaTrabalho {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return trabalhos;
 
 		}catch(SQLException e){
@@ -105,11 +102,11 @@ public class DAOAvaliaTrabalho {
 	
 	public AvaliaTrabalho getAvaliaTrabalho(String idAvaliador){
 
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Avaliatrabalho where idavaliador = ?";
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, idAvaliador);
 			ResultSet rs = stmt.executeQuery();
 
@@ -126,7 +123,7 @@ public class DAOAvaliaTrabalho {
 
 				rs.close();
 				stmt.close();
-				connection.close();
+				super.close();
 				return avalia;
 			}else{
 				return null;
@@ -138,11 +135,11 @@ public class DAOAvaliaTrabalho {
 
 	public AvaliaTrabalho getAvaliaTrabalho(int idTrabalho){
 
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "select * from sara.Avaliatrabalho where idTrabalho = ?";
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
 
@@ -160,7 +157,7 @@ public class DAOAvaliaTrabalho {
 
 				rs.close();
 				stmt.close();
-				connection.close();
+				super.close();
 				return avalia;
 			}else{
 				return null;
@@ -172,12 +169,12 @@ public class DAOAvaliaTrabalho {
 
 	public void update(AvaliaTrabalho avaliaTrabalho){
 
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "update sara.AvaliaTrabalho set idavaliador = ?, idtrabalho = ?, feedback = ?, status = ?" 
 				+ " where idTrabalho = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, avaliaTrabalho.getAvaliador().getCpf());
 			stmt.setInt(2, avaliaTrabalho.getTrabalho().getIdTrabalho());
 			stmt.setString(3, avaliaTrabalho.getFeedback());
@@ -186,7 +183,7 @@ public class DAOAvaliaTrabalho {
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -196,15 +193,15 @@ public class DAOAvaliaTrabalho {
 
 	public void delete(AvaliaTrabalho avaliaTrabalho){
 
-		this.connection = new ConnectionFactory().getConnection();
+		super.open();
 		String sql = "delete from sara.Usuario where idtrabalho = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, avaliaTrabalho.getTrabalho().getIdTrabalho());
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

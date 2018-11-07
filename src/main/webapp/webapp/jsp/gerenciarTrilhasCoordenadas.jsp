@@ -56,8 +56,10 @@
 	     	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
      	
      		String idEvento = request.getParameter("idEvento");
-     		Evento evento = (new DAOEvento().getEvento(Integer.parseInt(idEvento)));
-     		evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
+     		DAOEvento daoEvento = new DAOEvento();
+     		DAOTrilha daoTrilha = new DAOTrilha();
+     		Evento evento = (daoEvento.getEvento(Integer.parseInt(idEvento)));
+     		evento.setTrilhas(daoTrilha.readById(evento.getIdEvento()));
 	        
      		session.setAttribute("usuarioSara", usuario);
 	        session.setAttribute("evento", evento);
