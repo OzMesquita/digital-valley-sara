@@ -5,53 +5,6 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
-    <meta name="author" content="GeeksLabs">
-    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
-    <link rel="shortcut icon" href="img/favicon.png">
-
-    <title>SARA</title>
-
-    <!-- Bootstrap CSS -->    
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <!-- bootstrap theme -->
-    <link href="../css/bootstrap-theme.css" rel="stylesheet">
-    <!--external css-->
-    <!-- font icon -->
-    <link href="../css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="../css/font-awesome.min.css" rel="stylesheet" />    
-    <!-- full calendar css-->
-    <link href="../assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-	<link href="../assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
-    <!-- easy pie chart-->
-    <link href="../assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
-    <!-- owl carousel -->
-    <link rel="stylesheet" href="../css/owl.carousel.css" type="text/css">
-	<link href="../css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
-    <!-- Custom styles -->
-	<link rel="stylesheet" href="../css/fullcalendar.css">
-	<link href="../css/widgets.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/style-responsive.css" rel="stylesheet" />
-	<link href="../css/xcharts.min.css" rel=" stylesheet">	
-	<link href="../css/jquery-ui-1.10.4.min.css" rel="stylesheet">
-    <!-- =======================================================
-        Theme Name: NiceAdmin
-        Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-        Author: BootstrapMade
-        Author URL: https://bootstrapmade.com
-    ======================================================= -->
-
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-</head>
-
-	<body>
          <% 
          	
          	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
@@ -171,15 +124,15 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<section class="panel">
-							<header class="panel-heading"> Alterar Per√≠odo </header>
+							<header class="panel-heading"> Alterar PerÌodo </header>
 								<div class="panel-body">
                               		<div class="form">
 							        	<form action="EditarPeriodo" method="POST">
 								            <p>Tipo: <select name="descricao">
-													  <option value="SUBMISSAO_MANUSCRITO">Per√≠odo de Submiss√£o</option>
-													  <option value="AVALIACAO">Per√≠odo de Avalia√ß√¢o</option>
-													  <option value="SUBMISSAO_FINAL">Per√≠odo de Submiss√¥es Finais</option>
-													  <option value="RESULTADO_FINAL">Divulga√ß√¢o de Resultados</option>
+													  <option value="SUBMISSAO_MANUSCRITO">PerÌodo de Submiss„o</option>
+													  <option value="AVALIACAO">PerÌodo de AvaliaÁ‚o</option>
+													  <option value="SUBMISSAO_FINAL">PerÌodo de SubmissÙes Finais</option>
+													  <option value="RESULTADO_FINAL">DivulgaÁ‚o de Resultados</option>
 													</select>
 								            <p>Data de Inicio: <input type="date" name="dataInicial" required> </p>
 								            <p>Data de Fim: <input type="date" name="dataFinal" required> </p>

@@ -7,6 +7,15 @@
 	<welcome-file-list>
 		<welcome-file>/webapp/jsp/indexAutor.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>/webapp/jsp/*</url-pattern>
+			<include-prelude>/WEB-INF/templates/header.jspf</include-prelude>
+						
+		</jsp-property-group>
+	</jsp-config>
+	
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
