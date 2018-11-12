@@ -7,8 +7,7 @@
 <%@page import="br.com.n2s.sara.util.Constantes"%>
          <% 
          	
-         	Usuario usuario = (Usuario) session.getAttribute("usuarioSara");
-        	
+         	        	
          	Trilha trilha = (Trilha) session.getAttribute("trilha");
         	String idPeriodo = request.getParameter("idPeriodo");
         	Periodo periodo = new DAOPeriodo().getPeriodo(Integer.parseInt(idPeriodo));
