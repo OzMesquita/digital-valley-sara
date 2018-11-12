@@ -92,7 +92,6 @@ public class DAOUsuario {
 				rs.close();
 				stmt.close();
 				connection.close();
-				System.out.println(connection.isClosed());
 				return usuario;
 			}else{
 				return null;

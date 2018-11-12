@@ -48,6 +48,9 @@ public class AdicionarAvaliador extends HttpServlet {
 		usuario = Facade.buscarUsuarioPorCPF(cpfAvaliador);
 
 		if (usuario == null) {
+			
+			String feedbackAviso = "Não existe usuário cadastrado com o CPF informado! Por favor, realize o cadastro para continuar.";
+			session.setAttribute("feedbackAviso", feedbackAviso);
 			response.sendRedirect("cadastrarAvaliador.jsp");
 		} else {
 			
@@ -59,9 +62,15 @@ public class AdicionarAvaliador extends HttpServlet {
 				avaliaTrilha.setAvaliador(usuario);
 				avaliaTrilha.setTrilha(trilha);
 				daoAvaliaTrilha.create(avaliaTrilha);
-				response.sendRedirect("eventosCoordenados.jsp");
+				
+				String feedbackSucesso = "Avaliador adicionado com sucesso!";
+				session.setAttribute("feedbackSucesso", feedbackSucesso);
+				response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
 			}else {
-				response.sendRedirect("eventosCoordenados.jsp");
+				
+				String feedbackSucesso = "Avaliador adicionado com sucesso!";
+				session.setAttribute("feedbackSucesso", feedbackSucesso);
+				response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
 			}
 		}
 	}

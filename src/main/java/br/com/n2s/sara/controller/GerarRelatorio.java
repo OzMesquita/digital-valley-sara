@@ -230,12 +230,10 @@ public class GerarRelatorio extends HttpServlet {
 			} catch (DocumentException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("ERRO na documentação, na hora de gerar o pdf");
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 				// TODO: handle exception
-				System.out.println("ERRO ERRO ERRO");
 			}			
 
 		}

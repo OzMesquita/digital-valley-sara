@@ -26,7 +26,6 @@ public class RemoverAvaliador extends HttpServlet {
      */
     public RemoverAvaliador() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,24 +33,18 @@ public class RemoverAvaliador extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		Trilha trilha = new Trilha();
-		
 		trilha = (Trilha) session.getAttribute("trilha");
-		
 		String cpfAvaliador = request.getParameter("cpfAvaliador");
-		
-		Usuario avaliador = Facade.buscarUsuarioPorCPF(cpfAvaliador);
-		
 		DAOAvaliaTrilha daoAvTrilha = new DAOAvaliaTrilha();
-		
 		AvaliaTrilha avTrilha = new AvaliaTrilha(); 
-		
 		avTrilha = daoAvTrilha.getAvaliaTrilha(cpfAvaliador, trilha.getIdTrilha());
-		
 		daoAvTrilha.delete(avTrilha);
-		
 		session.setAttribute("trilha", trilha);
 		
-		response.sendRedirect("eventosCoordenados.jsp");
+		String feedbackSucesso = "Avaliador removido com sucesso!";
+		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		
+		response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
 	}
 
 }

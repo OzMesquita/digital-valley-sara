@@ -9,6 +9,7 @@
      		Trilha trilha = (Trilha) session.getAttribute("trilha");
     		session.setAttribute("trilha", trilha);
     		List<Usuario> avaliadores = new DAOAvaliaTrilha().getAvaliadores(trilha.getIdTrilha());
+    		
    		%>
  
       <!--main content start-->
@@ -23,7 +24,18 @@
 					</ol>
 				</div>
 			</div>
-      
+			
+			<% 
+			
+			if (session.getAttribute("feedbackSucesso") != null){ %>
+				<div class="alert alert-success" role="alert">
+  					<%= session.getAttribute("feedbackSucesso") %>
+				</div>
+				
+			<% } 
+				session.setAttribute("feedbackSucesso", null);	
+			%>
+      		
       <!-- page start-->
               
               <div class="row">

@@ -9,19 +9,30 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i>Adicionar Trilha</h3>
+					<h3 class="page-header"><i class="fa fa-table"></i>Cadastrar Usuário</h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Adicionar Trilha</li>
+						<li><i class="icon_document_alt"></i>Cadastrar Usuário</li>
 					</ol>
 				</div>
 			</div>
-      
+			
+			<% 
+			
+			if ( session.getAttribute("feedbackAviso") != null){ %>
+				<div class="alert alert-warning" role="alert">
+  					<%= session.getAttribute("feedbackAviso") %>
+				</div>
+				
+			<% } 
+				session.setAttribute("feedbackAviso", null);	
+			%>
+			
       				<!-- Form validations -->
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-12">	
 						<section class="panel">
-							<header class="panel-heading"> Formulário de Adição de Trilhas </header>
+							<header class="panel-heading"> Formulário de Cadastro</header>
 							<div class="panel-body">
 								<div class="form">
 									<form action="CadastrarAvaliador" method="post" id = "formEnviar">
@@ -36,6 +47,7 @@
 												</div>
 											</div>
 											
+											<!-- 
 											<div class="form-group">
 												<label for="ccomment" class="control-label col-lg-2">Sobrenome
 													<span class="required">*</span>
@@ -44,7 +56,7 @@
 													<textarea class="form-control " id="ccomment"
 														name="sobrenome" required></textarea>
 												</div>
-											</div>
+											</div>  -->
 											
 											<div class="form-group">
 												<label for="ccomment" class="control-label col-lg-2">Email
