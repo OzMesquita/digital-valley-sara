@@ -2,8 +2,6 @@
 <%@page import="br.com.n2s.sara.dao.DAOTrilha" %>
 <%@ page import="br.com.n2s.sara.model.*" %>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
-
-     
      	<%
      	
      		String idEvento = request.getParameter("idEvento");
@@ -30,6 +28,17 @@
 			</div>
       
       <!-- page start-->
+      
+      	<%	 
+			
+		if ( session.getAttribute("feedbackSucesso") != null){ %>
+			<div class="alert alert-success" role="alert">
+  				<%= session.getAttribute("feedbackSucesso") %>
+			</div>
+				
+		<% } 
+			session.setAttribute("feedbackSucesso", null);	
+		%>
               
               <div class="row">
                   <div class="col-lg-12">

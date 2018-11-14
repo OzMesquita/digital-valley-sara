@@ -20,6 +20,7 @@ public class RemoverCoordenadorEvento extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
 		String cpfCoordenador = request.getParameter("cpfCoordenador");
 		
 		DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
@@ -28,7 +29,10 @@ public class RemoverCoordenadorEvento extends HttpServlet {
 		
 		daoCoordenacaoEvento.delete(coordenacaoEvento);
 		
-		response.sendRedirect("eventosCoordenados.jsp");
+		String feedbackSucesso = "Coordenador removido com sucesso!";
+		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		
+		response.sendRedirect("gerenciarCoordenadoresEvento.jsp");
 	}
 
 }
