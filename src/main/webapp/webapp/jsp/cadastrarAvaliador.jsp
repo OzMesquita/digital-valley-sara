@@ -19,13 +19,13 @@
 			
 			<% 
 			
-			if ( session.getAttribute("feedbackAviso") != null){ %>
-				<div class="alert alert-warning" role="alert">
-  					<%= session.getAttribute("feedbackAviso") %>
+			if ( session.getAttribute("feedbackInfo") != null){ %>
+				<div class="alert alert-info" role="alert">
+  					<%= session.getAttribute("feedbackInfo") %>
 				</div>
 				
 			<% } 
-				session.setAttribute("feedbackAviso", null);	
+				session.setAttribute("feedbackInfo", null);	
 			%>
 			
       				<!-- Form validations -->

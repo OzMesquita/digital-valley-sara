@@ -39,15 +39,13 @@ public class AdicionarPeriodo extends HttpServlet {
 		periodo.setTrilha(trilha);
 		daoPeriodo.create(periodo);
 		
+		String feedbackSucesso = "Período adicionado com sucesso!";
+		session.setAttribute("feedbackSucesso", feedbackSucesso);
 		
-		response.sendRedirect("eventosCoordenados.jsp");
+		response.sendRedirect("gerenciarPeriodosTrilha.jsp");
 	}
 
 }
-
-
-
-
 
 
 

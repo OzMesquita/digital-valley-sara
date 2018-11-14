@@ -43,7 +43,10 @@ public class RemoverPeriodo extends HttpServlet {
 		
 		daoPeriodo.delete(periodo.getIdPeriodo());
 		
-		response.sendRedirect("eventosCoordenados.jsp");
+		String feedbackSucesso = "Período removido com sucesso!";
+		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		
+		response.sendRedirect("gerenciarPeriodosTrilha.jsp");
 	}
 
 }

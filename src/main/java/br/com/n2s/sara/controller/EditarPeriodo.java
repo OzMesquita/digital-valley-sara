@@ -38,7 +38,10 @@ public class EditarPeriodo extends HttpServlet {
 
 		daoPeriodo.update(periodo);
 		
-		response.sendRedirect("eventosCoordenados.jsp");
+		String feedbackSucesso = "Período alterado com sucesso!";
+		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		
+		response.sendRedirect("gerenciarPeriodosTrilha.jsp");
 	}
 
 }

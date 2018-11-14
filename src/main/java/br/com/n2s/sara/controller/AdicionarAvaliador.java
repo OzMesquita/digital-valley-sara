@@ -49,8 +49,8 @@ public class AdicionarAvaliador extends HttpServlet {
 
 		if (usuario == null) {
 			
-			String feedbackAviso = "Não existe usuário cadastrado com o CPF informado! Por favor, realize o cadastro para continuar.";
-			session.setAttribute("feedbackAviso", feedbackAviso);
+			String feedbackInfo = "Não existe usuário cadastrado com o CPF informado! Por favor, realize o cadastro para continuar.";
+			session.setAttribute("feedbackInfo", feedbackInfo);
 			response.sendRedirect("cadastrarAvaliador.jsp");
 		} else {
 			
