@@ -10,21 +10,18 @@ import java.util.List;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Usuario;
 
-public class DAOUsuario {
-
-	private Connection connection;
-
+public class DAOUsuario extends DAO{
 	public DAOUsuario(){}
 
 	public void create(Usuario usuario){
 		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open(); 
 		String sql = "insert into sara.Usuario"  
 				+ "(cpf, nome, sobrenome, email, tipo)"
 				+ "values (?,?,?,?,?)";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, usuario.getCpf());
 			stmt.setString(2, usuario.getNome());
 			stmt.setString(3, usuario.getSobrenome());
@@ -33,7 +30,7 @@ public class DAOUsuario {
 
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -42,12 +39,12 @@ public class DAOUsuario {
 
 	public List<Usuario> read(){
 		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "select * from sara.Usuario";
 
 		try{
 			List<Usuario> usuarios = new ArrayList<Usuario>();
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 
 			while(rs.next()){
@@ -63,7 +60,7 @@ public class DAOUsuario {
 
 			rs.close();
 			stmt.close();
-			connection.close();
+			super.close();
 			return usuarios;
 
 		}catch(SQLException e){
@@ -73,11 +70,11 @@ public class DAOUsuario {
 
 	public Usuario getUsuario(String cpf){
 		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open(); 
 		String sql = "select * from sara.Usuario where cpf = ?";
 
 		try{
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpf);
 			ResultSet rs = stmt.executeQuery();
 
@@ -91,7 +88,7 @@ public class DAOUsuario {
 
 				rs.close();
 				stmt.close();
-				connection.close();
+				super.close();
 				return usuario;
 			}else{
 				return null;
@@ -105,12 +102,12 @@ public class DAOUsuario {
 
 	public void update(Usuario usuario){
 		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open();
 		String sql = "update sara.Usuario set cpf = ?, nome = ?, sobrenome = ?, email = ?, tipo = ? " 
 				+ " where cpf = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, usuario.getCpf());
 			stmt.setString(2, usuario.getNome());
 			stmt.setString(3, usuario.getSobrenome());
@@ -120,7 +117,7 @@ public class DAOUsuario {
 			
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -130,15 +127,15 @@ public class DAOUsuario {
 	
 	public void delete(String cpf){
 		
-		this.connection = new ConnectionFactory().getConnection(); 
+		super.open(); 
 		String sql = "delete from sara.Usuario where cpf = ?";
 
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpf);
 			stmt.execute();
 			stmt.close();
-			connection.close();
+			super.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
