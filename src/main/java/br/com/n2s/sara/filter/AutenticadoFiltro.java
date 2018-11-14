@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.n2s.sara.dao.DAOUsuario;
+import br.com.n2s.sara.dao.DAOUsuarioSemCadastro;
 import br.com.n2s.sara.model.NivelUsuario;
 import dao.UsuarioDAO;
 import model.Pessoa;
@@ -40,6 +41,7 @@ public class AutenticadoFiltro implements Filter {
 				Pessoa user = Facade.buscarPessoaPorId(id);
 				if (token.equals(user.getUsuario().getTokenUsuario()) && id == user.getId() && !token.equals("null")) {
 					session.setAttribute("usuario", user.getUsuario());
+					//Parte que não faz parte do filtro original
 					UsuarioDAO userDAO = DAOFactory.criarUsuarioDAO();
 					br.com.n2s.sara.model.Usuario userSara = new br.com.n2s.sara.model.Usuario();
 					if (br.com.n2s.sara.util.Facade.buscarUsuarioPorCPF(user.getCpf()) == null){
@@ -53,7 +55,8 @@ public class AutenticadoFiltro implements Filter {
 					}else {
 						userSara = br.com.n2s.sara.util.Facade.buscarUsuarioPorCPF(user.getCpf());
 					}
-					session.setAttribute("usuarioSara", userSara);					
+					session.setAttribute("usuarioSara", userSara);	
+					//Filtro normal
 					chain.doFilter(request, response);
 				}else {
 					((HttpServletResponse) response).sendRedirect(Constantes.getAppGuardiaoUrl() + "/");

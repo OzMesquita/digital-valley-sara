@@ -12,6 +12,7 @@ import java.util.List;
 import javax.management.RuntimeErrorException;
 import javax.naming.spi.DirStateFactory.Result;
 
+import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Submissao;
 import br.com.n2s.sara.model.Trabalho;
@@ -215,15 +216,32 @@ public class DAOTrabalho extends DAO {
 		submissao.setTrabalho(t);
 		daoSubmissao.create(submissao);
 		for (Usuario u : t.getAutores()) {
-			submissao.setAutor(u);
-			daoSubmissao.create(submissao);
+			if (Facade.isUsuarioCadastrado(u.getCpf())) {
+				submissao.setAutor(u);
+				daoSubmissao.create(submissao);
+			}else {
+				new DAOUsuarioSemCadastro().create(u);
+				submissao.setAutor(u);
+				daoSubmissao.create(submissao);
+			}
+			
 		}
 	}
 	
 	private ArrayList<Usuario> pegarUsuarios(Trabalho t){
 		ArrayList<Usuario> autores = new ArrayList<Usuario>();
-		DAOSubmissao daoSubmissao = new DAOSubmissao();
-		autores = (ArrayList<Usuario>) daoSubmissao.getAutores(t.getIdTrabalho());	
+		ArrayList<String> cpfs = (ArrayList<String>) new DAOSubmissao().getCPFAutores(t.getIdTrabalho());
+		for (String s : cpfs) {
+			Usuario user = new Usuario();
+			if(Facade.isUsuarioCadastrado(s)) {
+				user = Facade.buscarUsuarioGuardiao(s);
+			}else {
+				user = new DAOUsuarioSemCadastro().getUsuario(s);
+				user.setSobrenome("");
+				user.setTipo(NivelUsuario.AUTOR);
+			}
+			autores.add(user);
+		}		
 		return autores;
 	}
 

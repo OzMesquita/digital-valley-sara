@@ -41,6 +41,19 @@ public class Facade {
 		return usuario;
 	}
 	
+	public static Boolean isUsuarioCadastrado(String cpf){
+		if (buscarUsuarioPorCPF(cpf)!=null) {
+			return true;
+		}
+		else if (buscarUsuarioGuardiao(cpf) != null) {
+			Usuario user = new Usuario();
+			user = buscarUsuarioGuardiao(cpf);
+			new DAOUsuario().create(user);
+			return true;
+		}
+		return false;
+	}
+	
 	public static String[] lerArquivoBancoDeDados() {
 		String[] bd = new String[3];
 		try {			
