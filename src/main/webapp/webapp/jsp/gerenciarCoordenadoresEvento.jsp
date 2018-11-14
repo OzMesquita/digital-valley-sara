@@ -28,6 +28,25 @@
 			</div>
       
       <!-- page start-->
+      
+      <% 
+		if (session.getAttribute("feedbackErro") != null){ %>
+			<div class="alert alert-danger" role="alert">
+  				<%= session.getAttribute("feedbackErro") %>
+			</div>
+				
+		<% } 
+			session.setAttribute("feedbackErro", null);
+			
+			if (session.getAttribute("feedbackSucesso") != null){ %>
+			<div class="alert alert-success" role="alert">
+  				<%= session.getAttribute("feedbackSucesso") %>
+			</div>
+				
+		<% } 
+			session.setAttribute("feedbackSucesso", null);
+			
+		%>
               
               <div class="row">
                   <div class="col-lg-12">

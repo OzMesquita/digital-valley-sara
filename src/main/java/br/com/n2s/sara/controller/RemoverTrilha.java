@@ -30,7 +30,7 @@ public class RemoverTrilha extends HttpServlet {
 	
 		HttpSession session = request.getSession();
 		Evento evento = new Evento();
-		Trilha trilha = new Trilha();
+		
 		DAOTrilha daoTrilha = new DAOTrilha();
 		
 		int idTrilha = Integer.parseInt(request.getParameter("idTrilha")) ;
@@ -46,8 +46,13 @@ public class RemoverTrilha extends HttpServlet {
 			}
 		}
 		
+		
+		String feedbackSucesso = "Trilha removida com sucesso!";
 		session.setAttribute("evento", evento);
-		response.sendRedirect("eventosCoordenados.jsp");
+		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		
+		
+		response.sendRedirect("gerenciarTrilhasCoordenadas.jsp");
 	}
 
 }
