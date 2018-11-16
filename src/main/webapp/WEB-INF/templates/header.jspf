@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.model.NivelUsuario"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.util.*" %>
 <%@page errorPage="../error.jsp" %>
@@ -125,6 +126,11 @@
 							class="icon_documents_alt"></i> <span>Meus Trabalhos</span>
 
 					</a></li>
+					<%if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)) {%>
+					<li><a class="" href="formCadastroEvento.jsp"> <i class="icon-plus-sign-alt"></i> <span>Adicionar Evento</span>
+
+					</a></li>
+					<%} %>
 				</ul>
 				<!-- sidebar menu end-->
 			</div>
