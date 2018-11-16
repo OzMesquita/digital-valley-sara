@@ -104,6 +104,7 @@
 					<li class="active"><a class="" href="indexAutor.jsp"> <i
 							class="icon_house_alt"></i> <span>Home</span>
 					</a>
+					<%if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)) {%>
 					<li class="sub-menu"><a href="javascript:;" class=""> <i
 							class="icon_pencil"></i> <span>Administrador</span> <span
 							class="menu-arrow arrow_carrot-right"></span>
@@ -111,7 +112,7 @@
 						<ul class="sub">
 							<li><a class="" href="formCadastroEvento.jsp">Criar Evento</a></li>
 						</ul></li>
-
+					<%} %>
 					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
@@ -124,13 +125,7 @@
 					</a></li>		
 					<li><a class="" href="trabalhosAutor.jsp"> <i
 							class="icon_documents_alt"></i> <span>Meus Trabalhos</span>
-
-					</a></li>
-					<%if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)) {%>
-					<li><a class="" href="formCadastroEvento.jsp"> <i class="icon-plus-sign-alt"></i> <span>Adicionar Evento</span>
-
-					</a></li>
-					<%} %>
+					
 				</ul>
 				<!-- sidebar menu end-->
 			</div>

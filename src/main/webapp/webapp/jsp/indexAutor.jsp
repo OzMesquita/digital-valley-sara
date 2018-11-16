@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.dao.*"%>
 <%@page import="br.com.n2s.sara.controller.*"%>
@@ -50,10 +51,12 @@
                                          <td><%= evento.getNome() %> </td>
                    						 <td><%= evento.getLocalizacao()%> </td>
                                          <td><%= formatter.format(evento.getDataInicial()) %> </td>
+                                         <%if (evento.getDataFinal().isAfter(LocalDate.now()) || evento.getDataFinal().isEqual(LocalDate.now())){%>
                                          <td><form action="paginaDeEventos.jsp" method="post"> 
                            					<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento"> 
                           					<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
                        					 </form> 
+                       					 <%} %>
                    						</td>
                                       </tr>                              			 
                               <% }

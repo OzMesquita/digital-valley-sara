@@ -1,5 +1,9 @@
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
+<%if(!usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)){
+	response.sendRedirect("indexAutor.jsp");
+}
+%>
      <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
