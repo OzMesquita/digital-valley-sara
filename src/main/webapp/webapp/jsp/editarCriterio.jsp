@@ -1,7 +1,9 @@
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.dao.DAOCriterio"%>
 <%@page import="br.com.n2s.sara.dao.DAOItem"%>
 <%@page import="br.com.n2s.sara.model.Criterio"%>
+<%@page import="br.com.n2s.sara.model.Trilha"%>
 <%@page import="br.com.n2s.sara.model.Item"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
@@ -11,6 +13,24 @@
 		Criterio criterio = new DAOCriterio().getCriterio(Integer.parseInt(idCriterio));
 		session.setAttribute("criterio", criterio);
 		List<Item> itensCriterio = new DAOItem().readById(criterio.getIdCriterio());
+		Trilha trilha = new Trilha();
+		trilha = new DAOTrilha().getTrilha(criterio.getCriterioTrilha().getIdCriterioTrilha());
+		if (! Facade.isCoordenador(trilha.getEvento().getIdEvento(), usuario.getCpf())){
+      		%>
+      		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
+			<script>
+				function permissao(){
+					alert('Você não possue permissão para acessar está área!!!!');
+					var myVar = setInterval(redirect, 1000);
+				}
+				function redirect(){
+					windows.location.href = 'indexAutor.jsp';
+				}
+			</script>      		
+      		<% 
+      		response.sendRedirect("indexAutor.jsp");
+      	}
+	%> 
      	%>
       <!--main content start-->
       <section id="main-content">

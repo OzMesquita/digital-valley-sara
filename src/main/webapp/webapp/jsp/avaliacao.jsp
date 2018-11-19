@@ -8,6 +8,7 @@
      	<%
      		List<Trabalho> trabalhos = new DAOAvaliaTrabalho().read(usuario.getCpf());
      		session.setAttribute("usuarioSara", usuario);
+     		
      	%>
       
       <!--main content start-->

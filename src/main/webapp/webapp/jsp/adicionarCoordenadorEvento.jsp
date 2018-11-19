@@ -2,7 +2,24 @@
 <%@page import="br.com.n2s.sara.model.Evento"%>
 <%@page import="br.com.n2s.sara.model.CoordenacaoEvento"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
-      
+      <%
+		Evento evento = (Evento) session.getAttribute("evento");
+      	if (! Facade.isCoordenador(evento.getIdEvento(), usuario.getCpf())){
+      		%>
+      		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
+			<script>
+				function permissao(){
+					alert('Você não possue permissão para acessar está área!!!!');
+					var myVar = setInterval(redirect, 1000);
+				}
+				function redirect(){
+					windows.location.href = 'indexAutor.jsp';
+				}
+			</script>      		
+      		<% 
+      		response.sendRedirect("indexAutor.jsp");
+      	}
+      %>
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">

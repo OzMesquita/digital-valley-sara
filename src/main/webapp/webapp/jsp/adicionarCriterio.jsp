@@ -1,9 +1,26 @@
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Trilha"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 		<%
 			Trilha trilha = (Trilha) session.getAttribute("trilha");
+			trilha = new DAOTrilha().getTrilha(trilha.getIdTrilha());
     		session.setAttribute("trilha", trilha);
+    		if (! Facade.isCoordenador(trilha.getEvento().getIdEvento(), usuario.getCpf())){
+          		%>
+          		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
+    			<script>
+    				function permissao(){
+    					alert('Você não possue permissão para acessar está área!!!!');
+    					var myVar = setInterval(redirect, 1000);
+    				}
+    				function redirect(){
+    					windows.location.href = 'indexAutor.jsp';
+    				}
+    			</script>      		
+          		<% 
+          		response.sendRedirect("indexAutor.jsp");
+          	}
 		%>   
       <!--main content start-->
       <section id="main-content">

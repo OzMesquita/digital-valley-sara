@@ -6,7 +6,23 @@
 		int idTrabalho = Integer.parseInt(request.getParameter("idTrabalho"));
 		Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
 		session.setAttribute("trabalho", trabalho);
-    %>
+
+	if (! Facade.isAvaliador(trabalho.getIdTrabalho(), usuario.getCpf())){
+          		%>
+          		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
+    			<script>
+    				function permissao(){
+    					alert('Você não possue permissão para acessar está área!!!!');
+    					var myVar = setInterval(redirect, 1000);
+    				}
+    				function redirect(){
+    					windows.location.href = 'indexAutor.jsp';
+    				}
+    			</script>      		
+          		<% 
+          		response.sendRedirect("indexAutor.jsp");
+          	}
+		%> 
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
