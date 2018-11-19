@@ -1,5 +1,6 @@
 package br.com.n2s.sara.util;
 
+import java.awt.Event;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,10 +11,15 @@ import java.util.ArrayList;
 
 import org.apache.http.params.CoreConnectionPNames;
 
+import br.com.n2s.sara.dao.DAOAvaliaTrabalho;
+import br.com.n2s.sara.dao.DAOAvaliaTrilha;
+import br.com.n2s.sara.dao.DAOEvento;
 import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.dao.DAOUsuario;
+import br.com.n2s.sara.model.AvaliaTrilha;
 import br.com.n2s.sara.model.DescricaoPeriodo;
+import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trabalho;
@@ -117,15 +123,15 @@ public class Facade {
 							"\r\n" + 
 							"\r\n" + 
 							"Seu trabalho "+ t.getTitulo() +" para o evento "+t.getTrilha().getEvento().getNome()+" foi submetido com sucesso na trilha "+t.getTrilha().getNome()+".\r\n" + 
-							"Agradecemos a sua participa√ß√£o!\r\n" + 
+							"Agradecemos a sua participaÁ„o!\r\n" + 
 							"\r\n" + 
-							"E-mail autom√°tico, n√£o responda.\r\n" + 
+							"E-mail autom·tico, n„o responda.\r\n" + 
 							"\r\n" + 
-							"Sistema SARA -  Submiss√£o Avalia√ß√£o e Revis√£o de Artigos\r\n" + 
-							"Por: N√∫cleo de Solu√ß√µes em Software - N2S\r\n" + 
+							"Sistema SARA -  SubmissÁ„o AvaliaÁ„o e Revis„oo de Artigos\r\n" + 
+							"Por: N˙cleo de SoluÁıees em Software - N2S\r\n" + 
 							"\r\n" + 
-							"N√∫cleo de Solu√ß√£o em Software- N2S";
-					e.sendEmail("Submiss√£o de trabalho - SARA- Submiss√£o, Avalia√ß√£o e Revis√£o de Artigos", msg, u.getEmail(), u.getNome());
+							"N˙cleo de SoluÁıees em Software- N2S";
+					e.sendEmail("Submiss√£o de trabalho - SARA- Submiss„o, AvaliaÁ„o e Revis„o de Artigos", msg, u.getEmail(), u.getNome());
 				}
 			}
 		}
@@ -146,6 +152,36 @@ public class Facade {
 			return usuario;
 		}
 		
+	}
+	
+	public static boolean isAvaliador(int idTrilha, String cpf) {
+		AvaliaTrilha av = new AvaliaTrilha();
+		av = new DAOAvaliaTrilha().getAvaliaTrilha(cpf, idTrilha);
+		if (av != null && av.getAvaliador().getCpf().equals(cpf) && av.getTrilha().getIdTrilha() == idTrilha)
+			return true;
+		return false;
+	}
+	public static boolean isCoordenador(int idEvento, String cpf) {
+		Evento evento = new Evento();
+		evento = new DAOEvento().getEvento(idEvento);
+		if (evento != null) {
+			for (Usuario u : evento.getCoordenadores()) {
+				if (u.getCpf() != null && u.getCpf().equals(cpf))
+					return true;
+			}
+		}			
+		return false;
+	}
+	public static boolean isCoordenadorTrilha(int idTrilha, String cpf) {
+		Trilha trilha = new Trilha();
+		trilha = new DAOTrilha().getTrilha(idTrilha);
+		if (trilha != null) {
+			for (Usuario u : trilha.getCoordenadores()) {
+				if (u.getCpf() != null && u.getCpf().equals(cpf))
+					return true;
+			}
+		}			
+		return false;
 	}
 
 }
