@@ -110,14 +110,11 @@
                       </section>
                   </div>
               </div>
-              <!-- page end-->
-			
-			
-		    <%
-		    	if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){
-		    %>
-		    
-		    <table class="table table-striped table-advance table-hover">
+              
+               <%
+					if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){ %>
+		    	
+		    			<table class="table table-striped table-advance table-hover">
 			    <tr>		
 			    	<td>
 					    <form action="adicionarTrilha.jsp" method="post">
@@ -143,18 +140,27 @@
 						    <button class="btn btn-primary" type = "submit">Gerar Relatório Final</button>
 						</form>
 					</td>
-					<td>	     
-						<form action="relacaoDeTrabalhos.jsp" method="post" >
-				        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
-						    <button class="btn btn-primary" type = "submit">Relação de Trabalhos</button>
+					<td>
+						<form action="relacaoDeTrabalhos.jsp" method="post" > 
+				        	<select name="statusTrabalho" class="form-control">
+  								<option value="<%= StatusTrabalho.ENVIADO.toString()%>">Enviado</option>
+  								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Em Avaliação</option>
+  								<option value="<%= StatusTrabalho.ACEITO.toString()%>">Aceito</option>
+  								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Rejeitado</option>
+  								<option value="<%= StatusTrabalho.SUBMISSAO_FINAL.toString()%>">Submissao Final</option>
+  								<option value="<%= StatusTrabalho.ACEITO_FINAL.toString()%>">Aceito Final</option>
+							</select>
+							<br>
+							<button class="btn btn-primary" type = "submit">Relação de Trabalhos</button>
 						</form>
 					</td>
 				</tr>
-			</table>
-						 
-		    <%  } %>
+			</table> 
 		    
-		
+				<%  } %>
+              
+              <!-- page end-->
+              
   </section>
 </section>
   <!-- container section start -->

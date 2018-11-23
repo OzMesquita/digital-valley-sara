@@ -34,7 +34,7 @@
                           <header class="panel-heading">
                              <%=trilha.getNome() %>
                           </header>
-                          
+                          	
                           <table class="table table-striped table-advance table-hover">
 
                            <tbody>
@@ -43,10 +43,14 @@
                                  <th></th>
                               </tr>
                               <%
+                              System.out.println("aaaaaaaaaaaaa");
                               List<Trabalho> trabalhos = new DAOTrabalho().readTrilha(trilha.getIdTrilha());
+                              String statusTrabalho  = request.getParameter("statusTrabalho");
+                              //System.out.println(StatusTrabalho.valueOf(statusTrabalho));
                               
                               for (Trabalho trabalho: trabalhos){ 
-                              	if (trabalho.getStatus().equals(StatusTrabalho.ACEITO_FINAL)){ %>
+                            	  System.out.println("1111");
+                              	if (trabalho.getStatus().equals(StatusTrabalho.valueOf(statusTrabalho))){ %>
                               		
 	                              <tr>
 	                              	<td><%=trabalho.getTitulo()%></td>

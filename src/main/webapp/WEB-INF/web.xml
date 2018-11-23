@@ -16,10 +16,10 @@
 		</jsp-property-group>
 	</jsp-config>
 	
-	<error-page>
+	<!-- <error-page>
         <exception-type>java.lang.Exception</exception-type>
         <location>/error.jsp</location>
-    </error-page>
+    </error-page> -->
 	
 	<session-config>
 		<session-timeout>30</session-timeout>
