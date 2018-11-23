@@ -237,8 +237,10 @@ public class DAOTrabalho extends DAO {
 				user = Facade.buscarUsuarioGuardiao(s);
 			}else {
 				user = new DAOUsuarioSemCadastro().getUsuario(s);
-				user.setSobrenome("");
-				user.setTipo(NivelUsuario.AUTOR);
+				if (user !=null){
+					user.setSobrenome("");
+					user.setTipo(NivelUsuario.AUTOR);
+				}
 			}
 			autores.add(user);
 		}		
