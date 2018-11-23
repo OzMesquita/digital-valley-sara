@@ -1,6 +1,6 @@
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.util.*" %>
-
+<%@page errorPage="../error.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -103,11 +103,6 @@
 					<li class="active"><a class="" href="indexAutor.jsp"> <i
 							class="icon_house_alt"></i> <span>Home</span>
 					</a>
-					
-					<%      
-					switch(usuario.getTipo()){ 
-					
-					case ADMINISTRADOR: %>
 					<li class="sub-menu"><a href="javascript:;" class=""> <i
 							class="icon_pencil"></i> <span>Administrador</span> <span
 							class="menu-arrow arrow_carrot-right"></span>
@@ -115,26 +110,21 @@
 						<ul class="sub">
 							<li><a class="" href="formCadastroEvento.jsp">Criar Evento</a></li>
 						</ul></li>
-					
-					<% case COORDENADOR_EVENTO: 
-					   case COORDENADOR_TRILHA: %>
+
 					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 
 					</a></li>
 					
-					<% case AVALIADOR: %>
+
 					<li><a class="" href="avaliacao.jsp"> <i
 							class="icon_document_alt"></i> <span>Avaliar</span>
 
-					</a></li>
-					
-					<% case AUTOR: %>
+					</a></li>		
 					<li><a class="" href="trabalhosAutor.jsp"> <i
 							class="icon_documents_alt"></i> <span>Meus Trabalhos</span>
 
 					</a></li>
-					<%}%>
 				</ul>
 				<!-- sidebar menu end-->
 			</div>
