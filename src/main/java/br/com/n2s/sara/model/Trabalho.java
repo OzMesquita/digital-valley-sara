@@ -13,8 +13,26 @@ public class Trabalho {
 	private Trilha trilha; // Trilha a qual o trabalho está associado
 	private ArrayList<Usuario> autores;
 	private Usuario autor;
+	private String enderecoInicial;
+	private Usuario orientador;
 	private String endereco;//Substitui versao final
 
+	public Usuario getOrientador(){
+		return orientador;
+	}
+	
+	public void setOrientador(Usuario usuario) {
+		this.orientador=usuario;
+	}
+	
+	public String getEnderecoInicial(){
+		return enderecoInicial;
+	}
+	
+	public void setEnderecoInicial(String endereco) {
+		this.enderecoInicial=endereco;
+	}
+	
 	public String getEndereco() {
 		return endereco;
 	}

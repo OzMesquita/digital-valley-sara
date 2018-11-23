@@ -63,7 +63,15 @@ public class SalvarArquivo extends HttpServlet {
 			String [] emailAutores = request.getParameterValues("emailAutor");
 			String [] cpfAutores = request.getParameterValues("cpfAutor");
 		if (nomesAutores != null && emailAutores != null && cpfAutores != null) {
-			for (int i=0;i<nomesAutores.length;i++) {
+			if (!(nomesAutores[0].isEmpty() || cpfAutores[0].isEmpty() || emailAutores[0].isEmpty()) ) {
+				Usuario orientador = new Usuario();
+				orientador.setCpf(nomesAutores[0]);
+				orientador.setEmail(emailAutores[0]);
+				orientador.setSobrenome("");
+				orientador.setCpf(cpfAutores[0].replaceAll("[.-]", ""));
+				trabalho.setOrientador(orientador);
+			}
+			for (int i=1;i<nomesAutores.length;i++) {
 				if ( nomesAutores[i].isEmpty() || cpfAutores[i].isEmpty() || emailAutores[i].isEmpty() ) {
 					continue;
 				}
@@ -114,7 +122,7 @@ public class SalvarArquivo extends HttpServlet {
 	        endereco = arquivo.getAbsolutePath();
 	     //Salvou o Arquivo no Servidor	        
 	    }
-        trabalho.setEndereco(endereco);
+        trabalho.setEnderecoInicial(endereco);
         DAOTrabalho daoTrabalho = new DAOTrabalho();
         trabalho.setIdTrabalho(daoTrabalho.create(trabalho));      
         Facade.EnviarEmail(trabalho);

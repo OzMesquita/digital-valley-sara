@@ -82,6 +82,20 @@
 								        	</form>
 								        	<br>
 								        	<form action="DownloadTrabalho" method="post" >                  					 
+	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho">
+	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="inicial" name="opcaoDownload">  
+	                  							<button class="btn btn-primary" type = "submit">Download da versão inicial do Trabalho</button>
+	               					 		</form>
+	               					 		<br>
+	               					 		<% if(trabalho.getEndereco()!=null){%>
+	               					 		<br>
+								        	<form action="DownloadTrabalho" method="post" >                  					 
+	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="AAAAAA" name="opcaoDownload"> 
+	                  							<button class="btn btn-primary" type = "submit">Download Trabalho</button>
+	               					 		</form>
+	               					 		<br>
+	               					 		<%} %>
+								        	<form action="ApagarTrabalho" method="post" >                  					 
 	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho">  
 	                  						<button class="btn btn-primary" type = "submit">Download Trabalho</button>
 	               					 	</form>

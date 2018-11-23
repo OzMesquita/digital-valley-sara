@@ -26,7 +26,15 @@ public class DownloadTrabalho extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DAOTrabalho daoTrabalho = new DAOTrabalho();
 		Trabalho trabalho = daoTrabalho.getTrabalho(Integer.parseInt(request.getParameter("idTrabalho")));
-		File arquivo = new File(trabalho.getEndereco());
+		String endereco = "";
+		if (request.getParameter("opcaoDownload")!=null) {
+			if(request.getParameter("opcaoDownload").equals("inicial")) {
+				endereco = trabalho.getEnderecoInicial();				
+			}else {
+				endereco = trabalho.getEndereco();
+			}
+		}
+		File arquivo = new File(endereco);
 		Path path = arquivo.toPath();
         
         String nome = arquivo.getName();
