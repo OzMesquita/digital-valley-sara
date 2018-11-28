@@ -40,27 +40,46 @@
                            <tbody>
                               <tr>                               
                                  <th><i class="icon_documents_alt"></i> Título </th>
-                                 <th></th>
+                                 <th><i class="icon_documents_alt"></i> Situação </th>
+                                 <th>Teste</th>
+                                 <th>Feedback</th>
+                                 
                               </tr>
+                              
                               <%
-                              System.out.println("aaaaaaaaaaaaa");
+                              
                               List<Trabalho> trabalhos = new DAOTrabalho().readTrilha(trilha.getIdTrilha());
                               String statusTrabalho  = request.getParameter("statusTrabalho");
-                              //System.out.println(StatusTrabalho.valueOf(statusTrabalho));
                               
                               for (Trabalho trabalho: trabalhos){ 
-                            	  System.out.println("1111");
+                            	  
                               	if (trabalho.getStatus().equals(StatusTrabalho.valueOf(statusTrabalho))){ %>
                               		
-	                              <tr>
-	                              	<td><%=trabalho.getTitulo()%></td>
-	                              	<td> 
-	                              		<form action="DownloadTrabalho" method="post" >                  					 
-		              						<input type="hidden" value="<%= trabalho.getIdTrabalho()%>" name="idTrabalho">  
-		             						<button class="btn btn-primary btn pull-right" type = "submit">Download</button>
-		          					 	</form>
-	               					</td>
-                              	</tr>
+	                              	<tr>
+	                              		<td><%=trabalho.getTitulo()%></td>
+	                              		<td>
+		          					 		<input type="radio" name="status" value="aceitar" required> Aceitar<br>
+  											<input type="radio" name="status" value="rejeitar" required> Rejeitar<br>
+		          					 	</td>
+		          					 	<td>
+		          					 		<input type="text" name="Nome" size="40" />
+		          					 	</td>
+	                              		<td> 
+		                              		<form action="DownloadTrabalho" method="post" >                  					 
+		              							<input type="hidden" value="<%= trabalho.getIdTrabalho()%>" name="idTrabalho">  
+		             							<button class="btn btn-primary" type = "submit">Download</button>
+		          					 		</form>
+		          					 	</td>
+                              	 	</tr>
+                              	 	
+                              	 	<tr>
+                              	 		<td>
+                              	 			<input type="text" name="Nome" size="40" />
+                              	 		</td>
+                              	 		<td></td>
+                              	 		<td></td>
+                              	 		<td></td>
+                              	 	</tr>
                               <% } } %>                                 
                            </tbody>
                         </table>
