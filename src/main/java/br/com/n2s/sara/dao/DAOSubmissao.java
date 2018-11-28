@@ -11,6 +11,7 @@ import java.util.List;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Submissao;
+import br.com.n2s.sara.model.TipoAutor;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.util.Facade;
@@ -23,13 +24,14 @@ public class DAOSubmissao extends DAO {
 		
 		super.open();
 		String sql = "insert into sara.Submissao"  
-				+ "(cpfautor, idtrabalho)"
-				+ "values (?,?)";
+				+ "(cpfautor, idtrabalho,tipoUsuario)"
+				+ "values (?,?,?)";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, submissao.getAutor().getCpf());
 			stmt.setInt(2, submissao.getTrabalho().getIdTrabalho());
+			stmt.setString(3, submissao.getTipoAutor().toString());
 
 			stmt.execute();
 			stmt.close();
@@ -130,9 +132,10 @@ public List<String> getCPFAutores(int idTrabalho){
 
 			if(rs.next()){
 				Submissao submissao = new Submissao();
-				submissao.setAutor(new DAOUsuario().getUsuario(rs.getString("cpfautor")));
+				submissao.setAutor(Facade.pegarUsuario(rs.getString("cpfautor")));
 				submissao.setTrabalho(new DAOTrabalho().getTrabalho(rs.getInt("idtrabalho")));
-
+				submissao.setTipoAutor(TipoAutor.valueOf(rs.getString("tipoUsuario")));
+				
 				rs.close();
 				stmt.close();
 				super.close();
@@ -155,7 +158,7 @@ public List<String> getCPFAutores(int idTrabalho){
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, submissao.getAutor().getCpf());
 			stmt.setInt(2, submissao.getTrabalho().getIdTrabalho());
-
+			stmt.setString(3, submissao.getTipoAutor().toString());
 			stmt.execute();
 			stmt.close();
 			super.close();

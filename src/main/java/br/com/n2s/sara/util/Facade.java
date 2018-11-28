@@ -17,6 +17,7 @@ import br.com.n2s.sara.dao.DAOEvento;
 import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.dao.DAOUsuario;
+import br.com.n2s.sara.dao.DAOUsuarioSemCadastro;
 import br.com.n2s.sara.model.AvaliaTrilha;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Evento;
@@ -45,6 +46,18 @@ public class Facade {
 		usuario = daoUsuario.getUsuario(cpf);
 	
 		return usuario;
+	}
+	
+	public static Usuario pegarUsuario(String cpf) {
+		if(buscarUsuarioPorCPF(cpf)!=null) {
+			return buscarUsuarioPorCPF(cpf);
+		}else {
+			if (buscarUsuarioGuardiao(cpf)!=null) {
+				return buscarUsuarioGuardiao(cpf);
+			}else {
+				return new DAOUsuarioSemCadastro().getUsuario(cpf);
+			}
+		}
 	}
 	
 	public static Boolean isUsuarioCadastrado(String cpf){
