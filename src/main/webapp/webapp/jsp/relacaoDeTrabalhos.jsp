@@ -41,9 +41,7 @@
                               <tr>                               
                                  <th><i class="icon_documents_alt"></i> Título </th>
                                  <th><i class="icon_documents_alt"></i> Situação </th>
-                                 <th>Teste</th>
-                                 <th>Feedback</th>
-                                 
+                                 <th></th>
                               </tr>
                               
                               <%
@@ -61,9 +59,6 @@
 		          					 		<input type="radio" name="status" value="aceitar" required> Aceitar<br>
   											<input type="radio" name="status" value="rejeitar" required> Rejeitar<br>
 		          					 	</td>
-		          					 	<td>
-		          					 		<input type="text" name="Nome" size="40" />
-		          					 	</td>
 	                              		<td> 
 		                              		<form action="DownloadTrabalho" method="post" >                  					 
 		              							<input type="hidden" value="<%= trabalho.getIdTrabalho()%>" name="idTrabalho">  
@@ -74,11 +69,11 @@
                               	 	
                               	 	<tr>
                               	 		<td>
-                              	 			<input type="text" name="Nome" size="40" />
+                              	 			<input type="text" name="Nome" size="60" />
                               	 		</td>
                               	 		<td></td>
                               	 		<td></td>
-                              	 		<td></td>
+                              	 		
                               	 	</tr>
                               <% } } %>                                 
                            </tbody>
