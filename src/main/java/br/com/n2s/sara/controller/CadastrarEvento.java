@@ -31,7 +31,7 @@ public class CadastrarEvento extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		String nome = request.getParameter("nome");
-		String cpfCoordenador = request.getParameter("cpfCoordenador");
+		String cpfCoordenador = request.getParameter("cpfCoordenador").replaceAll("[.-]", "");
 		String site = request.getParameter("site");
 		String descricao = request.getParameter("descricao");
 		String localizacao = request.getParameter("localizacao");

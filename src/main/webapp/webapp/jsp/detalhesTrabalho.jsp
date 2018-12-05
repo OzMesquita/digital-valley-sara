@@ -71,23 +71,25 @@
 									           	<h4>Status: <%= trabalho.getStatus() %> </h4> 
 									            
 									            <% 
-									            if ( atual.getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL) && (trabalho.getStatus().equals(StatusTrabalho.ACEITO) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_FINAL))) { %>
+									             if ( atual.getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL) && 
+									            		( trabalho.getStatus().equals(StatusTrabalho.ACEITO) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_FINAL))) { %>
 									            
 								          			<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 									           		<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />
 									            	<input type="hidden" name="idTrabalho" value="<%= trabalho.getIdTrabalho()%>" />
 									            	<button class="btn btn-primary" type = "submit">Submeter Versão Final</button>
 									            
-									            <% } %>
+									            <% }  %>
+									            <br><br>
 	               					 	<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="inicial" name="opcaoDownload">  
 	                  							<button class="btn btn-primary" type = "submit">Download da versão inicial do Trabalho</button>
 	               					 		</form>
-	               					 		<br>
+	               					 		
 	               					 		<% if(trabalho.getEndereco()!=null){%>
-	               					 		<br>
+	               					 		
 								        	<form action="DownloadTrabalho" method="post" >                  					 
 	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="AAAAAA" name="opcaoDownload"> 
-	                  							<button class="btn btn-primary" type = "submit">Download Trabalho</button>
+	                  							<button class="btn btn-primary" type = "submit">Download versão final do Trabalho</button>
 	               					 		</form>
 	               					 		<br>
 	               					 		<%} %>

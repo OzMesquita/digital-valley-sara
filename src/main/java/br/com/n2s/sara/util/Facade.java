@@ -117,7 +117,7 @@ public class Facade {
 					(LocalDate.now().isAfter(p.getDataInicial()) || LocalDate.now().isEqual(p.getDataInicial())) ){
 				atual = p;
 			}else{
-				if(p.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL) && p.getDataFinal().isAfter(LocalDate.now())) {
+				if(p.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL)) {
 					atual=p;
 				}
 			}

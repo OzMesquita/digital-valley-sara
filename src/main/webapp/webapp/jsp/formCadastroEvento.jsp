@@ -25,7 +25,7 @@
 							<header class="panel-heading"> Formulário de Cadastro de Eventos </header>
 							<div class="panel-body">
 								<div class="form">
-									<form action="cadastrarEvento.jsp" method="post" id = "formEnviar">
+									<form action="CadastrarEvento" method="post" id = "formEnviar">
 										<div class="form-validate form-horizontal" id="feedback_form">
 											<div class="form-group ">
 												<label for="cemail" class="control-label col-lg-2">Nome 
@@ -42,7 +42,7 @@
 													<span class="required">*</span>
 												</label>
 												<div class="col-lg-6">
-													<input class="form-control " id="subject" type="text"
+													<input class="form-control " onkeypress="this.value=Cpf(this.value)" onblur="validarCPF(this.value);" id="subject" type="text"
 														name="cpfCoordenador" pattern="^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$" required />
 												</div>
 											</div>
@@ -129,6 +129,70 @@
 	<!--custome script for all page-->
 	<script src="../js/scripts.js"></script>
 	<script src="../SweetAlert/sweetalert.min.js"></script>
+	<script type="text/javascript">
+	function Cpf(v){
+
+    	v=v.replace(/\D/g,"")
+
+    	v=v.replace(/(\d{3})(\d)/,"$1.$2")
+
+    	v=v.replace(/(\d{3})(\d)/,"$1.$2")
+
+
+
+    	v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+
+    	return v
+
+    }
+    
+    function validarCPF(cpf) {	
+    	cpf = cpf.replace(/[^\d]+/g,'');	
+    	if(cpf == '') return false;	
+    	// Elimina CPFs invalidos conhecidos	
+    	if (cpf.length != 11 || 
+    		cpf == "00000000000" || 
+    		cpf == "11111111111" || 
+    		cpf == "22222222222" || 
+    		cpf == "33333333333" || 
+    		cpf == "44444444444" || 
+    		cpf == "55555555555" || 
+    		cpf == "66666666666" || 
+    		cpf == "77777777777" || 
+    		cpf == "88888888888" || 
+    		cpf == "99999999999")
+    			alert("CPF INVÁLIDO");		
+    	// Valida 1o digito	
+    	add = 0;	
+    	for (i=0; i < 9; i ++)		
+    		add += parseInt(cpf.charAt(i)) * (10 - i);	
+    		rev = 11 - (add % 11);	
+    		if (rev == 10 || rev == 11)		
+    			rev = 0;	
+    		if (rev != parseInt(cpf.charAt(9)))		
+    			return false;		
+    	// Valida 2o digito	
+    	add = 0;	
+    	for (i = 0; i < 10; i ++)		
+    		add += parseInt(cpf.charAt(i)) * (11 - i);	
+    	rev = 11 - (add % 11);	
+    	if (rev == 10 || rev == 11)	
+    		rev = 0;	
+    	if (rev != parseInt(cpf.charAt(10)))
+    		alert("CPF INVÁLIDO");;		
+    	return true;   
+    }
+    
+	 function CPF(){
+    	  var mensagem = 'CPF Inválido'
+    	  if ( validarCPF(document.getElementById('cpf').value) === true ) {
+    	    mensagem = 'CPF Válido'
+    	  }
+
+    	  alert(mensagem);
+    };
+	</script>
+	
 	<script>
         document.querySelector('#formEnviar').addEventListener('submit', function(e) {
         var form = this;

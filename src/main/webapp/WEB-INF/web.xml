@@ -220,6 +220,10 @@
 		<servlet-name>Submissao</servlet-name>
 		<url-pattern>/webapp/jsp/Submissao</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CadastrarEvento</servlet-name>
+		<url-mapping>/webapp/jsp/CadastrarEvento</url-mapping>
+	</servlet-mapping>
 	<filter>
 		<filter-name>FiltroAutenticado</filter-name>
 		<filter-class>br.com.n2s.sara.filter.AutenticadoFiltro</filter-class>
