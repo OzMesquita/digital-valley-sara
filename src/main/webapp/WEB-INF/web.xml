@@ -222,7 +222,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CadastrarEvento</servlet-name>
-		<url-mapping>/webapp/jsp/CadastrarEvento</url-mapping>
+		<url-pattern>/webapp/jsp/CadastrarEvento</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Mapeamento do filtro -->

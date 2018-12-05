@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.model.NivelUsuario"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.util.*" %>
 <%@page errorPage="../error.jsp" %>
@@ -103,6 +104,7 @@
 					<li class="active"><a class="" href="indexAutor.jsp"> <i
 							class="icon_house_alt"></i> <span>Home</span>
 					</a>
+					<%if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)) {%>
 					<li class="sub-menu"><a href="javascript:;" class=""> <i
 							class="icon_pencil"></i> <span>Administrador</span> <span
 							class="menu-arrow arrow_carrot-right"></span>
@@ -110,7 +112,7 @@
 						<ul class="sub">
 							<li><a class="" href="formCadastroEvento.jsp">Criar Evento</a></li>
 						</ul></li>
-
+					<%} %>
 					<li><a class="" href="eventosCoordenados.jsp"> <i
 							class="icon_tools"></i> <span>Gerenciar</span>
 

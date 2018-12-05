@@ -23,7 +23,6 @@ import br.com.n2s.sara.model.Usuario;
 /**
  * Servlet implementation class CadastrarEvento
  */
-@WebServlet("/CadastrarEvento")
 public class CadastrarEvento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
