@@ -42,7 +42,7 @@
 													<span class="required">*</span>
 												</label>
 												<div class="col-lg-6">
-													<input class="form-control " onkeypress="this.value=Cpf(this.value)" onblur="validarCPF(this.value);" id="subject" type="text"
+													<input class="form-control" maxlength="14" size="14" onkeypress="this.value=Cpf(this.value)" onblur="validarCPF(this.value);" id="subject" type="text"
 														name="cpfCoordenador" pattern="^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$" required />
 												</div>
 											</div>

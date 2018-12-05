@@ -32,7 +32,9 @@ public class DAOEvento extends DAO {
 
 			stmt.execute();
 			ResultSet rs = stmt.getGeneratedKeys();
-			evento.setIdEvento(rs.getInt(1));
+			if (rs.next()) {
+				evento.setIdEvento(rs.getInt(1));
+			}
 			rs.close();
 			stmt.close();
 			return evento;
