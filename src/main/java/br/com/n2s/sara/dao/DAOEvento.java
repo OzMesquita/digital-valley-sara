@@ -22,7 +22,8 @@ public class DAOEvento extends DAO {
 				+ "values (?,?,?,?,?,?)";
 
 		try {
-			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			PreparedStatement stmt = null;
+			stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, evento.getNome());
 			stmt.setString(2, evento.getDescricao());
 			stmt.setString(3, evento.getSite());

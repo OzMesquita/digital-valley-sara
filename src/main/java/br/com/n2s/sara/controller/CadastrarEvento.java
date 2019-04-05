@@ -51,7 +51,7 @@ public class CadastrarEvento extends HttpServlet {
 		DAOUsuario daoUsuario = new DAOUsuario();
 		Usuario usuario = daoUsuario.getUsuario(cpfCoordenador);
 		
-		if(!usuario.getTipo().equals((NivelUsuario.COORDENADOR_EVENTO))) {
+		if( usuario.getTipo().equals(NivelUsuario.AUTOR) || usuario.getTipo().equals(NivelUsuario.USUARIO) || usuario.getTipo().equals(NivelUsuario.COORDENADOR_TRILHA)) {
 			usuario.setTipo(NivelUsuario.COORDENADOR_EVENTO);
 			daoUsuario.update(usuario);
 		}
@@ -62,7 +62,7 @@ public class CadastrarEvento extends HttpServlet {
 		daoCoordEvento.create(coordEvento);
 		
 		session.setAttribute("evento", evento);
-		response.sendRedirect("gerenciaEvento.jsp");
+		response.sendRedirect("gerenciarTrilhasCoordenadas.jsp");
 	}
 
 }
