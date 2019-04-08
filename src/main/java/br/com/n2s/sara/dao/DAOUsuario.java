@@ -67,6 +67,38 @@ public class DAOUsuario extends DAO{
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public List<Usuario> readByTipo(String tipo){
+		
+		super.open();
+		String sql = "select * from sara.Usuario where tipo = ?";
+
+		try{
+			List<Usuario> usuarios = new ArrayList<Usuario>();
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setString(1, tipo);
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()){
+
+				Usuario usuario = new Usuario();
+				usuario.setCpf(rs.getString("cpf"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setSobrenome(rs.getString("sobrenome"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setTipo(NivelUsuario.valueOf(rs.getString("tipo")));
+				usuarios.add(usuario);
+			}
+
+			rs.close();
+			stmt.close();
+			super.close();
+			return usuarios;
+
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+	}
 
 	public Usuario getUsuario(String cpf){
 		
