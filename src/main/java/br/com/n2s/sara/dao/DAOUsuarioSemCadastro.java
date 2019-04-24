@@ -17,16 +17,25 @@ public class DAOUsuarioSemCadastro extends DAO{
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.getConnection().setAutoCommit(false);
 			stmt.setString(1, usuario.getCpf());
 			stmt.setString(2, usuario.getNome());
 			stmt.setString(4, usuario.getEmail());
 
 			stmt.execute();
+			stmt.getConnection().commit();
+			stmt.getConnection().setAutoCommit(true);
 			stmt.close();
-			super.close();
 
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			try {
+				super.getConnection().rollback();
+				super.getConnection().setAutoCommit(true);
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}finally {
+			super.close();
 		}
 	}
 	

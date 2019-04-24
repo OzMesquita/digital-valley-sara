@@ -26,15 +26,15 @@ public class DAOTrabalho extends DAO {
 
 	public int create(Trabalho trabalho){
 
-		super.open();
-		String sql = "insert into sara.Trabalho"  
-				+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha)"
-				+ "values (?,?,?,?,?,?)";
-
 		try {
+			super.open();
+			String sql = "insert into sara.Trabalho"  
+					+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha)"
+					+ "values (?,?,?,?,?,?)";
+
 			PreparedStatement stmt = null;
 			stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
+			stmt.getConnection().setAutoCommit(false);
 			stmt.setString(1, trabalho.getTitulo());
 			stmt.setString(2, trabalho.getPalavrasChaves());
 			stmt.setString(3, trabalho.getResumo());
@@ -50,13 +50,22 @@ public class DAOTrabalho extends DAO {
 			stmt.close();
 			rs.close();
 			trabalho.setIdTrabalho(idTrabalho);
-			super.close();
+			
 			adicionaAutores(trabalho);
+			stmt.getConnection().commit();
+			stmt.getConnection().setAutoCommit( true );
 			return idTrabalho;
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+			} catch (SQLException e) {
+				try {
+					super.getConnection().rollback();
+					super.getConnection().setAutoCommit(true);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+					throw new RuntimeException(e);
+				}finally {
+					super.close();
+				}
 	}
 
 	public List<Trabalho> read(){
@@ -210,22 +219,26 @@ public class DAOTrabalho extends DAO {
 		}
 	}
 	private void adicionaAutores(Trabalho t) {
-		DAOSubmissao daoSubmissao = new DAOSubmissao();
-		Submissao submissao = new Submissao();
-		submissao.setAutor(t.getAutor());
-		submissao.setTrabalho(t);
-		daoSubmissao.create(submissao);
-		for (Usuario u : t.getAutores()) {
-			if (Facade.isUsuarioCadastrado(u.getCpf())) {
-				submissao.setAutor(u);
-				daoSubmissao.create(submissao);
-			}else {
-				new DAOUsuarioSemCadastro().create(u);
-				submissao.setAutor(u);
-				daoSubmissao.create(submissao);
+		try {
+			DAOSubmissao daoSubmissao = new DAOSubmissao();
+			Submissao submissao = new Submissao();
+			submissao.setAutor(t.getAutor());
+			submissao.setTrabalho(t);
+			daoSubmissao.create(submissao);
+			for (Usuario u : t.getAutores()) {
+				if (Facade.isUsuarioCadastrado(u.getCpf())) {
+					submissao.setAutor(u);
+					daoSubmissao.create(submissao);
+				}else {
+					new DAOUsuarioSemCadastro().create(u);
+					submissao.setAutor(u);
+					daoSubmissao.create(submissao);
+				}
+				
 			}
-			
-		}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}		
 	}
 	
 	private ArrayList<Usuario> pegarUsuarios(Trabalho t){

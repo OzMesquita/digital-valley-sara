@@ -53,7 +53,7 @@ public class SalvarArquivo extends HttpServlet {
 		br.com.n2s.sara.model.Trabalho trabalho = new Trabalho();
         trabalho.setTrilha(nomeTrilha);
         trabalho.setAutor(userLogado);
-		trabalho.setTitulo(request.getParameter("titulo").toUpperCase());
+		trabalho.setTitulo(request.getParameter("titulo").toUpperCase().trim());
 		trabalho.setPalavrasChaves(request.getParameter("palavras_chave"));
 		trabalho.setResumo(request.getParameter("resumo"));
 		trabalho.setStatus(StatusTrabalho.ENVIADO);

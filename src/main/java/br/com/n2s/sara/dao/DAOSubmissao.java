@@ -22,23 +22,34 @@ public class DAOSubmissao extends DAO {
 
 	public void create(Submissao submissao){
 		
-		super.open();
-		String sql = "insert into sara.Submissao"  
-				+ "(cpfautor, idtrabalho,tipoUsuario)"
-				+ "values (?,?,?)";
-
 		try {
+			super.open();
+			String sql = "insert into sara.Submissao"  
+					+ "(cpfautor, idtrabalho,tipoUsuario)"
+					+ "values (?,?,?)";
+
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.getConnection().setAutoCommit(false);
+			
 			stmt.setString(1, submissao.getAutor().getCpf());
 			stmt.setInt(2, submissao.getTrabalho().getIdTrabalho());
 			stmt.setString(3, submissao.getTipoAutor().toString());
 
 			stmt.execute();
+			stmt.getConnection().commit();
+			stmt.getConnection().setAutoCommit(true);
 			stmt.close();
-			super.close();
 
 		} catch (SQLException e) {
+			try {
+				super.getConnection().rollback();
+				super.getConnection().setAutoCommit(true);
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
