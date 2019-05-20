@@ -12,6 +12,8 @@ public class Constantes {
 	private static String APP_GUARDIAO_URL;
 	private static String LOGO_UFC;
 	private static String TEMP_DIR;
+	private static String SESSION;
+	private static String SESSION_ERROR;
 	private Constantes() {
 		//não deve ter nada aqui
 	}
@@ -24,6 +26,8 @@ public class Constantes {
 		APP_GUARDIAO_URL = dotEnv.get("APP_GUARDIAO_URL");
 		LOGO_UFC = dotEnv.get("LOGO_UFC");
 		TEMP_DIR = dotEnv.get("TEMP_DIR");
+		SESSION = dotEnv.get("SESSION_MSG");
+		SESSION_ERROR =dotEnv.get("SESSION_MSG_ERROR");
 	}
 
 	public static String getEMAIL_CONF_DIR() {
@@ -45,6 +49,13 @@ public class Constantes {
 	public static String getTEMP_DIR() {
 		return TEMP_DIR;
 	}
+	public static String getSESSION_MGS() {
+		return SESSION;
+	}
+	public static String getSESSION_MGS_ERROR() {
+		return SESSION_ERROR;
+	}
+	
 
 }
 
