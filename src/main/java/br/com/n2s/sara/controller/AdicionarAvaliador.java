@@ -14,6 +14,7 @@ import br.com.n2s.sara.model.AvaliaTrilha;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Constantes;
 import br.com.n2s.sara.util.Facade;
 
 /**
@@ -50,7 +51,7 @@ public class AdicionarAvaliador extends HttpServlet {
 		if (usuario == null) {
 			
 			String feedbackInfo = "Não existe usuário cadastrado com o CPF informado! Por favor, realize o cadastro para continuar.";
-			session.setAttribute("feedbackInfo", feedbackInfo);
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), feedbackInfo);
 			response.sendRedirect("cadastrarAvaliador.jsp");
 		} else {
 			
@@ -64,12 +65,12 @@ public class AdicionarAvaliador extends HttpServlet {
 				daoAvaliaTrilha.create(avaliaTrilha);
 				
 				String feedbackSucesso = "Avaliador adicionado com sucesso!";
-				session.setAttribute("feedbackSucesso", feedbackSucesso);
+				session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
 				response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
 			}else {
 				
 				String feedbackSucesso = "Avaliador adicionado com sucesso!";
-				session.setAttribute("feedbackSucesso", feedbackSucesso);
+				session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
 				response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
 			}
 		}

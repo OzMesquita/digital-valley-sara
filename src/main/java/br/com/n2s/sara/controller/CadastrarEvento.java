@@ -18,6 +18,7 @@ import br.com.n2s.sara.model.CoordenacaoEvento;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Constantes;
 
 
 /**
@@ -29,6 +30,7 @@ public class CadastrarEvento extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
+		try {
 		String nome = request.getParameter("nome");
 		String cpfCoordenador = request.getParameter("cpfCoordenador").replaceAll("[.-]", "");
 		String site = request.getParameter("site");
@@ -60,9 +62,15 @@ public class CadastrarEvento extends HttpServlet {
 		coordEvento.setEvento(evento);
 		DAOCoordenacaoEvento daoCoordEvento = new DAOCoordenacaoEvento();
 		daoCoordEvento.create(coordEvento);
-		
+
 		session.setAttribute("evento", evento);
+		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso ao cadastar evento!");
 		response.sendRedirect("gerenciarTrilhasCoordenadas.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao cadastrar o Evento: "+e.getMessage());
+		}
+		
+
 	}
 
 }

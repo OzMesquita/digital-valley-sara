@@ -15,6 +15,7 @@ import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.util.Facade;
+import util.Constantes;
 
 /**
  * Servlet implementation class AdcionarCoordenador
@@ -43,14 +44,14 @@ public class AdicionarCoordenadorEvento extends HttpServlet {
 			daoCoordenacaoEvento.create(coordenacaoEvento);
 
 			String feedbackSucesso = "Coordenador adicionado com sucesso!";
-			session.setAttribute("feedbackSucesso", feedbackSucesso);
+			session.setAttribute(br.com.n2s.sara.model.Constantes.getSessionMsg(), feedbackSucesso);
 			
 			response.sendRedirect("gerenciarCoordenadoresEvento.jsp");
 
 
 		}else {
 			String feedbackErro = "Não existe usuário cadastrado com o CPF " + cpfCoordenador + "!";
-			session.setAttribute("feedbackErro", feedbackErro);
+			session.setAttribute(br.com.n2s.sara.util.Constantes.getSESSION_MGS_ERROR(), feedbackErro);
 			
 			response.sendRedirect("gerenciarCoordenadoresEvento.jsp");
 		}

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.n2s.sara.dao.DAOCoordenacaoEvento;
 import br.com.n2s.sara.model.CoordenacaoEvento;
+import br.com.n2s.sara.util.Constantes;
 
 /**
  * Servlet implementation class RemoverCoordenador
@@ -22,7 +23,7 @@ public class RemoverCoordenadorEvento extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String cpfCoordenador = request.getParameter("cpfCoordenador");
-		
+		try {
 		DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
 		CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
 		coordenacaoEvento = daoCoordenacaoEvento.getCoordenacaoEvento(cpfCoordenador);
@@ -30,9 +31,12 @@ public class RemoverCoordenadorEvento extends HttpServlet {
 		daoCoordenacaoEvento.delete(coordenacaoEvento);
 		
 		String feedbackSucesso = "Coordenador removido com sucesso!";
-		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
 		
 		response.sendRedirect("gerenciarCoordenadoresEvento.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS(), "Erro ao remover o coordenador do evento!");
+		}
 	}
 
 }
