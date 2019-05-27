@@ -12,6 +12,7 @@ import br.com.n2s.sara.dao.DAOUsuario;
 import br.com.n2s.sara.model.AvaliaTrilha;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Constantes;
 import br.com.n2s.sara.model.Trilha;
 
 
@@ -23,6 +24,8 @@ public class CadastrarAvaliador extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		
+		HttpSession session = request.getSession();
+		try {
 		String nome = request.getParameter("nome");
 		String sobrenome = request.getParameter("sobrenome");
 		String cpf = request.getParameter("cpf");
@@ -37,15 +40,18 @@ public class CadastrarAvaliador extends HttpServlet {
 		DAOUsuario daoUsuario = new DAOUsuario();
 		daoUsuario.create(usuario);		
 		
-		HttpSession session = request.getSession();
+	
 		Trilha trilha = (Trilha) session.getAttribute("trilha");
 		DAOAvaliaTrilha daoAvaliaTrilha = new DAOAvaliaTrilha();
 		AvaliaTrilha avaliaTrilha = new AvaliaTrilha();
 		avaliaTrilha.setAvaliador(usuario);
 		avaliaTrilha.setTrilha(trilha);
 		daoAvaliaTrilha.create(avaliaTrilha);
-		
+		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante o cadastro dos avaliadores!");
 		response.sendRedirect("eventosCoordenados.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS(), "Erro durante o cadastro dos avaliadores!");
+		}
 	}
 
 }

@@ -12,6 +12,7 @@ import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Constantes;
 
 /**
  * Servlet implementation class RemoverTrilha
@@ -30,7 +31,7 @@ public class RemoverTrilha extends HttpServlet {
 	
 		HttpSession session = request.getSession();
 		Evento evento = new Evento();
-		
+		try {
 		DAOTrilha daoTrilha = new DAOTrilha();
 		
 		int idTrilha = Integer.parseInt(request.getParameter("idTrilha")) ;
@@ -49,10 +50,14 @@ public class RemoverTrilha extends HttpServlet {
 		
 		String feedbackSucesso = "Trilha removida com sucesso!";
 		session.setAttribute("evento", evento);
-		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
 		
 		
 		response.sendRedirect("gerenciarTrilhasCoordenadas.jsp");
+	}catch (Exception e) {
+		// TODO: handle exception
+		session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a remoção da trilha!");
 	}
-
+	}
+	
 }

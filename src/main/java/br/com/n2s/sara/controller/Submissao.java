@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Constantes;
 import br.com.n2s.sara.util.Facade;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
@@ -40,6 +41,7 @@ public class Submissao extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Usuario userLogado = (Usuario) session.getAttribute("usuarioSara");
+		try {
 		int idTrilha = Integer.parseInt(request.getParameter("trilha"));
 		int idEvento = Integer.parseInt(request.getParameter("evento"));
 		Trilha nomeTrilha = new DAOTrilha().getTrilha(idTrilha);
@@ -84,8 +86,11 @@ public class Submissao extends HttpServlet {
 	        DAOTrabalho daoTrabalho = new DAOTrabalho();
 	        daoTrabalho.update(trabalho);      
 		 
-		  
-        response.sendRedirect("indexAutor.jsp");	    		
+	        session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso ao submeter o trabalho!Boa sorte!");
+        response.sendRedirect("indexAutor.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a submissão do trabalho!");
+		}
 	}
 		
 	private boolean isAutor(String cpf, Trabalho t) {

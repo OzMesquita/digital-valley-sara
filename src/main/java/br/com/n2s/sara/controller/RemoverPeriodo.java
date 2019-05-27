@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.n2s.sara.dao.DAOPeriodo;
+import br.com.n2s.sara.model.Constantes;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trilha;
 
@@ -33,7 +34,7 @@ public class RemoverPeriodo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		HttpSession session = request.getSession();
-		
+		try {
 		Periodo periodo = new Periodo();
 		String idPeriodo = request.getParameter("idPeriodo");
 		Trilha trilha = (Trilha) session.getAttribute("trilha");
@@ -44,9 +45,12 @@ public class RemoverPeriodo extends HttpServlet {
 		daoPeriodo.delete(periodo.getIdPeriodo());
 		
 		String feedbackSucesso = "Período removido com sucesso!";
-		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		session.setAttribute(br.com.n2s.sara.util.Constantes.getSESSION_MGS(), feedbackSucesso);
 		
 		response.sendRedirect("gerenciarPeriodosTrilha.jsp");
+		}catch (Exception e) {
+			session.setAttribute(br.com.n2s.sara.util.Constantes.getSESSION_MGS_ERROR(), "Erro durante a remoção do periodo!");
+		}
 	}
 
 }

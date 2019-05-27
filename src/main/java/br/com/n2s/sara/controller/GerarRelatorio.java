@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -48,6 +49,7 @@ public class GerarRelatorio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
 		evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
 		String tipoRelatorio = request.getParameter("tipoRelatorio");
@@ -70,7 +72,7 @@ public class GerarRelatorio extends HttpServlet {
 				image.scaleAbsoluteWidth(90);
 				image.scaleAbsoluteHeight(60);
 				document.add(image);
-				Paragraph cabecalho = new Paragraph("UNIVERDADE FEDERAL DO CEARÁ \n"
+				Paragraph cabecalho = new Paragraph("UNIVERDADE FEDERAL DO CEARÃ� \n"
 						+ "CAMPUS RUSSAS \n\n" + evento.getNome() + "\n\n\n");
 				cabecalho.setAlignment(Paragraph.ALIGN_CENTER);
 				document.add(cabecalho);
@@ -221,7 +223,7 @@ public class GerarRelatorio extends HttpServlet {
 		        String nome = arquivo.getName();
 		        int tamanho = (int) arquivo.length();
 		
-		        response.setContentType(Files.probeContentType(path)); // tipo do conte�do
+		        response.setContentType(Files.probeContentType(path)); // tipo do conteï¿½do
 		        response.setContentLength(tamanho);  // opcional
 		        response.setHeader("Content-Disposition", "attachment; filename=\"" + nome + "\"");
 		        OutputStream output = response.getOutputStream();
@@ -233,7 +235,7 @@ public class GerarRelatorio extends HttpServlet {
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
-				// TODO: handle exception
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a geração de relatório");
 			}			
 
 		}

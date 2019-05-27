@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.Trilha;
+import br.com.n2s.sara.util.Constantes;
 
 /**
  * Servlet implementation class AdicionarTrilha
@@ -20,15 +21,12 @@ import br.com.n2s.sara.model.Trilha;
 
 public class AdicionarTrilha extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public AdicionarTrilha() {
-        super();      
-    }
-        	
-    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		try {
+			
+		
 		Trilha trilha = new Trilha();
 		DAOTrilha daoTrilha = new DAOTrilha();
 		Evento evento = new Evento();
@@ -39,8 +37,11 @@ public class AdicionarTrilha extends HttpServlet {
 		trilha.setEvento(evento);
 		
 		daoTrilha.create(trilha);
-		
+		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante o cadastro da trilha!");
 		response.sendRedirect("eventosCoordenados.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante o cadastro da trilha!");
+		}
 	}
 
 }

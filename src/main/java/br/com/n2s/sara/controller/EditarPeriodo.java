@@ -15,6 +15,7 @@ import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trilha;
+import br.com.n2s.sara.util.Constantes;
 
 /**
  * Servlet implementation class AlterarPeriodo
@@ -26,6 +27,7 @@ public class EditarPeriodo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		try {
 		Trilha trilha = (Trilha) session.getAttribute("trilha");
 		DAOPeriodo daoPeriodo = new DAOPeriodo();
 		
@@ -39,9 +41,12 @@ public class EditarPeriodo extends HttpServlet {
 		daoPeriodo.update(periodo);
 		
 		String feedbackSucesso = "Período alterado com sucesso!";
-		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
 		
 		response.sendRedirect("gerenciarPeriodosTrilha.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Falha ao alterar o periodo!");
+		}
 	}
 
 }
