@@ -1,5 +1,7 @@
 package br.com.n2s.sara.model;
+//Esta classe será descontinuada, favor não utilizar!
 
+@Deprecated
 public class AvaliaTrilha {
 	
 	private Usuario avaliador;

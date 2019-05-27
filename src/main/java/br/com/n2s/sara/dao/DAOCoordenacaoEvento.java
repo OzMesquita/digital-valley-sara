@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.n2s.sara.model.CoordenacaoEvento;
+import br.com.n2s.sara.model.Usuario;
 
 public class DAOCoordenacaoEvento extends DAO {
 
@@ -117,6 +118,34 @@ public class DAOCoordenacaoEvento extends DAO {
 				coordenacaoEvento.setCoordenador(usuarioController.getUsuario(rs.getString("cpfCoordenador")));
 				coordenacaoEvento.setEvento(eventoController.getEvento(rs.getInt("idEvento")));
 				coordenacoes.add(coordenacaoEvento);
+			}
+
+			rs.close();
+			stmt.close();
+			super.close();
+			return coordenacoes;
+
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+	}
+	public List<Usuario> ListarCoordenadores(int idEvento){
+
+		super.open();
+		String sql = "select * from sara.CoordenacaoEvento where idEvento = ?";
+
+		try{
+
+			List<Usuario> coordenacoes = new ArrayList<Usuario>();
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, idEvento);
+			ResultSet rs = stmt.executeQuery();
+			DAOUsuario usuarioController = new DAOUsuario();
+
+			while(rs.next()){
+				Usuario usuario = new Usuario();
+				usuario = usuarioController.getUsuario(rs.getString("cpfCoordenador"));
+				coordenacoes.add(usuario);
 			}
 
 			rs.close();

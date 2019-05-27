@@ -14,8 +14,10 @@ import javax.swing.text.MaskFormatter;
 
 import org.apache.http.params.CoreConnectionPNames;
 
+import br.com.n2s.sara.dao.DAO;
 import br.com.n2s.sara.dao.DAOAvaliaTrabalho;
 import br.com.n2s.sara.dao.DAOAvaliaTrilha;
+import br.com.n2s.sara.dao.DAOCoordenacaoEvento;
 import br.com.n2s.sara.dao.DAOEvento;
 import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.dao.DAOTrilha;
@@ -198,6 +200,18 @@ public class Facade {
 			}
 		}			
 		return false;
+	}
+	
+	public static Evento pegarEventoPeloId(int idEvento) {
+		DAOEvento daoEvento = new DAOEvento();
+		DAOCoordenacaoEvento daoCoorEvento = new DAOCoordenacaoEvento();
+		DAOTrilha daoTrilha = new DAOTrilha();
+		Evento evento = daoEvento.getEvento(idEvento);
+		if (evento!=null) {
+			evento.setCoordenadores(daoCoorEvento.ListarCoordenadores(idEvento));
+			evento.setTrilhas(daoTrilha.readById(idEvento));
+		}	
+		return evento;
 	}
 
 }
