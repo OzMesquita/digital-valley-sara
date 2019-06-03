@@ -221,6 +221,14 @@
     <filter-name>FiltroAutenticado</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+    <filter>
+    <filter-name>FiltroAdm</filter-name>
+    <filter-class>br.com.n2s.sara.filter.AdmFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>FiltroAdm</filter-name>
+    <url-pattern>/webapp/jsp/adm/*</url-pattern>
+  </filter-mapping>
   <resource-ref>
     <description>postgreSQL Datasource SARA</description>
     <res-ref-name>jdbc/Sara</res-ref-name>
