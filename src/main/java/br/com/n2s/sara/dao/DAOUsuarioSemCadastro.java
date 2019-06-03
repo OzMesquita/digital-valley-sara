@@ -82,4 +82,25 @@ public class DAOUsuarioSemCadastro extends DAO{
 			throw new RuntimeException(e);
 		}
 	}
+	public Integer getQuantidadePorNome(String nome) {
+		super.open();
+		String SQL = "SELECT COUNT(*) AS quantidade FROM sara.SemCadastro WHERE nome ILIKE ?";
+		try {
+			PreparedStatement ps = super.getConnection().prepareStatement(SQL);
+			ps.setString(1, "%" + nome + "%");
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("quantidade");
+			} else {
+				ps.close();
+				rs.close();
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Falha ao buscar registro de pessoa, erro: " + e.getMessage());
+		} finally {
+			super.close();
+		}
+	}
 }

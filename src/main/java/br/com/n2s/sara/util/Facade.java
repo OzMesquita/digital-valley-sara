@@ -36,6 +36,7 @@ import dao.PessoaDAO;
 import model.Email;
 import model.Pessoa;
 import util.Constantes;
+import java.util.List;
 
 
 
@@ -213,5 +214,23 @@ public class Facade {
 		}	
 		return evento;
 	}
+	
+	public static Integer getQuantidadePessoasPorNome(String nome) {
+		DAOUsuario daoUsuario = new DAOUsuario();
+		DAOUsuarioSemCadastro daoUsuarioS = new DAOUsuarioSemCadastro();
+		int i;
+		i = daoUsuario.getQuantidadePorNome(nome);
+		//i += daoUsuarioS.getQuantidadePorNome(nome);
+		
+		return i;
+	}
+	
+	public static List<Usuario> buscarPessoasPorNome (String nome, int inicio, int fim){
+		List<Usuario> usuarios = null;
+		DAOUsuario daoUsuario = new DAOUsuario();
+		usuarios = daoUsuario.buscarPorNome(nome, inicio, fim);
+		return usuarios;
+	}
+	
 
 }

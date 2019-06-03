@@ -14,6 +14,8 @@ public class Constantes {
 	private static String TEMP_DIR;
 	private static String SESSION;
 	private static String SESSION_ERROR;
+	private static Integer NUMBER_OF_ROWS_PER_PAGE;
+	private static String ADM_URL;
 	private Constantes() {
 		//não deve ter nada aqui
 	}
@@ -28,6 +30,8 @@ public class Constantes {
 		TEMP_DIR = dotEnv.get("TEMP_DIR");
 		SESSION = dotEnv.get("SESSION_MSG");
 		SESSION_ERROR =dotEnv.get("SESSION_MSG_ERROR");
+		NUMBER_OF_ROWS_PER_PAGE = Integer.valueOf(dotEnv.get("NUMBER_OF_ROWS_PER_PAGE"));
+		ADM_URL = dotEnv.get(ADM_URL);
 	}
 
 	public static String getEMAIL_CONF_DIR() {
@@ -55,7 +59,12 @@ public class Constantes {
 	public static String getSESSION_MGS_ERROR() {
 		return SESSION_ERROR;
 	}
-	
+	public static Integer getNUMBER_OF_ROWS_PER_PAGE() {
+		return NUMBER_OF_ROWS_PER_PAGE;
+	}
+	public static String getAdmUrl() {
+		return ADM_URL;
+	}
 
 }
 

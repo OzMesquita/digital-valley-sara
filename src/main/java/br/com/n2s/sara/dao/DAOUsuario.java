@@ -174,5 +174,54 @@ public class DAOUsuario extends DAO{
 		}
 
 	}
-
+	public Integer getQuantidadePorNome(String nome) {
+		super.open();
+		String SQL = "SELECT COUNT(*) AS quantidade FROM sara.Usuario WHERE nome ILIKE ?";
+		try {
+			PreparedStatement ps = super.getConnection().prepareStatement(SQL);
+			ps.setString(1, "%" + nome + "%");
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("quantidade");
+			} else {
+				ps.close();
+				rs.close();
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Falha ao buscar registro de pessoa, erro: " + e.getMessage());
+		} finally {
+			super.close();
+		}
+	}
+	public List<Usuario> buscarPorNome(String nome, int inicio, int fim) {
+		super.open();
+		String SQL = "SELECT * FROM sara.Usuario WHERE nome ILIKE ? ORDER BY nome ASC LIMIT ? OFFSET ?";
+		try {
+			PreparedStatement ps = super.getConnection().prepareStatement(SQL);
+			ps.setString(1, "%" + nome + "%");
+			ps.setInt(2, fim - inicio);
+			ps.setInt(3, inicio);
+			ResultSet rs = ps.executeQuery();
+			List<Usuario> pessoas = new ArrayList<Usuario>();
+			while (rs.next()) {
+				Usuario usuario = new Usuario();
+				usuario.setCpf(rs.getString("cpf"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setSobrenome(rs.getString("sobrenome"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setTipo(NivelUsuario.valueOf(rs.getString("tipo")));
+				pessoas.add(usuario);
+			}
+			ps.close();
+			rs.close();
+			return pessoas;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Falha ao buscar registro de pessoa, erro: " + e.getMessage());
+		} finally {
+			super.close();
+		}
+	}
 }

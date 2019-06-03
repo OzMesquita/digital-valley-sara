@@ -58,6 +58,7 @@ public class AdicionarCriterio extends HttpServlet {
 		response.sendRedirect("eventosCoordenados.jsp");
 		}catch (Exception e) {
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante o cadastro do critério!\n Erro: "+e.getMessage());
+			response.sendRedirect("adicionarCriterio.jsp");
 		}
 
 		
