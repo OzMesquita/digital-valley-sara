@@ -18,7 +18,7 @@ public class DAOCriterio extends DAO {
 	public void create(Criterio criterio){
 		
 		super.open();
-		String sql = "insert into sara.Criterio"  
+		String sql = "insert into sara.criterio"  
 				+ "(descricao, peso, idCriterioTrilha)"
 				+ "values (?,?,?)";
 
@@ -40,7 +40,7 @@ public class DAOCriterio extends DAO {
 	public List<Criterio> read(){
 		
 		super.open();
-		String sql = "select * from sara.Criterio";
+		String sql = "select * from sara.criterio";
 
 		try{
 			List<Criterio> criterios = new ArrayList<Criterio>();
@@ -74,7 +74,7 @@ public class DAOCriterio extends DAO {
 	public Criterio getCriterio(int idCriterio){
 		
 		super.open();
-		String sql = "select * from sara.Criterio where idCriterio = ?";
+		String sql = "select * from sara.criterio where idCriterio = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -106,7 +106,7 @@ public class DAOCriterio extends DAO {
 	public List<Criterio> obterCriteriosPorTrilha(int idCriterioTrilha){
 		
 		super.open();
-		String sql = "select * from sara.Criterio where idcriteriotrilha = ?";
+		String sql = "select * from sara.criterio where idcriteriotrilha = ?";
 
 		try{
 			List<Criterio> criterios = new ArrayList<Criterio>();
@@ -141,7 +141,7 @@ public class DAOCriterio extends DAO {
 	public void update(Criterio criterio){
 		
 		super.open();
-		String sql = "update sara.Criterio set descricao = ?, peso = ?, idCriterioTrilha = ?"
+		String sql = "update sara.criterio set descricao = ?, peso = ?, idCriterioTrilha = ?"
 				+ " where idCriterio = ?";
 				
 		try {
@@ -163,7 +163,7 @@ public class DAOCriterio extends DAO {
 	public int getLastId(){
 		
 		super.open();
-		String sql = "Select max(idCriterio) from sara.Criterio";
+		String sql = "Select max(idCriterio) from sara.criterio";
 		
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -185,7 +185,7 @@ public class DAOCriterio extends DAO {
 	public void delete(Criterio criterio){
 		
 		super.open();
-		String sql = "delete from sara.Criterio where idCriterio = ?";
+		String sql = "delete from sara.criterio where idCriterio = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

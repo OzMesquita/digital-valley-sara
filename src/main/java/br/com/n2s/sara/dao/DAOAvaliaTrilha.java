@@ -19,7 +19,7 @@ public class DAOAvaliaTrilha extends DAO {
 	public void create(AvaliaTrilha avalia){
 
 		super.open();
-		String sql = "insert into sara.AvaliaTrilha(idavaliador, idtrilha)"
+		String sql = "insert into sara.avaliatrilha(idavaliador, idtrilha)"
 				+ "values (?,?)";
 
 		try {
@@ -39,7 +39,7 @@ public class DAOAvaliaTrilha extends DAO {
 	public List<AvaliaTrilha> read(){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrilha";
+		String sql = "select * from sara.avaliatrilha";
 
 		try{
 			List<AvaliaTrilha> avaliacoes = new ArrayList<AvaliaTrilha>();
@@ -68,7 +68,7 @@ public class DAOAvaliaTrilha extends DAO {
 	public AvaliaTrilha getAvaliaTrilha(String cpfAvaliador, int idTrilha){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrilha where idAvaliador = ? and idTrilha = ?";
+		String sql = "select * from sara.avaliatrilha where idAvaliador = ? and idTrilha = ?";
 
 		try{
 			
@@ -100,7 +100,7 @@ public class DAOAvaliaTrilha extends DAO {
 	public List<Usuario> getAvaliadores(int idTrilha){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrilha where idTrilha = ?";
+		String sql = "select * from sara.avaliatrilha where idTrilha = ?";
 
 		try{
 			List<Usuario> avaliadores = new ArrayList<Usuario>();
@@ -127,7 +127,7 @@ public class DAOAvaliaTrilha extends DAO {
 	public List<Trilha> getTrilhasAvaliadas(String idAvaliador){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrilha where idAvaliador = ?";
+		String sql = "select * from sara.avaliatrilha where idAvaliador = ?";
 
 		try{
 			List<Trilha> trilhas = new ArrayList<Trilha>();
@@ -154,7 +154,7 @@ public class DAOAvaliaTrilha extends DAO {
 	public void update(AvaliaTrilha avaliaTrilha){
 
 		super.close();
-		String sql = "update sara.AvaliaTrilha set idavaliador = ?, idtrilha = ?" 
+		String sql = "update sara.avaliatrilha set idavaliador = ?, idtrilha = ?" 
 				+ " where idavaliador = ?";
 
 		try {
@@ -174,7 +174,7 @@ public class DAOAvaliaTrilha extends DAO {
 	public void delete(AvaliaTrilha avaliaTrilha){
 
 		super.open();
-		String sql = "delete from sara.AvaliaTrilha where idavaliador = ? and idTrilha = ?";
+		String sql = "delete from sara.avaliatrilha where idavaliador = ? and idTrilha = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

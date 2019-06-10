@@ -24,7 +24,7 @@ public class DAOSubmissao extends DAO {
 		
 		try {
 			super.open();
-			String sql = "insert into sara.Submissao"  
+			String sql = "insert into sara.submissao"  
 					+ "(cpfautor, idtrabalho,tipoUsuario)"
 					+ "values (?,?,?)";
 
@@ -56,7 +56,7 @@ public class DAOSubmissao extends DAO {
 	public List<Submissao> read(){
 		
 		super.open();
-		String sql = "select * from sara.Submissao";
+		String sql = "select * from sara.submissao";
 
 		try{
 			List<Submissao> submissoes = new ArrayList<Submissao>();
@@ -134,7 +134,7 @@ public List<String> getCPFAutores(int idTrabalho){
 	public Submissao getSubmissao(int idtrabalho){
 		
 		super.open();
-		String sql = "select * from sara.Submissao where idtrabalho = ?";
+		String sql = "select * from sara.submissao where idtrabalho = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -162,7 +162,7 @@ public List<String> getCPFAutores(int idTrabalho){
 	public void update(Submissao submissao){
 		
 		super.open();
-		String sql = "update sara.Submissao set cpfautor = ?, idtrabalho = ? " 
+		String sql = "update sara.submissao set cpfautor = ?, idtrabalho = ? " 
 				+ " where idtrabalho = ?";
 
 		try {
@@ -183,7 +183,7 @@ public List<String> getCPFAutores(int idTrabalho){
 	public void delete(Submissao submissao){
 		
 		super.open();
-		String sql = "delete from sara.Submissao where idtrabalho = ?";
+		String sql = "delete from sara.submissao where idtrabalho = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -200,7 +200,7 @@ public List<String> getCPFAutores(int idTrabalho){
 	public void delete(int idTrabalho){
 		
 		super.open();
-		String sql = "delete from sara.Submissao where idtrabalho = ?";
+		String sql = "delete from sara.submissao where idtrabalho = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

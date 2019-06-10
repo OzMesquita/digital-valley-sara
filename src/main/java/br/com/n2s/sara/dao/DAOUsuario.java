@@ -16,7 +16,7 @@ public class DAOUsuario extends DAO{
 	public void create(Usuario usuario){
 		
 		super.open(); 
-		String sql = "insert into sara.Usuario"  
+		String sql = "insert into sara.usuario"  
 				+ "(cpf, nome, sobrenome, email, tipo)"
 				+ "values (?,?,?,?,?)";
 
@@ -40,7 +40,7 @@ public class DAOUsuario extends DAO{
 	public List<Usuario> read(){
 		
 		super.open();
-		String sql = "select * from sara.Usuario";
+		String sql = "select * from sara.usuario";
 
 		try{
 			List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -71,7 +71,7 @@ public class DAOUsuario extends DAO{
 	public List<Usuario> readByTipo(String tipo){
 		
 		super.open();
-		String sql = "select * from sara.Usuario where tipo = ?";
+		String sql = "select * from sara.usuario where tipo = ?";
 
 		try{
 			List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -103,7 +103,7 @@ public class DAOUsuario extends DAO{
 	public Usuario getUsuario(String cpf){
 		
 		super.open(); 
-		String sql = "select * from sara.Usuario where cpf = ?";
+		String sql = "select * from sara.usuario where cpf = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -135,7 +135,7 @@ public class DAOUsuario extends DAO{
 	public void update(Usuario usuario){
 		
 		super.open();
-		String sql = "update sara.Usuario set cpf = ?, nome = ?, sobrenome = ?, email = ?, tipo = ? " 
+		String sql = "update sara.usuario set cpf = ?, nome = ?, sobrenome = ?, email = ?, tipo = ? " 
 				+ " where cpf = ?";
 
 		try {
@@ -160,7 +160,7 @@ public class DAOUsuario extends DAO{
 	public void delete(String cpf){
 		
 		super.open(); 
-		String sql = "delete from sara.Usuario where cpf = ?";
+		String sql = "delete from sara.usuario where cpf = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -176,7 +176,7 @@ public class DAOUsuario extends DAO{
 	}
 	public Integer getQuantidadePorNome(String nome) {
 		super.open();
-		String SQL = "SELECT COUNT(*) AS quantidade FROM sara.Usuario WHERE nome ILIKE ?";
+		String SQL = "SELECT COUNT(*) AS quantidade FROM sara.usuario WHERE nome ILIKE ?";
 		try {
 			PreparedStatement ps = super.getConnection().prepareStatement(SQL);
 			ps.setString(1, "%" + nome + "%");
@@ -197,7 +197,7 @@ public class DAOUsuario extends DAO{
 	}
 	public List<Usuario> buscarPorNome(String nome, int inicio, int fim) {
 		super.open();
-		String SQL = "SELECT * FROM sara.Usuario WHERE nome ILIKE ? ORDER BY nome ASC LIMIT ? OFFSET ?";
+		String SQL = "SELECT * FROM sara.usuario WHERE nome ILIKE ? ORDER BY nome ASC LIMIT ? OFFSET ?";
 		try {
 			PreparedStatement ps = super.getConnection().prepareStatement(SQL);
 			ps.setString(1, "%" + nome + "%");

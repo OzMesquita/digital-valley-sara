@@ -17,7 +17,7 @@ public class DAOItem extends DAO{
 	public void create(Item item){
 
 		super.open();
-		String sql = "insert into sara.Item"  
+		String sql = "insert into sara.item"  
 				+ "(descricao, peso,  idCriterio)"
 				+ "values (?,?,?)";
 
@@ -39,7 +39,7 @@ public class DAOItem extends DAO{
 	public List<Item> read(){
 
 		super.open();
-		String sql = "select * from sara.Item";
+		String sql = "select * from sara.item";
 
 		try{
 			List<Item> itens = new ArrayList<Item>();
@@ -72,7 +72,7 @@ public class DAOItem extends DAO{
 	public List<Item> readById(int id){
 
 		super.open();
-		String sql = "select * from sara.Item where idCriterio = ?";
+		String sql = "select * from sara.item where idCriterio = ?";
 
 		try{
 			List<Item> itens = new ArrayList<Item>();
@@ -107,7 +107,7 @@ public class DAOItem extends DAO{
 	public Item getItem(int idItem){
 
 		super.open();
-		String sql = "select * from sara.Item where idItem = ?";
+		String sql = "select * from sara.item where idItem = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -139,7 +139,7 @@ public class DAOItem extends DAO{
 	public void update(Item item){
 
 		super.open();
-		String sql = "update sara.Item set descricao = ? peso = ?, idCriterio = ?"
+		String sql = "update sara.item set descricao = ? peso = ?, idCriterio = ?"
 				+ " where idItem = ?";
 
 		try {
@@ -162,7 +162,7 @@ public class DAOItem extends DAO{
 	public void delete(Item item){
 
 		super.open();
-		String sql = "delete from sara.Item where idItem = ?";
+		String sql = "delete from sara.item where idItem = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -179,7 +179,7 @@ public class DAOItem extends DAO{
 	public void delete(int idItem){
 
 		super.open();
-		String sql = "delete from sara.Item where idItem = ?";
+		String sql = "delete from sara.item where idItem = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

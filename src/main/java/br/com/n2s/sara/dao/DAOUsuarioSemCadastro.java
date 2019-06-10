@@ -11,7 +11,7 @@ public class DAOUsuarioSemCadastro extends DAO{
 	
 	public void create(Usuario usuario) {
 		super.open(); 
-		String sql = "insert into sara.SemCadastro"  
+		String sql = "insert into sara.semcadastro"  
 				+ "(cpf, nome, email)"
 				+ "values (?,?,?)";
 
@@ -42,7 +42,7 @@ public class DAOUsuarioSemCadastro extends DAO{
 	public Usuario getUsuario(String id) {
 		
 		super.open();
-		String sql = "SELECT * FROM sara.SemCadastro WHERE cpf=?";
+		String sql = "SELECT * FROM sara.semcadastro WHERE cpf=?";
 		
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -69,7 +69,7 @@ public class DAOUsuarioSemCadastro extends DAO{
 	public void delete(String cpf){
 		
 		super.open(); 
-		String sql = "delete from sara.SemCadastro where cpf = ?";
+		String sql = "delete from sara.semcadastro where cpf = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -84,7 +84,7 @@ public class DAOUsuarioSemCadastro extends DAO{
 	}
 	public Integer getQuantidadePorNome(String nome) {
 		super.open();
-		String SQL = "SELECT COUNT(*) AS quantidade FROM sara.SemCadastro WHERE nome ILIKE ?";
+		String SQL = "SELECT COUNT(*) AS quantidade FROM sara.semcadastro WHERE nome ILIKE ?";
 		try {
 			PreparedStatement ps = super.getConnection().prepareStatement(SQL);
 			ps.setString(1, "%" + nome + "%");

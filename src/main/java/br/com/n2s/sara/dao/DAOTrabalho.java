@@ -28,7 +28,7 @@ public class DAOTrabalho extends DAO {
 
 		try {
 			super.open();
-			String sql = "insert into sara.Trabalho"  
+			String sql = "insert into sara.trabalho"  
 					+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha)"
 					+ "values (?,?,?,?,?,?)";
 
@@ -71,7 +71,7 @@ public class DAOTrabalho extends DAO {
 	public List<Trabalho> read(){
 		
 		super.open();
-		String sql = "select * from sara.Trabalho";
+		String sql = "select * from sara.trabalho";
 
 		try{
 			List<Trabalho> trabalhos = new ArrayList<Trabalho>();
@@ -108,7 +108,7 @@ public class DAOTrabalho extends DAO {
 	public Trabalho getTrabalho(int idTrabalho){
 		
 		super.open();
-		String sql = "select * from sara.Trabalho where idTrabalho = ?";
+		String sql = "select * from sara.trabalho where idTrabalho = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -144,7 +144,7 @@ public class DAOTrabalho extends DAO {
 	public void update(Trabalho trabalho){
 		
 		super.open();
-		String sql = "update sara.Trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?"
+		String sql = "update sara.trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?"
 				+ " where idTrabalho  = ?";
 
 		try {
@@ -171,7 +171,7 @@ public class DAOTrabalho extends DAO {
 	public void delete(int idTrabalho){
 		
 		super.open();
-		String sql = "delete from sara.Trabalho where idTrabalho = ?";
+		String sql = "delete from sara.trabalho where idTrabalho = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

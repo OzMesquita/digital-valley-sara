@@ -18,7 +18,7 @@ public class DAOEvento extends DAO {
 		super.open();
 
 		String sql = "insert into sara.Evento"  
-				+ "(nome, descricao, site, localizacao, dataInicial, dataFinal)"
+				+ "(nome, descricao, site, localizacao, dataInicial, dataFinal, divulgada)"
 				+ "values (?,?,?,?,?,?)";
 
 		try {
@@ -30,6 +30,7 @@ public class DAOEvento extends DAO {
 			stmt.setString(4, evento.getLocalizacao());
 			stmt.setDate(5, Date.valueOf(evento.getDataInicial()));
 			stmt.setDate(6, Date.valueOf(evento.getDataFinal()));
+			stmt.setBoolean(7, evento.getDivulgada());
 
 			stmt.execute();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -68,6 +69,7 @@ public class DAOEvento extends DAO {
 				evento.setLocalizacao(rs.getString("localizacao"));
 				evento.setDataInicial(rs.getDate("dataInicial").toLocalDate());
 				evento.setDataFinal(rs.getDate("dataFinal").toLocalDate());
+				evento.setDivulgada(rs.getBoolean("divulgada"));
 				eventos.add(evento);
 
 			}
@@ -101,6 +103,7 @@ public class DAOEvento extends DAO {
 				evento.setLocalizacao(rs.getString("localizacao"));
 				evento.setDataInicial(rs.getDate("dataInicial").toLocalDate());
 				evento.setDataFinal(rs.getDate("dataFinal").toLocalDate());
+				evento.setDivulgada(rs.getBoolean("divulgada"));
 
 				rs.close();
 				stmt.close();
@@ -140,7 +143,7 @@ public class DAOEvento extends DAO {
 
 		super.open();
 		String sql = "update sara.Evento set nome = ?, descricao = ?, " 
-				+ "site = ?, localizacao = ?, dataInicial = ?, dataFinal = ? where idEvento = ?";
+				+ "site = ?, localizacao = ?, dataInicial = ?, dataFinal = ?,divulgada=? where idEvento = ?";
 
 		try {
 
@@ -151,8 +154,9 @@ public class DAOEvento extends DAO {
 			stmt.setString(5, evento.getLocalizacao());
 			stmt.setDate(6, Date.valueOf(evento.getDataInicial()));
 			stmt.setDate(7, Date.valueOf(evento.getDataFinal()));
-			stmt.setInt(8, evento.getIdEvento());
-
+			stmt.setBoolean(8, evento.getDivulgada());
+			stmt.setInt(9, evento.getIdEvento());
+			
 			stmt.execute();
 			stmt.close();
 

@@ -22,7 +22,7 @@ public class DAOCriterioTrilha extends DAO {
 	public CriterioTrilha create(CriterioTrilha criterioTrilha){
 		
 		super.open();
-		String sql = "insert into sara.CriterioTrilha"  
+		String sql = "insert into sara.criteriotrilha"  
 				+ "(dataCriacao, nome)"
 				+ "values (?,?)";
 
@@ -44,7 +44,7 @@ public class DAOCriterioTrilha extends DAO {
 	public List<CriterioTrilha> read(){
 		
 		super.open();	
-		String sql = "select * from sara.CriterioTrilha";
+		String sql = "select * from sara.criteriotrilha";
 
 		try{
 			List<CriterioTrilha> criterioTrilhas = new ArrayList<CriterioTrilha>();
@@ -76,7 +76,7 @@ public class DAOCriterioTrilha extends DAO {
 	public CriterioTrilha getCriterioTrilha(int idCriterioTrilha){
 		
 		super.open();
-		String sql = "select * from sara.CriterioTrilha where idCriterioTrilha = ?";
+		String sql = "select * from sara.criteriotrilha where idCriterioTrilha = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -107,7 +107,7 @@ public class DAOCriterioTrilha extends DAO {
 	public int getLastId(){
 		
 		super.open();
-		String sql = "Select max(idcriteriotrilha) from sara.CriterioTrilha";
+		String sql = "Select max(idcriteriotrilha) from sara.criteriotrilha";
 		
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -128,7 +128,7 @@ public class DAOCriterioTrilha extends DAO {
 	public void update(CriterioTrilha criterioTrilha){
 		
 		super.open();
-		String sql = "update sara.CriterioTrilha set dataCriacao = ? nome = ?"
+		String sql = "update sara.criteriotrilha set dataCriacao = ? nome = ?"
 				+ " where idCriterioTrilha = ?";
 				
 
@@ -151,7 +151,7 @@ public class DAOCriterioTrilha extends DAO {
 	public void delete(int idCriterioTrilha){
 		
 		super.open();
-		String sql = "delete from sara.CriterioTrilha where idCriterioTrilha = ?";
+		String sql = "delete from sara.criteriotrilha where idCriterioTrilha = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

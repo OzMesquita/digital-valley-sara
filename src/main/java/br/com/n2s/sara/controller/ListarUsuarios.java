@@ -44,7 +44,7 @@ public class ListarUsuarios extends HttpServlet {
 						pessoas = Facade.buscarPessoasPorNome(nomePessoa, inicio, fim);
 					}
 					// enviar dados
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("listaDeUsuarios.jsp");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("webapp/jsp/adm/listarUsuarios.jsp");
 					request.setAttribute("url", Constantes.getAdmUrl());
 					request.setAttribute("pessoas", pessoas);
 					request.setAttribute("quantidadeDePaginas", (quantidadeDePessoas+(quantidadePorPagina-1)) / quantidadePorPagina);

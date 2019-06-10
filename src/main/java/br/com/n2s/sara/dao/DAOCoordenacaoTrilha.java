@@ -15,7 +15,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 	public void create(CoordenacaoTrilha coordenacaoTrilha){
 
 		super.open();
-		String sql = "insert into sara.CoordenacaoTrilha"  
+		String sql = "insert into sara.coordenacaotrilha"  
 				+ "(cpfCoordenador, idTrilha)"
 				+ "values (?,?)";
 
@@ -36,7 +36,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 	public List<CoordenacaoTrilha> read(){
 
 		super.open();
-		String sql = "select * from sara.CoordenacaoTrilha";
+		String sql = "select * from sara.coordenacaotrilha";
 
 		try{
 
@@ -67,7 +67,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 		public List<CoordenacaoTrilha> readById(String id){
 
 		super.open(); 
-		String sql = "select * from sara.CoordenacaoTrilha where cpfCoordenador = ?";
+		String sql = "select * from sara.coordenacaotrilha where cpfCoordenador = ?";
 
 		try{
 
@@ -100,7 +100,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 	public CoordenacaoTrilha getCoordenacaoTrilha(String cpfCoordenador){
 
 		super.open();
-		String sql = "select * from sara.CoordenacaoTrilha where cpfCoordenador = ?";
+		String sql = "select * from sara.coordenacaotrilha where cpfCoordenador = ?";
 		DAOUsuario usuarioController = new DAOUsuario();
 		DAOTrilha trilhaController = new DAOTrilha();
 
@@ -130,7 +130,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 	public void update(CoordenacaoTrilha coordenacaoTrilha){
 
 		super.open();
-		String sql = "update sara.CoordenacaoTrilha set cpfCoordenador = ?, idTrilha = ? " 
+		String sql = "update sara.coordenacaotrilha set cpfCoordenador = ?, idTrilha = ? " 
 				+ " where cpfCoordenador = ?";
 
 		try {
@@ -152,7 +152,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 	public void delete(String cpfCoordenador){
 
 		super.open();
-		String sql = "delete from sara.CoordenacaoTrilha where cpfCoordenador = ?";
+		String sql = "delete from sara.coordenacaotrilha where cpfCoordenador = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

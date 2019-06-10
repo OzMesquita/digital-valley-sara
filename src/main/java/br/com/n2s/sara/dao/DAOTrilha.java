@@ -17,7 +17,7 @@ public class DAOTrilha extends DAO {
 
 	public void create(Trilha trilha){
 		super.open();
-		String sql = "insert into sara.Trilha"  
+		String sql = "insert into sara.trilha"  
 				+ "(nome, descricao, idEvento)"
 				+ "values (?,?,?)";
 
@@ -41,7 +41,7 @@ public class DAOTrilha extends DAO {
 	public List<Trilha> read(){
 		
 		super.open();
-		String sql = "select * from sara.Trilha";
+		String sql = "select * from sara.trilha";
 
 		try{
 			List<Trilha> trilhas = new ArrayList<Trilha>();
@@ -77,7 +77,7 @@ public class DAOTrilha extends DAO {
 public List<Trilha> readById(int id){
 		
 		super.open();
-		String sql = "select * from sara.Trilha where idEvento = ?";
+		String sql = "select * from sara.trilha where idEvento = ?";
 		
 		try{
 			List<Trilha> trilhas = new ArrayList<Trilha>();
@@ -114,7 +114,7 @@ public List<Trilha> readById(int id){
 
 	public Trilha getTrilha(int idTrilha){
 		super.open();
-		String sql = "select * from sara.Trilha where idTrilha = ?";
+		String sql = "select * from sara.trilha where idTrilha = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -148,7 +148,7 @@ public List<Trilha> readById(int id){
 
 	public void update(Trilha trilha){
 		super.open();
-		String sql = "update sara.Trilha set nome = ?, descricao = ?, idEvento = ?, "
+		String sql = "update sara.trilha set nome = ?, descricao = ?, idEvento = ?, "
 				+ "idCriterioTrilha = ? where idTrilha = ?";
 
 
@@ -173,7 +173,7 @@ public List<Trilha> readById(int id){
 
 	public void delete(int idTrilha){
 		super.open();
-		String sql = "delete from sara.Trilha where idTrilha = ?";
+		String sql = "delete from sara.trilha where idTrilha = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

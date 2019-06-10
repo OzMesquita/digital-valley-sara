@@ -17,7 +17,7 @@ public class DAOCoordenacaoEvento extends DAO {
 	public void create(CoordenacaoEvento coordenacaoEvento){
 
 		super.open();
-		String sql = "insert into sara.CoordenacaoEvento"  
+		String sql = "insert into sara.coordenacaoevento"  
 				+ "(cpfCoordenador, idEvento)"
 				+ "values (?,?)";
 
@@ -38,7 +38,7 @@ public class DAOCoordenacaoEvento extends DAO {
 	public List<CoordenacaoEvento> read(){
 
 		super.open(); 
-		String sql = "select * from sara.CoordenacaoEvento";
+		String sql = "select * from sara.coordenacaoevento";
 
 		try{
 
@@ -69,7 +69,7 @@ public class DAOCoordenacaoEvento extends DAO {
 	public List<CoordenacaoEvento> read(String cpfCoordenador){
 		
 		super.open();
-		String sql = "select * from sara.CoordenacaoEvento where cpfCoordenador = ?";
+		String sql = "select * from sara.coordenacaoevento where cpfCoordenador = ?";
 
 		try{
 
@@ -101,7 +101,7 @@ public class DAOCoordenacaoEvento extends DAO {
 	public List<CoordenacaoEvento> read(int idEvento){
 
 		super.open();
-		String sql = "select * from sara.CoordenacaoEvento where idEvento = ?";
+		String sql = "select * from sara.coordenacaoevento where idEvento = ?";
 
 		try{
 
@@ -132,7 +132,7 @@ public class DAOCoordenacaoEvento extends DAO {
 	public List<Usuario> ListarCoordenadores(int idEvento){
 
 		super.open();
-		String sql = "select * from sara.CoordenacaoEvento where idEvento = ?";
+		String sql = "select * from sara.coordenacaoevento where idEvento = ?";
 
 		try{
 
@@ -161,7 +161,7 @@ public class DAOCoordenacaoEvento extends DAO {
 	public CoordenacaoEvento getCoordenacaoEvento(String cpfCoordenador){
 
 		super.open();
-		String sql = "select * from sara.CoordenacaoEvento where cpfCoordenador = ?";
+		String sql = "select * from sara.coordenacaoevento where cpfCoordenador = ?";
 		DAOUsuario usuarioController = new DAOUsuario();
 		DAOEvento eventoController = new DAOEvento();
 
@@ -191,7 +191,7 @@ public class DAOCoordenacaoEvento extends DAO {
 	public void update(CoordenacaoEvento coordenacaoEvento){
 
 		super.open(); 
-		String sql = "update sara.CoordenacaoEvento set cpfCoordenador = ?, idEvento = ? " 
+		String sql = "update sara.coordenacaoevento set cpfCoordenador = ?, idEvento = ? " 
 				+ " where cpfCoordenador = ?";
 
 		try {
@@ -213,7 +213,7 @@ public class DAOCoordenacaoEvento extends DAO {
 	public void delete(CoordenacaoEvento coordenacaoEvento){
 
 		super.open();
-		String sql = "delete from sara.CoordenacaoEvento where cpfCoordenador = ?";
+		String sql = "delete from sara.coordenacaoevento where cpfCoordenador = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

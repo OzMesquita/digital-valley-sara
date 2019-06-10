@@ -15,6 +15,7 @@ public class Evento {
 	private LocalDate dataInicial;
 	private LocalDate dataFinal;
 	private List<Trilha> trilhas;
+	private boolean divulgada;
 
 	public int getIdEvento() {
 		return idEvento;
@@ -69,5 +70,17 @@ public class Evento {
 	}
 	public void setDataFinal(LocalDate dataFinal) {
 		this.dataFinal = dataFinal;
+	}
+	/**
+	 * @return the divulgada
+	 */
+	public boolean getDivulgada() {
+		return divulgada;
+	}
+	/**
+	 * @param divulgada the divulgada to set
+	 */
+	public void setDivulgada(boolean divulgada) {
+		this.divulgada = divulgada;
 	}
 }

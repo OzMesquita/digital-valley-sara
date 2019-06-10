@@ -20,7 +20,7 @@ public class DAOPeriodo extends DAO {
 		
 		super.open();
 		
-		String sql = "insert into sara.Periodo"  
+		String sql = "insert into sara.periodo"  
 				+ "(dataInicial, dataFinal, descricao, idTrilha)"
 				+ "values (?,?,?,?)";
 
@@ -43,7 +43,7 @@ public class DAOPeriodo extends DAO {
 	public List<Periodo> read(){ //read()
 		
 		super.open();
-		String sql = "select * from sara.Periodo";
+		String sql = "select * from sara.periodo";
 
 		try{
 			List<Periodo> periodos = new ArrayList<Periodo>();
@@ -76,7 +76,7 @@ public class DAOPeriodo extends DAO {
 	public List<Periodo> readById(int id){ //read()
 		
 		super.open();
-		String sql = "select * from sara.Periodo where idtrilha = ?";
+		String sql = "select * from sara.periodo where idtrilha = ?";
 
 		try{
 			List<Periodo> periodos = new ArrayList<Periodo>();
@@ -110,7 +110,7 @@ public class DAOPeriodo extends DAO {
 	public Periodo getPeriodo(int idPeriodo){
 		
 		super.open();
-		String sql = "select * from sara.Periodo where idPeriodo = ?";
+		String sql = "select * from sara.periodo where idPeriodo = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -143,7 +143,7 @@ public class DAOPeriodo extends DAO {
 	public void update(Periodo periodo){
 		
 		super.open();
-		String sql = "update sara.Periodo "
+		String sql = "update sara.periodo "
 				+ "set dataInicial = ?, dataFinal = ?, descricao = ?, idTrilha = ?" 
 				+ " where idPeriodo = ?";
 
@@ -168,7 +168,7 @@ public class DAOPeriodo extends DAO {
 	public void delete(int idPeriodo){
 		
 		super.open();
-		String sql = "delete from sara.Periodo where idPeriodo = ?";
+		String sql = "delete from sara.periodo where idPeriodo = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

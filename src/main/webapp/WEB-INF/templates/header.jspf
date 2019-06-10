@@ -111,7 +111,7 @@
 						</a>
 							<ul class="sub">
 								<li><a class="" href="formCadastroEvento.jsp">Criar Evento</a></li>
-								<li><a class="" href="alterarPermissao.jsp">Alterar Permissões</a></li>
+								<li><a class="" href="/ListarUsuarios">Alterar Permissões</a></li>
 							</ul></li>
 					<%} %>
 					<li><a class="" href="eventosCoordenados.jsp"> <i

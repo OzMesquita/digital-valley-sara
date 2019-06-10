@@ -42,7 +42,7 @@ public class DAOAvaliaTrabalho extends DAO {
 
 	public List<AvaliaTrabalho> read(){
 		super.open();
-		String sql = "select * from sara.Avaliatrabalho";
+		String sql = "select * from sara.avaliatrabalho";
 
 		try{
 			List<AvaliaTrabalho> avaliacoes = new ArrayList<AvaliaTrabalho>();
@@ -77,7 +77,7 @@ public class DAOAvaliaTrabalho extends DAO {
 	public List<Trabalho> read(String cpfAvaliador){
 		
 		super.open();
-		String sql = "select * from sara.AvaliaTrabalho where idAvaliador = ?";
+		String sql = "select * from sara.avaliatrabalho where idAvaliador = ?";
 
 		try{
 			List<Trabalho> trabalhos = new ArrayList<Trabalho>();
@@ -103,7 +103,7 @@ public class DAOAvaliaTrabalho extends DAO {
 	public AvaliaTrabalho getAvaliaTrabalho(String idAvaliador){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrabalho where idavaliador = ?";
+		String sql = "select * from sara.avaliatrabalho where idavaliador = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -136,7 +136,7 @@ public class DAOAvaliaTrabalho extends DAO {
 	public AvaliaTrabalho getAvaliaTrabalho(int idTrabalho){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrabalho where idTrabalho = ?";
+		String sql = "select * from sara.avaliatrabalho where idTrabalho = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -170,7 +170,7 @@ public class DAOAvaliaTrabalho extends DAO {
 	public void update(AvaliaTrabalho avaliaTrabalho){
 
 		super.open();
-		String sql = "update sara.AvaliaTrabalho set idavaliador = ?, idtrabalho = ?, feedback = ?, status = ?" 
+		String sql = "update sara.avaliatrabalho set idavaliador = ?, idtrabalho = ?, feedback = ?, status = ?" 
 				+ " where idTrabalho = ?";
 
 		try {
