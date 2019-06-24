@@ -105,7 +105,7 @@ public class Facade {
 	
 	public static ArrayList<Periodo> atualizarPeriodos(Trilha t) {
 		DAOPeriodo daoPeriodo = new DAOPeriodo();
-		ArrayList<Periodo> periodos = (ArrayList<Periodo>) daoPeriodo.readById(t.getIdTrilha());
+		ArrayList<Periodo> periodos = (ArrayList<Periodo>) daoPeriodo.readByIdTrilha(t.getIdTrilha());
 		return periodos;
 	}
 	public static boolean dataValida(Periodo p) {
@@ -116,7 +116,7 @@ public class Facade {
 	
 	public static Periodo periodoAtual(Trilha t) {
 		Periodo atual = null;
-		t.setPeriodos((ArrayList) new DAOPeriodo().readById(t.getIdTrilha()));
+		t.setPeriodos((ArrayList) new DAOPeriodo().readByIdTrilha(t.getIdTrilha()));
 		for (Periodo p : t.getPeriodos()) {
 			LocalDate.now();
 			if ( (LocalDate.now().isBefore(p.getDataFinal()) || LocalDate.now().isEqual(p.getDataFinal())) && 

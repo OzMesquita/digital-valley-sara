@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.n2s.sara.model.CoordenacaoTrilha;
+import br.com.n2s.sara.model.Usuario;
 
 public class DAOCoordenacaoTrilha extends DAO {
 
@@ -95,6 +96,34 @@ public class DAOCoordenacaoTrilha extends DAO {
 			throw new RuntimeException(e);
 		}
 	}
+		
+		public List<Usuario> readByIdTrilha(int id){
+
+			super.open(); 
+			String sql = "select * from sara.coordenacaotrilha where idTrilha = ?";
+
+			try{
+
+				List<Usuario> coordenacoes = new ArrayList<Usuario>();
+				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+				stmt.setInt(1, id);
+				ResultSet rs = stmt.executeQuery();
+
+				while(rs.next()){
+
+					Usuario user = new DAOUsuario().getUsuario(rs.getString("cpfCoordenador"));
+					coordenacoes.add(user);
+				}
+
+				rs.close();
+				stmt.close();
+				super.close();
+				return coordenacoes;
+
+			}catch(SQLException e){
+				throw new RuntimeException(e);
+			}
+		}
 
 
 	public CoordenacaoTrilha getCoordenacaoTrilha(String cpfCoordenador){

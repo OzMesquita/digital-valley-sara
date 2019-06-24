@@ -59,7 +59,7 @@ public class SelecionarCriterioTrilha extends HttpServlet {
 		/* Copiando os critérios e os itens */
 
 		DAOCriterio daoCriterio = new DAOCriterio();
-		List<Criterio> criterios = daoCriterio.obterCriteriosPorTrilha(criterioTrilha.getIdCriterioTrilha());
+		List<Criterio> criterios = daoCriterio.(criterioTrilha.getIdCriterioTrilha());
 
 		DAOItem daoItem = new DAOItem();
 

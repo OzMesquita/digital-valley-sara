@@ -8,8 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trilha;
+import br.com.n2s.sara.model.Usuario;
 
 public class DAOTrilha extends DAO {
 
@@ -58,7 +60,11 @@ public class DAOTrilha extends DAO {
 				trilha.setNome(rs.getString("nome"));
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
-				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
+				trilha.setCriterios((ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
+				trilha.setAvaliadores((ArrayList<Usuario>) new DAOAvaliaTrilha().getAvaliadores(trilha.getIdTrilha()));
+				trilha.setPeriodos((ArrayList<Periodo>) new DAOPeriodo().readByIdTrilha(trilha.getIdTrilha()));
+				trilha.setCoordenadores( (ArrayList<Usuario>) new DAOCoordenacaoTrilha().readByIdTrilha(trilha.getIdTrilha()));
+				
 				trilhas.add(trilha);
 
 			}
@@ -95,7 +101,7 @@ public List<Trilha> readById(int id){
 				trilha.setNome(rs.getString("nome"));
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
-				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
+				trilha.setCriterios((ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
 				
 				trilhas.add(trilha);
 
@@ -131,7 +137,6 @@ public List<Trilha> readById(int id){
 				trilha.setNome(rs.getString("nome"));
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
-				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
 				rs.close();
 				stmt.close();
 				
@@ -157,7 +162,6 @@ public List<Trilha> readById(int id){
 			stmt.setString(1, trilha.getNome());
 			stmt.setString(2, trilha.getDescricao());
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
-			stmt.setInt(4, trilha.getCriterioTrilha().getIdCriterioTrilha());
 			stmt.setInt(5, trilha.getIdTrilha());
 
 			stmt.execute();

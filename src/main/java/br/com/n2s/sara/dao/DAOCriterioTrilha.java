@@ -9,38 +9,51 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.CriterioTrilha;
+import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
 
 
 public class DAOCriterioTrilha extends DAO {
 	
 
-	public DAOCriterioTrilha(){}
-
-
-	public CriterioTrilha create(CriterioTrilha criterioTrilha){
-		
+	public void create(Trilha trilha){
 		super.open();
-		String sql = "insert into sara.criteriotrilha"  
-				+ "(dataCriacao, nome)"
-				+ "values (?,?)";
-
+		String sql = "INSERT INTO sara.criteriotrilha(fktrilha, fkcriterio)VALUES (?,?)";
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
-			stmt.setDate(1, Date.valueOf(criterioTrilha.getDataCriacao()));
-			stmt.setString(2, criterioTrilha.getNome());
-			
-			stmt.execute();
+			for(int i=0;i<trilha.getCriterios().size();i++) {
+				stmt.setInt(2, trilha.getIdTrilha());
+				stmt.setInt(3, trilha.getCriterios().get(i).getIdCriterio());
+				stmt.execute();
+			}
 			stmt.close();
 			super.close();
-			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return criterioTrilha;
 	}
 
+	public List<Criterio> getCriterioPorTrilha(Trilha t){
+		super.open();
+		String sql = "select * from sara.criteriotrilha where idCriterioTrilha = ?";
+		try{
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, t.getIdTrilha());
+			ResultSet rs = stmt.executeQuery();
+			ArrayList<Criterio> criterios = new ArrayList<Criterio>();
+			while(rs.next()) {
+				Criterio c = new DAOCriterio().getCriterio(rs.getInt("fkcriterio"));
+				criterios.add(c);				
+			}
+			return criterios;
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Deprecated
 	public List<CriterioTrilha> read(){
 		
 		super.open();	
@@ -55,7 +68,7 @@ public class DAOCriterioTrilha extends DAO {
 
 				CriterioTrilha criterioTrilha = new CriterioTrilha();
 
-				criterioTrilha.setIdCriterioTrilha(rs.getInt("idCriterioTrilha"));
+				//criterioTrilha.setIdCriterioTrilha(rs.getInt("idCriterioTrilha"));
 				criterioTrilha.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());
 				criterioTrilha.setNome(rs.getString("nome"));
 				
@@ -72,38 +85,8 @@ public class DAOCriterioTrilha extends DAO {
 			throw new RuntimeException(e);
 		}
 	}
-
-	public CriterioTrilha getCriterioTrilha(int idCriterioTrilha){
-		
-		super.open();
-		String sql = "select * from sara.criteriotrilha where idCriterioTrilha = ?";
-
-		try{
-			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
-			stmt.setInt(1, idCriterioTrilha);
-			ResultSet rs = stmt.executeQuery();
-
-			if(rs.next()){
-				
-				CriterioTrilha criterioTrilha = new CriterioTrilha();
-
-				criterioTrilha.setIdCriterioTrilha(rs.getInt("idCriterioTrilha"));
-				criterioTrilha.setDataCriacao(rs.getDate("dataCriacao").toLocalDate());
-				criterioTrilha.setNome(rs.getString("nome"));
-			
-				rs.close();
-				stmt.close();
-				super.close();
-				return criterioTrilha;
-				
-			}else{
-				return null;
-			}
-		}catch(SQLException e){
-			throw new RuntimeException(e);
-		}
-	}
 	
+	@Deprecated
 	public int getLastId(){
 		
 		super.open();
@@ -125,18 +108,18 @@ public class DAOCriterioTrilha extends DAO {
 		}
 	}
 
+	@Deprecated
 	public void update(CriterioTrilha criterioTrilha){
 		
 		super.open();
-		String sql = "update sara.criteriotrilha set dataCriacao = ? nome = ?"
-				+ " where idCriterioTrilha = ?";
+		String sql = "update sara.criteriotrilha set dataCriacao = ? nome = ? where idCriterioTrilha = ?";
 				
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setDate(1, Date.valueOf(criterioTrilha.getDataCriacao()));
 			stmt.setString(2, criterioTrilha.getNome());
-			stmt.setInt(3, criterioTrilha.getIdCriterioTrilha());
+			
 			
 			stmt.execute();
 			stmt.close();
@@ -147,7 +130,7 @@ public class DAOCriterioTrilha extends DAO {
 		}
 	}
 
-
+	@Deprecated
 	public void delete(int idCriterioTrilha){
 		
 		super.open();
@@ -164,5 +147,6 @@ public class DAOCriterioTrilha extends DAO {
 			throw new RuntimeException(e);
 		}
 	}
+	
 	
 }

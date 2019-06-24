@@ -24,14 +24,12 @@
       <!-- page start-->
               <%
       			Trilha trilha = (Trilha) session.getAttribute("trilha");
-              	session.setAttribute("trilha", trilha);
-      			
+              	session.setAttribute("trilha", trilha); 			
               	DAOCriterio daoCriterio = new DAOCriterio();
-              	DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
-      			
-      			List<CriterioTrilha> listaCriterioTrilha = daoCriterioTrilha.read();
-              	
-      			if(trilha.getCriterioTrilha() == null){%>
+              	DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();     			
+      			List<CriterioTrilha> listaCriterioTrilha = daoCriterioTrilha.read();             	
+      			if(trilha.getCriterioTrilha() == null){
+      			%>
               
               <div class="row">
                   <div class="col-lg-12">
@@ -55,7 +53,7 @@
                                       <tr>
                                          <td><%=listaCriterioTrilha.get(i).getNome()%></td>
                                          <td><form action="visualizarCriterioTrilha.jsp" method="post"> 
-	                           					<input type="hidden" value="<%= listaCriterioTrilha.get(i).getIdCriterioTrilha()%>" name="idCriterioTrilha"> 
+	                           					<input type="hidden" value="<%= listaCriterioTrilha.get(i).%>" name="idCriterioTrilha"> 
 	                           					<button class="btn btn-primary" type="submit">Visualizar</button>
 	                       					</form> 
                    						</td>
@@ -75,7 +73,8 @@
                        </div>
                        <% 		}else{
                     	   			
-                        			List<Criterio> criterios = daoCriterio.obterCriteriosPorTrilha(trilha.getCriterioTrilha().getIdCriterioTrilha());
+                        			//List<Criterio> criterios = daoCriterio.obterCriteriosPorTrilha(trilha.getCriterioTrilha().getIdCriterioTrilha());
+                        			List<Criterio> criterios = 
                         			if(!criterios.isEmpty()){ %>
 			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
 				<div class="alert alert-success" role="alert">	

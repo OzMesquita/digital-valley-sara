@@ -19,14 +19,14 @@ public class DAOCriterio extends DAO {
 		
 		super.open();
 		String sql = "insert into sara.criterio"  
-				+ "(descricao, peso, idCriterioTrilha)"
-				+ "values (?,?,?)";
+				+ "(descricao, peso)"
+				+ "values (?,?)";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, criterio.getDescricao());
 			stmt.setInt(2, criterio.getPeso());
-			stmt.setInt(3, criterio.getCriterioTrilha().getIdCriterioTrilha());
+			
 			
 			stmt.execute();
 			stmt.close();
@@ -55,7 +55,6 @@ public class DAOCriterio extends DAO {
 				criterio.setIdCriterio(rs.getInt("idCriterio"));
 				criterio.setDescricao(rs.getString("descricao"));
 				criterio.setPeso(rs.getInt("peso"));
-				criterio.setCriterioTrilha(criterioTrilhaController.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
 				
 				criterios.add(criterio);
 
@@ -88,9 +87,7 @@ public class DAOCriterio extends DAO {
 
 				criterio.setIdCriterio(rs.getInt("idCriterio"));
 				criterio.setDescricao(rs.getString("descricao"));
-				criterio.setPeso(rs.getInt("peso"));
-				criterio.setCriterioTrilha(criterioTrilhaController.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
-			
+				criterio.setPeso(rs.getInt("peso"));			
 				rs.close();
 				stmt.close();
 				super.close();
@@ -103,52 +100,45 @@ public class DAOCriterio extends DAO {
 		}
 	}
 	
-	public List<Criterio> obterCriteriosPorTrilha(int idCriterioTrilha){
-		
-		super.open();
-		String sql = "select * from sara.criterio where idcriteriotrilha = ?";
-
-		try{
-			List<Criterio> criterios = new ArrayList<Criterio>();
-			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
-			stmt.setInt(1, idCriterioTrilha);
-			ResultSet rs = stmt.executeQuery();
-			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
-
-			while(rs.next()){
-
-				Criterio criterio = new Criterio();
-
-				criterio.setIdCriterio(rs.getInt("idCriterio"));
-				criterio.setDescricao(rs.getString("descricao"));
-				criterio.setPeso(rs.getInt("peso"));
-				criterio.setCriterioTrilha(criterioTrilhaController.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
-				
-				criterios.add(criterio);
-
-			}
-
-			rs.close();
-			stmt.close();
-			super.close();
-			return criterios;
-
-		}catch(SQLException e){
-			throw new RuntimeException(e);
-		}
-	}
+	/*
+	 * public List<Criterio> obterCriteriosPorTrilha(int idCriterioTrilha){
+	 * 
+	 * super.open(); String sql =
+	 * "select * from sara.criterio where idcriteriotrilha = ?";
+	 * 
+	 * try{ List<Criterio> criterios = new ArrayList<Criterio>(); PreparedStatement
+	 * stmt = super.getConnection().prepareStatement(sql); stmt.setInt(1,
+	 * idCriterioTrilha); ResultSet rs = stmt.executeQuery(); DAOCriterioTrilha
+	 * criterioTrilhaController = new DAOCriterioTrilha();
+	 * 
+	 * while(rs.next()){
+	 * 
+	 * Criterio criterio = new Criterio();
+	 * 
+	 * criterio.setIdCriterio(rs.getInt("idCriterio"));
+	 * criterio.setDescricao(rs.getString("descricao"));
+	 * criterio.setPeso(rs.getInt("peso"));
+	 * criterio.setCriterioTrilha(criterioTrilhaController.getCriterioTrilha(rs.
+	 * getInt("idCriterioTrilha")));
+	 * 
+	 * criterios.add(criterio);
+	 * 
+	 * }
+	 * 
+	 * rs.close(); stmt.close(); super.close(); return criterios;
+	 * 
+	 * }catch(SQLException e){ throw new RuntimeException(e); } }
+	 */
 
 	public void update(Criterio criterio){
 		
 		super.open();
-		String sql = "update sara.criterio set descricao = ?, peso = ?, idCriterioTrilha = ?"
-				+ " where idCriterio = ?";
+		String sql = "update sara.criterio set descricao = ?, peso = ? where idCriterio = ?";
 				
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, criterio.getDescricao());
 			stmt.setInt(2, criterio.getPeso());
-			stmt.setInt(3, criterio.getCriterioTrilha().getIdCriterioTrilha());
 			stmt.setInt(4, criterio.getIdCriterio());
 			
 			stmt.execute();

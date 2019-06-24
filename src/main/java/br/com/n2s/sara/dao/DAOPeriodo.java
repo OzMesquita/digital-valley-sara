@@ -73,7 +73,7 @@ public class DAOPeriodo extends DAO {
 		}
 	}
 	
-	public List<Periodo> readById(int id){ //read()
+	public List<Periodo> readByIdTrilha(int id){ //read()
 		
 		super.open();
 		String sql = "select * from sara.periodo where idtrilha = ?";
