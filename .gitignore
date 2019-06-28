@@ -5,3 +5,6 @@
 .project
 /src/main/resources/.env
 /WebContent/WEB-INF/faces-config.xml
+.classpath
+.settings/org.eclipse.jdt.core.prefs
+.settings/org.eclipse.wst.common.project.facet.core.xml

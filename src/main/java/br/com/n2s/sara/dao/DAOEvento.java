@@ -118,27 +118,6 @@ public class DAOEvento extends DAO {
 		}
 	}
 
-	public int getLastId(){
-		super.open();
-		String sql = "Select max(idEvento) from sara.Evento";
-		
-		try{
-			Statement stmt = super.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-			int lastId = rs.getInt(1);
-
-			stmt.close();
-			rs.close();
-			return lastId;
-
-		}catch (SQLException e) {
-			throw new RuntimeException(e);
-		}finally {
-			super.close();
-		}
-	}
-
 	public void update(Evento evento){
 
 		super.open();

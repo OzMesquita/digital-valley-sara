@@ -4,6 +4,7 @@
 <%@page import="br.com.n2s.sara.util.Constantes"%>
       <%
 		Evento evento = (Evento) session.getAttribute("evento");
+		evento = Facade.pegarEventoPeloId(evento.getIdEvento());
       	if (! Facade.isCoordenador(evento.getIdEvento(), usuario.getCpf())){
       		%>
       		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>

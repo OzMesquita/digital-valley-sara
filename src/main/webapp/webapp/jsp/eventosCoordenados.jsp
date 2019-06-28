@@ -8,15 +8,8 @@
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 
     <% 
-    	DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
-    	DAOCoordenacaoTrilha daoCoordenacaoTrilha = new DAOCoordenacaoTrilha();
-        List<CoordenacaoEvento> coordenacaoEvento = daoCoordenacaoEvento.read(usuario.getCpf()); //Nesta linha estão sendo buscados todos os eventos coordenados pelo usuário da sessão
-        List<Evento> eventos = new ArrayList<Evento>();
-        DAOEvento daoEvento = new DAOEvento();
-        for(int i = 0; i < coordenacaoEvento.size(); i++){
-        	Evento evento = coordenacaoEvento.get(i).getEvento();
-        	eventos.add(evento);
-        }
+//Nesta linha estão sendo buscados todos os eventos coordenados pelo usuário da sessão
+        List<Evento> eventos = Facade.pegarEventosCoordenandos(usuario);
     %>
       <!--main content start-->
       <section id="main-content">

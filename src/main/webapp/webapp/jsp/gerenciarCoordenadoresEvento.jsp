@@ -9,24 +9,10 @@
 
      	<%
      		Evento evento = (Evento) session.getAttribute("evento");
+     		evento = Facade.pegarEventoPeloId(evento.getIdEvento());
      		DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
     		DAOUsuario daoUsuario = new DAOUsuario();
-    		List<CoordenacaoEvento> lista = daoCoordenacaoEvento.read(evento.getIdEvento()); 
-    		if (! Facade.isCoordenador(evento.getIdEvento(), usuario.getCpf())){
-          		%>
-          		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
-    			<script>
-    				function permissao(){
-    					alert('Você não possue permissão para acessar está área!!!!');
-    					var myVar = setInterval(redirect, 1000);
-    				}
-    				function redirect(){
-    					windows.location.href = 'indexAutor.jsp';
-    				}
-    			</script>      		
-          		<% 
-          		response.sendRedirect("indexAutor.jsp");
-          	}
+    		List<CoordenacaoEvento> lista = daoCoordenacaoEvento.read(evento.getIdEvento());
      	%>
  
       <!--main content start-->

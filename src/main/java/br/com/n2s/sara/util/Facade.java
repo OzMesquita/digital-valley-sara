@@ -24,6 +24,7 @@ import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.dao.DAOUsuario;
 import br.com.n2s.sara.dao.DAOUsuarioSemCadastro;
 import br.com.n2s.sara.model.AvaliaTrilha;
+import br.com.n2s.sara.model.CoordenacaoEvento;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
@@ -230,6 +231,16 @@ public class Facade {
 		DAOUsuario daoUsuario = new DAOUsuario();
 		usuarios = daoUsuario.buscarPorNome(nome, inicio, fim);
 		return usuarios;
+	}
+	
+	public static List<Evento> pegarEventosCoordenandos(Usuario usuario){
+		ArrayList<Evento> eventos = new ArrayList<Evento>();
+		List<CoordenacaoEvento> lista = new DAOCoordenacaoEvento().read(usuario.getCpf());
+		for(CoordenacaoEvento l : lista) {			
+			Evento e = pegarEventoPeloId(l.getEvento().getIdEvento());
+			eventos.add(e);
+		}
+		return eventos;
 	}
 	
 

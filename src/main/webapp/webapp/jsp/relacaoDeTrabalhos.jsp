@@ -7,6 +7,7 @@
 
 	<% 
 		Evento evento = (Evento) session.getAttribute("evento");
+		evento = Facade.pegarEventoPeloId(evento.getIdEvento());
 		List<Trilha> trilhas = new DAOTrilha().read();
     
     %>

@@ -4,6 +4,7 @@
 
 	<%	
 		Evento evento = (Evento) session.getAttribute("evento");
+		evento = Facade.pegarEventoPeloId(evento.getIdEvento());
 		session.setAttribute("evento", evento);
 	%>
       

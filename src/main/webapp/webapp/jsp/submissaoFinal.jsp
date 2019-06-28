@@ -8,7 +8,7 @@
 	<% 
 		DAOEvento daoEvento = new DAOEvento();
 		DAOTrilha daoTrilha = new DAOTrilha();
-		Evento evento = daoEvento.getEvento(Integer.parseInt(request.getParameter("idEvento")));
+		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(request.getParameter("idEvento")));
 		Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
         
     %>

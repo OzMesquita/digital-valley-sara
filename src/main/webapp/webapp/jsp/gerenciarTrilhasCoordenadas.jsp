@@ -7,7 +7,7 @@
      		String idEvento = request.getParameter("idEvento");
      		DAOEvento daoEvento = new DAOEvento();
      		DAOTrilha daoTrilha = new DAOTrilha();
-     		Evento evento = (daoEvento.getEvento(Integer.parseInt(idEvento)));
+     		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
      		evento.setTrilhas(daoTrilha.readById(evento.getIdEvento()));
 	        
      		session.setAttribute("usuarioSara", usuario);
