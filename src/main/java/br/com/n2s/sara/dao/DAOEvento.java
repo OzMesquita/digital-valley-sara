@@ -19,7 +19,7 @@ public class DAOEvento extends DAO {
 
 		String sql = "insert into sara.Evento"  
 				+ "(nome, descricao, site, localizacao, dataInicial, dataFinal, divulgada)"
-				+ "values (?,?,?,?,?,?)";
+				+ "values (?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = null;
@@ -32,10 +32,10 @@ public class DAOEvento extends DAO {
 			stmt.setDate(6, Date.valueOf(evento.getDataFinal()));
 			stmt.setBoolean(7, evento.getDivulgada());
 
-			stmt.execute();
+			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.next()) {
-				evento.setIdEvento(rs.getInt(1));
+				evento.setIdEvento(rs.getInt("idevento"));
 			}
 			rs.close();
 			stmt.close();

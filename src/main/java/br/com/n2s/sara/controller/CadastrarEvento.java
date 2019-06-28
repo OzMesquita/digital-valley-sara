@@ -46,6 +46,7 @@ public class CadastrarEvento extends HttpServlet {
 		evento.setSite(site);
 		evento.setDataInicial(dataInicial);
 		evento.setDataFinal(dataFinal);
+		evento.setDivulgada(false);
 		
 		DAOEvento daoEvento = new DAOEvento();
 		evento = daoEvento.create(evento);

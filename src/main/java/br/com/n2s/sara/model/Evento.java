@@ -83,4 +83,12 @@ public class Evento {
 	public void setDivulgada(boolean divulgada) {
 		this.divulgada = divulgada;
 	}
+	
+	public boolean isCoordenador(Usuario u) {
+		for (Usuario t:this.coordenadores) {
+			if(t.getCpf().equals(u.getCpf()))
+				return true;
+		}
+		return false;
+	}
 }

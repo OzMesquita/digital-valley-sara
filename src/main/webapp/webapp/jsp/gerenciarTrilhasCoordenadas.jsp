@@ -123,7 +123,7 @@
               </div>
               
                <%
-					if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO) || usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)){ %>
+					if(evento.isCoordenador(usuario) || usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)){ %>
 		    	
 		    			<table class="table table-striped table-advance table-hover">
 			    <tr>		

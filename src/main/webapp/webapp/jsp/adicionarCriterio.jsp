@@ -43,26 +43,7 @@
 							            
 							            				
 										<div class="form-validate form-horizontal" id="feedback_form">
-										
-											<%
-								        	if(trilha.getCriterioTrilha() == null){ %>
-								    			
-								    			<center><h2><b>Critério Trilha</b></h2></center>
-								    				
-												<div class="form-group ">
-													<label for="cemail" class="control-label col-lg-2">Nome 
-														<span class="required">*</span>
-													</label>
-													<div class="col-lg-6">
-														<input class="form-control " id="subject" type="text"
-															name="nomeCriterioTrilha" required />
-													</div>
-												</div>								    				
-								    				
-								    		<%} %>
-								
 											<center><h2><b>Critério</b></h2></center>
-											    		
 											<div class="form-group">
 												<label for="ccomment" class="control-label col-lg-2">Descrição
 													<span class="required">*</span>
