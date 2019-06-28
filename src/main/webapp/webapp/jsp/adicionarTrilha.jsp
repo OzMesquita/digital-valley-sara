@@ -60,6 +60,29 @@
 														name="descricao" required></textarea>
 												</div>
 											</div>
+											<!-- ENTÃO TEMOS QUE ADICIONAR AS COISAS QUE FALTAM -->
+											<div class="form-group ">
+												<label for="cemail" class="control-label col-lg-2">Data Inicial 
+													<span class="required">*</span>
+												</label>
+												<div class="col-lg-6">
+													<input class="form-control " id="subject" type="date"
+														name="dataInicial" required />
+												</div>
+											</div>
+											
+											<div class="form-group ">
+												<label for="cemail" class="control-label col-lg-2">Data Final 
+													<span class="required">*</span>
+												</label>
+												<div class="col-lg-6">
+													<input class="form-control " id="subject" type="date"
+														name="dataFinal" required />
+												</div>
+											</div>
+											<!-- PARTE QUE JÁ HAVIA SIDO IMPLEMENTADA -->											
+											
+											
 
 											<div class="form-group">
 												<div class="col-lg-offset-2 col-lg-10">

@@ -219,7 +219,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CadastrarEvento</servlet-name>
-    <url-pattern>/webapp/jsp/CadastrarEvento</url-pattern>
+    <url-pattern>/webapp/jsp/adm/CadastrarEvento</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>FiltroAutenticado</filter-name>
