@@ -1,3 +1,5 @@
+<%@page import="br.com.n2s.sara.model.DescricaoPeriodo"%>
+<%@page import="com.sun.crypto.provider.DESCipher"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Evento"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
@@ -61,29 +63,28 @@
 												</div>
 											</div>
 											<!-- ENTÃO TEMOS QUE ADICIONAR AS COISAS QUE FALTAM -->
-											<div class="form-group ">
-												<label for="cemail" class="control-label col-lg-2">Data Inicial 
-													<span class="required">*</span>
-												</label>
-												<div class="col-lg-6">
-													<input class="form-control " id="subject" type="date"
-														name="dataInicial" required />
+											<%for (DescricaoPeriodo dp : DescricaoPeriodo.values()) { %>
+												<div class="form-group ">
+												<label class=" control-label col-lg-2">
+													<span>Periodo de <%=dp.toString()%></span>
+												</label>																						
+													<label for="cemail" class=" col-lg-2">Data Inicial 
+														<span class="required">*</span>
+													</label>
+													<div class="col-lg-2">
+														<input class="form-control " id="subject" type="date"
+															name="dataInicial" required />
+													</div>
+													<label for="cemail" class=" col-lg-2">Data Final 
+														<span class="required">*</span>
+													</label>
+													<div class="col-lg-2">
+														<input class="form-control " id="subject" type="date"
+															name="dataFinal" required />
+													</div>
 												</div>
-											</div>
-											
-											<div class="form-group ">
-												<label for="cemail" class="control-label col-lg-2">Data Final 
-													<span class="required">*</span>
-												</label>
-												<div class="col-lg-6">
-													<input class="form-control " id="subject" type="date"
-														name="dataFinal" required />
-												</div>
-											</div>
+											<%}%>
 											<!-- PARTE QUE JÁ HAVIA SIDO IMPLEMENTADA -->											
-											
-											
-
 											<div class="form-group">
 												<div class="col-lg-offset-2 col-lg-10">
 													<button id = "sucesso" class="btn btn-primary" type="submit"onclick = "validation();">Salvar</button>
