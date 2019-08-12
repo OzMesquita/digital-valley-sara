@@ -66,7 +66,7 @@
 											<%for (DescricaoPeriodo dp : DescricaoPeriodo.values()) { %>
 												<div class="form-group ">
 												<label class=" control-label col-lg-2">
-													<span>Periodo de <%=dp.toString()%></span>
+													<span>Periodo de <%=dp.getDescricao()%></span>
 												</label>																						
 													<label for="cemail" class=" col-lg-2">Data Inicial 
 														<span class="required">*</span>

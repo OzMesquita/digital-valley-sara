@@ -114,12 +114,12 @@
     <servlet-class>br.com.n2s.sara.controller.Submissao</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>ListarUsuarios</servlet-name>
-  	<servlet-class>br.com.n2s.sara.controller.ListarUsuarios</servlet-class>
+    <servlet-name>ListarUsuarios</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.ListarUsuarios</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>ListarUsuarios</servlet-name>
-  	<url-pattern>/webapp/jsp/ListarUsuarios</url-pattern>
+    <servlet-name>ListarUsuarios</servlet-name>
+    <url-pattern>/webapp/jsp/ListarUsuarios</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CadastrarAvaliador</servlet-name>
@@ -229,7 +229,7 @@
     <filter-name>FiltroAutenticado</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-    <filter>
+  <filter>
     <filter-name>FiltroAdm</filter-name>
     <filter-class>br.com.n2s.sara.filter.AdmFilter</filter-class>
   </filter>

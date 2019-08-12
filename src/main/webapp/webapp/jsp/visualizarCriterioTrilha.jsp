@@ -1,17 +1,16 @@
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="br.com.n2s.sara.dao.DAOCriterioTrilha"%>
 <%@page import="br.com.n2s.sara.dao.DAOCriterio"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Criterio"%>
 <%@page import="java.util.List"%>
-<%@page import="br.com.n2s.sara.model.CriterioTrilha"%>
+<%@page import="br.com.n2s.sara.model.Trilha"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 
     <% 	
-    	int idCriterioTrilha = Integer.parseInt(request.getParameter("idCriterioTrilha"));
-		CriterioTrilha criterioTrilha = new DAOCriterioTrilha().getCriterioTrilha(idCriterioTrilha);
-		session.setAttribute("criterioTrilha", criterioTrilha);
-		DAOCriterio daoCriterio = new DAOCriterio();
-		List<Criterio> criterios = daoCriterio.obterCriteriosPorTrilha(criterioTrilha.getIdCriterioTrilha());
+    	Trilha t = (Trilha) session.getAttribute("trilha");
+		List<Criterio> criterios = new DAOCriterioTrilha().getCriterioPorTrilha(t);
+		session.setAttribute("trilha", null);
 	%>
  
       <!--main content start-->

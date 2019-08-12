@@ -8,7 +8,7 @@
      	<%
      		DAOPeriodo daoPeriodo = new DAOPeriodo();
      		Trilha trilha = (Trilha) session.getAttribute("trilha");
-         	List<Periodo> periodos = daoPeriodo.readById(trilha.getIdTrilha()); 
+         	List<Periodo> periodos = daoPeriodo.readByIdTrilha(trilha.getIdTrilha()); 
          	session.setAttribute("trilha", trilha);
    		%>
        <!--main content start-->

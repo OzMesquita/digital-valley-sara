@@ -30,7 +30,8 @@ public class SalvarAvaliacao extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * ESSE SERVLET TEM COMO OBJETIVO REALIZAR A OPERAÇÃO DE SALVAR PARA O RELATORIO DE ESTAGIO, BURLANDO A IDEIA DE CRITERIOS E ITENS
+	 * PARA ALTERAÇÕES FUTURAS OU EM CASO VERIFICAR O SALVAR AVALIAÇÃO ARTIGO.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -38,26 +39,15 @@ public class SalvarAvaliacao extends HttpServlet {
 		
 		String feedback = request.getParameter("feedback");
 		String status = request.getParameter("status");
+		float nota = Float.parseFloat(request.getParameter("nota"));
 		
 		Trabalho trabalho = (Trabalho) session.getAttribute("trabalho");
 		
 		AvaliaTrabalho avaliaTrabalho = new DAOAvaliaTrabalho().getAvaliaTrabalho(trabalho.getIdTrabalho());
-		
-		if (status.equals("aceitar")) {
-			avaliaTrabalho.setFeedback(feedback);
-			avaliaTrabalho.setStatus(StatusTrabalho.ACEITO);
-			trabalho.setStatus(StatusTrabalho.ACEITO);
-			new DAOAvaliaTrabalho().update(avaliaTrabalho);
-			new DAOTrabalho().update(trabalho);
-			response.sendRedirect("avaliacao.jsp");
-		}else {
-			avaliaTrabalho.setFeedback(feedback);
-			avaliaTrabalho.setStatus(StatusTrabalho.REJEITADO);
-			new DAOAvaliaTrabalho().update(avaliaTrabalho);
-			trabalho.setStatus(StatusTrabalho.REJEITADO);
-			new DAOTrabalho().update(trabalho);
-			response.sendRedirect("avaliacao.jsp");
-		}
+		avaliaTrabalho.setFeedback(feedback);
+		avaliaTrabalho.setNota(nota);
+		new DAOAvaliaTrabalho().update(avaliaTrabalho);
+		response.sendRedirect("avaliacao.jsp");
 		
 	}
 
