@@ -13,6 +13,7 @@ public class Trilha {
 	private ArrayList<Periodo> periodos;
 	private ArrayList<Usuario> avaliadores;
 	private ArrayList<Criterio> criterios;
+	private int qtdCorrecoes;
 	
 	public int getIdTrilha() {
 		return idTrilha;
@@ -69,6 +70,12 @@ public class Trilha {
 	}
 	public void setCriterios(ArrayList<Criterio> criterios) {
 		this.criterios = criterios;
+	}
+	public int getQtdCorrecoes() {
+		return qtdCorrecoes;
+	}
+	public void setQtdCorrecoes(int qtdCorrecoes) {
+		this.qtdCorrecoes = qtdCorrecoes;
 	}
 	
 }
