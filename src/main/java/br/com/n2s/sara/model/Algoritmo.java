@@ -123,7 +123,7 @@ public class Algoritmo {
 		}
 	}
 
-	public void executar (int totalTrabalhos, int totalAvaliadores, int numCorrecoes) throws java.lang.Exception { 
+	public void executar (int totalTrabalhos, int totalAvaliadores, int numCorrecoes) { 
 		
 			float a = (totalTrabalhos * numCorrecoes)/totalAvaliadores;
 			int fatorCorrecao = Math.round(a);

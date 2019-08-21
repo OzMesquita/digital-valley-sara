@@ -23,7 +23,7 @@ public class InterfaceAlgoritmo {
 		this.interfaceA = interfaceA;
 	}
 	
-	public List<AvaliaTrabalho> distribuirPorTrilha(Trilha t){
+	public List<AvaliaTrabalho> distribuirPorTrilha(Trilha t, int numCorrecoes){
 		ArrayList<AvaliaTrabalho> distribuidos = new ArrayList<AvaliaTrabalho>();
 		
 		ArrayList<Usuario> avaliadores = t.getAvaliadores();
@@ -70,9 +70,21 @@ public class InterfaceAlgoritmo {
 		}
 		Algoritmo instAlgoritmo = new Algoritmo();
 		instAlgoritmo.setGrafo(grafo);
-				
+		instAlgoritmo.executar(trabalhos.size(), avaliadores.size(), numCorrecoes);
+		int rgraph [][]=instAlgoritmo.getRGrafo();
 		//Falta terminar de implementar pq até aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
+		//Transformando o grafo em Lista dnv
 		
+		for(int i=trabalhos.size()+1;i< avaliadores.size();i++) {
+			for(int j=0;j<tamanho;j++) {
+				if (rgraph[i][j]==1) {
+					AvaliaTrabalho av = new AvaliaTrabalho();
+					av.setAvaliador(avaliadores.get(i));
+					av.setTrabalho(trabalhos.get(i));
+					distribuidos.add(av);
+				}
+			}
+		}
 		
 		
 		return distribuidos;
