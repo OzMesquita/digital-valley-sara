@@ -61,25 +61,22 @@
 				                    <tr>                               
 				                       <th><h2><%= trabalho.getTrilha().getDescricao() %></h2> </th>
 				                    </tr>
-				                   	<tr>
-				                    	<td>
-									        <form action="SalvarAvaliacao" method="post">
-									           
-									            <p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
-									            <p><textarea name="feedback" cols="80" rows="15" maxlength="5000" required></textarea></p>
-									            <p>*Descreva a nota para o trabalho</p>
-									            <input type="number" maxlength="10" min="0" name="nota">
-									            <p>Decisão final sobre o trabalho:</p>
-									            <input type="radio" name="status" value="aceitar" required> Aceitar<br>
-  												<input type="radio" name="status" value="rejeitar" required> Rejeitar<br>
-  												<br>
-  												<input type="submit" value="Enviar Avaliação">
-								        	</form>
-				                   		</td>
-				                   </tr>
+				                    <%for(Criterio c :trabalho.getTrilha().getCriterios()) {%>
+				                   		<p><%=c.getDescricao()%></p>
+				                   		<div class="input-group">
+				                   		<%for(Item i : c.getItens()) {%>
+				                   			<div class="input-group-prepend">
+    											<div class="input-group-text">
+    												<input type="radio" name="<%=c.getIdCriterio()%>" value="<%=i.getPeso()%>">
+    											</div>
+  											</div>
+				                   		<%} %>
+				                   		</div>
+				                   	<%} %>
 	                       </tbody>
 	                   </table>
                      </section>
+                     <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
                   </div>
               </div>
          </section>

@@ -6,6 +6,40 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.time.format.DateTimeFormatter" %>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
+
+<!-- 
+
+   
+   
+		   _    _____         _
+		   \`,""   ,'7"r-..__/ \
+		  ,'\ `, ,',','    _/   \
+		 /   \  7 / /     (   \ |
+		J     \/ j  L______\  / |
+		L   __JF"""/""\"\_,    /
+		L,-"| O|  f O |  L_  _/
+		F   \_ /  \__/   `-  j|
+			.-'    `"""    ,' |          _..====.._
+			\__/         r"_  A        ,' _..---.._`,
+			 `-.______,,-L// / \  ___,' ,'_..:::.. `,`,
+					  j   / / / 7"    `-<""=:'  '':. \ \
+					 /   <,' /  F  . i , \   `,    :T W I
+					 |    \,'  /    >X<  |     \   :| | L
+					 |     `._/    ' ! ` |      I  :| |  G
+					  \           \     /       |  :H T  |
+					 __>-.__   __,-\   |        |  S P   |
+					/     /|   | \  \  \_       | 'A R   |
+				   /   __/ |   |  L  L   \      K./ /    L
+				  /   |    |   4  I  I    |    E./ /   ,'
+				 J    \    I    L F  I    |    // / _,'
+		_________|     |   F    |J   F    |   //_/-'
+		\   __   |    /   J     |/  J     |  /="
+		\\  \_\  \__,' \  F     |   F     |
+		\\\_____________\/      F__/      F
+		 \\|  HTML for  |_____/  (______/
+		  \/__Dummies___/
+
+ -->
       
       <!--main content start-->
       <section id="main-content">

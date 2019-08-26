@@ -40,7 +40,6 @@ public class SalvarAvaliacao extends HttpServlet {
 		String feedback = request.getParameter("feedback");
 		String status = request.getParameter("status");
 		float nota = Float.parseFloat(request.getParameter("nota"));
-		
 		Trabalho trabalho = (Trabalho) session.getAttribute("trabalho");
 		
 		AvaliaTrabalho avaliaTrabalho = new DAOAvaliaTrabalho().getAvaliaTrabalho(trabalho.getIdTrabalho());
