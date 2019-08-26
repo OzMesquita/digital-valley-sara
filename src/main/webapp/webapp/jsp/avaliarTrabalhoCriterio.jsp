@@ -58,15 +58,17 @@
                           </header>
                         <table class="table table-striped table-advance table-hover">
 	                        <tbody>
+	                        <form method="post" action="AvaliacaoArtigo">
+	                        <input type="hidden" value="<%=trabalho.getIdTrabalho() %>" name="t-a" >
 				                    <tr>                               
 				                       <th><h2><%= trabalho.getTrilha().getDescricao() %></h2> </th>
 				                    </tr>
 				                    <%for(Criterio c :trabalho.getTrilha().getCriterios()) {%>
 				                   		<p><%=c.getDescricao()%></p>
-				                   		<div class="input-group">
+				                   		<div class="input-group form-row">
 				                   		<%for(Item i : c.getItens()) {%>
-				                   			<div class="input-group-prepend">
-    											<div class="input-group-text">
+				                   			<div class="input-group-prepend col">
+    											<div class="input-group-text col">
     												<input type="radio" name="<%=c.getIdCriterio()%>" value="<%=i.getPeso()%>">
     											</div>
   											</div>
@@ -76,7 +78,8 @@
 	                       </tbody>
 	                   </table>
                      </section>
-                     <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+                     	<button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+                     </form>
                   </div>
               </div>
          </section>
