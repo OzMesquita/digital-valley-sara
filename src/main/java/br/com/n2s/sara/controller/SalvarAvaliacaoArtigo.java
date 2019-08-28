@@ -8,9 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.n2s.sara.dao.DAOAvaliaTrabalho;
+import br.com.n2s.sara.dao.DAOItem;
 import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.model.Trabalho;
+import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Constantes;
+import br.com.n2s.sara.util.Facade;
+import br.com.n2s.sara.model.AvaliaTrabalho;
 import br.com.n2s.sara.model.Criterio;
+import br.com.n2s.sara.model.Item;
 
 /**
  * Servlet implementation class SalvarAvaliacaoArtigo
@@ -29,12 +36,29 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int idTrabalho = Integer.parseInt(request.getParameter("t-a"));
-		Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
-		
-		for (Criterio c : trabalho.getTrilha().getCriterios()) {
+		try {
+			String feedback = request.getParameter("feedback");
+			Usuario avaliador =(Usuario) session.getAttribute("usuarioSara");
+			int idTrabalho = Integer.parseInt(request.getParameter("t-a"));
+			Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
+			AvaliaTrabalho av = new DAOAvaliaTrabalho().getAvaliaTrabalho(idTrabalho, avaliador.getCpf());
 			
+			for (Criterio c : trabalho.getTrilha().getCriterios()) {
+				int idItem = Integer.parseInt(request.getParameter("criterio-"+c.getIdCriterio()));
+				Item item = new DAOItem().getItem(idItem);
+				av.getItens().add(item); 
+			}
+			av.setNota(Facade.calcularNota(av));
+			av.setFeedback(feedback);
+			new DAOAvaliaTrabalho().update(av);
+			session.setAttribute(Constantes.getSESSION_MGS(), "Avaliação realizada com sucesso!");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS(), "Erro durante avaliação");
+			response.sendRedirect("avaliacao.jsp");
 		}
+		response.sendRedirect("avaliacao.jsp");
+		
+		
 	}
 
 }

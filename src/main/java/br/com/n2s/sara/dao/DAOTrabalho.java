@@ -39,7 +39,7 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(2, trabalho.getPalavrasChaves());
 			stmt.setString(3, trabalho.getResumo());
 			stmt.setString(4, trabalho.getStatus().toString());
-			stmt.setString(5, trabalho.getEndereco().toString());
+			stmt.setString(5, trabalho.getEndereco());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();

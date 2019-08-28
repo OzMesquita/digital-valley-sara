@@ -64,19 +64,30 @@
 				                       <th><h2><%= trabalho.getTrilha().getDescricao() %></h2> </th>
 				                    </tr>
 				                    <%for(Criterio c :trabalho.getTrilha().getCriterios()) {%>
+				                    <tr>
 				                   		<p><%=c.getDescricao()%></p>
 				                   		<div class="input-group form-row">
 				                   		<%for(Item i : c.getItens()) {%>
 				                   			<div class="input-group-prepend col">
     											<div class="input-group-text col">
-    												<input type="radio" name="<%=c.getIdCriterio()%>" value="<%=i.getPeso()%>">
+    											<label class="radio-inline">
+    												<input type="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>">
+    											</label>
+    												
     											</div>
   											</div>
 				                   		<%} %>
 				                   		</div>
+				                   	</tr>
 				                   	<%} %>
+				                   	<tr>
+				                   		<p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
+									    <p><textarea name="feedback" cols="80" rows="15" maxlength="5000" required></textarea></p>
+				                   	</tr>
 	                       </tbody>
 	                   </table>
+	                   
+	                   
                      </section>
                      	<button type="submit" class="btn btn-primary">Enviar Avaliação</button>
                      </form>

@@ -23,10 +23,12 @@ import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.dao.DAOUsuario;
 import br.com.n2s.sara.dao.DAOUsuarioSemCadastro;
+import br.com.n2s.sara.model.AvaliaTrabalho;
 import br.com.n2s.sara.model.AvaliaTrilha;
 import br.com.n2s.sara.model.CoordenacaoEvento;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Evento;
+import br.com.n2s.sara.model.Item;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trabalho;
@@ -241,6 +243,16 @@ public class Facade {
 			eventos.add(e);
 		}
 		return eventos;
+	}
+	public static Float calcularNota(AvaliaTrabalho av) {
+		float nota=0;
+		float peso=0;
+		for (Item i : av.getItens()) {
+			nota = nota + i.getPeso() * i.getCriterio().getPeso();
+			peso = i.getCriterio().getPeso();
+		}
+		nota = nota / peso;
+		return nota;
 	}
 	
 

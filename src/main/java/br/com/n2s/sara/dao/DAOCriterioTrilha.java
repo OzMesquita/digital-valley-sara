@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.CriterioTrilha;
 import br.com.n2s.sara.model.Trilha;
@@ -37,7 +39,7 @@ public class DAOCriterioTrilha extends DAO {
 
 	public List<Criterio> getCriterioPorTrilha(Trilha t){
 		super.open();
-		String sql = "select * from sara.criteriotrilha where idCriterioTrilha = ?";
+		String sql = "select * from sara.criteriotrilha where fktrilha = ?";
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, t.getIdTrilha());
@@ -49,6 +51,21 @@ public class DAOCriterioTrilha extends DAO {
 			}
 			return criterios;
 		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void delete(Criterio c, Trilha t) {
+		super.open();
+		String sql = "delete from sara.criteriotrilha where fktrilha = ? and fkcriterio = ?";
+		try {
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, t.getIdTrilha());
+			stmt.setInt(2, c.getIdCriterio());
+			stmt.execute();
+			stmt.close();
+			super.close();
+		}catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
