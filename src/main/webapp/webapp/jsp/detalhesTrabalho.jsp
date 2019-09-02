@@ -74,10 +74,10 @@
 									           		<p> <input type="text" size="100" value="<%= trabalho.getPalavrasChaves() %>" disabled="disabled"></p>
 									           	
 									           	 <% } %>
-									           										           	
+									           	<%if (avaliaTrabalho != null) {%>									           	
 									           		<h4>Feedback do Avaliador</h4>
 									           		<p> <textarea cols="100" rows="10" disabled="disabled"><%= avaliaTrabalho.getFeedback()%></textarea></p>
-									           	
+									           	<%} %>
 									           	
 									           	<h4>Status: <%= trabalho.getStatus() %> </h4> 
 									            
@@ -92,6 +92,8 @@
 									            
 									            <% }  %>
 									            <br><br>
+									            </form>
+									            <form action="DownloadTrabalho" method="post">
 	               					 	<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="inicial" name="opcaoDownload">  
 	                  							<button class="btn btn-primary" type = "submit">Download da versão inicial do Trabalho</button>
 	               					 		</form>

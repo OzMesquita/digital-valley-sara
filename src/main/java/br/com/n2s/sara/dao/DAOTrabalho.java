@@ -15,6 +15,7 @@ import javax.naming.spi.DirStateFactory.Result;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Submissao;
+import br.com.n2s.sara.model.TipoAutor;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
@@ -29,8 +30,8 @@ public class DAOTrabalho extends DAO {
 		try {
 			super.open();
 			String sql = "insert into sara.trabalho"  
-					+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha)"
-					+ "values (?,?,?,?,?,?)";
+					+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha, endereco_ini)"
+					+ "values (?,?,?,?,?,?,?)";
 
 			PreparedStatement stmt = null;
 			stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -41,6 +42,7 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(4, trabalho.getStatus().toString());
 			stmt.setString(5, trabalho.getEndereco());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
+			stmt.setString(7, trabalho.getEnderecoInicial());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			int idTrabalho= 0 ;
@@ -50,10 +52,9 @@ public class DAOTrabalho extends DAO {
 			stmt.close();
 			rs.close();
 			trabalho.setIdTrabalho(idTrabalho);
-			
-			adicionaAutores(trabalho);
 			stmt.getConnection().commit();
 			stmt.getConnection().setAutoCommit( true );
+			adicionaAutores(trabalho);
 			return idTrabalho;
 			} catch (SQLException e) {
 				try {
@@ -88,6 +89,7 @@ public class DAOTrabalho extends DAO {
 				trabalho.setResumo(rs.getString("resumo"));
 				trabalho.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
 				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));
+				trabalho.setEnderecoInicial(rs.getString("endereco_ini"));
 				ArrayList autores = (ArrayList) pegarUsuarios(trabalho);
 				trabalho.setAutores( autores );
 				trabalho.setAutor((Usuario) autores.get(0));
@@ -123,7 +125,8 @@ public class DAOTrabalho extends DAO {
 				trabalho.setResumo(rs.getString("resumo"));
 				trabalho.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
 				trabalho.setEndereco(rs.getString("endereco"));
-				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));				
+				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));
+				trabalho.setEnderecoInicial(rs.getString("endereco_ini"));
 				rs.close();
 				stmt.close();
 				ArrayList <Usuario> autores = pegarUsuarios(trabalho);
@@ -144,7 +147,7 @@ public class DAOTrabalho extends DAO {
 	public void update(Trabalho trabalho){
 		
 		super.open();
-		String sql = "update sara.trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?"
+		String sql = "update sara.trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?, endereco_ini=?"
 				+ " where idTrabalho  = ?";
 
 		try {
@@ -157,6 +160,7 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(5, trabalho.getEndereco());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 			stmt.setInt(7, trabalho.getIdTrabalho());
+			stmt.setString(8, trabalho.getEnderecoInicial());
 
 			stmt.execute();
 			stmt.close();
@@ -222,16 +226,29 @@ public class DAOTrabalho extends DAO {
 		try {
 			DAOSubmissao daoSubmissao = new DAOSubmissao();
 			Submissao submissao = new Submissao();
+			
+			//adicionando autor principal
 			submissao.setAutor(t.getAutor());
 			submissao.setTrabalho(t);
+			submissao.setTipoAutor(TipoAutor.AUTOR);
 			daoSubmissao.create(submissao);
+			//adicionando orientador			
+			submissao.setAutor(t.getOrientador());
+			submissao.setTrabalho(t);
+			submissao.setTipoAutor(TipoAutor.ORIENTADOR);
+			daoSubmissao.create(submissao);
+			//adicionando coautores
 			for (Usuario u : t.getAutores()) {
 				if (Facade.isUsuarioCadastrado(u.getCpf())) {
 					submissao.setAutor(u);
+					submissao.setTipoAutor(TipoAutor.COAUTOR);
+					submissao.setTrabalho(t);
 					daoSubmissao.create(submissao);
 				}else {
 					new DAOUsuarioSemCadastro().create(u);
 					submissao.setAutor(u);
+					submissao.setTipoAutor(TipoAutor.COAUTOR);
+					submissao.setTrabalho(t);
 					daoSubmissao.create(submissao);
 				}
 				
