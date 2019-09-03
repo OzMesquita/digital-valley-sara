@@ -97,8 +97,9 @@ public class Distribuir extends HttpServlet {
 		}
 		if(!t.getAutores().isEmpty()) {
 			for (Usuario u : t.getAutores()) {
-				if(u.getCpf().equals(cpf))
-					return true;
+				if (u != null)
+					if(u.getCpf().equals(cpf))
+						return true;
 			}
 		}
 		return false;

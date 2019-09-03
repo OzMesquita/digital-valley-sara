@@ -232,7 +232,10 @@ public class DAOTrabalho extends DAO {
 			submissao.setTrabalho(t);
 			submissao.setTipoAutor(TipoAutor.AUTOR);
 			daoSubmissao.create(submissao);
-			//adicionando orientador			
+			//adicionando orientador
+			if (Facade.isUsuarioCadastrado(t.getOrientador().getCpf()) ) {
+				new DAOUsuarioSemCadastro().create(t.getOrientador());
+			}
 			submissao.setAutor(t.getOrientador());
 			submissao.setTrabalho(t);
 			submissao.setTipoAutor(TipoAutor.ORIENTADOR);
