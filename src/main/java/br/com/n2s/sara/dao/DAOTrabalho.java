@@ -159,8 +159,9 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(4, trabalho.getStatus().toString());
 			stmt.setString(5, trabalho.getEndereco());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
-			stmt.setInt(7, trabalho.getIdTrabalho());
-			stmt.setString(8, trabalho.getEnderecoInicial());
+			stmt.setString(7, trabalho.getEnderecoInicial());
+			stmt.setInt(8, trabalho.getIdTrabalho());
+			
 
 			stmt.execute();
 			stmt.close();
