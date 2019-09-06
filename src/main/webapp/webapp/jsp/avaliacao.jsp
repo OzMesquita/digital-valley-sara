@@ -63,14 +63,15 @@
 			               <tr>
 			                   
 			                   <td><%= trabalhos.get(i).getTitulo() %> </td> 
-			                   <td> <form action="avaliarTrabalho.jsp" method="post"> 
-			                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho"> 
+			                   <td> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
+			                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
 			                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
 			                       </form> 
 			                   </td>
 			                   <td>
 				                   <form action="DownloadTrabalho" method="post"> 
-				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <input type="hidden" value="inicial" name="opcaoDownload"> 
 				                           <button class="btn btn-primary" type = "submit"> Download</button>
 				                   </form> 
 			                   </td>

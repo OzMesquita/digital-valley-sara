@@ -13,9 +13,8 @@
 		Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
 		session.setAttribute("trabalho", trabalho);
 		
-		AvaliaTrabalho avaliaTrabalho = new DAOAvaliaTrabalho().getAvaliaTrabalho(idTrabalho);
-		List<Usuario> coAutores = new ArrayList<Usuario>(); 
-		coAutores = new DAOSubmissao().getAutores(idTrabalho);
+		AvaliaTrabalho avaliaTrabalho = null;
+		avaliaTrabalho = new DAOAvaliaTrabalho().getAvaliaTrabalho(idTrabalho);
 		Periodo atual = Facade.periodoAtual(trabalho.getTrilha());
     %>
       <!--main content start-->
@@ -74,6 +73,11 @@
 									           		<p> <input type="text" size="100" value="<%= trabalho.getPalavrasChaves() %>" disabled="disabled"></p>
 									           	
 									           	 <% } %>
+									           	 <%if (trabalho.getAutores() != null && trabalho.getAutores().size()>0){ %>
+									           	 	<h4>Coautor(es)</h4>
+									           	 	<%for(Usuario u : trabalho.getAutores()){ %> 
+									           			<%-- <p> <input type="text" size="100" value="<%= u.getNome() %>" disabled="disabled"></p> --%>
+									           	 <%}} %>
 									           	<%if (avaliaTrabalho != null) {%>									           	
 									           		<h4>Feedback do Avaliador</h4>
 									           		<p> <textarea cols="100" rows="10" disabled="disabled"><%= avaliaTrabalho.getFeedback()%></textarea></p>

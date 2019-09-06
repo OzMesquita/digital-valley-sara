@@ -133,6 +133,7 @@ public class DAOTrabalho extends DAO {
 				trabalho.setAutor(autores.get(0));
 				autores.remove(0);
 				trabalho.setAutores(autores);
+				trabalho.setOrientador(new DAOSubmissao().getOrientador(trabalho.getIdTrabalho()));
 				super.close();
 				return trabalho;
 			}else {
@@ -209,10 +210,9 @@ public class DAOTrabalho extends DAO {
 				trabalho.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
 				trabalho.setEndereco(rs.getString("endereco"));
 				trabalho.setTrilha(trilha);				
-				ArrayList <Usuario> autores = pegarUsuarios(trabalho);
-				trabalho.setAutor(autores.get(0));
-				autores.remove(0);
-				trabalho.setAutores(autores);	
+				trabalho.setAutor(new DAOSubmissao().getAutorPrincipal(trabalho.getIdTrabalho()));
+				trabalho.setOrientador(new DAOSubmissao().getOrientador(trabalho.getIdTrabalho()));
+				trabalho.setAutores((ArrayList<Usuario>) new DAOSubmissao().getCoAutores(trabalho.getIdTrabalho()));
 				trabalhos.add(trabalho);
 			}
 			stmt.close();

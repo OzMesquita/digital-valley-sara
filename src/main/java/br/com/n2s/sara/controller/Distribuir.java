@@ -2,6 +2,7 @@ package br.com.n2s.sara.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.*;
 import br.com.n2s.sara.util.Facade;
+import br.com.n2s.sara.util.InterfaceAlgoritmo;
 
 
 /**
@@ -35,49 +37,56 @@ public class Distribuir extends HttpServlet {
 		if(trilha==null) {
 			response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");	
 		}
+		
+		ArrayList<AvaliaTrabalho> av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuirPorTrilha(trilha, 1);
+		for(AvaliaTrabalho a : av ){
+			new DAOAvaliaTrabalho().create(a);
+		}		
+		
 		/*Periodo periodo = new Periodo();
 		periodo = Facade.periodoAtual(trilha);
 		if(periodo.getDescricao()!=DescricaoPeriodo.AVALIACAO) {
 			response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
 		}*/
-		DAOAvaliaTrilha daoAvaliaTrilha = new DAOAvaliaTrilha();
-		DAOTrabalho daoTrabalho = new DAOTrabalho();
-		ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();
-		trabalhos = (ArrayList<Trabalho>) daoTrabalho.readTrilha(trilha.getIdTrilha());
-		ArrayList<Usuario> avaliadores = (ArrayList<Usuario>) daoAvaliaTrilha.getAvaliadores(trilha.getIdTrilha());
-		if(trabalhos.size()>0) {
-			int razao = trabalhos.size() / avaliadores.size();
-			int alocados = 0;
-			int resto = trabalhos.size() % avaliadores.size();
-			for(Usuario av :avaliadores) {
-					for(int i=0;i<trabalhos.size();i++)
-						if(alocados < razao) {	
-							if(isAutor(av.getCpf(), trabalhos.get(i))) {
-								continue;
-							}else {
-								SalvarAvaliador(av, trabalhos.get(i));
-								trabalhos.remove(trabalhos.get(i));
-								alocados ++;
-							}
-						}else { 
-							alocados=0;
-							break;
-						}
-					}
-			alocados=0;
-			while (resto>0) {
-				if (!trabalhos.isEmpty()) {
-					if(! (isAutor(avaliadores.get(alocados).getCpf(), trabalhos.get(0))) ) {
-						SalvarAvaliador(avaliadores.get(alocados), trabalhos.get(0));
-						trabalhos.remove(0);
-						resto--;
-						alocados++;
-					}else {
-						alocados--;
-					}					
-				}
-			}		
-		}
+//		DAOAvaliaTrilha daoAvaliaTrilha = new DAOAvaliaTrilha();
+//		DAOTrabalho daoTrabalho = new DAOTrabalho();
+//		ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();
+//		trabalhos = (ArrayList<Trabalho>) daoTrabalho.readTrilha(trilha.getIdTrilha());
+//		ArrayList<Usuario> avaliadores = (ArrayList<Usuario>) daoAvaliaTrilha.getAvaliadores(trilha.getIdTrilha());
+//		if(trabalhos.size()>0) {
+//			int razao = trabalhos.size() / avaliadores.size();
+//			int alocados = 0;
+//			int resto = trabalhos.size() % avaliadores.size();
+//			for(Usuario av :avaliadores) {
+//					for(int i=0;i<trabalhos.size();i++)
+//						if(alocados < razao) {	
+//							if(isAutor(av.getCpf(), trabalhos.get(i))) {
+//								continue;
+//							}else {
+//								SalvarAvaliador(av, trabalhos.get(i));
+//								trabalhos.remove(trabalhos.get(i));
+//								alocados ++;
+//							}
+//						}else { 
+//							alocados=0;
+//							break;
+//						}
+//					}
+//			alocados=0;
+//			while (resto>0) {
+//				if (!trabalhos.isEmpty()) {
+//					if(! (isAutor(avaliadores.get(alocados).getCpf(), trabalhos.get(0))) ) {
+//						SalvarAvaliador(avaliadores.get(alocados), trabalhos.get(0));
+//						trabalhos.remove(0);
+//						resto--;
+//						alocados++;
+//					}else {
+//						alocados--;
+//					}					
+//				}
+//			}		
+//		}
+		
 		response.sendRedirect("indexAutor.jsp");
 	}
 	private  void SalvarAvaliador(Usuario av, Trabalho t) {

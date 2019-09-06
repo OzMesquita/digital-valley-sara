@@ -9,6 +9,8 @@ import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.model.Algoritmo;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,22 +72,41 @@ public class InterfaceAlgoritmo {
 		for (int i=0;i<tamanho;i++) {
 			grafo[tamanho-1][i]=0;
 		}
+
+		File f = new File("C:\\Users\\Fernando Willian\\Desktop\\Dist\\GrafoEntrada.txt");
+		try{
+		   if(!f.exists())
+		f.createNewFile();
+		   FileWriter out = new FileWriter(f);   
+		   for (int i = 0; i < tamanho; i++) {
+					for (int j = 0; j < tamanho; j++) {
+						out.append(String.valueOf(grafo[i][j])+"|");
+					}
+					out.append('\n');
+				}
+				out.close();
+				}catch(Throwable e){
+					e.printStackTrace();
+				}
 		Algoritmo instAlgoritmo = new Algoritmo();
 		instAlgoritmo.setGrafo(grafo);
+		instAlgoritmo.setV(tamanho);
 		instAlgoritmo.executar(trabalhos.size(), avaliadores.size(), numCorrecoes);
 		int rgraph [][]=instAlgoritmo.getRGrafo();
 		//Falta terminar de implementar pq até aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
 		//Transformando o grafo em Lista dnv
 		
-		for(int i=trabalhos.size()+1;i< avaliadores.size();i++) {
+		int avaliador=trabalhos.size()+1;
+		for(int i=0;i< avaliadores.size();i++) {
 			for(int j=0;j<tamanho;j++) {
-				if (rgraph[i][j]==1) {
+				if (rgraph[avaliador][j]==1) {
 					AvaliaTrabalho av = new AvaliaTrabalho();
 					av.setAvaliador(avaliadores.get(i));
 					av.setTrabalho(trabalhos.get(i));
 					distribuidos.add(av);
 				}
 			}
+			avaliador++;
 		}
 		
 		
@@ -141,9 +162,13 @@ public class InterfaceAlgoritmo {
 	 * return distribuidos; }
 	 */	
 	private static boolean verficaAutores(String v, Trabalho t) {
-		for(Usuario i : t.getAutores()) {
-			if (i.getCpf()==v) { 
-				return true;
+		if(v == t.getAutor().getCpf()) return true;
+		if(t.getOrientador() != null && v== t.getOrientador().getCpf()) return true;
+		if (t.getAutores() != null) {
+			for(Usuario i : t.getAutores()) {
+				if (i.getCpf()==v) { 
+					return true;
+				}
 			}
 		}
 		return false;

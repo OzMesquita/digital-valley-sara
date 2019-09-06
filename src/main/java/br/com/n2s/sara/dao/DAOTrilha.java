@@ -137,6 +137,9 @@ public List<Trilha> readById(int id){
 				trilha.setNome(rs.getString("nome"));
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
+				trilha.setCoordenadores( (ArrayList<Usuario>) new DAOCoordenacaoTrilha().readByIdTrilha(trilha.getIdTrilha()));
+				trilha.setAvaliadores((ArrayList<Usuario>) new DAOAvaliaTrilha().getAvaliadores(trilha.getIdTrilha()));
+				trilha.setCriterios( (ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
 				rs.close();
 				stmt.close();
 				

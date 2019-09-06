@@ -106,6 +106,76 @@ public class DAOSubmissao extends DAO {
 			throw new RuntimeException(e);
 		}
 	}
+		public List<Usuario> getCoAutores(int idTrabalho){
+			
+			super.open();
+			String sql = "select * from sara.submissao where idtrabalho=? and tipousuario = ? ";
+			try{
+				List<Usuario> autores = new ArrayList<Usuario>();
+				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+				stmt.setInt(1, idTrabalho);
+				stmt.setString(2, "COAUTOR");
+				ResultSet rs = stmt.executeQuery();
+
+				while(rs.next()){
+					Usuario autor= new Usuario();
+					autor.setCpf(rs.getString("cpfautor"));				
+					autores.add(autor);
+				}
+
+				rs.close();
+				stmt.close();
+				super.close();
+				return autores;
+
+			}catch(SQLException e){
+				throw new RuntimeException(e);
+			}
+		}
+		public Usuario getOrientador(int idTrabalho) {
+			super.open();
+			String sql ="select * from sara.submissao where idtrabalho = ? and tipousuario= ? ";
+			try{
+				Usuario autor=null ;
+				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+				stmt.setInt(1, idTrabalho);
+				stmt.setString(2, "ORIENTADOR");
+				ResultSet rs = stmt.executeQuery();
+
+				if(rs.next()){
+					autor = Facade.pegarUsuario(rs.getString("cpfautor"));
+				}
+				rs.close();
+				stmt.close();
+				super.close();
+				return autor;
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			return null;
+		}	
+		public Usuario getAutorPrincipal(int idTrabalho) {
+			super.open();
+			String sql ="select * from sara.submissao where idtrabalho = ? and tipousuario= ? ";
+			try{
+				Usuario autor=null ;
+				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+				stmt.setInt(1, idTrabalho);
+				stmt.setString(2, "AUTOR");
+				ResultSet rs = stmt.executeQuery();
+
+				if(rs.next()){
+					autor = Facade.pegarUsuario(rs.getString("cpfautor"));
+				}
+				rs.close();
+				stmt.close();
+				super.close();
+				return autor;
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			return null;
+		}
 	
 public List<String> getCPFAutores(int idTrabalho){
 		
@@ -237,4 +307,5 @@ public List<String> getCPFAutores(int idTrabalho){
 			throw new RuntimeException(e);
 		}
 	}
+
 }
