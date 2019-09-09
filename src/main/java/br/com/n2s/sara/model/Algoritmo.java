@@ -3,6 +3,7 @@ package br.com.n2s.sara.model;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Algoritmo {
 	
@@ -131,12 +132,17 @@ public class Algoritmo {
 		return max_flow; 
 	} 
 	private void Roleta (int grafo [][], int fator, int tamanho, int diferenca, int qtdTrabalho) {
-		/*Random gerador = new Random();
-		int a = gerador.nextInt(Preparacao.avaliadores.size()/2);*/
-		int a = diferenca;
-		for (int i=qtdTrabalho+1;i<tamanho-1;i++) {
-			grafo[i][tamanho-1]= fator;
-			if (i-qtdTrabalho ==a) break;
+		Random gerador = new Random();
+//		int a = gerador.nextInt(Preparacao.avaliadores.size()/2);*/
+//		int a = diferenca;
+//		for (int i=qtdTrabalho+1;i<tamanho-1;i++) {
+//			grafo[i][tamanho-1]= fator;
+//			if (i-qtdTrabalho ==a) break;
+//		}
+		int a;
+		for (int i=0;i<diferenca;i++) {
+			a = ( int ) (gerador.nextInt(tamanho-qtdTrabalho-2) + 1+qtdTrabalho);
+			grafo[a][tamanho-1] = fator;
 		}
 	}
 

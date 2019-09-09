@@ -64,6 +64,8 @@ public class DAOTrilha extends DAO {
 				trilha.setAvaliadores((ArrayList<Usuario>) new DAOAvaliaTrilha().getAvaliadores(trilha.getIdTrilha()));
 				trilha.setPeriodos((ArrayList<Periodo>) new DAOPeriodo().readByIdTrilha(trilha.getIdTrilha()));
 				trilha.setCoordenadores( (ArrayList<Usuario>) new DAOCoordenacaoTrilha().readByIdTrilha(trilha.getIdTrilha()));
+				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
+				trilha.setPeso(rs.getInt("peso"));
 				
 				trilhas.add(trilha);
 
@@ -102,7 +104,8 @@ public List<Trilha> readById(int id){
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
 				trilha.setCriterios((ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
-				
+				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
+				trilha.setPeso(rs.getInt("peso"));
 				trilhas.add(trilha);
 
 			}
@@ -140,6 +143,8 @@ public List<Trilha> readById(int id){
 				trilha.setCoordenadores( (ArrayList<Usuario>) new DAOCoordenacaoTrilha().readByIdTrilha(trilha.getIdTrilha()));
 				trilha.setAvaliadores((ArrayList<Usuario>) new DAOAvaliaTrilha().getAvaliadores(trilha.getIdTrilha()));
 				trilha.setCriterios( (ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
+				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
+				trilha.setPeso(rs.getInt("peso"));
 				rs.close();
 				stmt.close();
 				
@@ -166,6 +171,7 @@ public List<Trilha> readById(int id){
 			stmt.setString(2, trilha.getDescricao());
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
 			stmt.setInt(5, trilha.getIdTrilha());
+			
 
 			stmt.execute();
 			stmt.close();

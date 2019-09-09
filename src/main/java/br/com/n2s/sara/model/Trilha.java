@@ -14,6 +14,7 @@ public class Trilha {
 	private ArrayList<Usuario> avaliadores;
 	private ArrayList<Criterio> criterios;
 	private int qtdCorrecoes;
+	private int peso;
 	
 	public int getIdTrilha() {
 		return idTrilha;
@@ -76,6 +77,12 @@ public class Trilha {
 	}
 	public void setQtdCorrecoes(int qtdCorrecoes) {
 		this.qtdCorrecoes = qtdCorrecoes;
+	}
+	public int getPeso() {
+		return peso;
+	}
+	public void setPeso(int peso) {
+		this.peso = peso;
 	}
 	
 }

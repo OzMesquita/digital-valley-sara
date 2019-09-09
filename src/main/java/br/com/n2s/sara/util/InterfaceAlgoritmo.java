@@ -4,6 +4,7 @@ import br.com.n2s.sara.dao.DAOAvaliaEvento;
 import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.model.AvaliaTrabalho;
 import br.com.n2s.sara.model.Evento;
+import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
@@ -95,20 +96,18 @@ public class InterfaceAlgoritmo {
 		int rgraph [][]=instAlgoritmo.getRGrafo();
 		//Falta terminar de implementar pq até aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
 		//Transformando o grafo em Lista dnv
-		
-		int avaliador=trabalhos.size()+1;
-		for(int i=0;i< avaliadores.size();i++) {
-			for(int j=0;j<tamanho;j++) {
-				if (rgraph[avaliador][j]==1) {
+		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+				int posA = i+trabalhos.size()+1, posT = j;
+				if(rgraph[posA][posT]!=0) {
 					AvaliaTrabalho av = new AvaliaTrabalho();
 					av.setAvaliador(avaliadores.get(i));
-					av.setTrabalho(trabalhos.get(i));
+					av.setTrabalho(trabalhos.get(j-1));
+					av.setStatus(StatusTrabalho.EM_AVALIACAO);
 					distribuidos.add(av);
 				}
 			}
-			avaliador++;
 		}
-		
 		
 		return distribuidos;
 	}
@@ -162,11 +161,11 @@ public class InterfaceAlgoritmo {
 	 * return distribuidos; }
 	 */	
 	private static boolean verficaAutores(String v, Trabalho t) {
-		if(v == t.getAutor().getCpf()) return true;
-		if(t.getOrientador() != null && v== t.getOrientador().getCpf()) return true;
+		if(v.equals(t.getAutor().getCpf())) return true;
+		if(t.getOrientador() != null && v.equals(t.getOrientador().getCpf()) ) return true;
 		if (t.getAutores() != null) {
 			for(Usuario i : t.getAutores()) {
-				if (i.getCpf()==v) { 
+				if (i.getCpf().equals(v)) { 
 					return true;
 				}
 			}
