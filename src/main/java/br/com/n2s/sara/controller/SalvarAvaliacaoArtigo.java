@@ -52,13 +52,10 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			av.setFeedback(feedback);
 			new DAOAvaliaTrabalho().update(av);
 			session.setAttribute(Constantes.getSESSION_MGS(), "Avaliação realizada com sucesso!");
+			response.sendRedirect("avaliacao.jsp");	
 		}catch (Exception e) {
-			session.setAttribute(Constantes.getSESSION_MGS(), "Erro durante avaliação");
-			response.sendRedirect("avaliacao.jsp");
+			session.setAttribute(Constantes.getSESSION_MGS(), "Erro durante avaliação");			
 		}
-		response.sendRedirect("avaliacao.jsp");
-		
-		
 	}
 
 }

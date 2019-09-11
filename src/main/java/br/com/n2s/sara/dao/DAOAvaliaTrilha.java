@@ -47,7 +47,7 @@ public class DAOAvaliaTrilha extends DAO {
 			List<AvaliaTrilha> avaliacoes = new ArrayList<AvaliaTrilha>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 
 				AvaliaTrilha avalia = new AvaliaTrilha();
@@ -80,7 +80,7 @@ public class DAOAvaliaTrilha extends DAO {
 			stmt.setString(1, cpfAvaliador);
 			stmt.setInt(2, idTrilha);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 
 				AvaliaTrilha avaliaTrilha = new AvaliaTrilha();
@@ -113,7 +113,7 @@ public class DAOAvaliaTrilha extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrilha);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 
 				Usuario avaliador = new DAOUsuario().getUsuario((rs.getString("idavaliador")));
@@ -142,7 +142,7 @@ public class DAOAvaliaTrilha extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, idAvaliador);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 
 				Trilha trilha = new DAOTrilha().getTrilha((rs.getInt("idtrabalho")));

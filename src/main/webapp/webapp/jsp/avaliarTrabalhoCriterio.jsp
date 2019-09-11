@@ -7,9 +7,9 @@
 		Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
 		session.setAttribute("trabalho", trabalho);
 
-	if (! Facade.isAvaliador(trabalho.getIdTrabalho(), usuario.getCpf())){
+	//if (! Facade.isAvaliador(trabalho.getIdTrabalho(), usuario.getCpf())){
           		%>
-          		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
+<!--           		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
     			<script>
     				function permissao(){
     					alert('Você não possue permissão para acessar está área!!!!');
@@ -18,10 +18,9 @@
     				function redirect(){
     					windows.location.href = 'indexAutor.jsp';
     				}
-    			</script>      		
+    			</script> -->      		
           		<% 
-          		response.sendRedirect("indexAutor.jsp");
-          	}
+//          		response.sendRedirect("indexAutor.jsp");          	}
 		%> 
 			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
 				<div class="alert alert-success" role="alert">	
@@ -58,20 +57,21 @@
                           </header>
                         <table class="table table-striped table-advance table-hover">
 	                        <tbody>
-	                        <form method="post" action="AvaliacaoArtigo">
+	                        <form method="post" action="SalvarAvaliacaoArtigo">
 	                        <input type="hidden" value="<%=trabalho.getIdTrabalho() %>" name="t-a" >
 				                    <tr>                               
 				                       <th><h2><%= trabalho.getTrilha().getDescricao() %></h2> </th>
 				                    </tr>
 				                    <%for(Criterio c :trabalho.getTrilha().getCriterios()) {%>
 				                    <tr>
+				                   		<h2><%=c.getNome()%></h2>
 				                   		<p><%=c.getDescricao()%></p>
 				                   		<div class="input-group form-row">
 				                   		<%for(Item i : c.getItens()) {%>
 				                   			<div class="input-group-prepend col">
     											<div class="input-group-text col">
     											<label class="radio-inline">
-    												<input type="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>">
+    												<input type="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>"><p><%=i.getDescricao()%></p>
     											</label>
     												
     											</div>
@@ -82,7 +82,7 @@
 				                   	<%} %>
 				                   	<tr>
 				                   		<p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
-									    <p><textarea name="feedback" cols="80" rows="15" maxlength="5000" required></textarea></p>
+									    <p><textarea name="feedback" cols="30" rows="5" maxlength="5000" required></textarea></p>
 				                   	</tr>
 	                       </tbody>
 	                   </table>

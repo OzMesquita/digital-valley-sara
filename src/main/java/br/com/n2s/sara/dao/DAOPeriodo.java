@@ -51,6 +51,7 @@ public class DAOPeriodo extends DAO {
 			List<Periodo> periodos = new ArrayList<Periodo>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOTrilha daoTrilha = new DAOTrilha();
 
 			while(rs.next()){// anda o array
@@ -87,6 +88,7 @@ public class DAOPeriodo extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOTrilha daoTrilha = new DAOTrilha();
 
 			while(rs.next()){
@@ -122,6 +124,7 @@ public class DAOPeriodo extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idPeriodo);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOTrilha daoTrilha = new DAOTrilha();
 			
 			if(rs.next()){

@@ -48,7 +48,7 @@ public class DAOUsuario extends DAO{
 			List<Usuario> usuarios = new ArrayList<Usuario>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 
 				Usuario usuario = new Usuario();
@@ -82,7 +82,7 @@ public class DAOUsuario extends DAO{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, tipo);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 
 				Usuario usuario = new Usuario();
@@ -115,7 +115,7 @@ public class DAOUsuario extends DAO{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpf);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 				Usuario usuario = new Usuario();
 				usuario.setCpf(rs.getString("cpf"));
@@ -193,6 +193,7 @@ public class DAOUsuario extends DAO{
 			PreparedStatement ps = super.getConnection().prepareStatement(SQL);
 			ps.setString(1, "%" + nome + "%");
 			ResultSet rs = ps.executeQuery();
+			super.close();
 			if (rs.next()) {
 				return rs.getInt("quantidade");
 			} else {
@@ -216,6 +217,7 @@ public class DAOUsuario extends DAO{
 			ps.setInt(2, fim - inicio);
 			ps.setInt(3, inicio);
 			ResultSet rs = ps.executeQuery();
+			super.close();
 			List<Usuario> pessoas = new ArrayList<Usuario>();
 			while (rs.next()) {
 				Usuario usuario = new Usuario();

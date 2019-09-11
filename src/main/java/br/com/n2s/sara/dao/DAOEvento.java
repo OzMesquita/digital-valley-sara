@@ -34,6 +34,7 @@ public class DAOEvento extends DAO {
 
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
+			super.close();
 			if (rs.next()) {
 				evento.setIdEvento(rs.getInt("idevento"));
 			}
@@ -57,7 +58,7 @@ public class DAOEvento extends DAO {
 			List<Evento> eventos = new ArrayList<Evento>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 
 				Evento evento = new Evento();
@@ -93,7 +94,7 @@ public class DAOEvento extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idEvento);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 				Evento evento = new Evento();
 				evento.setIdEvento(rs.getInt("idEvento"));

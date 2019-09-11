@@ -47,6 +47,7 @@ public class DAOCoordenacaoEvento extends DAO {
 			List<CoordenacaoEvento> coordenacoes = new ArrayList<CoordenacaoEvento>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOEvento eventoController = new DAOEvento();
 
@@ -81,6 +82,7 @@ public class DAOCoordenacaoEvento extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfCoordenador);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOEvento eventoController = new DAOEvento();
 
@@ -115,6 +117,7 @@ public class DAOCoordenacaoEvento extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idEvento);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOEvento eventoController = new DAOEvento();
 
@@ -148,6 +151,7 @@ public class DAOCoordenacaoEvento extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idEvento);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 
 			while(rs.next()){
@@ -179,7 +183,7 @@ public class DAOCoordenacaoEvento extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfCoordenador);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 
 				CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();

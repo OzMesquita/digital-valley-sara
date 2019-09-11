@@ -6,7 +6,7 @@
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 
      	<%
-     		List<Trabalho> trabalhos = new DAOAvaliaTrabalho().read(usuario.getCpf());
+     		List<Trabalho> trabalhos = new DAOAvaliaTrabalho().readAvaliacao(usuario.getCpf());
      		session.setAttribute("usuarioSara", usuario);
      		
      	%>
@@ -57,7 +57,7 @@
 			       		  <%
 			       		  	
 			       			for(int i = 0; i < trabalhos.size(); i++){
-			                	if (trabalhos.get(i).getStatus().equals(StatusTrabalho.EM_AVALIACAO)){
+			                	
 			               %>
 			               
 			               <tr>
@@ -79,7 +79,7 @@
 			               </tr>
 			        		 
 							    <% 
-							        }}
+							        }
 							    %>
                            </tbody>
                         </table>

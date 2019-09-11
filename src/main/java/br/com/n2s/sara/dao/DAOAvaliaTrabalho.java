@@ -50,7 +50,7 @@ public class DAOAvaliaTrabalho extends DAO {
 			List<AvaliaTrabalho> avaliacoes = new ArrayList<AvaliaTrabalho>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){				
 				DAOUsuario daoUser = new DAOUsuario();
 				DAOTrabalho daoTrab = new DAOTrabalho();
@@ -76,19 +76,47 @@ public class DAOAvaliaTrabalho extends DAO {
 		}
 	}
 
-
-
 	public List<Trabalho> read(String cpfAvaliador){
 		
 		super.open();
-		String sql = "select * from sara.avaliatrabalho where idAvaliador = ?";
+		String sql = "select * from sara.avaliatrabalho where idAvaliador = ? ";
 
 		try{
 			List<Trabalho> trabalhos = new ArrayList<Trabalho>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfAvaliador);
+		
 			ResultSet rs = stmt.executeQuery();
+			super.close();
+			while(rs.next()){				
 
+				trabalhos.add(new DAOTrabalho().getTrabalho(rs.getInt("idTrabalho")));
+			}
+
+			rs.close();
+			stmt.close();
+			
+			return trabalhos;
+
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+	}
+
+	public List<Trabalho> readAvaliacao(String cpfAvaliador){
+		
+		super.open();
+		String sql = "select * from sara.avaliatrabalho where idAvaliador = ? AND status = ? ";
+
+		try{
+			List<Trabalho> trabalhos = new ArrayList<Trabalho>();
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setString(1, cpfAvaliador);
+			stmt.setString(2, StatusTrabalho.EM_AVALIACAO.toString());
+			ResultSet rs = stmt.executeQuery();
+			super.close();
 			while(rs.next()){				
 
 				trabalhos.add(new DAOTrabalho().getTrabalho(rs.getInt("idTrabalho")));
@@ -115,7 +143,7 @@ public class DAOAvaliaTrabalho extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, idAvaliador);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 				AvaliaTrabalho avalia = new AvaliaTrabalho();
 
@@ -150,7 +178,7 @@ public class DAOAvaliaTrabalho extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 				AvaliaTrabalho avalia = new AvaliaTrabalho();
 
@@ -186,7 +214,7 @@ public class DAOAvaliaTrabalho extends DAO {
 			stmt.setInt(1, idTrabalho);
 			stmt.setString(2, idAvaliador);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 				AvaliaTrabalho avalia = new AvaliaTrabalho();
 
@@ -226,11 +254,9 @@ public class DAOAvaliaTrabalho extends DAO {
 			stmt.setString(3, avaliaTrabalho.getFeedback());
 			stmt.setString(4, avaliaTrabalho.getStatus().toString());
 			stmt.setInt(5, avaliaTrabalho.getTrabalho().getIdTrabalho());
-
 			stmt.execute();
 			stmt.close();
 			
-
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
@@ -258,6 +284,7 @@ public class DAOAvaliaTrabalho extends DAO {
 		}
 
 	}
+	
 
 
 }

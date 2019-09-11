@@ -45,6 +45,7 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(7, trabalho.getEnderecoInicial());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
+			super.close();
 			int idTrabalho= 0 ;
 			if (rs.next()) {
 				idTrabalho = rs.getInt("idtrabalho");
@@ -78,6 +79,7 @@ public class DAOTrabalho extends DAO {
 			List<Trabalho> trabalhos = new ArrayList<Trabalho>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOTrilha daoTrilha = new DAOTrilha(); 
 
 			while(rs.next()){
@@ -118,6 +120,7 @@ public class DAOTrabalho extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOTrilha daoTrilha = new DAOTrilha();
 			if(rs.next()) {	
 				Trabalho trabalho = new Trabalho();
@@ -206,6 +209,7 @@ public class DAOTrabalho extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1,idTrilha);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOTrilha daoTrilha = new DAOTrilha();
 			Trilha trilha = daoTrilha.getTrilha(idTrilha);
 			while(rs.next()){

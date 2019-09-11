@@ -9,6 +9,7 @@ public class Criterio {
 	private int peso;
 	private CriterioTrilha criterioTrilha;
 	private ArrayList<Item> itens;
+	private String nome;
 	
 	public int getIdCriterio() {
 		return idCriterio;
@@ -39,6 +40,12 @@ public class Criterio {
 	}
 	public void setItens(ArrayList<Item> itens) {
 		this.itens = itens;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 }

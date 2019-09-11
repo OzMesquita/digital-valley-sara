@@ -48,7 +48,7 @@ public class DAOUsuarioSemCadastro extends DAO{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, id);
 			ResultSet rs = stmt.executeQuery();
-			
+			super.close();
 			if(rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario.setCpf(rs.getString("cpf"));
@@ -91,6 +91,7 @@ public class DAOUsuarioSemCadastro extends DAO{
 			PreparedStatement ps = super.getConnection().prepareStatement(SQL);
 			ps.setString(1, "%" + nome + "%");
 			ResultSet rs = ps.executeQuery();
+			super.close();
 			if (rs.next()) {
 				return rs.getInt("quantidade");
 			} else {

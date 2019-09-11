@@ -22,7 +22,7 @@ public class DAOAvaliaEvento extends DAO{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idEvento);
 			ResultSet rs = stmt.executeQuery();
-			
+			super.close();
 			while(rs.next()) {
 				Usuario u = new DAOUsuario().getUsuario(rs.getString("id_avaliador"));
 				avaliadores.add(u);

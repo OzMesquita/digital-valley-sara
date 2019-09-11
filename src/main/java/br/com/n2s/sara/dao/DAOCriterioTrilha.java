@@ -46,6 +46,7 @@ public class DAOCriterioTrilha extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, t.getIdTrilha());
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			ArrayList<Criterio> criterios = new ArrayList<Criterio>();
 			while(rs.next()) {
 				Criterio c = new DAOCriterio().getCriterio(rs.getInt("fkcriterio"));

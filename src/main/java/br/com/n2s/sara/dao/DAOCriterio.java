@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.n2s.sara.model.Criterio;
+import br.com.n2s.sara.model.Item;
 
 public class DAOCriterio extends DAO {
 	
@@ -48,6 +49,7 @@ public class DAOCriterio extends DAO {
 			List<Criterio> criterios = new ArrayList<Criterio>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
 
 			while(rs.next()){
@@ -83,6 +85,7 @@ public class DAOCriterio extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idCriterio);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
 
 			if(rs.next()){
@@ -91,10 +94,13 @@ public class DAOCriterio extends DAO {
 
 				criterio.setIdCriterio(rs.getInt("idCriterio"));
 				criterio.setDescricao(rs.getString("descricao"));
-				criterio.setPeso(rs.getInt("peso"));			
+				criterio.setPeso(rs.getInt("peso"));
+				criterio.setItens( (ArrayList<Item>) new DAOItem().readById(idCriterio));
 				rs.close();
 				stmt.close();
-				
+				for (Item i : criterio.getItens()) {
+					i.setCriterio(criterio);
+				}
 				return criterio;
 			}else{
 				return null;
@@ -166,6 +172,7 @@ public class DAOCriterio extends DAO {
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);
+			super.close();
 			rs.next();
 			int lastId = rs.getInt(1);
 

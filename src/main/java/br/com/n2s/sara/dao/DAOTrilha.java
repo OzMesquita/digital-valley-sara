@@ -129,6 +129,7 @@ public List<Trilha> readById(int id){
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrilha);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOEvento daoEvento = new DAOEvento();
 			DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
 			DAOPeriodo daoPeriodo = new DAOPeriodo();

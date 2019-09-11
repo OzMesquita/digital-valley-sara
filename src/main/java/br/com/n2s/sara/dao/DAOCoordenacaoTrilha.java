@@ -46,6 +46,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 			List<CoordenacaoTrilha> coordenacoes = new ArrayList<CoordenacaoTrilha>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOTrilha trilhaController = new DAOTrilha();
 
@@ -80,6 +81,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, id);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOTrilha trilhaController = new DAOTrilha();
 
@@ -114,7 +116,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 				stmt.setInt(1, id);
 				ResultSet rs = stmt.executeQuery();
-
+				super.close();
 				while(rs.next()){
 
 					Usuario user = new DAOUsuario().getUsuario(rs.getString("cpfCoordenador"));
@@ -145,7 +147,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfCoordenador);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 
 				CoordenacaoTrilha coordenacaoTrilha = new CoordenacaoTrilha();

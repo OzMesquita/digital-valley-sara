@@ -102,6 +102,7 @@ public class InterfaceAlgoritmo {
 				if(rgraph[posA][posT]!=0) {
 					AvaliaTrabalho av = new AvaliaTrabalho();
 					av.setAvaliador(avaliadores.get(i));
+					trabalhos.get(j-1).setStatus(StatusTrabalho.EM_AVALIACAO);
 					av.setTrabalho(trabalhos.get(j-1));
 					av.setStatus(StatusTrabalho.EM_AVALIACAO);
 					distribuidos.add(av);

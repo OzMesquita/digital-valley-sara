@@ -82,10 +82,10 @@
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li>
-                                <a id="guardiao" href="<%=Constantes.getAppGuardiaoUrl()%>">Guardião</a>
+                                <a id="guardiao" href="http://n2s.russas.ufc.br<%=Constantes.getAppGuardiaoUrl()%>">Guardião</a>
                             </li>
                             <li>
-                                <a id="sair" href="http://n2s.russas.ufc.br/<%=Constantes.getAppGuardiaoUrl()%>/logout">Sair</a>
+                                <a id="sair" href="http://n2s.russas.ufc.br<%=Constantes.getAppGuardiaoUrl()%>/logout">Sair</a>
                             </li>
                         </ul>
                     </li>

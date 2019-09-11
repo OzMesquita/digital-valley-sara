@@ -18,7 +18,7 @@ public class DAOItem extends DAO{
 
 		super.open();
 		String sql = "insert into sara.item"  
-				+ "(descricao, peso,  idCriterio)"
+				+ "(descricao, nota,  idCriterio)"
 				+ "values (?,?,?)";
 
 		try {
@@ -47,6 +47,7 @@ public class DAOItem extends DAO{
 			List<Item> itens = new ArrayList<Item>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOCriterio daoCriterio = new DAOCriterio();
 
 			while(rs.next()){
@@ -55,8 +56,8 @@ public class DAOItem extends DAO{
 
 				item.setIdItem(rs.getInt("idItem"));
 				item.setDescricao(rs.getString("descricao"));
-				item.setPeso(rs.getInt("peso"));
-				item.setCriterio(daoCriterio.getCriterio(rs.getInt("idCriterio")));
+				item.setPeso(rs.getInt("nota"));
+				//item.setCriterio(daoCriterio.getCriterio(rs.getInt("idCriterio")));
 
 				itens.add(item);
 			}
@@ -83,6 +84,7 @@ public class DAOItem extends DAO{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOCriterio daoCriterio = new DAOCriterio();
 
 			while(rs.next()){
@@ -91,9 +93,7 @@ public class DAOItem extends DAO{
 
 				item.setIdItem(rs.getInt("idItem"));
 				item.setDescricao(rs.getString("descricao"));
-				item.setPeso(rs.getInt("peso"));
-				item.setCriterio(daoCriterio.getCriterio(rs.getInt("idCriterio")));
-
+				item.setPeso(rs.getInt("nota"));
 				itens.add(item);
 
 			}
@@ -119,6 +119,7 @@ public class DAOItem extends DAO{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idItem);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOCriterio daoCriterio = new DAOCriterio();
 
 			if(rs.next()){
@@ -127,8 +128,8 @@ public class DAOItem extends DAO{
 
 				item.setIdItem(rs.getInt("idItem"));
 				item.setDescricao(rs.getString("descricao"));
-				item.setPeso(rs.getInt("peso"));
-				item.setCriterio(daoCriterio.getCriterio(rs.getInt("idCriterio")));
+				item.setPeso(rs.getInt("nota"));
+				//item.setCriterio(daoCriterio.getCriterio(rs.getInt("idCriterio")));
 
 				rs.close();
 				stmt.close();
@@ -147,7 +148,7 @@ public class DAOItem extends DAO{
 	public void update(Item item){
 
 		super.open();
-		String sql = "update sara.item set descricao = ? peso = ?, idCriterio = ?"
+		String sql = "update sara.item set descricao = ? nota = ?, idCriterio = ?"
 				+ " where idItem = ?";
 
 		try {

@@ -62,6 +62,7 @@ public class DAOSubmissao extends DAO {
 			List<Submissao> submissoes = new ArrayList<Submissao>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 
 			while(rs.next()){
@@ -92,7 +93,7 @@ public class DAOSubmissao extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 				Usuario autor= new Usuario();
 				autor.setCpf(rs.getString("cpfautor"));				
@@ -120,7 +121,7 @@ public class DAOSubmissao extends DAO {
 				stmt.setInt(1, idTrabalho);
 				stmt.setString(2, "COAUTOR");
 				ResultSet rs = stmt.executeQuery();
-
+				super.close();
 				while(rs.next()){
 					Usuario autor= new Usuario();
 					autor.setCpf(rs.getString("cpfautor"));				
@@ -147,7 +148,7 @@ public class DAOSubmissao extends DAO {
 				stmt.setInt(1, idTrabalho);
 				stmt.setString(2, "ORIENTADOR");
 				ResultSet rs = stmt.executeQuery();
-
+				super.close();
 				if(rs.next()){
 					autor = Facade.pegarUsuario(rs.getString("cpfautor"));
 				}
@@ -171,7 +172,7 @@ public class DAOSubmissao extends DAO {
 				stmt.setInt(1, idTrabalho);
 				stmt.setString(2, "AUTOR");
 				ResultSet rs = stmt.executeQuery();
-
+				super.close();
 				if(rs.next()){
 					autor = Facade.pegarUsuario(rs.getString("cpfautor"));
 				}
@@ -196,7 +197,7 @@ public List<String> getCPFAutores(int idTrabalho){
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();			
-
+			super.close();
 			while(rs.next()){
 				autores.add(rs.getString("cpfautor"));
 			}
@@ -222,7 +223,7 @@ public List<String> getCPFAutores(int idTrabalho){
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idtrabalho);			
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 				Submissao submissao = new Submissao();
 				submissao.setAutor(Facade.pegarUsuario(rs.getString("cpfautor")));
@@ -311,6 +312,7 @@ public List<String> getCPFAutores(int idTrabalho){
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, idAutor);			
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			ArrayList<Trabalho> submissoes = new ArrayList<Trabalho>();
 			Trabalho trabalho = new Trabalho();
 			while(rs.next()){
