@@ -74,11 +74,13 @@ public class DAOSubmissao extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return submissoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 		public List<Usuario> getAutores(int idTrabalho){
@@ -99,11 +101,13 @@ public class DAOSubmissao extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return autores;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 		public List<Usuario> getCoAutores(int idTrabalho){
@@ -125,11 +129,13 @@ public class DAOSubmissao extends DAO {
 
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return autores;
 
 			}catch(SQLException e){
 				throw new RuntimeException(e);
+			}finally {
+				super.close();
 			}
 		}
 		public Usuario getOrientador(int idTrabalho) {
@@ -147,10 +153,12 @@ public class DAOSubmissao extends DAO {
 				}
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return autor;
 			}catch (Exception e) {
 				// TODO: handle exception
+			}finally {
+				super.close();
 			}
 			return null;
 		}	
@@ -169,10 +177,12 @@ public class DAOSubmissao extends DAO {
 				}
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return autor;
 			}catch (Exception e) {
 				// TODO: handle exception
+			}finally {
+				super.close();
 			}
 			return null;
 		}
@@ -193,11 +203,13 @@ public List<String> getCPFAutores(int idTrabalho){
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return autores;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -219,13 +231,15 @@ public List<String> getCPFAutores(int idTrabalho){
 				
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return submissao;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -242,10 +256,12 @@ public List<String> getCPFAutores(int idTrabalho){
 			stmt.setString(3, submissao.getTipoAutor().toString());
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -277,10 +293,12 @@ public List<String> getCPFAutores(int idTrabalho){
 			stmt.setInt(1, idTrabalho);
 			stmt.execute();
 			stmt.close();
-			super.close();
+		
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 
 	}
@@ -301,10 +319,12 @@ public List<String> getCPFAutores(int idTrabalho){
 			}
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return submissoes;
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 

@@ -30,10 +30,12 @@ public class DAOCriterio extends DAO {
 			
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -62,11 +64,13 @@ public class DAOCriterio extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return criterios;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -90,13 +94,15 @@ public class DAOCriterio extends DAO {
 				criterio.setPeso(rs.getInt("peso"));			
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return criterio;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -125,7 +131,7 @@ public class DAOCriterio extends DAO {
 	 * 
 	 * }
 	 * 
-	 * rs.close(); stmt.close(); super.close(); return criterios;
+	 * rs.close(); stmt.close();  return criterios;
 	 * 
 	 * }catch(SQLException e){ throw new RuntimeException(e); } }
 	 */
@@ -143,10 +149,12 @@ public class DAOCriterio extends DAO {
 			
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -163,11 +171,13 @@ public class DAOCriterio extends DAO {
 
 			stmt.close();
 			rs.close();
-			super.close();
+			
 			return lastId;
 
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -182,10 +192,12 @@ public class DAOCriterio extends DAO {
 			stmt.setInt(1, criterio.getIdCriterio());
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 

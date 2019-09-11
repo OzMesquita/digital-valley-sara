@@ -27,10 +27,12 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -57,11 +59,13 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return coordenacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -89,11 +93,13 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return coordenacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 		
@@ -117,11 +123,13 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return coordenacoes;
 
 			}catch(SQLException e){
 				throw new RuntimeException(e);
+			}finally {
+				super.close();
 			}
 		}
 
@@ -146,13 +154,15 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return coordenacaoTrilha;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -170,7 +180,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -188,10 +198,12 @@ public class DAOCoordenacaoTrilha extends DAO {
 			stmt.setString(1, cpfCoordenador);
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 
 	}

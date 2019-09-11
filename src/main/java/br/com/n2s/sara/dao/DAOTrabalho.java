@@ -99,11 +99,13 @@ public class DAOTrabalho extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return trabalhos;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -134,7 +136,7 @@ public class DAOTrabalho extends DAO {
 				autores.remove(0);
 				trabalho.setAutores(autores);
 				trabalho.setOrientador(new DAOSubmissao().getOrientador(trabalho.getIdTrabalho()));
-				super.close();
+				
 				return trabalho;
 			}else {
 				return null;
@@ -142,6 +144,8 @@ public class DAOTrabalho extends DAO {
 		}	
 		catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -166,10 +170,12 @@ public class DAOTrabalho extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -184,10 +190,11 @@ public class DAOTrabalho extends DAO {
 			stmt.setInt(1, idTrabalho);
 			stmt.execute();
 			stmt.close();
-			super.close();
-
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 
 	}
@@ -217,10 +224,12 @@ public class DAOTrabalho extends DAO {
 			}
 			stmt.close();
 			rs.close();
-			super.close();
+		
 			return trabalhos;
 		}catch (Exception e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	private void adicionaAutores(Trabalho t) {

@@ -28,10 +28,12 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -58,11 +60,13 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return coordenacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -90,11 +94,13 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return coordenacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -122,11 +128,13 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return coordenacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	public List<Usuario> ListarCoordenadores(int idEvento){
@@ -150,11 +158,13 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return coordenacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -178,13 +188,15 @@ public class DAOCoordenacaoEvento extends DAO {
 
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return coordenacaoEvento;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -202,10 +214,12 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -220,10 +234,12 @@ public class DAOCoordenacaoEvento extends DAO {
 			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 
 	}

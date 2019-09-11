@@ -30,10 +30,12 @@ public class DAOUsuario extends DAO{
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -60,11 +62,13 @@ public class DAOUsuario extends DAO{
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return usuarios;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -92,11 +96,13 @@ public class DAOUsuario extends DAO{
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return usuarios;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -120,13 +126,15 @@ public class DAOUsuario extends DAO{
 
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return usuario;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -149,10 +157,12 @@ public class DAOUsuario extends DAO{
 			
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -167,10 +177,12 @@ public class DAOUsuario extends DAO{
 			stmt.setString(1, cpf);
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 
 	}

@@ -31,9 +31,11 @@ public class DAOCriterioTrilha extends DAO {
 				stmt.execute();
 			}
 			stmt.close();
-			super.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -52,6 +54,8 @@ public class DAOCriterioTrilha extends DAO {
 			return criterios;
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -64,9 +68,11 @@ public class DAOCriterioTrilha extends DAO {
 			stmt.setInt(2, c.getIdCriterio());
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -95,11 +101,13 @@ public class DAOCriterioTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return criterioTrilhas;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -117,11 +125,13 @@ public class DAOCriterioTrilha extends DAO {
 
 			stmt.close();
 			rs.close();
-			super.close();
+			
 			return lastId;
 
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -140,10 +150,12 @@ public class DAOCriterioTrilha extends DAO {
 			
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -158,10 +170,12 @@ public class DAOCriterioTrilha extends DAO {
 			stmt.setInt(1, idCriterioTrilha);
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	

@@ -56,13 +56,15 @@ public class DAOUsuarioSemCadastro extends DAO{
 				usuario.setEmail(rs.getString("email"));
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return usuario;
 			}else {
 				return null;
 			}
 		}catch (SQLException e ) {
 			throw new RuntimeException("Erro ao buscar Usuario: "+id);
+		}finally {
+			super.close();
 		}		
 	}
 	

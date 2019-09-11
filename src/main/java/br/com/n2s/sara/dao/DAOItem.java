@@ -29,10 +29,12 @@ public class DAOItem extends DAO{
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -61,11 +63,13 @@ public class DAOItem extends DAO{
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return itens;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -96,11 +100,13 @@ public class DAOItem extends DAO{
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return itens;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -126,13 +132,15 @@ public class DAOItem extends DAO{
 
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return item;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -151,10 +159,12 @@ public class DAOItem extends DAO{
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -169,7 +179,7 @@ public class DAOItem extends DAO{
 			stmt.setInt(1, item.getIdItem());
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -186,10 +196,12 @@ public class DAOItem extends DAO{
 			stmt.setInt(1, idItem);
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 }

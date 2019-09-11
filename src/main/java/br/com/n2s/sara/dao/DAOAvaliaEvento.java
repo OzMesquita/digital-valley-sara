@@ -29,10 +29,12 @@ public class DAOAvaliaEvento extends DAO{
 			}
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return avaliadores;
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -48,10 +50,12 @@ public class DAOAvaliaEvento extends DAO{
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 }

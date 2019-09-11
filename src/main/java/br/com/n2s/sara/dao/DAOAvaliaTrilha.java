@@ -29,10 +29,12 @@ public class DAOAvaliaTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -57,11 +59,13 @@ public class DAOAvaliaTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return avaliacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -85,13 +89,15 @@ public class DAOAvaliaTrilha extends DAO {
 				
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return avaliaTrilha;
 
 			}
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 		
 		return null;
@@ -116,11 +122,13 @@ public class DAOAvaliaTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return avaliadores;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -143,17 +151,19 @@ public class DAOAvaliaTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return trilhas;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public void update(AvaliaTrilha avaliaTrilha){
 
-		super.close();
+		
 		String sql = "update sara.avaliatrilha set idavaliador = ?, idtrilha = ?" 
 				+ " where idavaliador = ?";
 
@@ -164,10 +174,12 @@ public class DAOAvaliaTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -183,10 +195,12 @@ public class DAOAvaliaTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 }

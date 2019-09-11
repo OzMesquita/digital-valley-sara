@@ -33,10 +33,12 @@ public class DAOPeriodo extends DAO {
 			
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -65,11 +67,13 @@ public class DAOPeriodo extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return periodos;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -99,11 +103,13 @@ public class DAOPeriodo extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return periodos;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -129,7 +135,7 @@ public class DAOPeriodo extends DAO {
 				
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return periodo;
 				
 			}else{
@@ -137,6 +143,8 @@ public class DAOPeriodo extends DAO {
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -158,10 +166,12 @@ public class DAOPeriodo extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -175,10 +185,12 @@ public class DAOPeriodo extends DAO {
 			stmt.setInt(1, idPeriodo);
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 }

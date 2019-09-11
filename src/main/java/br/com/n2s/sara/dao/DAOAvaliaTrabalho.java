@@ -33,10 +33,12 @@ public class DAOAvaliaTrabalho extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -64,11 +66,13 @@ public class DAOAvaliaTrabalho extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return avaliacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -92,11 +96,13 @@ public class DAOAvaliaTrabalho extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return trabalhos;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
@@ -123,13 +129,15 @@ public class DAOAvaliaTrabalho extends DAO {
 
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return avalia;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -157,13 +165,15 @@ public class DAOAvaliaTrabalho extends DAO {
 
 				rs.close();
 				stmt.close();
-				super.close();
+			
 				return avalia;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	public AvaliaTrabalho getAvaliaTrabalho(int idTrabalho, String idAvaliador){
@@ -191,13 +201,15 @@ public class DAOAvaliaTrabalho extends DAO {
 
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return avalia;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -217,10 +229,12 @@ public class DAOAvaliaTrabalho extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -235,10 +249,12 @@ public class DAOAvaliaTrabalho extends DAO {
 			stmt.setInt(1, avaliaTrabalho.getTrabalho().getIdTrabalho());
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 
 	}
