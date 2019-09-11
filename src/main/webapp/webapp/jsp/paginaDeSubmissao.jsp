@@ -68,7 +68,7 @@
 												CPF: <input type="text" id="cpf" name="cpf" size="14" value="<%=usuario.getCpf()%>" disabled="disabled">
 												<br/>
 												<br/>
-												Adicione seu orientador e, se houver, adicione os co-autores: 
+												Adicione seu orientador abaixo. 
 												<br/>
 												<br/>
 									            <div id="divAutorBase">
@@ -76,7 +76,9 @@
 														Email: <input type="text" name="emailAutor" required="required" />
 														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)" onblur="validarCPF(this.value);"  required="required" name="cpfAutor">
 														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
+														</br>
 												</div>
+												Adicione os co-autores:
 											    <div id="divAutorList" >
 											    </div>
 											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />
