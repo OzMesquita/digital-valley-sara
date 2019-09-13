@@ -71,7 +71,7 @@
 				                   			<div class="input-group-prepend col">
     											<div class="input-group-text col">
     											<label class="radio-inline">
-    												<input type="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>"><p><%=i.getDescricao()%></p>
+    												<input type="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>"><p><%=i.getDescricao()%> Nota: <%=i.getPeso()%></p>
     											</label>
     												
     											</div>

@@ -20,14 +20,14 @@ public class DAOCriterio extends DAO {
 		
 		super.open();
 		String sql = "insert into sara.criterio"  
-				+ "(descricao, peso)"
-				+ "values (?,?)";
+				+ "(descricao, peso,nome)"
+				+ "values (?,?,?)";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, criterio.getDescricao());
 			stmt.setInt(2, criterio.getPeso());
-			
+			stmt.setString(3, criterio.getNome());
 			
 			stmt.execute();
 			stmt.close();
@@ -59,7 +59,7 @@ public class DAOCriterio extends DAO {
 				criterio.setIdCriterio(rs.getInt("idCriterio"));
 				criterio.setDescricao(rs.getString("descricao"));
 				criterio.setPeso(rs.getInt("peso"));
-				
+				criterio.setNome(rs.getString("nome"));
 				criterios.add(criterio);
 
 			}
@@ -95,6 +95,7 @@ public class DAOCriterio extends DAO {
 				criterio.setIdCriterio(rs.getInt("idCriterio"));
 				criterio.setDescricao(rs.getString("descricao"));
 				criterio.setPeso(rs.getInt("peso"));
+				criterio.setNome(rs.getString("nome"));
 				criterio.setItens( (ArrayList<Item>) new DAOItem().readById(idCriterio));
 				rs.close();
 				stmt.close();
@@ -145,12 +146,13 @@ public class DAOCriterio extends DAO {
 	public void update(Criterio criterio){
 		
 		super.open();
-		String sql = "update sara.criterio set descricao = ?, peso = ? where idCriterio = ?";
+		String sql = "update sara.criterio set descricao = ?, peso = ?, nome = ? where idCriterio = ?";
 				
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, criterio.getDescricao());
 			stmt.setInt(2, criterio.getPeso());
+			stmt.setString(3, criterio.getNome());
 			stmt.setInt(4, criterio.getIdCriterio());
 			
 			stmt.execute();

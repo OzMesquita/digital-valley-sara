@@ -45,7 +45,6 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(7, trabalho.getEnderecoInicial());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
-			super.close();
 			int idTrabalho= 0 ;
 			if (rs.next()) {
 				idTrabalho = rs.getInt("idtrabalho");
