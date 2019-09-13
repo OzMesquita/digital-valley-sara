@@ -110,8 +110,17 @@
 	               					 		</form>
 	               					 		<br>
 	               					 		<%} %>
+	               					 		
+	               					 		<%//if( usuario.getCpf().equals(trabalho.getOrientador()) && Facade.periodoAtual(trabalho.getTrilha()).getDescricao().equals(DescricaoPeriodo.AVAL) ) {%>
+	               					 			<form action="Aval" method="post">
+	               					 				<input type="radio" id="aceito" name="resultado" value="aceito" required><label for="aceito">Aceito</label>
+	               					 				<input type="radio" id="recusado" name="resultado" value="recusado"><label for="recusado">Recusado</label>
+	               					 				<input type="submit" name="Avaliar" value="Avaliar">
+	               					 			</form>	
+	               					 		<%//} %>
 								        	<form action="ApagarTrabalho" method="post" >                  					 
-	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho">  
+	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
+	                   						</form>	 
 				                   		</td>
 				                   </tr>
 	                       </tbody>

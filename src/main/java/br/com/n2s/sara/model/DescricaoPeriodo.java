@@ -4,7 +4,8 @@ public enum DescricaoPeriodo {
 	SUBMISSAO_MANUSCRITO("submissão de manuscrito"),
 	AVALIACAO("avaliação"),
 	SUBMISSAO_FINAL("submissão final"),
-	RESULTADO_FINAL("resultado final");
+	RESULTADO_FINAL("resultado final"),
+	AVAL("aval do orientador");
 	
 	private String descricao;
 	
