@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,22 +18,26 @@ public class DAOTrilha extends DAO {
 
 	public DAOTrilha(){}
 
-	public void create(Trilha trilha){
+	public Trilha create(Trilha trilha){
 		super.open();
 		String sql = "insert into sara.trilha"  
 				+ "(nome, descricao, idEvento)"
 				+ "values (?,?,?)";
 
 		try {
-			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, trilha.getNome());
 			stmt.setString(2, trilha.getDescricao());
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
-			
-			stmt.execute();
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
 			stmt.close();
-			
-
+			int id=0;
+			if(rs.next()) {
+				id=rs.getInt("idtrilha");
+				trilha.setIdTrilha(id);
+			}
+			return trilha;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
