@@ -17,6 +17,7 @@ import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.*;
+import br.com.n2s.sara.util.Constantes;
 import br.com.n2s.sara.util.Facade;
 import br.com.n2s.sara.util.InterfaceAlgoritmo;
 
@@ -34,10 +35,13 @@ public class Distribuir extends HttpServlet {
 		Trilha trilha = new Trilha();
 		DAOTrilha daoTrilha = new DAOTrilha();
 		trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
-		if(trilha==null) {
+		if( (trilha==null || trilha.getAvaliadores()==null)) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Trilha inválida");
 			response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");	
 		}
-		
+		if (trilha.getAvaliadores().size()<0) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores inválida!");
+		}
 		ArrayList<AvaliaTrabalho> av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuirPorTrilha(trilha, 1);
 		for(AvaliaTrabalho a : av ){
 			new DAOAvaliaTrabalho().create(a);
