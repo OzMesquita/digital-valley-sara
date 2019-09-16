@@ -60,7 +60,7 @@ public class DAOAvaliaTrabalho extends DAO {
 				avalia.setTrabalho(daoTrab.getTrabalho(rs.getInt("idtrabalho")));
 				avalia.setFeedback(rs.getString("feedback"));
 				avalia.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
-
+				avalia.setId(rs.getInt("idavaliatrabalho"));
 				avaliacoes.add(avalia);
 			}
 
@@ -149,7 +149,7 @@ public class DAOAvaliaTrabalho extends DAO {
 
 				DAOUsuario daoUser = new DAOUsuario();
 				DAOTrabalho daoTrab = new DAOTrabalho();
-
+				avalia.setId(rs.getInt("idavaliatrabalho"));
 				avalia.setAvaliador(daoUser.getUsuario((rs.getString("idavaliador"))));
 				avalia.setTrabalho(daoTrab.getTrabalho(rs.getInt("idtrabalho")));
 				avalia.setFeedback(rs.getString("feedback"));
@@ -184,7 +184,7 @@ public class DAOAvaliaTrabalho extends DAO {
 
 				DAOUsuario daoUser = new DAOUsuario();
 				DAOTrabalho daoTrab = new DAOTrabalho();
-
+				avalia.setId(rs.getInt("idavaliatrabalho"));
 				avalia.setAvaliador(daoUser.getUsuario((rs.getString("idavaliador"))));
 				avalia.setTrabalho(daoTrab.getTrabalho(rs.getInt("idtrabalho")));
 				avalia.setFeedback(rs.getString("feedback"));
@@ -220,7 +220,7 @@ public class DAOAvaliaTrabalho extends DAO {
 
 				DAOUsuario daoUser = new DAOUsuario();
 				DAOTrabalho daoTrab = new DAOTrabalho();
-
+				avalia.setId(rs.getInt("idavaliatrabalho"));
 				avalia.setAvaliador(daoUser.getUsuario((rs.getString("idavaliador"))));
 				avalia.setTrabalho(daoTrab.getTrabalho(rs.getInt("idtrabalho")));
 				avalia.setFeedback(rs.getString("feedback"));
@@ -262,6 +262,25 @@ public class DAOAvaliaTrabalho extends DAO {
 		}finally {
 			super.close();
 		}
+	}
+	
+	public void updateCriterioAvaliados(int idAvaliacao, int idItem, int idCriterio) {
+		super.open();
+		String sql = "INSERT INTO sara.criteriosavaliados(fk_criterio, fk_item, fk_avaliacao) VALUES (?, ?, ?)";
+		try {
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, idCriterio);
+			stmt.setInt(2, idItem);
+			stmt.setInt(3, idAvaliacao);
+			stmt.execute();
+			stmt.close();
+			
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+		
 	}
 
 

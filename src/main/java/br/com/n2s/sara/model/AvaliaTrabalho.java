@@ -4,6 +4,7 @@ import java.util.List;
 
 public class AvaliaTrabalho {
 	
+	private int id;
 	private Usuario avaliador;
 	private Trabalho trabalho;
 	private String feedback;
@@ -48,6 +49,12 @@ public class AvaliaTrabalho {
 	}
 	public void setNota(float nota) {
 		this.nota = nota;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
  

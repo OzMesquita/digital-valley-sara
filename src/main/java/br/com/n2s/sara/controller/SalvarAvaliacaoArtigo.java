@@ -1,6 +1,8 @@
 package br.com.n2s.sara.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,12 +44,14 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			int idTrabalho = Integer.parseInt(request.getParameter("t-a"));
 			Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
 			AvaliaTrabalho av = new DAOAvaliaTrabalho().getAvaliaTrabalho(idTrabalho, avaliador.getCpf());
-			
+			ArrayList<Item> itens = new ArrayList<Item>(); 
 			for (Criterio c : trabalho.getTrilha().getCriterios()) {
 				int idItem = Integer.parseInt(request.getParameter("criterio-"+c.getIdCriterio()));
 				Item item = new DAOItem().getItem(idItem);
-				av.getItens().add(item); 
+				itens.add(item);
+				new DAOAvaliaTrabalho().updateCriterioAvaliados(av.getId(), item.getIdItem(), c.getIdCriterio());
 			}
+			av.setItens(itens);
 			av.setNota(Facade.calcularNota(av));
 			av.setFeedback(feedback);
 			new DAOAvaliaTrabalho().update(av);

@@ -14,12 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.n2s.sara.dao.DAOCriterio;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.util.Constantes;
 import br.com.n2s.sara.model.Periodo;
+import br.com.n2s.sara.model.Criterio;
 
 /**
  * Servlet implementation class AdicionarTrilha
@@ -43,18 +45,16 @@ public class AdicionarTrilha extends HttpServlet {
 		trilha.setPeso(Integer.parseInt(request.getParameter("peso")));
 		trilha = daoTrilha.create(trilha);
 		
-		SimpleDateFormat datas = new SimpleDateFormat("dd-MM-yyyy");
-		ArrayList<Periodo> p =new ArrayList<Periodo>();		
-		for (DescricaoPeriodo dp : DescricaoPeriodo.values()) {
-			Periodo p1 = new Periodo();
-			p1.setTrilha(trilha);
-			p1.setDataFinal( datas.parse( request.getParameter("dataInicial-"+dp.getDescricao())).toInstant().atZone(ZoneId.systemDefault()).toLocalDate() );
-			p1.setDescricao(dp);
-			p.add(p1);
-		}
-		
-		trilha.setPeriodos(p);
-		daoTrilha.update(trilha);
+			/*
+			 * SimpleDateFormat datas = new SimpleDateFormat("dd-MM-yyyy");
+			 * ArrayList<Periodo> p =new ArrayList<Periodo>(); for (DescricaoPeriodo dp :
+			 * DescricaoPeriodo.values()) { Periodo p1 = new Periodo();
+			 * p1.setTrilha(trilha); p1.setDataFinal( datas.parse(
+			 * request.getParameter("dataInicial-"+dp.getDescricao())).toInstant().atZone(
+			 * ZoneId.systemDefault()).toLocalDate() ); p1.setDescricao(dp); p.add(p1); }
+			 * 
+			 * trilha.setPeriodos(p); daoTrilha.update(trilha);
+			 */
 		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante o cadastro da trilha!");
 		response.sendRedirect("eventosCoordenados.jsp");
 		}catch (Exception e) {

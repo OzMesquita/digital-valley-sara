@@ -21,22 +21,24 @@ public class DAOTrilha extends DAO {
 	public Trilha create(Trilha trilha){
 		super.open();
 		String sql = "insert into sara.trilha"  
-				+ "(nome, descricao, idEvento)"
-				+ "values (?,?,?)";
+				+ "(nome, descricao, idEvento, qtdcorrecoes, peso)"
+				+ "values (?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, trilha.getNome());
 			stmt.setString(2, trilha.getDescricao());
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
+			stmt.setInt(4, trilha.getQtdCorrecoes());
+			stmt.setInt(5, trilha.getPeso());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
-			stmt.close();
 			int id=0;
 			if(rs.next()) {
 				id=rs.getInt("idtrilha");
 				trilha.setIdTrilha(id);
 			}
+			stmt.close();
 			return trilha;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

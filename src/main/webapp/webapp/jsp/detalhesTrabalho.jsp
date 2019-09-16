@@ -111,13 +111,16 @@
 	               					 		<br>
 	               					 		<%} %>
 	               					 		
-	               					 		<%//if( usuario.getCpf().equals(trabalho.getOrientador()) && Facade.periodoAtual(trabalho.getTrilha()).getDescricao().equals(DescricaoPeriodo.AVAL) ) {%>
+	               					 		<%if( usuario.getCpf().equals(trabalho.getOrientador().getCpf()) && trabalho.getStatus().toString().equals(StatusTrabalho.ENVIADO.toString()) && atual.getDescricao().toString().equals(DescricaoPeriodo.AVAL.toString()) ) {%>
+	               					 			<h2>Aval do orientador:</h2>
+	               					 			<p>O trabalho pode seguir para avaliação?</p>
 	               					 			<form action="Aval" method="post">
 	               					 				<input type="radio" id="aceito" name="resultado" value="aceito" required><label for="aceito">Aceito</label>
 	               					 				<input type="radio" id="recusado" name="resultado" value="recusado"><label for="recusado">Recusado</label>
+	               					 				<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
 	               					 				<input type="submit" name="Avaliar" value="Avaliar">
 	               					 			</form>	
-	               					 		<%//} %>
+	               					 		<%} %>
 								        	<form action="ApagarTrabalho" method="post" >                  					 
 	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
 	                   						</form>	 

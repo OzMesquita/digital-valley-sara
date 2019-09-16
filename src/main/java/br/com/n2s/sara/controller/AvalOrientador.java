@@ -31,8 +31,8 @@ public class AvalOrientador extends HttpServlet {
 			trabalho.setStatus(StatusTrabalho.REJEITADO_ORIENTADOR);
 		}
 		new DAOTrabalho().update(trabalho);
-		session.setAttribute(Constantes.getSESSION_MGS(), "Trabalho avaliado!");
-		response.sendRedirect(request.getRequestURI());
+		session.setAttribute(Constantes.getSESSION_MGS(), "Trabalho avaliado pelo orientador!");
+		response.sendRedirect("trabalhosAutor.jsp");
 	}
 
 }

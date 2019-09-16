@@ -75,6 +75,42 @@ public class DAOCriterio extends DAO {
 			super.close();
 		}
 	}
+	public List<Criterio> ListarCriteiosPadrao(){
+		
+		super.open();
+		String sql = "select * from sara.criterio where padrao = ?";
+
+		try{
+			List<Criterio> criterios = new ArrayList<Criterio>();
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setBoolean(1, true);
+			ResultSet rs = stmt.executeQuery();
+			super.close();
+			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
+
+			while(rs.next()){
+
+				Criterio criterio = new Criterio();
+
+				criterio.setIdCriterio(rs.getInt("idCriterio"));
+				criterio.setDescricao(rs.getString("descricao"));
+				criterio.setPeso(rs.getInt("peso"));
+				criterio.setNome(rs.getString("nome"));
+				criterios.add(criterio);
+
+			}
+
+			rs.close();
+			stmt.close();
+			
+			return criterios;
+
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+	}
 
 	public Criterio getCriterio(int idCriterio){
 		
