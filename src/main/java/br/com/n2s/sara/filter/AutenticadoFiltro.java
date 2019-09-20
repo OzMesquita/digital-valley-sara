@@ -59,14 +59,14 @@ public class AutenticadoFiltro implements Filter {
 					//Filtro normal
 					chain.doFilter(request, response);
 				}else {
-					((HttpServletResponse) response).sendRedirect("http://n2s.ufc.br"+Constantes.getAppGuardiaoUrl() + "/");
+					((HttpServletResponse) response).sendRedirect("http://n2s.russas.ufc.br"+Constantes.getAppGuardiaoUrl() + "/");
 				}
 			}else if(session.getAttribute("usuarioSara") != null && ((br.com.n2s.sara.model.Usuario)session.getAttribute("usuarioSara")).getCpf().equals(((Usuario)session.getAttribute("usuario")).getPessoa().getCpf()) &&
 					session.getAttribute("usuario")!= null && DAOFactory.criarUsuarioDAO().buscarTokenTemp(((Usuario)session.getAttribute("usuario")).getPessoa().getId())!=null &&
 					((Usuario)session.getAttribute("usuario")).getTokenUsuario().equals(DAOFactory.criarUsuarioDAO().buscarTokenTemp(((Usuario)session.getAttribute("usuario")).getPessoa().getId()))){
 				chain.doFilter(request, response);
 			}else {
-				((HttpServletResponse) response).sendRedirect("http://n2s.ufc.br"+Constantes.getAppGuardiaoUrl() + "/");
+				((HttpServletResponse) response).sendRedirect("http://n2s.russas.ufc.br"+Constantes.getAppGuardiaoUrl() + "/");
 			}
 		}				
 	}

@@ -5,6 +5,10 @@
      	<%
      	
      		String idEvento = request.getParameter("idEvento");
+     		if(idEvento == null){
+     			response.sendRedirect("indexAutor.jsp");
+     		}     		
+     	
      		DAOEvento daoEvento = new DAOEvento();
      		DAOTrilha daoTrilha = new DAOTrilha();
      		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));

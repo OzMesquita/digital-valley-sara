@@ -7,8 +7,13 @@
 	<% 
 		DAOEvento daoEvento = new DAOEvento();
 		DAOTrilha daoTrilha = new DAOTrilha();
-		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(request.getParameter("idEvento")));
-		Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
+		String idEvento = request.getParameter("idEvento");
+		String idTrilha = request.getParameter("idTrilha");
+		if (idEvento == null || idTrilha == null){
+			response.sendRedirect("indexAutor.jsp");	
+		}		
+		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
+		Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(idTrilha));
  
     %>
       <!--main content start-->
@@ -90,7 +95,7 @@
 						     					<br/>
 												<label>*Anexar Trabalho:</label>
 												
-								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
+								         		<input type="file" accept=".pdf" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
 								         		<br/>
 								         		<p style="font-size: 9; color:red;">(*)Campos Obrigatórios</p>
 								          		<input type="submit" onsubmit="verificacao();" value="Enviar">
@@ -126,6 +131,8 @@
     					if (cpf1.value == cpf2.value){
     						alert("ERRO: CPFS REPETIDOS! POR FAVOR VERIFICAR.");
     					}
+    					validarCPF(cpf1);
+    					validarCPF(cpf2);
     				}
     			}
     		}
@@ -139,7 +146,8 @@
     	var tamanhoArquivo = parseInt(document.getElementById("file_Input").files[0].size);
       	if(tamanhoArquivo > 5242880 ){
       			 alert("TAMANHO DO ARQUIVO EXCEDE O PERMITIDO (5MB)!");
-                document.getElementById('form').reset();
+      			document.getElementById('file_Input').type='';
+      			document.getElementById('file_Input').type='file';
             }
     };
     

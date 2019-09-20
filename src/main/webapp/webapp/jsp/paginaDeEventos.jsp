@@ -12,8 +12,12 @@
 	<% 
 		
 	    String idEvento = request.getParameter("idEvento");
-		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
-    	session.setAttribute("evento", evento);
+		if(idEvento == null){
+			//session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao carregar o evento!");
+			response.sendRedirect("indexAutor.jsp");
+		}
+			Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
+    		session.setAttribute("evento", evento);
 
     %>
       

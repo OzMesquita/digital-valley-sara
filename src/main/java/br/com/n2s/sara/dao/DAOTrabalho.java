@@ -91,10 +91,10 @@ public class DAOTrabalho extends DAO {
 				trabalho.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
 				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));
 				trabalho.setEnderecoInicial(rs.getString("endereco_ini"));
-				ArrayList autores = (ArrayList) pegarUsuarios(trabalho);
+				ArrayList autores = (ArrayList<Usuario>) new DAOSubmissao().getCoAutores(trabalho.getIdTrabalho());
 				trabalho.setAutores( autores );
-				trabalho.setAutor((Usuario) autores.get(0));
-				trabalho.getAutores().remove(0);
+				trabalho.setAutor(new DAOSubmissao().getAutorPrincipal(trabalho.getIdTrabalho()));
+				trabalho.setOrientador(new DAOSubmissao().getOrientador(trabalho.getIdTrabalho()));
 				trabalhos.add(trabalho);
 			}
 
@@ -133,10 +133,9 @@ public class DAOTrabalho extends DAO {
 				trabalho.setEnderecoInicial(rs.getString("endereco_ini"));
 				rs.close();
 				stmt.close();
-				ArrayList <Usuario> autores = pegarUsuarios(trabalho);
-				trabalho.setAutor(autores.get(0));
-				autores.remove(0);
-				trabalho.setAutores(autores);
+				ArrayList autores = (ArrayList<Usuario>) new DAOSubmissao().getCoAutores(trabalho.getIdTrabalho());
+				trabalho.setAutores( autores );
+				trabalho.setAutor(new DAOSubmissao().getAutorPrincipal(trabalho.getIdTrabalho()));
 				trabalho.setOrientador(new DAOSubmissao().getOrientador(trabalho.getIdTrabalho()));
 				
 				return trabalho;
@@ -273,7 +272,7 @@ public class DAOTrabalho extends DAO {
 			// TODO: handle exception
 		}		
 	}
-	
+	@Deprecated
 	private ArrayList<Usuario> pegarUsuarios(Trabalho t){
 		ArrayList<Usuario> autores = new ArrayList<Usuario>();
 		ArrayList<String> cpfs = (ArrayList<String>) new DAOSubmissao().getCPFAutores(t.getIdTrabalho());

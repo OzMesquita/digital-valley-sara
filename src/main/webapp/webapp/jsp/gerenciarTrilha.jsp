@@ -4,6 +4,9 @@
 
 	<%
 	    String idTrilha = request.getParameter("idTrilha");
+		if(idTrilha==null){
+			response.sendRedirect("indexAutor.jsp");
+		}
 	    Trilha trilha = (new DAOTrilha().getTrilha(Integer.parseInt(idTrilha)));
 	    session.setAttribute("trilha", trilha);
 	%>

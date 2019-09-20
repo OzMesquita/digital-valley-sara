@@ -86,8 +86,8 @@
 									           	<h4>Status: <%= trabalho.getStatus() %> </h4> 
 									            
 									            <% 
-									             if ( atual.getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL) && 
-									            		( trabalho.getStatus().equals(StatusTrabalho.ACEITO) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_FINAL))) { %>
+									             if (atual!=null && atual.getDescricao() == DescricaoPeriodo.SUBMISSAO_FINAL) 
+									            		if ( trabalho.getStatus()==StatusTrabalho.ACEITO || trabalho.getStatus()==StatusTrabalho.ACEITO_FINAL) { %>
 									            
 								          			<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 									           		<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />
@@ -111,7 +111,10 @@
 	               					 		<br>
 	               					 		<%} %>
 	               					 		
-	               					 		<%if( usuario.getCpf().equals(trabalho.getOrientador().getCpf()) && trabalho.getStatus().toString().equals(StatusTrabalho.ENVIADO.toString()) && atual.getDescricao().toString().equals(DescricaoPeriodo.AVAL.toString()) ) {%>
+	               					 		<%if( trabalho.getOrientador()!=null
+	               					 				&& usuario.getCpf().equals(trabalho.getOrientador().getCpf())
+	               					 				&& trabalho.getStatus()==StatusTrabalho.ENVIADO 
+	               					 				&& atual.getDescricao()==DescricaoPeriodo.AVAL ) {%>
 	               					 			<h2>Aval do orientador:</h2>
 	               					 			<p>O trabalho pode seguir para avaliação?</p>
 	               					 			<form action="Aval" method="post">
