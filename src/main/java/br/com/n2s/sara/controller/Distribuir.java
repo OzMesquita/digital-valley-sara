@@ -42,7 +42,7 @@ public class Distribuir extends HttpServlet {
 		if (trilha.getAvaliadores().size()<0) {
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores inválida!");
 		}
-		ArrayList<AvaliaTrabalho> av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuirPorTrilha(trilha, 1);
+		ArrayList<AvaliaTrabalho> av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorTrilhaComOrientador(trilha, trilha.getQtdCorrecoes());
 		for(AvaliaTrabalho a : av ){
 			new DAOAvaliaTrabalho().create(a);
 		}		

@@ -67,20 +67,22 @@
 				                   		<h2><%=c.getNome()%></h2>
 				                   		<p><%=c.getDescricao()%></p>
 				                   		<div class="input-group form-row">
-				                   		<%for(Item i : c.getItens()) {%>
-				                   			<div class="input-group-prepend col">
+				                 			<div class="input-group-prepend col">
     											<div class="input-group-text col">
+				                   		<%for(Item i : c.getItens()) {%>
+
     											<label class="radio-inline">
-    												<input type="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>"><p><%=i.getDescricao()%> Nota: <%=i.getPeso()%></p>
+    											<%=i.getDescricao()%> Nota: <%=i.getPeso()%>
+    											<input type="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>">
     											</label>
-    												
-    											</div>
-  											</div>
 				                   		<%} %>
+				                   			</div>
+  											</div>
 				                   		</div>
 				                   	</tr>
 				                   	<%} %>
 				                   	<tr>
+				                   		<br><br><br>
 				                   		<p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
 									    <p><textarea name="feedback" cols="30" rows="5" maxlength="5000" required></textarea></p>
 				                   	</tr>

@@ -3,6 +3,7 @@ package br.com.n2s.sara.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.management.RuntimeErrorException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,7 +59,8 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			session.setAttribute(Constantes.getSESSION_MGS(), "Avaliação realizada com sucesso!");
 			response.sendRedirect("avaliacao.jsp");	
 		}catch (Exception e) {
-			session.setAttribute(Constantes.getSESSION_MGS(), "Erro durante avaliação");			
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante avaliação");
+			throw new RuntimeException(e);
 		}
 	}
 

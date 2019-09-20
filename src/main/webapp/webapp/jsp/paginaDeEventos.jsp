@@ -12,13 +12,13 @@
 	<% 
 		
 	    String idEvento = request.getParameter("idEvento");
-		if(idEvento == null){
+		if(idEvento == null || idEvento == ""){
 			//session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao carregar o evento!");
 			response.sendRedirect("indexAutor.jsp");
-		}
+		}else{
 			Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
     		session.setAttribute("evento", evento);
-
+		
     %>
       
       <!--main content start-->
@@ -100,7 +100,7 @@
                                    
                                  </tr>
                                  
-                              <%}%>    
+                              <%}}%>    
                                  
                            </tbody>
                         </table>

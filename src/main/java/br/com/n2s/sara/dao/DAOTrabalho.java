@@ -234,6 +234,42 @@ public class DAOTrabalho extends DAO {
 			super.close();
 		}
 	}
+	public ArrayList<Trabalho> readTrilha(int idTrilha, StatusTrabalho st){
+		ArrayList<Trabalho> trabalhos = new ArrayList<>();
+		super.open();
+		String sql = "SELECT * FROM sara.trabalho WHERE idtrilha = ? AND status = ?";
+		try {
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1,idTrilha);
+			stmt.setString(2, st.name());
+			ResultSet rs = stmt.executeQuery();
+			super.close();
+			DAOTrilha daoTrilha = new DAOTrilha();
+			Trilha trilha = daoTrilha.getTrilha(idTrilha);
+			while(rs.next()){
+				Trabalho trabalho = new Trabalho();
+				trabalho.setIdTrabalho(rs.getInt("idTrabalho"));
+				trabalho.setTitulo(rs.getString("titulo"));
+				trabalho.setPalavrasChaves(rs.getString("palavrasChaves"));
+				trabalho.setResumo(rs.getString("resumo"));
+				trabalho.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
+				trabalho.setEndereco(rs.getString("endereco"));
+				trabalho.setTrilha(trilha);				
+				trabalho.setAutor(new DAOSubmissao().getAutorPrincipal(trabalho.getIdTrabalho()));
+				trabalho.setOrientador(new DAOSubmissao().getOrientador(trabalho.getIdTrabalho()));
+				trabalho.setAutores((ArrayList<Usuario>) new DAOSubmissao().getCoAutores(trabalho.getIdTrabalho()));
+				trabalhos.add(trabalho);
+			}
+			stmt.close();
+			rs.close();
+		
+			return trabalhos;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+	}
 	private void adicionaAutores(Trabalho t) {
 		try {
 			DAOSubmissao daoSubmissao = new DAOSubmissao();

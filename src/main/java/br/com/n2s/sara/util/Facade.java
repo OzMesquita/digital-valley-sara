@@ -26,6 +26,7 @@ import br.com.n2s.sara.dao.DAOUsuarioSemCadastro;
 import br.com.n2s.sara.model.AvaliaTrabalho;
 import br.com.n2s.sara.model.AvaliaTrilha;
 import br.com.n2s.sara.model.CoordenacaoEvento;
+import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.Item;
@@ -133,6 +134,8 @@ public class Facade {
 		}
 		return atual;
 	}
+	
+	
 	
 	public static void EnviarEmail(Trabalho t) {
 		if(t != null) {
@@ -253,6 +256,12 @@ public class Facade {
 		}
 		nota = nota / peso;
 		return nota;
+	}
+	
+	public static List<Item> ordenar(Criterio c){
+		ArrayList<Item> itens = c.getItens();
+		
+		return itens;
 	}
 	
 

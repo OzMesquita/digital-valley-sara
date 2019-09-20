@@ -31,7 +31,8 @@ public class DAOAvaliaTrabalho extends DAO {
 			stmt.setString(3, avalia.getFeedback());
 			stmt.setString(4, avalia.getStatus().toString());
 
-			stmt.execute();
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
 			stmt.close();
 			
 
