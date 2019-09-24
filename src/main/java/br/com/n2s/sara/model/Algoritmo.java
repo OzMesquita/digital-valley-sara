@@ -113,22 +113,14 @@ public class Algoritmo {
 			max_flow += path_flow; 
 		} 
 		// Return the overall flow
-		rGrafo = rGraph;
-		File f2 = new File("C:\\Users\\Fernando Willian\\Desktop\\Dist\\graficoResidual.txt");
-		try{
-		   if(!f2.exists())
-		f2.createNewFile();
-		   FileWriter out = new FileWriter(f2);   
-			for (u = 0; u < vertices; u++) {
-				for (v = 0; v < vertices; v++) {
-					out.append(String.valueOf(rGraph[u][v])+"|");
-				}
-				out.append('\n');
-			}
-				out.close();
-				}catch(Throwable e){
-					e.printStackTrace();
-				}
+		/*
+		 * rGrafo = rGraph; File f2 = new
+		 * File("C:\\Users\\Fernando Willian\\Desktop\\Dist\\graficoResidual.txt"); try{
+		 * if(!f2.exists()) f2.createNewFile(); FileWriter out = new FileWriter(f2); for
+		 * (u = 0; u < vertices; u++) { for (v = 0; v < vertices; v++) {
+		 * out.append(String.valueOf(rGraph[u][v])+"|"); } out.append('\n'); }
+		 * out.close(); }catch(Throwable e){ e.printStackTrace(); }
+		 */
 		return max_flow; 
 	} 
 	private void Roleta (int grafo [][], int fator, int tamanho, int diferenca, int qtdTrabalho) {
@@ -157,14 +149,16 @@ public class Algoritmo {
 			//long start = System.currentTimeMillis();
 			int max = fordFulkerson(this.grafo, 0, tamanho-1);
 			//int sobrecarga = totalTrabalhos- max;
-			System.out.println("O fluxo maximo é " + max);
-			System.out.println("O fluxo necessário é "+totalTrabalhos*numCorrecoes);
+			//System.out.println("O fluxo maximo é " + max);
+			//System.out.println("O fluxo necessário é "+totalTrabalhos*numCorrecoes);
 			if (max<totalTrabalhos*numCorrecoes) {	
 				while (max<totalTrabalhos*numCorrecoes) {
 					fatorCorrecao ++;
-					System.out.println("---------------------------------------------");
-					System.out.println("Fator aumentando em 1");
-					System.out.println("---------------------------------------------");
+				/*
+				 * System.out.println("---------------------------------------------");
+				 * System.out.println("Fator aumentando em 1");
+				 * System.out.println("---------------------------------------------");
+				 */
 					Roleta(this.grafo, fatorCorrecao, tamanho, totalTrabalhos*numCorrecoes-max,totalTrabalhos);
 					max = fordFulkerson(this.grafo, 0, tamanho-1);
 				}

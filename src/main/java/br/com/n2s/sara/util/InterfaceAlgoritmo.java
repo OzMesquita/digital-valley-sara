@@ -73,22 +73,22 @@ public class InterfaceAlgoritmo {
 		for (int i=0;i<tamanho;i++) {
 			grafo[tamanho-1][i]=0;
 		}
-
-		File f = new File("C:\\Users\\Fernando Willian\\Desktop\\Dist\\GrafoEntrada.txt");
-		try{
-		   if(!f.exists())
-		f.createNewFile();
-		   FileWriter out = new FileWriter(f);   
-		   for (int i = 0; i < tamanho; i++) {
-					for (int j = 0; j < tamanho; j++) {
-						out.append(String.valueOf(grafo[i][j])+"|");
-					}
-					out.append('\n');
-				}
-				out.close();
-				}catch(Throwable e){
-					e.printStackTrace();
-				}
+//
+//		File f = new File("C:\\Users\\Fernando Willian\\Desktop\\Dist\\GrafoEntrada.txt");
+//		try{
+//		   if(!f.exists())
+//		f.createNewFile();
+//		   FileWriter out = new FileWriter(f);   
+//		   for (int i = 0; i < tamanho; i++) {
+//					for (int j = 0; j < tamanho; j++) {
+//						out.append(String.valueOf(grafo[i][j])+"|");
+//					}
+//					out.append('\n');
+//				}
+//				out.close();
+//				}catch(Throwable e){
+//					e.printStackTrace();
+//				}
 		Algoritmo instAlgoritmo = new Algoritmo();
 		instAlgoritmo.setGrafo(grafo);
 		instAlgoritmo.setV(tamanho);
@@ -159,21 +159,21 @@ public class InterfaceAlgoritmo {
 			grafo[tamanho-1][i]=0;
 		}
 
-		File f = new File("C:\\Users\\Fernando Willian\\Desktop\\Dist\\GrafoEntrada.txt");
-		try{
-		   if(!f.exists())
-		f.createNewFile();
-		   FileWriter out = new FileWriter(f);   
-		   for (int i = 0; i < tamanho; i++) {
-					for (int j = 0; j < tamanho; j++) {
-						out.append(String.valueOf(grafo[i][j])+"|");
-					}
-					out.append('\n');
-				}
-				out.close();
-				}catch(Throwable e){
-					e.printStackTrace();
-				}
+//		File f = new File("C:\\Users\\Fernando Willian\\Desktop\\Dist\\GrafoEntrada.txt");
+//		try{
+//		   if(!f.exists())
+//		f.createNewFile();
+//		   FileWriter out = new FileWriter(f);   
+//		   for (int i = 0; i < tamanho; i++) {
+//					for (int j = 0; j < tamanho; j++) {
+//						out.append(String.valueOf(grafo[i][j])+"|");
+//					}
+//					out.append('\n');
+//				}
+//				out.close();
+//				}catch(Throwable e){
+//					e.printStackTrace();
+//				}
 		Algoritmo instAlgoritmo = new Algoritmo();
 		instAlgoritmo.setGrafo(grafo);
 		instAlgoritmo.setV(tamanho);
