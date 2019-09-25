@@ -58,7 +58,7 @@
 									         	
 									         	
 									         	<h4>Título:</h4>
-									         	<p><%= trabalho.getTitulo() %>"</p>
+									         	<p><%= trabalho.getTitulo() %></p>
 									            
 									            <% if (!trabalho.getResumo().equals("")) { %>
 									           	
@@ -114,7 +114,7 @@
 	               					 		<%if( trabalho.getOrientador()!=null
 	               					 				&& usuario.getCpf().equals(trabalho.getOrientador().getCpf())
 	               					 				&& trabalho.getStatus()==StatusTrabalho.ENVIADO 
-	               					 				&& atual.getDescricao()==DescricaoPeriodo.AVAL ) {%>
+	               					 				&& (atual.getDescricao()==DescricaoPeriodo.AVAL || atual.getDescricao()==DescricaoPeriodo.SUBMISSAO_MANUSCRITO ) ) {%>
 	               					 			<h2>Aval do orientador:</h2>
 	               					 			<p>O trabalho pode seguir para avaliação?</p>
 	               					 			<form action="Aval" method="post">

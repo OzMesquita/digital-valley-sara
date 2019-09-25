@@ -1,8 +1,12 @@
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="br.com.n2s.sara.model.StatusTrabalho"%>
 <%@page import="br.com.n2s.sara.dao.DAOAvaliaTrabalho"%>
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Trabalho"%>
+<%@page import="br.com.n2s.sara.model.Periodo"%>
+<%@page import="br.com.n2s.sara.model.DescricaoPeriodo"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 
      	<%
@@ -59,7 +63,8 @@
 			       			for(int i = 0; i < trabalhos.size(); i++){
 			                	
 			               %>
-			               
+			               <% Periodo atual = Facade.periodoAtual(new DAOTrilha().getTrilha(trabalhos.get(i).getTrilha().getIdTrilha()));   
+			               		if (atual!=null && atual.getDescricao() == DescricaoPeriodo.AVALIACAO) {%>
 			               <tr>
 			                   
 			                   <td><%= trabalhos.get(i).getTitulo() %> </td> 
@@ -77,7 +82,7 @@
 			                   </td>
 			                   
 			               </tr>
-			        		 
+			        		 <%} %>
 							    <% 
 							        }
 							    %>

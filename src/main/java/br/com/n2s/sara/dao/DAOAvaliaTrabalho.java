@@ -263,6 +263,27 @@ public class DAOAvaliaTrabalho extends DAO {
 		}finally {
 			super.close();
 		}
+	}public void updatePerAvaliador(AvaliaTrabalho avaliaTrabalho){
+
+		super.open();
+		String sql = "update sara.avaliatrabalho set  idtrabalho = ?, feedback = ?, status = ?" 
+				+ " where idTrabalho = ? and idavaliador = ?";
+
+		try {
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, avaliaTrabalho.getTrabalho().getIdTrabalho());
+			stmt.setString(2, avaliaTrabalho.getFeedback());
+			stmt.setString(3, avaliaTrabalho.getStatus().toString());
+			stmt.setInt(4, avaliaTrabalho.getTrabalho().getIdTrabalho());
+			stmt.setString(5, avaliaTrabalho.getAvaliador().getCpf());
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
 	}
 	
 	public void updateCriterioAvaliados(int idAvaliacao, int idItem, int idCriterio) {

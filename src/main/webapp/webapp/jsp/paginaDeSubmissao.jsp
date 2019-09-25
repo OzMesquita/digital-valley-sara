@@ -292,6 +292,11 @@
 	    'insert': function()
 	    {
 	        var newDiv = this.divAutorBase.cloneNode(true);
+	        for (var i=0;i<newDiv.getElementsByTagName('input').length;i++){
+	        	if (newDiv.getElementsByTagName('input')[i].type == "text"){
+	        		newDiv.getElementsByTagName('input').value='';
+	        	}
+	        }
 	        this.divAutorList.appendChild(newDiv);
 	    },
 	    

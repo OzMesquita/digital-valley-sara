@@ -21,6 +21,7 @@ import br.com.n2s.sara.util.Facade;
 import br.com.n2s.sara.model.AvaliaTrabalho;
 import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.Item;
+import br.com.n2s.sara.model.StatusTrabalho;
 
 /**
  * Servlet implementation class SalvarAvaliacaoArtigo
@@ -55,7 +56,15 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			av.setItens(itens);
 			av.setNota(Facade.calcularNota(av));
 			av.setFeedback(feedback);
-			new DAOAvaliaTrabalho().update(av);
+			if(av.getNota()>=7) {
+				trabalho.setStatus(StatusTrabalho.ACEITO);
+				av.setStatus(StatusTrabalho.ACEITO);
+			}else {
+				trabalho.setStatus(StatusTrabalho.REJEITADO);
+				av.setStatus(StatusTrabalho.REJEITADO);
+			}
+			new DAOTrabalho().update(trabalho);
+			new DAOAvaliaTrabalho().updatePerAvaliador(av);
 			session.setAttribute(Constantes.getSESSION_MGS(), "Avaliação realizada com sucesso!");
 			response.sendRedirect("avaliacao.jsp");	
 		}catch (Exception e) {
