@@ -152,11 +152,11 @@ public class Facade {
 							"\r\n" + 
 							"E-mail automático, não responda.\r\n" + 
 							"\r\n" + 
-							"Sistema SARA -  Submissção Avaliação e Revisãoo de Artigos\r\n" + 
-							"Por: Núcleo de Soluçõees em Software - N2S\r\n" + 
+							"Sistema SARA -  Submissão Avaliação e Revisão de Artigos\r\n" + 
+							"Por: Núcleo de Soluções em Software - N2S\r\n" + 
 							"\r\n" + 
-							"Núcleo de Soluçõees em Software- N2S";
-					e.sendEmail("SubmissÃ£o de trabalho - SARA- Submissão, Avaliação e Revisão de Artigos", msg, u.getEmail(), u.getNome());
+							"Núcleo de Soluções em Software- N2S";
+					e.sendEmail("Submissão de trabalho - SARA- Submissão, Avaliação e Revisão de Artigos", msg, u.getEmail(), u.getNome());
 				}
 			}
 		}
