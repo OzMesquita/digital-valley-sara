@@ -252,7 +252,7 @@ public class Facade {
 		float peso=0;
 		for (Item i : av.getItens()) {
 			nota = nota + i.getPeso() * i.getCriterio().getPeso();
-			peso = i.getCriterio().getPeso();
+			peso = peso + i.getCriterio().getPeso();
 		}
 		nota = nota / peso;
 		return nota;
