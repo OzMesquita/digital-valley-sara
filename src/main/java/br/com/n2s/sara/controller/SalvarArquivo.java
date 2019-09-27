@@ -132,7 +132,7 @@ public class SalvarArquivo extends HttpServlet {
         if(request.getParameter("idTrabalho") != null) {
         	int idTrabalho = Integer.parseInt(request.getParameter("idTrabalho"));
         	Trabalho tAntigo = daoTrabalho.getTrabalho(idTrabalho); 
-        	File arquivo = new File(tAntigo.getEndereco());
+        	File arquivo = new File(tAntigo.getEnderecoInicial());
         	arquivo.delete();
         	new DAOSubmissao().delete(idTrabalho);
         	daoTrabalho.delete(idTrabalho);
