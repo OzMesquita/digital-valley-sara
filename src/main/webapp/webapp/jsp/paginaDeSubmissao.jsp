@@ -11,10 +11,10 @@
 		String idTrilha = request.getParameter("idTrilha");
 		if (idEvento == null || idTrilha == null){
 			response.sendRedirect("indexAutor.jsp");	
-		}		
+		}else{		
 		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
 		Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(idTrilha));
- 
+		
     %>
       <!--main content start-->
       <section id="main-content">
@@ -112,6 +112,7 @@
               <!-- page end-->
   </section>
 </section>
+<%} %>
   <!-- container section start -->
     
     <!-- javascripts -->
@@ -294,7 +295,7 @@
 	        var newDiv = this.divAutorBase.cloneNode(true);
 	        for (var i=0;i<newDiv.getElementsByTagName('input').length;i++){
 	        	if (newDiv.getElementsByTagName('input')[i].type == "text"){
-	        		newDiv.getElementsByTagName('input').value='';
+	        		newDiv.getElementsByTagName('input')[i].value='';
 	        	}
 	        }
 	        this.divAutorList.appendChild(newDiv);

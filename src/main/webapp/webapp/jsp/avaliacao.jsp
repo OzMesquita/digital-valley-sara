@@ -2,6 +2,7 @@
 <%@page import="br.com.n2s.sara.model.StatusTrabalho"%>
 <%@page import="br.com.n2s.sara.dao.DAOAvaliaTrabalho"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
+<%@page import="br.com.n2s.sara.model.Trilha" %>
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Trabalho"%>
@@ -63,7 +64,8 @@
 			       			for(int i = 0; i < trabalhos.size(); i++){
 			                	
 			               %>
-			               <% Periodo atual = Facade.periodoAtual(new DAOTrilha().getTrilha(trabalhos.get(i).getTrilha().getIdTrilha()));   
+			               <% 	Trilha trilha = new DAOTrilha().getTrilha(trabalhos.get(i).getTrilha().getIdTrilha());
+			               		Periodo atual = Facade.periodoAtual(trilha);   
 			               		if (atual!=null && atual.getDescricao() == DescricaoPeriodo.AVALIACAO) {%>
 			               <tr>
 			                   
