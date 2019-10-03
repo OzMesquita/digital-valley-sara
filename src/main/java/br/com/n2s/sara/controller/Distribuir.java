@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.n2s.sara.dao.DAOAvaliaTrabalho;
 import br.com.n2s.sara.dao.DAOAvaliaTrilha;
+import br.com.n2s.sara.dao.DAOEvento;
 import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.dao.DAOTrilha;
@@ -34,62 +35,24 @@ public class Distribuir extends HttpServlet {
 		HttpSession session = request.getSession();
 		Trilha trilha = new Trilha();
 		DAOTrilha daoTrilha = new DAOTrilha();
-		trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
-		if( (trilha==null || trilha.getAvaliadores()==null)) {
-			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Trilha inválida");
-			response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");	
-		}
-		if (trilha.getAvaliadores().size()<0) {
-			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores inválida!");
-		}
-		ArrayList<AvaliaTrabalho> av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorTrilhaComOrientador(trilha, trilha.getQtdCorrecoes());
+		ArrayList<AvaliaTrabalho> av = new ArrayList<AvaliaTrabalho>(); 
+		if (request.getParameter("idTrilha") != null) {	
+			trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
+			if( (trilha==null || trilha.getAvaliadores()==null)) {
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Trilha inválida");
+				response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");	
+			}
+			if (trilha.getAvaliadores().size()<0) {
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores inválida!");
+			}
+			 av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorTrilhaComOrientador(trilha, trilha.getQtdCorrecoes());
+		}else {
+			Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
+			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorEventoComOrientador(evento, 1);
+		}		
 		for(AvaliaTrabalho a : av ){
 			new DAOAvaliaTrabalho().create(a);
 		}		
-		
-		/*Periodo periodo = new Periodo();
-		periodo = Facade.periodoAtual(trilha);
-		if(periodo.getDescricao()!=DescricaoPeriodo.AVALIACAO) {
-			response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
-		}*/
-//		DAOAvaliaTrilha daoAvaliaTrilha = new DAOAvaliaTrilha();
-//		DAOTrabalho daoTrabalho = new DAOTrabalho();
-//		ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();
-//		trabalhos = (ArrayList<Trabalho>) daoTrabalho.readTrilha(trilha.getIdTrilha());
-//		ArrayList<Usuario> avaliadores = (ArrayList<Usuario>) daoAvaliaTrilha.getAvaliadores(trilha.getIdTrilha());
-//		if(trabalhos.size()>0) {
-//			int razao = trabalhos.size() / avaliadores.size();
-//			int alocados = 0;
-//			int resto = trabalhos.size() % avaliadores.size();
-//			for(Usuario av :avaliadores) {
-//					for(int i=0;i<trabalhos.size();i++)
-//						if(alocados < razao) {	
-//							if(isAutor(av.getCpf(), trabalhos.get(i))) {
-//								continue;
-//							}else {
-//								SalvarAvaliador(av, trabalhos.get(i));
-//								trabalhos.remove(trabalhos.get(i));
-//								alocados ++;
-//							}
-//						}else { 
-//							alocados=0;
-//							break;
-//						}
-//					}
-//			alocados=0;
-//			while (resto>0) {
-//				if (!trabalhos.isEmpty()) {
-//					if(! (isAutor(avaliadores.get(alocados).getCpf(), trabalhos.get(0))) ) {
-//						SalvarAvaliador(avaliadores.get(alocados), trabalhos.get(0));
-//						trabalhos.remove(0);
-//						resto--;
-//						alocados++;
-//					}else {
-//						alocados--;
-//					}					
-//				}
-//			}		
-//		}
 		
 		response.sendRedirect("indexAutor.jsp");
 	}

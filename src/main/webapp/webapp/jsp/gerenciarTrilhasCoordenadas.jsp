@@ -155,20 +155,30 @@
 						    <button class="btn btn-primary" type = "submit">Gerar Relatório Final</button>
 						</form>
 					</td>
+					</tr>
+				<tr>
 					<td>
 						<form action="relacaoDeTrabalhos.jsp" method="post" > 
 				        	<select name="statusTrabalho" class="form-control">
-  								<option value="<%= StatusTrabalho.ENVIADO.toString()%>">Enviado</option>
-  								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Em Avaliação</option>
-  								<option value="<%= StatusTrabalho.ACEITO.toString()%>">Aceito</option>
-  								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Rejeitado</option>
-  								<option value="<%= StatusTrabalho.SUBMISSAO_FINAL.toString()%>">Submissao Final</option>
-  								<option value="<%= StatusTrabalho.ACEITO_FINAL.toString()%>">Aceito Final</option>
+				        	<%for (StatusTrabalho e : StatusTrabalho.values()){%>
+				        	<option value="<%=e.ENVIADO.toString()%>"><%=e.getDescricao()%></option>
+<%--   								<option value="<%= StatusTrabalho.ENVIADO.toString()%>">Enviado</option> --%>
+<%--   								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Em Avaliação</option> --%>
+<%--   								<option value="<%= StatusTrabalho.ACEITO.toString()%>">Aceito</option> --%>
+<%--   								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Rejeitado</option> --%>
+<%--   								<option value="<%= StatusTrabalho.SUBMISSAO_FINAL.toString()%>">Submissao Final</option> --%>
+<%--   								<option value="<%= StatusTrabalho.ACEITO_FINAL.toString()%>">Aceito Final</option> --%>
+							<%} %>
 							</select>
 							<br>
 							<button class="btn btn-primary" type = "submit">Relação de Trabalhos</button>
 						</form>
 					</td>
+					<td><form action="Distribuir" method="post">
+			                   			<input type="hidden" value="<%=evento.getIdEvento()%>" name="idEvento">
+			                   			<button class="btn btn-primary" type="submit">Distribuir Todos os Trabalhos</button>
+			                   		</form>
+			      	</td>
 				</tr>
 			</table> 
 		    
