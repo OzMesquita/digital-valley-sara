@@ -57,10 +57,23 @@
                           </header>
                         <table class="table table-striped table-advance table-hover">
 	                        <tbody>
-	                        <form method="post" action="SalvarAvaliacaoArtigo">
+	                        <form method="post" onsubmit="myFunction()" action="SalvarAvaliacaoArtigo">
 	                        <input type="hidden" value="<%=trabalho.getIdTrabalho() %>" name="t-a" >
 				                    <tr>                               
 				                       <th><h2><%= trabalho.getTrilha().getDescricao() %></h2> </th>
+				                    </tr>
+				                    <tr>
+				                    	<h2>Critério Inicial</h2>
+				                    	<p>O resumo está identificado? (Caso esteja identificado, o resumo deve ser rejeitado)</p>
+				                    	<div class="input-group form-row">
+				                 			<div class="input-group-prepend col">
+    											<div class="input-group-text col">
+	    											<label class="radio-inline">
+					                    	 	 		<input type="radio" name="padrao" value="0" onchange="desativa()">DESATIVADO</input>
+	  													<input type="radio" name="padrao" onchange="ativa()" value="1">ATIVADO</input>
+	  												</label>
+  												</div>
+  											</div>	
 				                    </tr>
 				                    <%for(Criterio c :trabalho.getTrilha().getCriterios()) {%>
 				                    <tr>
@@ -70,11 +83,12 @@
 				                 			<div class="input-group-prepend col">
     											<div class="input-group-text col">
 				                   		<%for(Item i : c.getItens()) {%>
-
+												<div id=nota>
     											<label class="radio-inline">
     											<%=i.getDescricao()%> Nota: <%=i.getPeso()%>
-    											<input type="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>">
+    											<input type="radio" id="radio-nota" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>">
     											</label>
+    											</div>
 				                   		<%} %>
 				                   			</div>
   											</div>
@@ -142,6 +156,40 @@
 	<script src="../js/sparklines.js"></script>	
 	<script src="../js/charts.js"></script>
 	<script src="../js/jquery.slimscroll.min.js"></script>
+	<!-- Este é o script para calcular a nota -->
+			<script>
+			function ativa(){
+				var doc = document.getElementById('nota');
+				doc = doc.getElementsByTagName('input');
+					  		for (var i=0;i<doc.length;i++){
+									doc[i].checked=false;
+									doc[i].disabled=false;
+							}
+			}
+			function desativa(){
+				var doc = document.getElementById('nota');
+				doc = doc.getElementsByTagName('input');
+					  		for (var i=0;i<doc.length;i++){
+									if( doc[i].value == '0'){
+										doc[i].checked=true;
+									}else{
+										doc[i].checked=false;
+									}
+									doc[i].disabled=true;
+							}
+			}
+			function myFunction() {
+				var doc = document.getElementById('nota');
+				doc = doc.getElementsByTagName('input');
+						  		var nota=0;
+						  		for (var i=0;i<doc.length;i++){
+									if(doc[i].checked){
+										nota = nota+parseInt(doc[i].value);
+									}
+								}
+				alert("A nota para o trabalho é: "+nota);
+		</script>
+	
 	<!-- este é o script para gerar os campos do autor -->
 	<script>
      var  autorList = {
