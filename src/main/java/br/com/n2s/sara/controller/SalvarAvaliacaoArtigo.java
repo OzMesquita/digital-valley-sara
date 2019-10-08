@@ -56,7 +56,7 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			av.setItens(itens);
 			av.setNota(Facade.calcularNota(av));
 			av.setFeedback(feedback);
-			if(av.getNota()>=7) {
+			if(av.getNota()>=6) {
 				trabalho.setStatus(StatusTrabalho.ACEITO);
 				av.setStatus(StatusTrabalho.ACEITO);
 			}else {

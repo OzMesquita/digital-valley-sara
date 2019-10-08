@@ -314,7 +314,8 @@ public class InterfaceAlgoritmo {
 	public static List<AvaliaTrabalho> distribuPorEventoComOrientador(Evento e, int numCorrecoes){
 		ArrayList<AvaliaTrabalho> distribuidos = new ArrayList<AvaliaTrabalho>();
 		ArrayList<Usuario> avaliadores = (ArrayList<Usuario>) new DAOAvaliaEvento().buscarPorEvento(e.getIdEvento());
-		ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();		
+		ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();
+		e.setTrilhas(new DAOTrilha().readById(e.getIdEvento()));
 		
 		for(Trilha t : e.getTrilhas()) {
 			t = new DAOTrilha().getTrilha(t.getIdTrilha());
