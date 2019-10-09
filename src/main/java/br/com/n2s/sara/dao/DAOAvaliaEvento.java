@@ -9,6 +9,7 @@ import java.util.List;
 import javax.management.RuntimeErrorException;
 
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Facade;
 
 public class DAOAvaliaEvento extends DAO{
 
@@ -24,7 +25,7 @@ public class DAOAvaliaEvento extends DAO{
 			ResultSet rs = stmt.executeQuery();
 			super.close();
 			while(rs.next()) {
-				Usuario u = new DAOUsuario().getUsuario(rs.getString("id_avaliador"));
+				Usuario u = Facade.pegarUsuario(rs.getString("id_avaliador"));
 				avaliadores.add(u);
 			}
 			rs.close();

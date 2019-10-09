@@ -319,7 +319,9 @@ public class InterfaceAlgoritmo {
 		
 		for(Trilha t : e.getTrilhas()) {
 			t = new DAOTrilha().getTrilha(t.getIdTrilha());
-			trabalhos.addAll(new DAOTrabalho().readTrilha(t.getIdTrilha(), StatusTrabalho.ACEITO_ORIENTADOR));
+			ArrayList<Trabalho> trabAdd = new DAOTrabalho().readTrilha(t.getIdTrilha(), StatusTrabalho.ACEITO_ORIENTADOR);
+			if(trabAdd!=null)
+				trabalhos.addAll(trabAdd);
 		}
 		int tamanho = avaliadores.size()+trabalhos.size()+2;
 		int grafo [][] = new int [tamanho][tamanho];
