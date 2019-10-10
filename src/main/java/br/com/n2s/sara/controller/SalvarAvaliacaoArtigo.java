@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.n2s.sara.dao.DAOAvaliaTrabalho;
+import br.com.n2s.sara.dao.DAOCriterio;
+import br.com.n2s.sara.dao.DAOCriterioTrilha;
 import br.com.n2s.sara.dao.DAOItem;
 import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.model.Trabalho;
@@ -49,7 +51,8 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			ArrayList<Item> itens = new ArrayList<Item>(); 
 			for (Criterio c : trabalho.getTrilha().getCriterios()) {
 				int idItem = Integer.parseInt(request.getParameter("criterio-"+c.getIdCriterio()));
-				Item item = new DAOItem().getItem(idItem);
+				Item item = new DAOItem().getItemPorNota(idItem, c.getIdCriterio());
+				item.setCriterio(c);
 				itens.add(item);
 				new DAOAvaliaTrabalho().updateCriterioAvaliados(av.getId(), item.getIdItem(), c.getIdCriterio());
 			}

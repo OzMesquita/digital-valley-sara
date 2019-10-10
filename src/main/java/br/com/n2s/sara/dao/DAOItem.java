@@ -144,6 +144,41 @@ public class DAOItem extends DAO{
 			super.close();
 		}
 	}
+	public Item getItemPorNota(int idItem, int idCriterio){
+
+		super.open();
+		String sql = "select * from sara.item where nota = ? and idcriterio= ?";
+
+		try{
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, idItem);
+			stmt.setInt(1, idCriterio);
+			ResultSet rs = stmt.executeQuery();
+			super.close();
+			//DAOCriterio daoCriterio = new DAOCriterio();
+
+			if(rs.next()){
+
+				Item item = new Item();
+
+				item.setIdItem(rs.getInt("idItem"));
+				item.setDescricao(rs.getString("descricao"));
+				item.setPeso(rs.getInt("nota"));
+				//item.setCriterio(daoCriterio.getCriterio(rs.getInt("idCriterio")));
+
+				rs.close();
+				stmt.close();
+				
+				return item;
+			}else{
+				return null;
+			}
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+	}
 
 	public void update(Item item){
 
