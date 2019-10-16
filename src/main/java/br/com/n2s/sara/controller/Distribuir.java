@@ -46,9 +46,12 @@ public class Distribuir extends HttpServlet {
 				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores inválida!");
 			}
 			 av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorTrilhaComOrientador(trilha, trilha.getQtdCorrecoes());
-		}else {
+		}else if(request.getParameter("idEvento") != null && request.getParameter("tipo") == null ){
 			Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
 			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorEventoComOrientador(evento, 1);
+		}else if (request.getParameter("idEvento") != null && request.getParameter("tipo") != null) {
+			Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
+			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorEventoRecurso(evento, 1);
 		}		
 		for(AvaliaTrabalho a : av ){
 			new DAOAvaliaTrabalho().create(a);

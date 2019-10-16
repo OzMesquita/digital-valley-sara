@@ -155,6 +155,13 @@
 						    <button class="btn btn-primary" type = "submit">Gerar Relatório Final</button>
 						</form>
 					</td>
+					<td>	     
+						<form action="GerarRelatorio" method="post" >
+				        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+				        	<input type="hidden" value="relatorioAceito" name="tipoRelatorio">
+						    <button class="btn btn-primary" type = "submit">Gerar Relatório de Aceitos</button>
+						</form>
+					</td>
 					</tr>
 				<tr>
 					<td>
@@ -177,6 +184,12 @@
 					<td><form action="Distribuir" method="post">
 			                   			<input type="hidden" value="<%=evento.getIdEvento()%>" name="idEvento">
 			                   			<button class="btn btn-primary" type="submit">Distribuir Todos os Trabalhos</button>
+			                   		</form>
+			      	</td>
+			      	<td><form action="Distribuir" method="post">
+			                   			<input type="hidden" value="<%=evento.getIdEvento()%>" name="idEvento">
+			                   			<input type="hidden" value="recurso" name="tipo">
+			                   			<button class="btn btn-primary" type="submit">Distribuir Todos os Trabalhos do Recurso</button>
 			                   		</form>
 			      	</td>
 				</tr>

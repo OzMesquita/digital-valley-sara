@@ -51,7 +51,7 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			ArrayList<Item> itens = new ArrayList<Item>(); 
 			for (Criterio c : trabalho.getTrilha().getCriterios()) {
 				int idItem = Integer.parseInt(request.getParameter("criterio-"+c.getIdCriterio()));
-				Item item = new DAOItem().getItemPorNota(idItem, c.getIdCriterio());
+				Item item = new DAOItem().getItem(idItem);
 				item.setCriterio(c);
 				itens.add(item);
 				new DAOAvaliaTrabalho().updateCriterioAvaliados(av.getId(), item.getIdItem(), c.getIdCriterio());
@@ -59,15 +59,28 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			av.setItens(itens);
 			av.setNota(Facade.calcularNota(av));
 			av.setFeedback(feedback);
-			if(av.getNota()>=6) {
-				trabalho.setStatus(StatusTrabalho.ACEITO);
-				av.setStatus(StatusTrabalho.ACEITO);
-			}else {
-				trabalho.setStatus(StatusTrabalho.REJEITADO);
-				av.setStatus(StatusTrabalho.REJEITADO);
-			}
-			new DAOTrabalho().update(trabalho);
 			new DAOAvaliaTrabalho().updatePerAvaliador(av);
+			ArrayList<AvaliaTrabalho> avaliacoes = (ArrayList<AvaliaTrabalho>) new DAOAvaliaTrabalho().read(trabalho);
+			boolean finalizado=false;
+			if (avaliacoes!=null) {
+				for (AvaliaTrabalho avalia : avaliacoes) {
+					if (avalia.getStatus().equals(StatusTrabalho.EM_AVALIACAO)) {
+						finalizado = false;
+						break;
+					}
+				}
+			}
+			if(finalizado) {
+				if(Facade.calcularNota(avaliacoes)>=6) {
+					trabalho.setStatus(StatusTrabalho.ACEITO);
+					av.setStatus(StatusTrabalho.ACEITO);
+				}else {
+					trabalho.setStatus(StatusTrabalho.REJEITADO);
+					av.setStatus(StatusTrabalho.REJEITADO);
+				}
+				new DAOTrabalho().update(trabalho);
+				new DAOAvaliaTrabalho().update(av);
+			}			
 			session.setAttribute(Constantes.getSESSION_MGS(), "Avaliação realizada com sucesso!");
 			response.sendRedirect("avaliacao.jsp");	
 		}catch (Exception e) {

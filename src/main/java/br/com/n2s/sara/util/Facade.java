@@ -257,11 +257,40 @@ public class Facade {
 		nota = nota / peso;
 		return nota;
 	}
+	public static Float calcularNota( ArrayList<AvaliaTrabalho> avaliacoes) {
+		float nota=0;
+		float peso=0;
+		float notaFinal=0;
+		for (AvaliaTrabalho av : avaliacoes) {
+			for (Item i : av.getItens()) {
+			nota = nota + i.getPeso() * i.getCriterio().getPeso();
+			peso = peso + i.getCriterio().getPeso();
+			}
+			nota = nota / peso;
+			notaFinal = notaFinal + nota;
+		}	
+		notaFinal=notaFinal / avaliacoes.size();
+		return notaFinal;
+	}
 	
 	public static List<Item> ordenar(Criterio c){
 		ArrayList<Item> itens = c.getItens();
 		
 		return itens;
+	}
+	
+	public static boolean isAvaliador(Trabalho t, String cpf) {
+		ArrayList<AvaliaTrabalho> avaliacoes = (ArrayList<AvaliaTrabalho>) new DAOAvaliaTrabalho().read(t);
+		if(avaliacoes == null) {
+			return false;
+		}else {
+		for (AvaliaTrabalho av : avaliacoes) {
+			if(cpf.equals(av.getAvaliador().getCpf())) {
+				return true;
+			}
+		}
+		return false;	
+		}	
 	}
 	
 

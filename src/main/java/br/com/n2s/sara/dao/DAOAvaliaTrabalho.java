@@ -76,6 +76,40 @@ public class DAOAvaliaTrabalho extends DAO {
 			super.close();
 		}
 	}
+	public List<AvaliaTrabalho> read(Trabalho t){
+		super.open();
+		String sql = "select * from sara.avaliatrabalho where idtrabalho=?";
+
+		try{
+			ArrayList<AvaliaTrabalho> avaliacoes = new ArrayList<AvaliaTrabalho>();
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, t.getIdTrabalho());
+			ResultSet rs = stmt.executeQuery();
+			super.close();
+			while(rs.next()){				
+				DAOUsuario daoUser = new DAOUsuario();
+				DAOTrabalho daoTrab = new DAOTrabalho();
+
+				AvaliaTrabalho avalia = new AvaliaTrabalho();
+				avalia.setAvaliador(daoUser.getUsuario((rs.getString("idavaliador"))));
+				avalia.setTrabalho(t);
+				avalia.setFeedback(rs.getString("feedback"));
+				avalia.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
+				avalia.setId(rs.getInt("idavaliatrabalho"));
+				avaliacoes.add(avalia);
+			}
+
+			rs.close();
+			stmt.close();
+			
+			return avaliacoes;
+
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+	}
 
 	public List<Trabalho> read(String cpfAvaliador){
 		
@@ -263,7 +297,27 @@ public class DAOAvaliaTrabalho extends DAO {
 		}finally {
 			super.close();
 		}
-	}public void updatePerAvaliador(AvaliaTrabalho avaliaTrabalho){
+	}
+		public void updateStatus(AvaliaTrabalho avaliaTrabalho){
+
+			super.open();
+			String sql = "update sara.avaliatrabalho set status = ?" 
+					+ " where idTrabalho = ?";
+
+			try {
+				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+				stmt.setString(1, avaliaTrabalho.getStatus().toString());
+				stmt.setInt(2, avaliaTrabalho.getTrabalho().getIdTrabalho());
+				stmt.execute();
+				stmt.close();
+				
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}finally {
+				super.close();
+			}
+		}
+		public void updatePerAvaliador(AvaliaTrabalho avaliaTrabalho){
 
 		super.open();
 		String sql = "update sara.avaliatrabalho set  idtrabalho = ?, feedback = ?, status = ?" 

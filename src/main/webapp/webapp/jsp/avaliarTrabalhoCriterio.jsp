@@ -84,7 +84,8 @@
 												<div id=nota>
     											<label class="radio-inline">
     											<%=i.getDescricao()%> Nota: <%=i.getPeso()%>
-    											<input type="radio" class="radio-nota" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getPeso()%>">
+    											<input type="radio" class="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%> required">
+    											<input type="hidden" class="radio-nota" value="<%=i.getPeso()%>">
     											</label>
     											</div>
 				                   		<%} %>
@@ -119,8 +120,7 @@
     <script>
 			function ativa(){
 				console.log("socorro");
-				var doc = document.getElementsByClassName('radio-nota');
-				
+				var doc1 = document.getElementsByClassName('radio-nota');
 					  		for (var i=0;i<doc.length;i++){
 									doc[i].checked=false;
 									doc[i].disabled=false;
@@ -130,29 +130,34 @@
 	</script>
 	 <script>
 			function desativa(){
-				var doc = document.getElementsByClassName('radio-nota');
-				
+				var doc = document.getElementsByClassName('radio');
+				var doc1 = document.getElementsByClassName('radio-nota');
 					  		for (var i=0;i<doc.length;i++){
-									if( doc[i].value == '0'){
+									if( doc1[i].value == '0'){
 										doc[i].checked=true;
 									}else{
 										doc[i].checked=false;
 									}
-									doc[i].disabled=true;
+										
+
 									console.log("socorro");
 							}
 			}
 	</script>
 	 <script>
 			function myFunction() {
-				var doc = document.getElementsByClassName('radio-nota');
+				var doc = document.getElementsByClassName('radio');
+				var doc1 = document.getElementsByClassName('radio-nota');
 						  		var nota=0;
+						  		var cont=0;
 						  		for (var i=0;i<doc.length;i++){
 									if(doc[i].checked){
-										nota = nota+parseInt(doc[i].value);
+										nota = nota+parseInt(doc1[i].value);
+										cont = cont +1;
 									}
 								}
-				alert("A nota para o trabalho é: "+nota);
+						  		
+				alert("A nota para o trabalho é: "+nota/cont);
 			}
 		</script>
     
