@@ -111,8 +111,8 @@
 	               					 		<br>
 	               					 		<%} %>
 	               					 		<% 
-	               					 		if(atual.getDescricao()==DescricaoPeriodo.RECURSO && trabalho.getStatus()==StatusTrabalho.REJEITADO 
-	               					 				&& trabalho.getStatus()==StatusTrabalho.REJEITADO_ORIENTADOR){%>
+	               					 		if(atual.getDescricao()==DescricaoPeriodo.RECURSO && (trabalho.getStatus()==StatusTrabalho.REJEITADO 
+	               					 				|| trabalho.getStatus()==StatusTrabalho.REJEITADO_ORIENTADOR)){%>
 	               					 			<form action="paginaDeSubmissao.jsp" method="post" onsubmit="return confirm('Deseja reenviar este trabalho?');"> 
 			                   						<input type="hidden" value="<%= trabalho.getTrilha().getIdTrilha()%>" name="idTrilha">
 			                   						<input type="hidden" value="<%= trabalho.getTrilha().getEvento().getIdEvento()%>" name="idEvento"> 
