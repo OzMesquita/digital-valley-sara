@@ -39,11 +39,11 @@ public class Distribuir extends HttpServlet {
 		if (request.getParameter("idTrilha") != null) {	
 			trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
 			if( (trilha==null || trilha.getAvaliadores()==null)) {
-				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Trilha inválida");
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Trilha invï¿½lida");
 				response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");	
 			}
 			if (trilha.getAvaliadores().size()<0) {
-				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores inválida!");
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores invï¿½lida!");
 			}
 			 av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorTrilhaComOrientador(trilha, trilha.getQtdCorrecoes());
 		}else if(request.getParameter("idEvento") != null && request.getParameter("tipo") == null ){
@@ -51,7 +51,7 @@ public class Distribuir extends HttpServlet {
 			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorEventoComOrientador(evento, 1);
 		}else if (request.getParameter("idEvento") != null && request.getParameter("tipo") != null) {
 			Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
-			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorEventoRecurso(evento, 1);
+			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorEventoComStatus(evento, 1, StatusTrabalho.ENVIADO);
 		}		
 		for(AvaliaTrabalho a : av ){
 			new DAOAvaliaTrabalho().create(a);

@@ -59,8 +59,8 @@ public class InterfaceAlgoritmo {
 		for (int i=trabalhos.size()+1;i<tamanho;i++) {
 			grafo[i][tamanho-1]= fatorCorrecao;
 		}
-		//preenchendo a linha onde so existe se o tabalho não pertencer aquele autor
-		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		//preenchendo a linha onde so existe se o tabalho nï¿½o pertencer aquele autor
+		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 			for(int j = trabalhos.size()+1;j<=tamanho-2;j++) {
 				int posA = j-trabalhos.size()-1, posT = i-1;
 				if(verficaAutores(avaliadores.get(posA).getCpf(),trabalhos.get(posT))) {
@@ -95,10 +95,10 @@ public class InterfaceAlgoritmo {
 		instAlgoritmo.setV(tamanho);
 		instAlgoritmo.executar(trabalhos.size(), avaliadores.size(), numCorrecoes);
 		int rgraph [][]=instAlgoritmo.getRGrafo();
-		//Falta terminar de implementar pq até aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
+		//Falta terminar de implementar pq atï¿½ aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
 		//Transformando o grafo em Lista dnv
-		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
-			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
+			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 				int posA = i+trabalhos.size()+1, posT = j;
 				if(rgraph[posA][posT]!=0) {
 					AvaliaTrabalho av = new AvaliaTrabalho();
@@ -144,8 +144,8 @@ public class InterfaceAlgoritmo {
 		for (int i=trabalhos.size()+1;i<tamanho;i++) {
 			grafo[i][tamanho-1]= fatorCorrecao;
 		}
-		//preenchendo a linha onde so existe se o tabalho não pertencer aquele autor
-		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		//preenchendo a linha onde so existe se o tabalho nï¿½o pertencer aquele autor
+		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 			for(int j = trabalhos.size()+1;j<=tamanho-2;j++) {
 				int posA = j-trabalhos.size()-1, posT = i-1;
 				if(verficaAutores(avaliadores.get(posA).getCpf(),trabalhos.get(posT))) {
@@ -180,10 +180,10 @@ public class InterfaceAlgoritmo {
 		instAlgoritmo.setV(tamanho);
 		instAlgoritmo.executar(trabalhos.size(), avaliadores.size(), numCorrecoes);
 		int rgraph [][]=instAlgoritmo.getRGrafo();
-		//Falta terminar de implementar pq até aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
+		//Falta terminar de implementar pq atï¿½ aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
 		//Transformando o grafo em Lista dnv
-		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
-			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
+			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 				int posA = i+trabalhos.size()+1, posT = j;
 				if(rgraph[posA][posT]!=0) {
 					AvaliaTrabalho av = new AvaliaTrabalho();
@@ -223,8 +223,8 @@ public class InterfaceAlgoritmo {
 		for (int i=trabalhos.size()+1;i<tamanho;i++) {
 			grafo[i][tamanho-1]= fatorCorrecao;
 		}
-		//preenchendo a linha onde so existe se o tabalho não pertencer aquele autor
-		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		//preenchendo a linha onde so existe se o tabalho nï¿½o pertencer aquele autor
+		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 			for(int j = trabalhos.size()+1;j<=tamanho-2;j++) {
 				int posA = j-trabalhos.size()-1, posT = i-1;
 				if(verficaAutores(avaliadores.get(posA).getCpf(),trabalhos.get(posT))) {
@@ -243,10 +243,10 @@ public class InterfaceAlgoritmo {
 		instAlgoritmo.setV(tamanho);
 		instAlgoritmo.executar(trabalhos.size(), avaliadores.size(), numCorrecoes);
 		int rgraph [][]=instAlgoritmo.getRGrafo();
-		//Falta terminar de implementar pq até aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
+		//Falta terminar de implementar pq atï¿½ aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
 		//Transformando o grafo em Lista dnv
-		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
-			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
+			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 				int posA = i+trabalhos.size()+1, posT = j;
 				if(rgraph[posA][posT]!=0) {
 					AvaliaTrabalho av = new AvaliaTrabalho();
@@ -290,8 +290,8 @@ public class InterfaceAlgoritmo {
 	 * grafo[0][i]=t.getQtdCorrecoes(); } //Primeira linha foi preenchida,
 	 * Preenchendo a ultima coluna for (int i=trabalhos.size()+1;i<tamanho;i++) {
 	 * grafo[i][tamanho-1]= fatorCorrecao; } //preenchendo a linha onde so existe se
-	 * o tabalho não pertencer aquele autor for (int i=1; i<=trabalhos.size();i++)
-	 * {//contador da linha, inicia na linha 1 e vai até igual aos total de
+	 * o tabalho nï¿½o pertencer aquele autor for (int i=1; i<=trabalhos.size();i++)
+	 * {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de
 	 * trabalhos for(int j = trabalhos.size()+1;j<=tamanho-2;j++) { int posA =
 	 * j-trabalhos.size()-1, posT = i-1;
 	 * if(verficaAutores(avaliadores.get(posA).getCpf(),trabalhos.get(posT))) {
@@ -300,7 +300,7 @@ public class InterfaceAlgoritmo {
 	 * instAlgoritmo = new Algoritmo(); instAlgoritmo.setGrafo(grafo);
 	 * instAlgoritmo.executar(trabalhos.size(), avaliadores.size(), numCorrecoes);
 	 * int rgraph [][]=instAlgoritmo.getRGrafo(); //Falta terminar de implementar pq
-	 * até aqui ele executa, falta remover e pegar o grafo e transformar novamente
+	 * atï¿½ aqui ele executa, falta remover e pegar o grafo e transformar novamente
 	 * em duas listas. //Transformando o grafo em Lista dnv
 	 * 
 	 * for(int i=trabalhos.size()+1;i< avaliadores.size();i++) { for(int
@@ -348,8 +348,8 @@ public class InterfaceAlgoritmo {
 		for (int i=trabalhos.size()+1;i<tamanho;i++) {
 			grafo[i][tamanho-1]= fatorCorrecao;
 		}
-		//preenchendo a linha onde so existe se o tabalho não pertencer aquele autor
-		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		//preenchendo a linha onde so existe se o tabalho nï¿½o pertencer aquele autor
+		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 			for(int j = trabalhos.size()+1;j<=tamanho-2;j++) {
 				int posA = j-trabalhos.size()-1, posT = i-1;
 				if(verficaAutores(avaliadores.get(posA).getCpf(),trabalhos.get(posT))) {
@@ -384,10 +384,10 @@ public class InterfaceAlgoritmo {
 		instAlgoritmo.setV(tamanho);
 		instAlgoritmo.executar(trabalhos.size(), avaliadores.size(), numCorrecoes);
 		int rgraph [][]=instAlgoritmo.getRGrafo();
-		//Falta terminar de implementar pq até aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
+		//Falta terminar de implementar pq atï¿½ aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
 		//Transformando o grafo em Lista dnv
-		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
-			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
+			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 				int posA = i+trabalhos.size()+1, posT = j;
 				if(rgraph[posA][posT]!=0) {
 					AvaliaTrabalho av = new AvaliaTrabalho();
@@ -439,8 +439,8 @@ public class InterfaceAlgoritmo {
 		for (int i=trabalhos.size()+1;i<tamanho;i++) {
 			grafo[i][tamanho-1]= fatorCorrecao;
 		}
-		//preenchendo a linha onde so existe se o tabalho não pertencer aquele autor
-		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		//preenchendo a linha onde so existe se o tabalho nï¿½o pertencer aquele autor
+		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 			for(int j = trabalhos.size()+1;j<=tamanho-2;j++) {
 				int posA = j-trabalhos.size()-1, posT = i-1;
 				if(verficaAutores(avaliadores.get(posA).getCpf(),trabalhos.get(posT))) {
@@ -479,10 +479,10 @@ public class InterfaceAlgoritmo {
 		instAlgoritmo.setV(tamanho);
 		instAlgoritmo.executar(trabalhos.size(), avaliadores.size(), numCorrecoes);
 		int rgraph [][]=instAlgoritmo.getRGrafo();
-		//Falta terminar de implementar pq até aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
+		//Falta terminar de implementar pq atï¿½ aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
 		//Transformando o grafo em Lista dnv
-		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
-			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai até igual aos total de trabalhos
+		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
+			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
 				int posA = i+trabalhos.size()+1, posT = j;
 				if(rgraph[posA][posT]!=0) {
 					AvaliaTrabalho av = new AvaliaTrabalho();
@@ -497,6 +497,86 @@ public class InterfaceAlgoritmo {
 		
 		return distribuidos;
 	}
+	//Distribui trabalhos Enviados de acordo com o  StatusTrabalho
+	public static List<AvaliaTrabalho> distribuPorEventoComStatus(Evento e, int numCorrecoes,StatusTrabalho st){
+		ArrayList<AvaliaTrabalho> distribuidos = new ArrayList<AvaliaTrabalho>();
+		ArrayList<Usuario> avaliadores = (ArrayList<Usuario>) new DAOAvaliaEvento().buscarPorEvento(e.getIdEvento());
+		ArrayList<Trabalho> trabalhos = new ArrayList<Trabalho>();
+		e.setTrilhas(new DAOTrilha().readById(e.getIdEvento()));
+		
+		for(Trilha t : e.getTrilhas()) {
+			t = new DAOTrilha().getTrilha(t.getIdTrilha());
+			ArrayList<Trabalho> trabAdd = new DAOTrabalho().readTrilha(t.getIdTrilha(), st);
+			if(trabAdd!=null)
+				trabalhos.addAll(trabAdd);
+		}
+		int tamanho = avaliadores.size()+trabalhos.size()+2;
+		int grafo [][] = new int [tamanho][tamanho];
+		
+		float a = (trabalhos.size() * numCorrecoes)/avaliadores.size();
+		int fatorCorrecao = Math.round(a);
+		
+		
+		//int grafo [][] = new int [p.tamanhoMatriz()][p.tamanhoMatriz()];
+		System.out.println(tamanho + " Avaliadores: "+avaliadores.size()+" trabalhos: "+trabalhos.size()+" Media="+a);
+		
+		//Criando o grafo zerado
+		for (int i=0;i<tamanho;i++) {
+			for(int j=0;j<tamanho;j++) {
+				grafo[j][i]=0;
+			}
+		}
+		
+		//preenchendo a primeira linha
+		for (int i=1;i<=trabalhos.size();i++) {
+			grafo[0][i]=numCorrecoes;
+		}
+		//Primeira linha foi preenchida, Preenchendo a ultima coluna 
+		for (int i=trabalhos.size()+1;i<tamanho;i++) {
+			grafo[i][tamanho-1]= fatorCorrecao;
+		}
+		//preenchendo a linha onde so existe se o tabalho nï¿½o pertencer aquele autor
+		for (int i=1; i<=trabalhos.size();i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
+			for(int j = trabalhos.size()+1;j<=tamanho-2;j++) {
+				int posA = j-trabalhos.size()-1, posT = i-1;
+				if(verficaAutores(avaliadores.get(posA).getCpf(),trabalhos.get(posT))) {
+					grafo[i][j]=0;
+				}else {
+					grafo[i][j]=1;
+				}
+			}
+		}
+		//preenchendo com zero a ultima linha
+		for (int i=0;i<tamanho;i++) {
+			grafo[tamanho-1][i]=0;
+		}
+
+		Algoritmo instAlgoritmo = new Algoritmo();
+		instAlgoritmo.setGrafo(grafo);
+		instAlgoritmo.setV(tamanho);
+		instAlgoritmo.executar(trabalhos.size(), avaliadores.size(), numCorrecoes);
+		int rgraph [][]=instAlgoritmo.getRGrafo();
+		//Falta terminar de implementar pq atï¿½ aqui ele executa, falta remover e pegar o grafo e transformar  novamente em duas listas. 
+		//Transformando o grafo em Lista dnv
+		for (int i=0; i<=avaliadores.size()-1;i++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
+			for(int j=1;j<=trabalhos.size();j++) {//contador da linha, inicia na linha 1 e vai atï¿½ igual aos total de trabalhos
+				int posA = i+trabalhos.size()+1, posT = j;
+				if(rgraph[posA][posT]!=0) {
+					AvaliaTrabalho av = new AvaliaTrabalho();
+					av.setAvaliador(avaliadores.get(i));
+					trabalhos.get(j-1).setStatus(StatusTrabalho.EM_AVALIACAO);
+					av.setTrabalho(trabalhos.get(j-1));
+					av.setStatus(StatusTrabalho.EM_AVALIACAO);
+					distribuidos.add(av);
+				}
+			}
+		}
+		
+		return distribuidos;
+	}
+	
+	
+	
 	private static boolean verficaAutores(String v, Trabalho t) {
 		if(v.equals(t.getAutor().getCpf())) return true;
 		if(t.getOrientador() != null && v.equals(t.getOrientador().getCpf()) ) return true;
