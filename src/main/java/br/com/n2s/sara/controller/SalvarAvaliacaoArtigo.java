@@ -60,7 +60,7 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			av.setNota(Facade.calcularNota(av));
 			av.setFeedback(feedback);
 			new DAOAvaliaTrabalho().updatePerAvaliador(av);
-			ArrayList<AvaliaTrabalho> avaliacoes = (ArrayList<AvaliaTrabalho>) new DAOAvaliaTrabalho().read(trabalho);
+			/*ArrayList<AvaliaTrabalho> avaliacoes = (ArrayList<AvaliaTrabalho>) new DAOAvaliaTrabalho().read(trabalho);
 			boolean finalizado=false;
 			if (avaliacoes!=null) {
 				for (AvaliaTrabalho avalia : avaliacoes) {
@@ -69,8 +69,8 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 						break;
 					}
 				}
-			}
-			if(finalizado) {
+			}*/
+			/*if(finalizado) {
 				if(Facade.calcularNota(avaliacoes)>=6) {
 					trabalho.setStatus(StatusTrabalho.ACEITO);
 					av.setStatus(StatusTrabalho.ACEITO);
@@ -80,11 +80,20 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 				}
 				new DAOTrabalho().update(trabalho);
 				new DAOAvaliaTrabalho().update(av);
-			}			
-			session.setAttribute(Constantes.getSESSION_MGS(), "Avaliação realizada com sucesso!");
+			}*/	
+			if(Facade.calcularNota(av)>=6) {
+				trabalho.setStatus(StatusTrabalho.ACEITO);
+				av.setStatus(StatusTrabalho.ACEITO);
+			}else {
+				trabalho.setStatus(StatusTrabalho.REJEITADO);
+				av.setStatus(StatusTrabalho.REJEITADO);
+			}
+			new DAOTrabalho().update(trabalho);
+			new DAOAvaliaTrabalho().update(av);		
+			session.setAttribute(Constantes.getSESSION_MGS(), "Avaliaï¿½ï¿½o realizada com sucesso!");
 			response.sendRedirect("avaliacao.jsp");	
 		}catch (Exception e) {
-			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante avaliação");
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante avaliaï¿½ï¿½o");
 			throw new RuntimeException(e);
 		}
 	}
