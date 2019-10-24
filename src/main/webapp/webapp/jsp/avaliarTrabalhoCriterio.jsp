@@ -84,7 +84,7 @@
 												<div id=nota>
     											<label class="radio-inline">
     											<%=i.getDescricao()%> Nota: <%=i.getPeso()%>
-    											<input type="radio" class="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%> required">
+    											<input type="radio" class="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>" required>
     											<input type="hidden" class="radio-nota" value="<%=i.getPeso()%>">
     											</label>
     											</div>
