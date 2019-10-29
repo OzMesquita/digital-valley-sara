@@ -72,7 +72,7 @@ public class GerarRelatorio extends HttpServlet {
 				image.scaleAbsoluteWidth(90);
 				image.scaleAbsoluteHeight(60);
 				document.add(image);
-				Paragraph cabecalho = new Paragraph("UNIVERDADE FEDERAL DO CEARÃ� \n"
+				Paragraph cabecalho = new Paragraph("UNIVERSIDADE FEDERAL DO CEARÁ \n"
 						+ "CAMPUS RUSSAS \n\n" + evento.getNome() + "\n\n\n");
 				cabecalho.setAlignment(Paragraph.ALIGN_CENTER);
 				document.add(cabecalho);
@@ -250,17 +250,19 @@ public class GerarRelatorio extends HttpServlet {
 		            	if(trabalho.getStatus()== StatusTrabalho.ACEITO) {
 		            		strBuilder.append(i+" - "+trabalho.getTitulo().toUpperCase()+"\n\n");
 			            	if (trabalho.getAutor() != null) {
-			            		Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(trabalho.getAutor().getCpf());			            		
-			            		if(usuario!=null) {	
+			            		//Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(trabalho.getAutor().getCpf());			            		
+			            		/*if(usuario!=null) {	
 			            			strBuilder.append(usuario.getNome().toUpperCase()+"\n");
 			            			if(usuario.getCpf()!=null && usuario.getEmail()!=null) {
 			            				strBuilder.append(usuario.getCpf()+"    "+usuario.getEmail()+"\n\n");
 			            				}
 			            			}else {
 			            				strBuilder.append( trabalho.getAutor().getCpf()+"\n\n");
-			            			}
+									}*/
+								strBuilder.append(trabalho.getAutor().getNome().toUpperCase()+"\n");
+								strBuilder.append(trabalho.getAutor().getEmail().toUpperCase()+"\n\n");	
 			            	}
-			            	for (Usuario u : trabalho.getAutores()) {
+			            	/*for (Usuario u : trabalho.getAutores()) {
 			            		if(u != null) {
 			            			if(u.getNome()==null) {
 			            				Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(u.getCpf());
@@ -275,7 +277,7 @@ public class GerarRelatorio extends HttpServlet {
 			            				if(u.getCpf()!=null && u.getEmail()!=null)
 			            					strBuilder.append("\n" + u.getCpf() +"     "+ u.getEmail()+"\n\n");
 			            			}
-			            		}	
+			            		}*/	
 			            	}
 			            	PdfPCell autores = new PdfPCell(new Paragraph(strBuilder.toString()));
 			            	autores.setHorizontalAlignment(Element.ALIGN_CENTER);
