@@ -189,7 +189,7 @@ public class GerarRelatorio extends HttpServlet {
 				            				strBuilder.append( trabalho.getAutor().getCpf()+"\n\n");
 				            			}
 				            	}
-				            	for (Usuario u : trabalho.getAutores()) {
+				            	/*for (Usuario u : trabalho.getAutores()) {
 				            		if(u != null) {
 				            			if(u.getNome()==null) {
 				            				Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(u.getCpf());
@@ -205,7 +205,7 @@ public class GerarRelatorio extends HttpServlet {
 				            					strBuilder.append("\n" + u.getCpf() +"     "+ u.getEmail()+"\n\n");
 				            			}
 				            		}	
-				            	}
+				            	}*/
 				            	PdfPCell autores = new PdfPCell(new Paragraph(strBuilder.toString()));
 				            	autores.setHorizontalAlignment(Element.ALIGN_CENTER);
 				            	table.addCell(autores);
@@ -277,8 +277,8 @@ public class GerarRelatorio extends HttpServlet {
 			            				if(u.getCpf()!=null && u.getEmail()!=null)
 			            					strBuilder.append("\n" + u.getCpf() +"     "+ u.getEmail()+"\n\n");
 			            			}
-			            		}*/	
-			            	}
+			            		}	
+			            	}*/
 			            	PdfPCell autores = new PdfPCell(new Paragraph(strBuilder.toString()));
 			            	autores.setHorizontalAlignment(Element.ALIGN_CENTER);
 			            	table.addCell(autores);
@@ -297,7 +297,7 @@ public class GerarRelatorio extends HttpServlet {
 		        String nome = arquivo.getName();
 		        int tamanho = (int) arquivo.length();
 		
-		        response.setContentType(Files.probeContentType(path)); // tipo do conteï¿½do
+		        response.setContentType(Files.probeContentType(path)); // tipo do conteÃ¯Â¿Â½do
 		        response.setContentLength(tamanho);  // opcional
 		        response.setHeader("Content-Disposition", "attachment; filename=\"" + nome + "\"");
 		        OutputStream output = response.getOutputStream();
@@ -309,7 +309,7 @@ public class GerarRelatorio extends HttpServlet {
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a geração de relatório");
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a geraÃ§Ã£o de relatÃ³rio");
 			}			
 
 		}
