@@ -9,7 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Evento;
+import br.com.n2s.sara.model.TipoEvento;
 
 public class DAOEvento extends DAO {
 	public DAOEvento(){}
@@ -18,7 +20,7 @@ public class DAOEvento extends DAO {
 		super.open();
 
 		String sql = "insert into sara.Evento"  
-				+ "(nome, descricao, site, localizacao, dataInicial, dataFinal, divulgada)"
+				+ "(nome, descricao, site, localizacao, dataInicial, dataFinal, divulgada,tipo_evento)"
 				+ "values (?,?,?,?,?,?,?)";
 
 		try {
@@ -31,7 +33,8 @@ public class DAOEvento extends DAO {
 			stmt.setDate(5, Date.valueOf(evento.getDataInicial()));
 			stmt.setDate(6, Date.valueOf(evento.getDataFinal()));
 			stmt.setBoolean(7, evento.getDivulgada());
-
+			stmt.setString(8, evento.getDescriEvento().toString());
+			
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			super.close();
@@ -71,6 +74,7 @@ public class DAOEvento extends DAO {
 				evento.setDataInicial(rs.getDate("dataInicial").toLocalDate());
 				evento.setDataFinal(rs.getDate("dataFinal").toLocalDate());
 				evento.setDivulgada(rs.getBoolean("divulgada"));
+				evento.setDescriEvento(  TipoEvento.valueOf(rs.getString("tipo_evento")));
 				eventos.add(evento);
 
 			}
@@ -105,7 +109,8 @@ public class DAOEvento extends DAO {
 				evento.setDataInicial(rs.getDate("dataInicial").toLocalDate());
 				evento.setDataFinal(rs.getDate("dataFinal").toLocalDate());
 				evento.setDivulgada(rs.getBoolean("divulgada"));
-
+				evento.setDescriEvento(  TipoEvento.valueOf(rs.getString("tipo_evento")));
+				
 				rs.close();
 				stmt.close();
 				return evento;
@@ -123,7 +128,7 @@ public class DAOEvento extends DAO {
 
 		super.open();
 		String sql = "update sara.Evento set nome = ?, descricao = ?, " 
-				+ "site = ?, localizacao = ?, dataInicial = ?, dataFinal = ?,divulgada=? where idEvento = ?";
+				+ "site = ?, localizacao = ?, dataInicial = ?, dataFinal = ?,divulgada=?,tipo_evento=? where idEvento = ?";
 
 		try {
 
@@ -135,7 +140,8 @@ public class DAOEvento extends DAO {
 			stmt.setDate(6, Date.valueOf(evento.getDataInicial()));
 			stmt.setDate(7, Date.valueOf(evento.getDataFinal()));
 			stmt.setBoolean(8, evento.getDivulgada());
-			stmt.setInt(9, evento.getIdEvento());
+			stmt.setString(9, evento.getDescriEvento().toString());
+			stmt.setInt(10, evento.getIdEvento());
 			
 			stmt.execute();
 			stmt.close();

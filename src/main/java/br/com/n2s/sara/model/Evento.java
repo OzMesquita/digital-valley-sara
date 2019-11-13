@@ -16,6 +16,7 @@ public class Evento {
 	private LocalDate dataFinal;
 	private List<Trilha> trilhas;
 	private boolean divulgada;
+	private TipoEvento descriEvento;
 
 	public int getIdEvento() {
 		return idEvento;
@@ -90,5 +91,11 @@ public class Evento {
 				return true;
 		}
 		return false;
+	}
+	public TipoEvento getDescriEvento() {
+		return descriEvento;
+	}
+	public void setDescriEvento(TipoEvento descriEvento) {
+		this.descriEvento = descriEvento;
 	}
 }

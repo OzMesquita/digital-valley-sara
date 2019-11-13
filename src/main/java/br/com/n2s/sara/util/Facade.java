@@ -32,6 +32,7 @@ import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.Item;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Periodo;
+import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
@@ -293,5 +294,15 @@ public class Facade {
 		}	
 	}
 	
+	public static void adicionarAvaliadores (ArrayList<Usuario> avaliadores, Trabalho t) {
+		if (avaliadores!=null) {
+			for (Usuario u : avaliadores) {
+				AvaliaTrabalho av = new AvaliaTrabalho();
+				av.setAvaliador(u);
+				av.setTrabalho(t);
+				av.setStatus(StatusTrabalho.EM_AVALIACAO);
+			}
+		}
+	}
 
 }

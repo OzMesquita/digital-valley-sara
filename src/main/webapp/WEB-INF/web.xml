@@ -122,14 +122,12 @@
     <servlet-class>br.com.n2s.sara.controller.SalvarAvaliacaoArtigo</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>Aval</servlet-name>
-  	<servlet-class>br.com.n2s.sara.controller.AvalOrientador</servlet-class>
+    <servlet-name>Aval</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.AvalOrientador</servlet-class>
   </servlet>
-  
-  
   <servlet-mapping>
-  	<servlet-name>Aval</servlet-name>
-  	<url-pattern>/webapp/jsp/Aval</url-pattern>
+    <servlet-name>Aval</servlet-name>
+    <url-pattern>/webapp/jsp/Aval</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ListarUsuarios</servlet-name>
