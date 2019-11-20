@@ -21,8 +21,8 @@ public class DAOAvaliaTrabalho extends DAO {
 
 		super.open();
 		String sql = "insert into sara.avaliatrabalho"  
-				+ "(idavaliador, idtrabalho, feedback, status)"
-				+ "values (?,?,?,?)";
+				+ "(idavaliador, idtrabalho, feedback, status,nota)"
+				+ "values (?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -30,6 +30,7 @@ public class DAOAvaliaTrabalho extends DAO {
 			stmt.setInt(2, avalia.getTrabalho().getIdTrabalho());
 			stmt.setString(3, avalia.getFeedback());
 			stmt.setString(4, avalia.getStatus().toString());
+			stmt.setFloat(5, avalia.getNota());
 
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -62,6 +63,7 @@ public class DAOAvaliaTrabalho extends DAO {
 				avalia.setFeedback(rs.getString("feedback"));
 				avalia.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
 				avalia.setId(rs.getInt("idavaliatrabalho"));
+				avalia.setNota(rs.getFloat("nota"));
 				avaliacoes.add(avalia);
 			}
 
@@ -96,6 +98,7 @@ public class DAOAvaliaTrabalho extends DAO {
 				avalia.setFeedback(rs.getString("feedback"));
 				avalia.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
 				avalia.setId(rs.getInt("idavaliatrabalho"));
+				avalia.setNota(rs.getFloat("nota"));
 				avaliacoes.add(avalia);
 			}
 
@@ -189,7 +192,7 @@ public class DAOAvaliaTrabalho extends DAO {
 				avalia.setTrabalho(daoTrab.getTrabalho(rs.getInt("idtrabalho")));
 				avalia.setFeedback(rs.getString("feedback"));
 				avalia.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
-
+				avalia.setNota(rs.getFloat("nota"));
 				rs.close();
 				stmt.close();
 				
@@ -224,7 +227,7 @@ public class DAOAvaliaTrabalho extends DAO {
 				avalia.setTrabalho(daoTrab.getTrabalho(rs.getInt("idtrabalho")));
 				avalia.setFeedback(rs.getString("feedback"));
 				avalia.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
-				
+				avalia.setNota(rs.getFloat("nota"));				
 
 				rs.close();
 				stmt.close();
@@ -260,7 +263,7 @@ public class DAOAvaliaTrabalho extends DAO {
 				avalia.setTrabalho(daoTrab.getTrabalho(rs.getInt("idtrabalho")));
 				avalia.setFeedback(rs.getString("feedback"));
 				avalia.setStatus(StatusTrabalho.valueOf(rs.getString("status")));
-				
+				avalia.setNota(rs.getFloat("nota"));				
 
 				rs.close();
 				stmt.close();
@@ -279,7 +282,7 @@ public class DAOAvaliaTrabalho extends DAO {
 	public void update(AvaliaTrabalho avaliaTrabalho){
 
 		super.open();
-		String sql = "update sara.avaliatrabalho set idavaliador = ?, idtrabalho = ?, feedback = ?, status = ?" 
+		String sql = "update sara.avaliatrabalho set idavaliador = ?, idtrabalho = ?, feedback = ?, status = ?,nota=?" 
 				+ " where idTrabalho = ?";
 
 		try {
@@ -288,7 +291,8 @@ public class DAOAvaliaTrabalho extends DAO {
 			stmt.setInt(2, avaliaTrabalho.getTrabalho().getIdTrabalho());
 			stmt.setString(3, avaliaTrabalho.getFeedback());
 			stmt.setString(4, avaliaTrabalho.getStatus().toString());
-			stmt.setInt(5, avaliaTrabalho.getTrabalho().getIdTrabalho());
+			stmt.setFloat(5, avaliaTrabalho.getNota());
+			stmt.setInt(6, avaliaTrabalho.getTrabalho().getIdTrabalho());
 			stmt.execute();
 			stmt.close();
 			
@@ -328,8 +332,10 @@ public class DAOAvaliaTrabalho extends DAO {
 			stmt.setInt(1, avaliaTrabalho.getTrabalho().getIdTrabalho());
 			stmt.setString(2, avaliaTrabalho.getFeedback());
 			stmt.setString(3, avaliaTrabalho.getStatus().toString());
-			stmt.setInt(4, avaliaTrabalho.getTrabalho().getIdTrabalho());
-			stmt.setString(5, avaliaTrabalho.getAvaliador().getCpf());
+			stmt.setFloat(4, avaliaTrabalho.getNota());
+			
+			stmt.setInt(5, avaliaTrabalho.getTrabalho().getIdTrabalho());
+			stmt.setString(6, avaliaTrabalho.getAvaliador().getCpf());
 			stmt.execute();
 			stmt.close();
 			

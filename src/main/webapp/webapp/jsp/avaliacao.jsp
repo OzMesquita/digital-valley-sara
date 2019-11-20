@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.model.TipoEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="br.com.n2s.sara.model.StatusTrabalho"%>
 <%@page import="br.com.n2s.sara.dao.DAOAvaliaTrabalho"%>
@@ -70,11 +71,19 @@
 			               <tr>
 			                   
 			                   <td><%= trabalhos.get(i).getTitulo() %> </td> 
-			                   <td> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
-			                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
-			                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
-			                       </form> 
-			                   </td>
+				                   <%if (trabalhos.get(i).getTrilha().getEvento().getDescriEvento().toString().equals(TipoEvento.EU.toString())){%>
+				                   <td> <form action="avaliarTrabalho.jsp" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
+				                       </form> 
+				                   </td>
+				                   <%}else {%>
+				                   	<td> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
+				                       	</form> 
+				                   </td>
+				                   <%} %>
 			                   <td>
 				                   <form action="DownloadTrabalho" method="post"> 
 				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
@@ -84,6 +93,32 @@
 			                   </td>
 			                   
 			               </tr>
+			        		 <%}if (Facade.periodoAtual(trilha, DescricaoPeriodo.AVALIACAO)){%>
+			        		 	<tr>
+			                   
+			                   <td><%= trabalhos.get(i).getTitulo() %> </td> 
+				                   <%if (trabalhos.get(i).getTrilha().getEvento().getDescriEvento().toString().equals(TipoEvento.ESTAGIO.toString())){%>
+				                   <td> <form action="avaliarTrabalho.jsp" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
+				                       </form> 
+				                   </td>
+				                   <%}else {%>
+				                   	<td> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
+				                       	</form> 
+				                   </td>
+				                   <%} %>
+			                   <td>
+				                   <form action="DownloadTrabalho" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <input type="hidden" value="inicial" name="opcaoDownload"> 
+				                           <button class="btn btn-primary" type = "submit"> Download</button>
+				                   </form> 
+			                   </td>
+			                   
+			               </tr>			        		 
 			        		 <%} %>
 							    <% 
 							        }

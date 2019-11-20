@@ -136,6 +136,24 @@ public class Facade {
 		return atual;
 	}
 	
+	public static boolean periodoAtual(Trilha t, DescricaoPeriodo p) {
+		Periodo atual = null;
+		t.setPeriodos((ArrayList) new DAOPeriodo().readByIdTrilha(t.getIdTrilha()));
+		for (Periodo pi : t.getPeriodos()) {
+			LocalDate.now();
+			if ( (LocalDate.now().isBefore(pi.getDataFinal()) || LocalDate.now().isEqual(pi.getDataFinal())) && 
+					(LocalDate.now().isAfter(pi.getDataInicial()) || LocalDate.now().isEqual(pi.getDataInicial())) ){
+				if (pi.getDescricao().equals(p))
+					return true;
+			}else{
+				if(pi.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL)) {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
 	
 	
 	public static void EnviarEmail(Trabalho t) {
@@ -260,18 +278,28 @@ public class Facade {
 	}
 	public static Float calcularNota( ArrayList<AvaliaTrabalho> avaliacoes) {
 		float nota=0;
-		float peso=0;
-		float notaFinal=0;
 		for (AvaliaTrabalho av : avaliacoes) {
-			for (Item i : av.getItens()) {
-			nota = nota + i.getPeso() * i.getCriterio().getPeso();
-			peso = peso + i.getCriterio().getPeso();
+			if(av.getStatus().toString().equals(StatusTrabalho.EM_AVALIACAO.toString())) {
+				continue;
+			}else {
+				nota=nota+calcularNota(av);
 			}
-			nota = nota / peso;
-			notaFinal = notaFinal + nota;
 		}	
-		notaFinal=notaFinal / avaliacoes.size();
-		return notaFinal;
+		nota=nota / avaliacoes.size();
+		return nota;
+	}
+	
+	public static Float calcularNotaRelatorioEstagio( ArrayList<AvaliaTrabalho> avaliacoes) {
+		float nota=0;
+		for (AvaliaTrabalho av : avaliacoes) {
+			if(av.getStatus().toString().equals(StatusTrabalho.EM_AVALIACAO.toString())) {
+				continue;
+			}else {
+				nota=nota+av.getNota();
+			}
+		}	
+		nota=nota / avaliacoes.size();
+		return nota;
 	}
 	
 	public static List<Item> ordenar(Criterio c){

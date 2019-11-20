@@ -15,10 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import br.com.n2s.sara.dao.DAOAvaliaTrabalho;
 import br.com.n2s.sara.dao.DAOEvento;
 import br.com.n2s.sara.dao.DAOSubmissao;
 import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.dao.DAOTrilha;
+import br.com.n2s.sara.model.AvaliaTrabalho;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.StatusTrabalho;
@@ -131,8 +133,22 @@ private static final long serialVersionUID = 1L;
         	daoTrabalho.delete(idTrabalho);
         	
         }
+        for (Usuario av : banca) {
+        	SalvarAvaliador(av, trabalho);
+        }        
         
         response.sendRedirect("indexAutor.jsp");
+	}
+	private  void SalvarAvaliador(Usuario av, Trabalho t) {
+		DAOAvaliaTrabalho daoAvaliaTrab = new DAOAvaliaTrabalho();
+		AvaliaTrabalho avalia = new AvaliaTrabalho();
+		avalia.setAvaliador(av);
+		avalia.setTrabalho(t);
+		avalia.setFeedback("");
+		avalia.setStatus(StatusTrabalho.EM_AVALIACAO);
+		daoAvaliaTrab.create(avalia);
+		t.setStatus(StatusTrabalho.EM_AVALIACAO);
+		new DAOTrabalho().update(t);
 	}
 	public String getFileName(Part part) {
 	    String header = part.getHeader( "content-disposition" );
