@@ -61,7 +61,7 @@ private static final long serialVersionUID = 1L;
 		trabalho.setResumo(request.getParameter("resumo"));
 		trabalho.setStatus(StatusTrabalho.EM_AVALIACAO);
 		ArrayList <br.com.n2s.sara.model.Usuario> banca = new ArrayList();
-		//Ele est� pegando a lista de membros da banca
+		//Ele está pegando a lista de membros da banca
 		String [] nomesAutores = request.getParameterValues("nomeAutor");
 		String [] emailAutores = request.getParameterValues("emailAutor");
 		String [] cpfAutores = request.getParameterValues("cpfAutor");
@@ -99,7 +99,7 @@ private static final long serialVersionUID = 1L;
 				}
 			}			
 		}
-		//Aqui est� tratando do arquivo
+		//Aqui estï¿½ tratando do arquivo
 		File dir = new File(util.Constantes.getArticlesDir()+File.separator+nomeEvento.getIdEvento()+File.separator+nomeTrilha.getIdTrilha()+File.separator);
 		
 		if( !dir.isDirectory() ){
@@ -108,10 +108,10 @@ private static final long serialVersionUID = 1L;
 		
 	    for(Part part: request.getParts()){    	           	
 	        
-	        //Isso é para pegar a data/hora de maneira interessante
+	        //Isso Ã© para pegar a data/hora de maneira interessante
 	    	Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Brazil/East"));
 	    	int ano = calendar.get(Calendar.YEAR);
-	    	int mes = calendar.get(Calendar.MONTH); // O m�s vai de 0 a 11.
+	    	int mes = calendar.get(Calendar.MONTH); // O mï¿½s vai de 0 a 11.
 	    	int dia = calendar.get(Calendar.DAY_OF_MONTH);
 	    	int hora = calendar.get(Calendar.HOUR_OF_DAY);
 	    	int minuto = calendar.get(Calendar.MINUTE);
@@ -131,7 +131,7 @@ private static final long serialVersionUID = 1L;
         trabalho.setAutores(new ArrayList<Usuario>());
         Facade.EnviarEmail(trabalho);
         
-        // Essas linhas só serão executadas caso aja alguma substituição
+        // Essas linhas sÃ³ serÃ£o executadas caso aja alguma substituiÃ§Ã£o
         
         if(request.getParameter("idTrabalho") != null) {
         	int idTrabalho = Integer.parseInt(request.getParameter("idTrabalho"));
@@ -155,6 +155,7 @@ private static final long serialVersionUID = 1L;
 		avalia.setTrabalho(t);
 		avalia.setFeedback("");
 		avalia.setStatus(StatusTrabalho.EM_AVALIACAO);
+		avalia.setNota(0);
 		daoAvaliaTrab.create(avalia);
 		t.setStatus(StatusTrabalho.EM_AVALIACAO);
 		new DAOTrabalho().update(t);
