@@ -157,12 +157,17 @@ public class Facade {
 	
 	
 	public static void EnviarEmail(Trabalho t) {
+		ArrayList<Usuario> autores = new ArrayList<Usuario>();
 		if(t != null) {
+			if(t.getAutor()!=null)
+				autores.add(t.getAutor());
 			String msg = "";
-			t.getAutores().add(t.getAutor());
+			//t.getAutores().add(t.getAutor());
 			Email e = new Email();
-			if (!t.getAutores().isEmpty()) {
-				for (Usuario u : t.getAutores()){
+			if (!t.getAutores().isEmpty() || t.getAutores().size()>0) {
+				autores.addAll(t.getAutores());
+			}
+				for (Usuario u : autores){
 					msg = "Prezado "+u.getNome() +",\r\n" + 
 							"\r\n" + 
 							"\r\n" + 
@@ -177,7 +182,7 @@ public class Facade {
 							"Núcleo de Soluções em Software- N2S";
 					e.sendEmail("Submissão de trabalho - SARA- Submissão, Avaliação e Revisão de Artigos", msg, u.getEmail(), u.getNome());
 				}
-			}
+			
 		}
 		
 	}

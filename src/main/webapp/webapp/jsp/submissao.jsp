@@ -55,7 +55,7 @@
 				                    </tr>
 				                   	<tr>
 				                    	<td>				                    	
-									        <form action="SalvarArquivo" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
+									        <form action="SalvarRelatorio" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
 									            <input type="hidden" name="trilha" value="<%=trilha.getIdTrilha()%>" />
 									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
 									            <p>*Título:</p>
@@ -83,7 +83,7 @@
 														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
 														</br>
 												</div>
-												Adicione os avaliadores:
+												Adicione os membros da banca de avaliação:
 											    <div id="divAutorList" >
 											    </div>
 											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />

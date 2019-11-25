@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.TimeZone;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,15 +33,22 @@ import br.com.n2s.sara.util.Facade;
 /**
  * Servlet implementation class SalvarRelatorio
  */
-@WebServlet("/SalvarRelatorio")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024, // 1MB
+        maxFileSize = 1024 * 1024 * 10,   // 10MB
+        maxRequestSize = 1024 * 1024 * 10 // 10MB
+        )
 public class SalvarRelatorio extends HttpServlet {
 private static final long serialVersionUID = 1L;
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int idTrilha = Integer.parseInt(request.getParameter("trilha"));
-		int idEvento = Integer.parseInt(request.getParameter("evento"));
+		String trilha, evento;
+		trilha = request.getParameter("trilha"); 
+		evento= request.getParameter("evento");
+		int idTrilha = Integer.parseInt(trilha);
+		int idEvento = Integer.parseInt(evento);
 		Trilha nomeTrilha = new DAOTrilha().getTrilha(idTrilha);
 		Evento nomeEvento = new DAOEvento().getEvento(idEvento);
 		Usuario userLogado = (br.com.n2s.sara.model.Usuario) session.getAttribute("usuarioSara");
@@ -119,7 +127,8 @@ private static final long serialVersionUID = 1L;
 	    }
         trabalho.setEnderecoInicial(endereco);
         DAOTrabalho daoTrabalho = new DAOTrabalho();
-        trabalho.setIdTrabalho(daoTrabalho.create(trabalho));      
+        trabalho.setIdTrabalho(daoTrabalho.create(trabalho));
+        trabalho.setAutores(new ArrayList<Usuario>());
         Facade.EnviarEmail(trabalho);
         
         // Essas linhas só serão executadas caso aja alguma substituição

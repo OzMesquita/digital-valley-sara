@@ -38,6 +38,7 @@ public class SalvarAvaliacao extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		String feedback = request.getParameter("feedback");
+		/** Eu recebo o status mas não sei pq, nem uso, seja criativo **/
 		String status = request.getParameter("status");
 		float nota = Float.parseFloat(request.getParameter("nota"));
 		Trabalho trabalho = (Trabalho) session.getAttribute("trabalho");
@@ -45,6 +46,10 @@ public class SalvarAvaliacao extends HttpServlet {
 		AvaliaTrabalho avaliaTrabalho = new DAOAvaliaTrabalho().getAvaliaTrabalho(trabalho.getIdTrabalho());
 		avaliaTrabalho.setFeedback(feedback);
 		avaliaTrabalho.setNota(nota);
+		if (nota>=7)
+			avaliaTrabalho.setStatus(StatusTrabalho.ACEITO_FINAL);
+		else
+			avaliaTrabalho.setStatus(StatusTrabalho.REJEITADO);
 		new DAOAvaliaTrabalho().update(avaliaTrabalho);
 		response.sendRedirect("avaliacao.jsp");
 		
