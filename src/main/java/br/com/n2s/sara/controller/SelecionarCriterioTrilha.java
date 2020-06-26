@@ -39,54 +39,24 @@ public class SelecionarCriterioTrilha extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-
 		Trilha trilha = (Trilha) session.getAttribute("trilha");
-
 		int idCriterioTrilha = Integer.parseInt(request.getParameter("idCriterioTrilha"));
-
-		CriterioTrilha criterioTrilha = new DAOCriterioTrilha().getCriterioTrilha(idCriterioTrilha);
-
-		/* Criando cópia do Critério Trilha */
-
-		CriterioTrilha criterioTrilhaCopia = new CriterioTrilha();
-		criterioTrilhaCopia.setNome(criterioTrilha.getNome() + " Cópia");
-		criterioTrilhaCopia.setDataCriacao(LocalDate.now());
-
-		DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
-		daoCriterioTrilha.create(criterioTrilhaCopia);
-		criterioTrilhaCopia.setIdCriterioTrilha(daoCriterioTrilha.getLastId()); //Fazer essa busca de último id inserido de outra forma
-
-		/* Copiando os critérios e os itens */
-
-		DAOCriterio daoCriterio = new DAOCriterio();
-		List<Criterio> criterios = daoCriterio.obterCriteriosPorTrilha(criterioTrilha.getIdCriterioTrilha());
-
-		DAOItem daoItem = new DAOItem();
-
-		for (Criterio c : criterios) {
-			Criterio criterio = new Criterio();
-			criterio.setCriterioTrilha(criterioTrilhaCopia);
-			criterio.setDescricao(c.getDescricao());
-			criterio.setPeso(c.getPeso());
-			daoCriterio.create(criterio);
-
-			criterio.setIdCriterio(daoCriterio.getLastId());
-
-			List<Item> itens = daoItem.readById(c.getIdCriterio());
-
-			for (Item i : itens) {
-				i.setCriterio(criterio);
-				daoItem.create(i);
-			}
-		}
-
-		
-		session.setAttribute("trilha", trilha);
-
-		trilha.setCriterioTrilha(criterioTrilhaCopia);
-		DAOTrilha daoTrilha = new DAOTrilha();
-		daoTrilha.update(trilha);
-		
+		/*******
+		 *  
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 *         FALTA IMPLEMENTAR         
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * *********/
 		response.sendRedirect("eventosCoordenados.jsp");
 
 	}

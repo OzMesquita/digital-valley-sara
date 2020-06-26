@@ -23,6 +23,18 @@
           		response.sendRedirect("indexAutor.jsp");
           	}
 		%> 
+			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>		
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
@@ -55,6 +67,8 @@
 									           
 									            <p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
 									            <p><textarea name="feedback" cols="80" rows="15" maxlength="5000" required></textarea></p>
+									            <p>*Descreva a nota para o trabalho</p>
+									            <input type="number" maxlength="10" min="0" name="nota">
 									            <p>Decisão final sobre o trabalho:</p>
 									            <input type="radio" name="status" value="aceitar" required> Aceitar<br>
   												<input type="radio" name="status" value="rejeitar" required> Rejeitar<br>

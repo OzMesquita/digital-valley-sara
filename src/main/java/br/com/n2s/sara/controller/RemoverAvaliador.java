@@ -12,6 +12,7 @@ import br.com.n2s.sara.dao.DAOAvaliaTrilha;
 import br.com.n2s.sara.model.AvaliaTrilha;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Constantes;
 import br.com.n2s.sara.util.Facade;
 
 /**
@@ -31,7 +32,7 @@ public class RemoverAvaliador extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		
+		try {
 		Trilha trilha = new Trilha();
 		trilha = (Trilha) session.getAttribute("trilha");
 		String cpfAvaliador = request.getParameter("cpfAvaliador");
@@ -42,9 +43,12 @@ public class RemoverAvaliador extends HttpServlet {
 		session.setAttribute("trilha", trilha);
 		
 		String feedbackSucesso = "Avaliador removido com sucesso!";
-		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
 		
 		response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
+		}catch (Exception e){
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao remover o avaliador!");
+		}
 	}
 
 }

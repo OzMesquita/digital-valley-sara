@@ -24,59 +24,25 @@
       <!-- page start-->
               <%
       			Trilha trilha = (Trilha) session.getAttribute("trilha");
-              	session.setAttribute("trilha", trilha);
-      			
+              	session.setAttribute("trilha", trilha); 			
               	DAOCriterio daoCriterio = new DAOCriterio();
-              	DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
+              	DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();     			
+      			List<CriterioTrilha> listaCriterioTrilha = daoCriterioTrilha.read();             	
       			
-      			List<CriterioTrilha> listaCriterioTrilha = daoCriterioTrilha.read();
-              	
-      			if(trilha.getCriterioTrilha() == null){%>
+      			%>
               
-              <div class="row">
-                  <div class="col-lg-12">
-                      <section class="panel">
-                          <header class="panel-heading">
-                              Critérios de Avaliação Existentes
-                          </header>
-                          
-                          <table class="table table-striped table-advance table-hover">
-                           <tbody>
-                              <tr>                               
-                                 <th><i class="icon_documents_alt"></i> Critério</th>
-                                 <th></th>
-                                 <th></th>
-                              </tr>
-                              
-							 <%	                              	 
-                              	 for(int i = 0; i < listaCriterioTrilha.size(); i++){
-	                
-	               					%>
-                                      <tr>
-                                         <td><%=listaCriterioTrilha.get(i).getNome()%></td>
-                                         <td><form action="visualizarCriterioTrilha.jsp" method="post"> 
-	                           					<input type="hidden" value="<%= listaCriterioTrilha.get(i).getIdCriterioTrilha()%>" name="idCriterioTrilha"> 
-	                           					<button class="btn btn-primary" type="submit">Visualizar</button>
-	                       					</form> 
-                   						</td>
-                   						<td>
-                   							<form action="SelecionarCriterioTrilha" method="post"> 
-	                           					<input type="hidden" value="<%= listaCriterioTrilha.get(i).getIdCriterioTrilha()%>" name="idCriterioTrilha"> 
-	                           					<button class="btn btn-primary" type="submit">Selecionar</button>
-	                       					</form>
-                   						</td>
-                                      </tr>                              			 
-                              <% } %>
-                              
-                                 </tbody>
-                                 </table>
-                               </section>
-                           </div>
-                       </div>
-                       <% 		}else{
-                    	   			
-                        			List<Criterio> criterios = daoCriterio.obterCriteriosPorTrilha(trilha.getCriterioTrilha().getIdCriterioTrilha());
-                        			if(!criterios.isEmpty()){ %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>
               <div class="row">
                   <div class="col-lg-12">
                       <section class="panel">
@@ -94,20 +60,20 @@
                               </tr>
                               
                               <%
-                          	
-                		        for(int i=0; i < criterios.size(); i++){
+                          		
+                		        for(int i=0; i < trilha.getCriterios().size(); i++){
 	               			 	%>
                                       <tr>
-                                         <td><%=criterios.get(i).getDescricao()%></td>
-                                         <td><%=criterios.get(i).getPeso()%></td>
+                                         <td><%=trilha.getCriterios().get(i).getDescricao()%></td>
+                                         <td><%=trilha.getCriterios().get(i).getPeso()%></td>
 		                   				 <td><form action="editarCriterio.jsp" method="post"> 
-		                           				<input type="hidden" value="<%= criterios.get(i).getIdCriterio()%>" name="idCriterio"> 
+		                           				<input type="hidden" value="<%= trilha.getCriterios().get(i).getIdCriterio()%>" name="idCriterio"> 
 		                           				<button class="btn btn-primary" type="submit">Alterar</button>
 		                       				</form> 
 		                   				</td>
 		                   
 		                   				<td><form action="RemoverCriterio" method="post" id="formRemover" onsubmit="return confirm('Deseja remover este critério?');"> 
-		                           				<input type="hidden" value="<%= criterios.get(i).getIdCriterio()%>" name="idCriterio"> 
+		                           				<input type="hidden" value="<%= trilha.getCriterios().get(i).getIdCriterio()%>" name="idCriterio"> 
 		                           				<button class="btn btn-primary" type="submit">Remover</button>
 		                       				</form> 
 		                   				</td>
@@ -119,9 +85,6 @@
                                </section>
                            </div>
                        </div>
-                        	  <%}
-                       }
-                              %>
                                  
        	<center>
         <form action="adicionarCriterio.jsp" method="post">

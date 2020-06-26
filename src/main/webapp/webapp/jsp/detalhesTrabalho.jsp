@@ -13,9 +13,8 @@
 		Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
 		session.setAttribute("trabalho", trabalho);
 		
-		AvaliaTrabalho avaliaTrabalho = new DAOAvaliaTrabalho().getAvaliaTrabalho(idTrabalho);
-		List<Usuario> coAutores = new ArrayList<Usuario>(); 
-		coAutores = new DAOSubmissao().getAutores(idTrabalho);
+		AvaliaTrabalho avaliaTrabalho = null;
+		avaliaTrabalho = new DAOAvaliaTrabalho().getAvaliaTrabalho(idTrabalho);
 		Periodo atual = Facade.periodoAtual(trabalho.getTrilha());
     %>
       <!--main content start-->
@@ -30,7 +29,18 @@
 					</ol>
 				</div>
 			</div>
-      
+ 			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>     
       <!-- page start-->
               
               <div class="row">
@@ -48,7 +58,7 @@
 									         	
 									         	
 									         	<h4>Título:</h4>
-									         	<p><%= trabalho.getTitulo() %>"</p>
+									         	<p><%= trabalho.getTitulo() %></p>
 									            
 									            <% if (!trabalho.getResumo().equals("")) { %>
 									           	
@@ -63,16 +73,21 @@
 									           		<p> <input type="text" size="100" value="<%= trabalho.getPalavrasChaves() %>" disabled="disabled"></p>
 									           	
 									           	 <% } %>
-									           										           	
+									           	 <%if (trabalho.getAutores() != null && trabalho.getAutores().size()>0){ %>
+									           	 	<h4>Coautor(es)</h4>
+									           	 	<%for(Usuario u : trabalho.getAutores()){ %> 
+									           			<%-- <p> <input type="text" size="100" value="<%= u.getNome() %>" disabled="disabled"></p> --%>
+									           	 <%}} %>
+									           	<%if (avaliaTrabalho != null) {%>									           	
 									           		<h4>Feedback do Avaliador</h4>
 									           		<p> <textarea cols="100" rows="10" disabled="disabled"><%= avaliaTrabalho.getFeedback()%></textarea></p>
-									           	
+									           	<%} %>
 									           	
 									           	<h4>Status: <%= trabalho.getStatus() %> </h4> 
 									            
 									            <% 
-									             if ( atual.getDescricao().equals(DescricaoPeriodo.SUBMISSAO_FINAL) && 
-									            		( trabalho.getStatus().equals(StatusTrabalho.ACEITO) || trabalho.getStatus().equals(StatusTrabalho.ACEITO_FINAL))) { %>
+									             if (atual!=null && atual.getDescricao() == DescricaoPeriodo.SUBMISSAO_FINAL) 
+									            		if ( trabalho.getStatus()==StatusTrabalho.ACEITO || trabalho.getStatus()==StatusTrabalho.ACEITO_FINAL) { %>
 									            
 								          			<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 									           		<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />
@@ -81,6 +96,8 @@
 									            
 									            <% }  %>
 									            <br><br>
+									            </form>
+									            <form action="DownloadTrabalho" method="post">
 	               					 	<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="inicial" name="opcaoDownload">  
 	                  							<button class="btn btn-primary" type = "submit">Download da versão inicial do Trabalho</button>
 	               					 		</form>
@@ -93,8 +110,32 @@
 	               					 		</form>
 	               					 		<br>
 	               					 		<%} %>
+	               					 		<% 
+	               					 		if(atual.getDescricao()==DescricaoPeriodo.RECURSO && (trabalho.getStatus()==StatusTrabalho.REJEITADO 
+	               					 				|| trabalho.getStatus()==StatusTrabalho.REJEITADO_ORIENTADOR)){%>
+	               					 			<form action="paginaDeSubmissao.jsp" method="post" onsubmit="return confirm('Deseja reenviar este trabalho?');"> 
+			                   						<input type="hidden" value="<%= trabalho.getTrilha().getIdTrilha()%>" name="idTrilha">
+			                   						<input type="hidden" value="<%= trabalho.getTrilha().getEvento().getIdEvento()%>" name="idEvento"> 
+			                   						<input type="hidden" value="<%= trabalho.getIdTrabalho()%>" name="idTrabalho">  
+			                  						<button class="btn btn-primary" type = "submit">Recurso</button>
+               					 				</form> 	
+	               					 		<%}%>
+	               					 		<%if( trabalho.getOrientador()!=null
+	               					 				&& usuario.getCpf().equals(trabalho.getOrientador().getCpf())
+	               					 				&& trabalho.getStatus()==StatusTrabalho.ENVIADO 
+	               					 				&& (atual.getDescricao()==DescricaoPeriodo.AVAL || atual.getDescricao()==DescricaoPeriodo.SUBMISSAO_MANUSCRITO ) ) {%>
+	               					 			<h2>Aval do orientador:</h2>
+	               					 			<p>O trabalho pode seguir para avaliação?</p>
+	               					 			<form action="Aval" method="post">
+	               					 				<input type="radio" id="aceito" name="resultado" value="aceito" required><label for="aceito">Aceito</label>
+	               					 				<input type="radio" id="recusado" name="resultado" value="recusado"><label for="recusado">Recusado</label>
+	               					 				<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
+	               					 				<input type="submit" name="Avaliar" value="Avaliar">
+	               					 			</form>	
+	               					 		<%} %>
 								        	<form action="ApagarTrabalho" method="post" >                  					 
-	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho">  
+	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
+	                   						</form>	 
 				                   		</td>
 				                   </tr>
 	                       </tbody>
@@ -107,4 +148,6 @@
               <!-- page end-->
   </section>
 </section>
+</body>
+</html>
   <!-- container section start -->

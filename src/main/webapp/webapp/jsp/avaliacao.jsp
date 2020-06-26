@@ -1,12 +1,18 @@
+<%@page import="br.com.n2s.sara.model.TipoEvento"%>
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="br.com.n2s.sara.model.StatusTrabalho"%>
 <%@page import="br.com.n2s.sara.dao.DAOAvaliaTrabalho"%>
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
+<%@page import="br.com.n2s.sara.model.Trilha" %>
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Trabalho"%>
+<%@page import="br.com.n2s.sara.model.Periodo"%>
+<%@page import="br.com.n2s.sara.model.DescricaoPeriodo"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 
      	<%
-     		List<Trabalho> trabalhos = new DAOAvaliaTrabalho().read(usuario.getCpf());
+     		List<Trabalho> trabalhos = new DAOAvaliaTrabalho().readAvaliacao(usuario.getCpf());
      		session.setAttribute("usuarioSara", usuario);
      		
      	%>
@@ -23,7 +29,18 @@
 					</ol>
 				</div>
 			</div>
-      
+			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>      
       <!-- page start-->
               
               <div class="row">
@@ -46,28 +63,65 @@
 			       		  <%
 			       		  	
 			       			for(int i = 0; i < trabalhos.size(); i++){
-			                	if (trabalhos.get(i).getStatus().equals(StatusTrabalho.EM_AVALIACAO)){
+			                	
 			               %>
-			               
+			               <% 	Trilha trilha = new DAOTrilha().getTrilha(trabalhos.get(i).getTrilha().getIdTrilha());
+			               		Periodo atual = Facade.periodoAtual(trilha);   
+			               		if (atual!=null && atual.getDescricao() == DescricaoPeriodo.AVALIACAO) {%>
 			               <tr>
 			                   
 			                   <td><%= trabalhos.get(i).getTitulo() %> </td> 
-			                   <td> <form action="avaliarTrabalho.jsp" method="post"> 
-			                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho"> 
-			                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
-			                       </form> 
-			                   </td>
+				                   <%if (trabalhos.get(i).getTrilha().getEvento().getDescriEvento().toString().equals(TipoEvento.EU.toString())){%>
+				                   <td> <form action="avaliarTrabalho.jsp" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
+				                       </form> 
+				                   </td>
+				                   <%}else {%>
+				                   	<td> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
+				                       	</form> 
+				                   </td>
+				                   <%} %>
 			                   <td>
 				                   <form action="DownloadTrabalho" method="post"> 
-				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <input type="hidden" value="inicial" name="opcaoDownload"> 
 				                           <button class="btn btn-primary" type = "submit"> Download</button>
 				                   </form> 
 			                   </td>
 			                   
 			               </tr>
-			        		 
+			        		 <%}if (Facade.periodoAtual(trilha, DescricaoPeriodo.AVALIACAO)){%>
+			        		 	<tr>
+			                   
+			                   <td><%= trabalhos.get(i).getTitulo() %> </td> 
+				                   <%if (trabalhos.get(i).getTrilha().getEvento().getDescriEvento().toString().equals(TipoEvento.ESTAGIO.toString())){%>
+				                   <td> <form action="avaliarTrabalho.jsp" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
+				                       </form> 
+				                   </td>
+				                   <%}else {%>
+				                   	<td> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
+				                       	</form> 
+				                   </td>
+				                   <%} %>
+			                   <td>
+				                   <form action="DownloadTrabalho" method="post"> 
+				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
+				                           <input type="hidden" value="inicial" name="opcaoDownload"> 
+				                           <button class="btn btn-primary" type = "submit"> Download</button>
+				                   </form> 
+			                   </td>
+			                   
+			               </tr>			        		 
+			        		 <%} %>
 							    <% 
-							        }}
+							        }
 							    %>
                            </tbody>
                         </table>

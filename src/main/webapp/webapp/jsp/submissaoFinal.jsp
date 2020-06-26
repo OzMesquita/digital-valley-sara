@@ -8,7 +8,7 @@
 	<% 
 		DAOEvento daoEvento = new DAOEvento();
 		DAOTrilha daoTrilha = new DAOTrilha();
-		Evento evento = daoEvento.getEvento(Integer.parseInt(request.getParameter("idEvento")));
+		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(request.getParameter("idEvento")));
 		Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
         
     %>
@@ -25,7 +25,18 @@
 					</ol>
 				</div>
 			</div>
-      
+ 			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>     
       <!-- page start-->
               
               <div class="row">

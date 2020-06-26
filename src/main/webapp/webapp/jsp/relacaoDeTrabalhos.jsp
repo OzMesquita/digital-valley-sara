@@ -7,6 +7,7 @@
 
 	<% 
 		Evento evento = (Evento) session.getAttribute("evento");
+		evento = Facade.pegarEventoPeloId(evento.getIdEvento());
 		List<Trilha> trilhas = new DAOTrilha().read();
     
     %>
@@ -22,7 +23,18 @@
 					</ol>
 				</div>
 			</div>
-      
+ 			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>     
       <!-- page start-->
       
       	<% 

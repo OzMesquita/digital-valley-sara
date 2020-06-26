@@ -2,20 +2,14 @@ package br.com.n2s.sara.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+@Deprecated
 public class CriterioTrilha {
 
-	private int idCriterioTrilha;
 	private LocalDate dataCriacao;
 	private String nome;
 	private ArrayList<Criterio> criterios;
+	private Trilha trilha;
 	
-	public int getIdCriterioTrilha() {
-		return idCriterioTrilha;
-	}
-	public void setIdCriterioTrilha(int idCriterioTrilha) {
-		this.idCriterioTrilha = idCriterioTrilha;
-	}
 	public LocalDate getDataCriacao() {
 		return dataCriacao;
 	}
@@ -33,5 +27,11 @@ public class CriterioTrilha {
 	}
 	public void setCriterios(ArrayList<Criterio> criterios) {
 		this.criterios = criterios;
+	}
+	public Trilha getTrilha() {
+		return trilha;
+	}
+	public void setTrilha(Trilha trilha) {
+		this.trilha = trilha;
 	}
 }

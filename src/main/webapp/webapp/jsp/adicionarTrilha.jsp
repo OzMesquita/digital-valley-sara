@@ -1,9 +1,12 @@
+<%@page import="br.com.n2s.sara.model.DescricaoPeriodo"%>
+<%@page import="com.sun.crypto.provider.DESCipher"%>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Evento"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 
 	<%	
 		Evento evento = (Evento) session.getAttribute("evento");
+		evento = Facade.pegarEventoPeloId(evento.getIdEvento());
 		session.setAttribute("evento", evento);
 	%>
       
@@ -19,7 +22,18 @@
 					</ol>
 				</div>
 			</div>
-      
+			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>      
       				<!-- Form validations -->
 				<div class="row">
 					<div class="col-lg-12">
@@ -48,7 +62,54 @@
 														name="descricao" required></textarea>
 												</div>
 											</div>
-
+											<div class="form-group">
+												<label for="qtd">Quantia de correções
+													<span class="required">*</span>
+												</label>
+													<select required="required" name="correcoes" id="qtd">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												<label for="peso">Peso dos trabalhos
+													<span class="required">*</span>
+												</label>
+												<div class="col-lg-10">
+													<select name="peso" required="required" id="peso">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</div>
+											</div>
+											<!-- ENTÃO TEMOS QUE ADICIONAR AS COISAS QUE FALTAM -->
+											<%for (DescricaoPeriodo dp : DescricaoPeriodo.values()) { %>
+												<div class="form-group ">
+												<label class=" control-label col-lg-2">
+													<span>Periodo de <%=dp.getDescricao()%></span>
+												</label>																						
+													<label for="cemail" class=" col-lg-2">Data Inicial 
+														<span class="required">*</span>
+													</label>
+													<div class="col-lg-2">
+														<input class="form-control " id="subject" type="date"
+															name="dataInicial-<%=dp.getDescricao()%>" required />
+													</div>
+													<label for="cemail" class=" col-lg-2">Data Final 
+														<span class="required">*</span>
+													</label>
+													<div class="col-lg-2">
+														<input class="form-control " id="subject" type="date"
+															name="dataFinal-<%=dp.getDescricao()%>" required />
+													</div>
+												</div>
+											<%}%>
+											
+											<!-- PARTE QUE JÁ HAVIA SIDO IMPLEMENTADA -->											
 											<div class="form-group">
 												<div class="col-lg-offset-2 col-lg-10">
 													<button id = "sucesso" class="btn btn-primary" type="submit"onclick = "validation();">Salvar</button>

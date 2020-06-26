@@ -12,10 +12,13 @@
 	<% 
 		
 	    String idEvento = request.getParameter("idEvento");
-    	Evento evento = (new DAOEvento().getEvento(Integer.parseInt(idEvento))); 
-    	evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
-    	session.setAttribute("evento", evento);
-
+		if(idEvento == null || idEvento == ""){
+			//session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao carregar o evento!");
+			response.sendRedirect("indexAutor.jsp");
+		}else{
+			Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
+    		session.setAttribute("evento", evento);
+		
     %>
       
       <!--main content start-->
@@ -30,7 +33,18 @@
 					</ol>
 				</div>
 			</div>
-      
+ 			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>     
       <!-- page start-->
               
               <div class="row">
@@ -75,18 +89,28 @@
                                      <td ><%=periodoSubmissao%></td>
                                      <td>
                                      	<%if( atual!=null && (DescricaoPeriodo.SUBMISSAO_MANUSCRITO.equals(atual.getDescricao())) ) {%>
-                                     	 <form action="paginaDeSubmissao.jsp" method="post"> 
-                                             <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">
-                                              <input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
-                                              
-                                             <button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
-                                         </form>
+                                     	 	<%if( evento.getDescriEvento().toString().equals(TipoEvento.ESTAGIO.toString())){%>
+		                                     	 	<form action="submissao.jsp" method="post"> 
+		                                             <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">
+		                                              <input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+		                                              
+		                                             <button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
+		                                         </form>	
+                                     	 	<%}%>
+                                     	 	<%if( evento.getDescriEvento().toString().equals(TipoEvento.EU.toString())){%>
+		                                     	 	<form action="paginaDeSubmissao.jsp" method="post"> 
+		                                             <input type="hidden" value="<%= evento.getTrilhas().get(i).getIdTrilha()%>" name="idTrilha">
+		                                              <input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+		                                              
+		                                             <button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
+		                                         </form>	
+                                     	 	<%}%>
                                          <%} %> 
                                      </td>
                                    
                                  </tr>
                                  
-                              <%}%>    
+                              <%}}%>    
                                  
                            </tbody>
                         </table>

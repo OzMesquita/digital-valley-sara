@@ -12,6 +12,9 @@ public class Trilha {
 	private CriterioTrilha criterioTrilha;
 	private ArrayList<Periodo> periodos;
 	private ArrayList<Usuario> avaliadores;
+	private ArrayList<Criterio> criterios;
+	private int qtdCorrecoes;
+	private int peso;
 	
 	public int getIdTrilha() {
 		return idTrilha;
@@ -43,9 +46,11 @@ public class Trilha {
 	public void setEvento(Evento evento) {
 		this.evento = evento;
 	}
+	@Deprecated
 	public CriterioTrilha getCriterioTrilha() {
 		return criterioTrilha;
 	}
+	@Deprecated
 	public void setCriterioTrilha(CriterioTrilha criterioTrilha) {
 		this.criterioTrilha = criterioTrilha;
 	}
@@ -60,6 +65,24 @@ public class Trilha {
 	}
 	public void setAvaliadores(ArrayList<Usuario> avaliadores) {
 		this.avaliadores = avaliadores;
+	}
+	public ArrayList<Criterio> getCriterios() {
+		return criterios;
+	}
+	public void setCriterios(ArrayList<Criterio> criterios) {
+		this.criterios = criterios;
+	}
+	public int getQtdCorrecoes() {
+		return qtdCorrecoes;
+	}
+	public void setQtdCorrecoes(int qtdCorrecoes) {
+		this.qtdCorrecoes = qtdCorrecoes;
+	}
+	public int getPeso() {
+		return peso;
+	}
+	public void setPeso(int peso) {
+		this.peso = peso;
 	}
 	
 }

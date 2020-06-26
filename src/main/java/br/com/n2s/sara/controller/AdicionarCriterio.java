@@ -16,6 +16,7 @@ import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.CriterioTrilha;
 import br.com.n2s.sara.model.Trilha;
+import br.com.n2s.sara.util.Constantes;
 
 /**
  * Servlet implementation class AdicionarCriterio
@@ -38,7 +39,7 @@ public class AdicionarCriterio extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-
+		try {
 		Trilha trilha = new Trilha();
 		Criterio criterio = new Criterio();
 
@@ -53,8 +54,12 @@ public class AdicionarCriterio extends HttpServlet {
 		criterio.setCriterioTrilha(trilha.getCriterioTrilha());
 		
 		new DAOCriterio().create(criterio);
-
+		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a adição do criterio!");
 		response.sendRedirect("eventosCoordenados.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante o cadastro do critério!\n Erro: "+e.getMessage());
+			response.sendRedirect("adicionarCriterio.jsp");
+		}
 
 		
 	}

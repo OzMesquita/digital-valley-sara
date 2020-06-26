@@ -15,6 +15,7 @@ import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trilha;
+import br.com.n2s.sara.util.Constantes;
 
 /**
  * Servlet implementation class AdicionarPeriodo
@@ -26,7 +27,7 @@ public class AdicionarPeriodo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		
+		try {
 		Trilha trilha = (Trilha) session.getAttribute("trilha");
 		
 		DAOPeriodo daoPeriodo = new DAOPeriodo();
@@ -39,10 +40,13 @@ public class AdicionarPeriodo extends HttpServlet {
 		periodo.setTrilha(trilha);
 		daoPeriodo.create(periodo);
 		
-		String feedbackSucesso = "Período adicionado com sucesso!";
-		session.setAttribute("feedbackSucesso", feedbackSucesso);
+		session.setAttribute(Constantes.getSESSION_MGS(), "Período adicionado com sucesso!");
 		
 		response.sendRedirect("gerenciarPeriodosTrilha.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR()+e.getMessage(), "Erro durante o cadastro do periodo!");
+			response.sendRedirect("indexAutor.jsp");
+		}
 	}
 
 }

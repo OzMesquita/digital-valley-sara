@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -48,6 +49,7 @@ public class GerarRelatorio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
 		evento.setTrilhas(new DAOTrilha().readById(evento.getIdEvento()));
 		String tipoRelatorio = request.getParameter("tipoRelatorio");
@@ -70,7 +72,7 @@ public class GerarRelatorio extends HttpServlet {
 				image.scaleAbsoluteWidth(90);
 				image.scaleAbsoluteHeight(60);
 				document.add(image);
-				Paragraph cabecalho = new Paragraph("UNIVERDADE FEDERAL DO CEARÁ \n"
+				Paragraph cabecalho = new Paragraph("UNIVERSIDADE FEDERAL DO CEARÁ \n"
 						+ "CAMPUS RUSSAS \n\n" + evento.getNome() + "\n\n\n");
 				cabecalho.setAlignment(Paragraph.ALIGN_CENTER);
 				document.add(cabecalho);
@@ -187,7 +189,7 @@ public class GerarRelatorio extends HttpServlet {
 				            				strBuilder.append( trabalho.getAutor().getCpf()+"\n\n");
 				            			}
 				            	}
-				            	for (Usuario u : trabalho.getAutores()) {
+				            	/*for (Usuario u : trabalho.getAutores()) {
 				            		if(u != null) {
 				            			if(u.getNome()==null) {
 				            				Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(u.getCpf());
@@ -203,7 +205,7 @@ public class GerarRelatorio extends HttpServlet {
 				            					strBuilder.append("\n" + u.getCpf() +"     "+ u.getEmail()+"\n\n");
 				            			}
 				            		}	
-				            	}
+				            	}*/
 				            	PdfPCell autores = new PdfPCell(new Paragraph(strBuilder.toString()));
 				            	autores.setHorizontalAlignment(Element.ALIGN_CENTER);
 				            	table.addCell(autores);
@@ -212,7 +214,81 @@ public class GerarRelatorio extends HttpServlet {
 			            	}
 			            document.add(table);
 			            }			            
-				}		
+				}if(tipoRelatorio.equals("relatorioAceito")) {
+					for (Trilha trilha: evento.getTrilhas()) {
+	            	PdfPTable t = new PdfPTable(1); //Criando a tabela com uma trilha
+		            PdfPCell cell = new PdfPCell();
+		            cell.setBorder(PdfPCell.NO_BORDER);
+		            cell.addElement(image);
+		            t.addCell(cell);
+		            PdfPCell cell1 = new PdfPCell();
+		            cell1.setBorder(PdfPCell.NO_BORDER);
+		            cell1.setColspan(1);
+		            normal.setColor(10, 10, 10);
+		            normal.setSize(15);
+		            t.addCell(cell1);
+		           // document.add(t);
+		            normal.setSize(10);
+		            PdfPTable table = new PdfPTable(1);
+	            	int i = 1;
+	            	ArrayList<Trabalho> trabalhos = new DAOTrabalho().readTrilha(trilha.getIdTrilha());
+	            	Paragraph tituloTrilha = new Paragraph(trilha.getNome().toUpperCase() + "\n\n");
+	            	tituloTrilha.setAlignment(Paragraph.ALIGN_CENTER);
+	            	document.add(tituloTrilha);
+		            PdfPCell coluna1 = new PdfPCell(new Paragraph("Titulo", normal));
+		            coluna1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		            coluna1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		            /*PdfPCell coluna2 = new PdfPCell(new Paragraph("Autores", normal));
+		            coluna2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		            coluna2.setHorizontalAlignment(Element.ALIGN_CENTER);*/
+		            table.setWidths(new int[]{650});
+		            table.addCell(coluna1);
+		           /* table.addCell(coluna2);*/
+		            //Percorrer as trilhas
+		            for (Trabalho trabalho: trabalhos) {
+		            	StringBuilder strBuilder = new StringBuilder();
+		            	if(trabalho.getStatus()== StatusTrabalho.ACEITO) {
+		            		strBuilder.append(i+" - "+trabalho.getTitulo().toUpperCase()+"\n\n");
+			            	if (trabalho.getAutor() != null) {
+			            		//Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(trabalho.getAutor().getCpf());			            		
+			            		/*if(usuario!=null) {	
+			            			strBuilder.append(usuario.getNome().toUpperCase()+"\n");
+			            			if(usuario.getCpf()!=null && usuario.getEmail()!=null) {
+			            				strBuilder.append(usuario.getCpf()+"    "+usuario.getEmail()+"\n\n");
+			            				}
+			            			}else {
+			            				strBuilder.append( trabalho.getAutor().getCpf()+"\n\n");
+									}*/
+								strBuilder.append(trabalho.getAutor().getNome().toUpperCase()+"\n");
+								strBuilder.append(trabalho.getAutor().getEmail().toUpperCase()+"\n\n");	
+			            	}
+			            	/*for (Usuario u : trabalho.getAutores()) {
+			            		if(u != null) {
+			            			if(u.getNome()==null) {
+			            				Usuario usuario = br.com.n2s.sara.util.Facade.buscarUsuarioGuardiao(u.getCpf());
+			            				if (usuario != null) {
+			            					strBuilder.append("\n"+ usuario.getNome());
+			            					strBuilder.append("\n" + usuario.getCpf() +"     "+ usuario.getEmail()+"\n\n");
+			            				}else {
+			            					strBuilder.append("\n "+u.getCpf());
+			            				}
+			            			}else {
+			            				strBuilder.append("\n" + u.getNome().toUpperCase());
+			            				if(u.getCpf()!=null && u.getEmail()!=null)
+			            					strBuilder.append("\n" + u.getCpf() +"     "+ u.getEmail()+"\n\n");
+			            			}
+			            		}	
+			            	}*/
+			            	PdfPCell autores = new PdfPCell(new Paragraph(strBuilder.toString()));
+			            	autores.setHorizontalAlignment(Element.ALIGN_CENTER);
+			            	table.addCell(autores);
+			            	i++;
+		            	}
+		            	}
+		            document.add(table);
+		            }
+				}
+					
 				
 				document.close();				
 				
@@ -221,7 +297,7 @@ public class GerarRelatorio extends HttpServlet {
 		        String nome = arquivo.getName();
 		        int tamanho = (int) arquivo.length();
 		
-		        response.setContentType(Files.probeContentType(path)); // tipo do conte�do
+		        response.setContentType(Files.probeContentType(path)); // tipo do conteÃ¯Â¿Â½do
 		        response.setContentLength(tamanho);  // opcional
 		        response.setHeader("Content-Disposition", "attachment; filename=\"" + nome + "\"");
 		        OutputStream output = response.getOutputStream();
@@ -233,7 +309,7 @@ public class GerarRelatorio extends HttpServlet {
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
-				// TODO: handle exception
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a geraÃ§Ã£o de relatÃ³rio");
 			}			
 
 		}

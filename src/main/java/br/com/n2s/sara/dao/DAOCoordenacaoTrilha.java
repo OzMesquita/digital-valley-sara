@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.n2s.sara.model.CoordenacaoTrilha;
+import br.com.n2s.sara.model.Usuario;
 
 public class DAOCoordenacaoTrilha extends DAO {
 
@@ -15,7 +16,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 	public void create(CoordenacaoTrilha coordenacaoTrilha){
 
 		super.open();
-		String sql = "insert into sara.CoordenacaoTrilha"  
+		String sql = "insert into sara.coordenacaotrilha"  
 				+ "(cpfCoordenador, idTrilha)"
 				+ "values (?,?)";
 
@@ -26,23 +27,26 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public List<CoordenacaoTrilha> read(){
 
 		super.open();
-		String sql = "select * from sara.CoordenacaoTrilha";
+		String sql = "select * from sara.coordenacaotrilha";
 
 		try{
 
 			List<CoordenacaoTrilha> coordenacoes = new ArrayList<CoordenacaoTrilha>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOTrilha trilhaController = new DAOTrilha();
 
@@ -56,18 +60,20 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return coordenacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 		public List<CoordenacaoTrilha> readById(String id){
 
 		super.open(); 
-		String sql = "select * from sara.CoordenacaoTrilha where cpfCoordenador = ?";
+		String sql = "select * from sara.coordenacaotrilha where cpfCoordenador = ?";
 
 		try{
 
@@ -75,6 +81,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, id);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOTrilha trilhaController = new DAOTrilha();
 
@@ -88,19 +95,51 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return coordenacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
+		
+		public List<Usuario> readByIdTrilha(int id){
+
+			super.open(); 
+			String sql = "select * from sara.coordenacaotrilha where idTrilha = ?";
+
+			try{
+
+				List<Usuario> coordenacoes = new ArrayList<Usuario>();
+				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+				stmt.setInt(1, id);
+				ResultSet rs = stmt.executeQuery();
+				super.close();
+				while(rs.next()){
+
+					Usuario user = new DAOUsuario().getUsuario(rs.getString("cpfCoordenador"));
+					coordenacoes.add(user);
+				}
+
+				rs.close();
+				stmt.close();
+				
+				return coordenacoes;
+
+			}catch(SQLException e){
+				throw new RuntimeException(e);
+			}finally {
+				super.close();
+			}
+		}
 
 
 	public CoordenacaoTrilha getCoordenacaoTrilha(String cpfCoordenador){
 
 		super.open();
-		String sql = "select * from sara.CoordenacaoTrilha where cpfCoordenador = ?";
+		String sql = "select * from sara.coordenacaotrilha where cpfCoordenador = ?";
 		DAOUsuario usuarioController = new DAOUsuario();
 		DAOTrilha trilhaController = new DAOTrilha();
 
@@ -108,7 +147,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfCoordenador);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 
 				CoordenacaoTrilha coordenacaoTrilha = new CoordenacaoTrilha();
@@ -117,20 +156,22 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return coordenacaoTrilha;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public void update(CoordenacaoTrilha coordenacaoTrilha){
 
 		super.open();
-		String sql = "update sara.CoordenacaoTrilha set cpfCoordenador = ?, idTrilha = ? " 
+		String sql = "update sara.coordenacaotrilha set cpfCoordenador = ?, idTrilha = ? " 
 				+ " where cpfCoordenador = ?";
 
 		try {
@@ -141,7 +182,7 @@ public class DAOCoordenacaoTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -152,17 +193,19 @@ public class DAOCoordenacaoTrilha extends DAO {
 	public void delete(String cpfCoordenador){
 
 		super.open();
-		String sql = "delete from sara.CoordenacaoTrilha where cpfCoordenador = ?";
+		String sql = "delete from sara.coordenacaotrilha where cpfCoordenador = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfCoordenador);
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 
 	}

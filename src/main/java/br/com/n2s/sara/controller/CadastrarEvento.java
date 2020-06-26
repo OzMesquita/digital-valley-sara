@@ -18,18 +18,19 @@ import br.com.n2s.sara.model.CoordenacaoEvento;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Usuario;
+import br.com.n2s.sara.util.Constantes;
 
 
 /**
  * Servlet implementation class CadastrarEvento
  */
-@WebServlet("/CadastrarEvento")
 public class CadastrarEvento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
+		try {
 		String nome = request.getParameter("nome");
 		String cpfCoordenador = request.getParameter("cpfCoordenador").replaceAll("[.-]", "");
 		String site = request.getParameter("site");
@@ -45,6 +46,7 @@ public class CadastrarEvento extends HttpServlet {
 		evento.setSite(site);
 		evento.setDataInicial(dataInicial);
 		evento.setDataFinal(dataFinal);
+		evento.setDivulgada(false);
 		
 		DAOEvento daoEvento = new DAOEvento();
 		evento = daoEvento.create(evento);
@@ -52,7 +54,7 @@ public class CadastrarEvento extends HttpServlet {
 		DAOUsuario daoUsuario = new DAOUsuario();
 		Usuario usuario = daoUsuario.getUsuario(cpfCoordenador);
 		
-		if(!usuario.getTipo().equals((NivelUsuario.COORDENADOR_EVENTO))) {
+		if( usuario.getTipo().equals(NivelUsuario.AUTOR) || usuario.getTipo().equals(NivelUsuario.USUARIO) || usuario.getTipo().equals(NivelUsuario.COORDENADOR_TRILHA)) {
 			usuario.setTipo(NivelUsuario.COORDENADOR_EVENTO);
 			daoUsuario.update(usuario);
 		}
@@ -61,9 +63,15 @@ public class CadastrarEvento extends HttpServlet {
 		coordEvento.setEvento(evento);
 		DAOCoordenacaoEvento daoCoordEvento = new DAOCoordenacaoEvento();
 		daoCoordEvento.create(coordEvento);
-		
+
 		session.setAttribute("evento", evento);
-		response.sendRedirect("gerenciaEvento.jsp");
+		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso ao cadastar evento!");
+		response.sendRedirect("gerenciarTrilhasCoordenadas.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao cadastrar o Evento: "+e.getMessage());
+		}
+		
+
 	}
 
 }

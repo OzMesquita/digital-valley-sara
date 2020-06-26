@@ -6,6 +6,7 @@
 	<%	
 		Criterio criterio = (Criterio) session.getAttribute("criterio");
 		Evento evento = (Evento) session.getAttribute("evento");
+		evento = Facade.pegarEventoPeloId(evento.getIdEvento());
 	if (! Facade.isCoordenador(evento.getIdEvento(), usuario.getCpf())){
   		%>
   		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
@@ -35,7 +36,18 @@
 					</ol>
 				</div>
 			</div>
-      
+			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>      
       				<!-- Form validations -->
 				<div class="row">
 					<div class="col-lg-12">

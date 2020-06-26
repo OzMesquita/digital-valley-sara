@@ -5,32 +5,41 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.Periodo;
 import br.com.n2s.sara.model.Trilha;
+import br.com.n2s.sara.model.Usuario;
 
 public class DAOTrilha extends DAO {
 
 	public DAOTrilha(){}
 
-	public void create(Trilha trilha){
+	public Trilha create(Trilha trilha){
 		super.open();
-		String sql = "insert into sara.Trilha"  
-				+ "(nome, descricao, idEvento)"
-				+ "values (?,?,?)";
+		String sql = "insert into sara.trilha"  
+				+ "(nome, descricao, idEvento, qtdcorrecoes, peso)"
+				+ "values (?,?,?,?,?)";
 
 		try {
-			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, trilha.getNome());
 			stmt.setString(2, trilha.getDescricao());
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
-			
-			stmt.execute();
+			stmt.setInt(4, trilha.getQtdCorrecoes());
+			stmt.setInt(5, trilha.getPeso());
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			int id=0;
+			if(rs.next()) {
+				id=rs.getInt("idtrilha");
+				trilha.setIdTrilha(id);
+			}
 			stmt.close();
-			
-
+			return trilha;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
@@ -41,7 +50,7 @@ public class DAOTrilha extends DAO {
 	public List<Trilha> read(){
 		
 		super.open();
-		String sql = "select * from sara.Trilha";
+		String sql = "select * from sara.trilha";
 
 		try{
 			List<Trilha> trilhas = new ArrayList<Trilha>();
@@ -58,7 +67,13 @@ public class DAOTrilha extends DAO {
 				trilha.setNome(rs.getString("nome"));
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
-				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
+				trilha.setCriterios((ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
+				trilha.setAvaliadores((ArrayList<Usuario>) new DAOAvaliaTrilha().getAvaliadores(trilha.getIdTrilha()));
+				trilha.setPeriodos((ArrayList<Periodo>) new DAOPeriodo().readByIdTrilha(trilha.getIdTrilha()));
+				trilha.setCoordenadores( (ArrayList<Usuario>) new DAOCoordenacaoTrilha().readByIdTrilha(trilha.getIdTrilha()));
+				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
+				trilha.setPeso(rs.getInt("peso"));
+				
 				trilhas.add(trilha);
 
 			}
@@ -77,7 +92,7 @@ public class DAOTrilha extends DAO {
 public List<Trilha> readById(int id){
 		
 		super.open();
-		String sql = "select * from sara.Trilha where idEvento = ?";
+		String sql = "select * from sara.trilha where idEvento = ?";
 		
 		try{
 			List<Trilha> trilhas = new ArrayList<Trilha>();
@@ -95,8 +110,9 @@ public List<Trilha> readById(int id){
 				trilha.setNome(rs.getString("nome"));
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
-				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
-				
+				trilha.setCriterios((ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
+				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
+				trilha.setPeso(rs.getInt("peso"));
 				trilhas.add(trilha);
 
 			}
@@ -114,12 +130,13 @@ public List<Trilha> readById(int id){
 
 	public Trilha getTrilha(int idTrilha){
 		super.open();
-		String sql = "select * from sara.Trilha where idTrilha = ?";
+		String sql = "select * from sara.trilha where idTrilha = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrilha);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOEvento daoEvento = new DAOEvento();
 			DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
 			DAOPeriodo daoPeriodo = new DAOPeriodo();
@@ -131,7 +148,11 @@ public List<Trilha> readById(int id){
 				trilha.setNome(rs.getString("nome"));
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
-				trilha.setCriterioTrilha(daoCriterioTrilha.getCriterioTrilha(rs.getInt("idCriterioTrilha")));
+				trilha.setCoordenadores( (ArrayList<Usuario>) new DAOCoordenacaoTrilha().readByIdTrilha(trilha.getIdTrilha()));
+				trilha.setAvaliadores((ArrayList<Usuario>) new DAOAvaliaTrilha().getAvaliadores(trilha.getIdTrilha()));
+				trilha.setCriterios( (ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
+				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
+				trilha.setPeso(rs.getInt("peso"));
 				rs.close();
 				stmt.close();
 				
@@ -148,7 +169,7 @@ public List<Trilha> readById(int id){
 
 	public void update(Trilha trilha){
 		super.open();
-		String sql = "update sara.Trilha set nome = ?, descricao = ?, idEvento = ?, "
+		String sql = "update sara.trilha set nome = ?, descricao = ?, idEvento = ?, "
 				+ "idCriterioTrilha = ? where idTrilha = ?";
 
 
@@ -157,8 +178,8 @@ public List<Trilha> readById(int id){
 			stmt.setString(1, trilha.getNome());
 			stmt.setString(2, trilha.getDescricao());
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
-			stmt.setInt(4, trilha.getCriterioTrilha().getIdCriterioTrilha());
 			stmt.setInt(5, trilha.getIdTrilha());
+			
 
 			stmt.execute();
 			stmt.close();
@@ -173,7 +194,7 @@ public List<Trilha> readById(int id){
 
 	public void delete(int idTrilha){
 		super.open();
-		String sql = "delete from sara.Trilha where idTrilha = ?";
+		String sql = "delete from sara.trilha where idTrilha = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);

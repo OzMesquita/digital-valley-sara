@@ -7,9 +7,14 @@
 	<% 
 		DAOEvento daoEvento = new DAOEvento();
 		DAOTrilha daoTrilha = new DAOTrilha();
-		Evento evento = daoEvento.getEvento(Integer.parseInt(request.getParameter("idEvento")));
-		Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
- 
+		String idEvento = request.getParameter("idEvento");
+		String idTrilha = request.getParameter("idTrilha");
+		if (idEvento == null || idTrilha == null){
+			response.sendRedirect("indexAutor.jsp");	
+		}else{		
+		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
+		Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(idTrilha));
+		
     %>
       <!--main content start-->
       <section id="main-content">
@@ -23,7 +28,18 @@
 					</ol>
 				</div>
 			</div>
-      
+			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>      
       <!-- page start-->
               
               <div class="row">
@@ -57,7 +73,7 @@
 												CPF: <input type="text" id="cpf" name="cpf" size="14" value="<%=usuario.getCpf()%>" disabled="disabled">
 												<br/>
 												<br/>
-												Adicione seu orientador e, se houver, adicione os co-autores: 
+												Adicione seu orientador abaixo. 
 												<br/>
 												<br/>
 									            <div id="divAutorBase">
@@ -65,7 +81,9 @@
 														Email: <input type="text" name="emailAutor" required="required" />
 														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)" onblur="validarCPF(this.value);"  required="required" name="cpfAutor">
 														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
+														</br>
 												</div>
+												Adicione os co-autores:
 											    <div id="divAutorList" >
 											    </div>
 											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />
@@ -77,7 +95,7 @@
 						     					<br/>
 												<label>*Anexar Trabalho:</label>
 												
-								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
+								         		<input type="file" accept=".pdf" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
 								         		<br/>
 								         		<p style="font-size: 9; color:red;">(*)Campos Obrigatórios</p>
 								          		<input type="submit" onsubmit="verificacao();" value="Enviar">
@@ -94,6 +112,7 @@
               <!-- page end-->
   </section>
 </section>
+<%} %>
   <!-- container section start -->
     
     <!-- javascripts -->
@@ -113,6 +132,8 @@
     					if (cpf1.value == cpf2.value){
     						alert("ERRO: CPFS REPETIDOS! POR FAVOR VERIFICAR.");
     					}
+    					validarCPF(cpf1);
+    					validarCPF(cpf2);
     				}
     			}
     		}
@@ -126,7 +147,8 @@
     	var tamanhoArquivo = parseInt(document.getElementById("file_Input").files[0].size);
       	if(tamanhoArquivo > 5242880 ){
       			 alert("TAMANHO DO ARQUIVO EXCEDE O PERMITIDO (5MB)!");
-                document.getElementById('form').reset();
+      			document.getElementById('file_Input').type='';
+      			document.getElementById('file_Input').type='file';
             }
     };
     
@@ -271,6 +293,11 @@
 	    'insert': function()
 	    {
 	        var newDiv = this.divAutorBase.cloneNode(true);
+	        for (var i=0;i<newDiv.getElementsByTagName('input').length;i++){
+	        	if (newDiv.getElementsByTagName('input')[i].type == "text"){
+	        		newDiv.getElementsByTagName('input')[i].value='';
+	        	}
+	        }
 	        this.divAutorList.appendChild(newDiv);
 	    },
 	    

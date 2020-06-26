@@ -19,7 +19,7 @@ public class DAOAvaliaTrilha extends DAO {
 	public void create(AvaliaTrilha avalia){
 
 		super.open();
-		String sql = "insert into sara.AvaliaTrilha(idavaliador, idtrilha)"
+		String sql = "insert into sara.avaliatrilha(idavaliador, idtrilha)"
 				+ "values (?,?)";
 
 		try {
@@ -29,23 +29,25 @@ public class DAOAvaliaTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public List<AvaliaTrilha> read(){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrilha";
+		String sql = "select * from sara.avaliatrilha";
 
 		try{
 			List<AvaliaTrilha> avaliacoes = new ArrayList<AvaliaTrilha>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 
 				AvaliaTrilha avalia = new AvaliaTrilha();
@@ -57,18 +59,20 @@ public class DAOAvaliaTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return avaliacoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 	
 	public AvaliaTrilha getAvaliaTrilha(String cpfAvaliador, int idTrilha){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrilha where idAvaliador = ? and idTrilha = ?";
+		String sql = "select * from sara.avaliatrilha where idAvaliador = ? and idTrilha = ?";
 
 		try{
 			
@@ -76,7 +80,7 @@ public class DAOAvaliaTrilha extends DAO {
 			stmt.setString(1, cpfAvaliador);
 			stmt.setInt(2, idTrilha);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 
 				AvaliaTrilha avaliaTrilha = new AvaliaTrilha();
@@ -85,13 +89,15 @@ public class DAOAvaliaTrilha extends DAO {
 				
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return avaliaTrilha;
 
 			}
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 		
 		return null;
@@ -100,14 +106,14 @@ public class DAOAvaliaTrilha extends DAO {
 	public List<Usuario> getAvaliadores(int idTrilha){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrilha where idTrilha = ?";
+		String sql = "select * from sara.avaliatrilha where idTrilha = ?";
 
 		try{
 			List<Usuario> avaliadores = new ArrayList<Usuario>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrilha);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 
 				Usuario avaliador = new DAOUsuario().getUsuario((rs.getString("idavaliador")));
@@ -116,25 +122,27 @@ public class DAOAvaliaTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return avaliadores;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public List<Trilha> getTrilhasAvaliadas(String idAvaliador){
 
 		super.open();
-		String sql = "select * from sara.Avaliatrilha where idAvaliador = ?";
+		String sql = "select * from sara.avaliatrilha where idAvaliador = ?";
 
 		try{
 			List<Trilha> trilhas = new ArrayList<Trilha>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, idAvaliador);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 
 				Trilha trilha = new DAOTrilha().getTrilha((rs.getInt("idtrabalho")));
@@ -143,18 +151,20 @@ public class DAOAvaliaTrilha extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return trilhas;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public void update(AvaliaTrilha avaliaTrilha){
 
-		super.close();
-		String sql = "update sara.AvaliaTrilha set idavaliador = ?, idtrilha = ?" 
+		
+		String sql = "update sara.avaliatrilha set idavaliador = ?, idtrilha = ?" 
 				+ " where idavaliador = ?";
 
 		try {
@@ -164,17 +174,19 @@ public class DAOAvaliaTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public void delete(AvaliaTrilha avaliaTrilha){
 
 		super.open();
-		String sql = "delete from sara.AvaliaTrilha where idavaliador = ? and idTrilha = ?";
+		String sql = "delete from sara.avaliatrilha where idavaliador = ? and idTrilha = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -183,10 +195,12 @@ public class DAOAvaliaTrilha extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 }

@@ -22,35 +22,47 @@ public class DAOSubmissao extends DAO {
 
 	public void create(Submissao submissao){
 		
-		super.open();
-		String sql = "insert into sara.Submissao"  
-				+ "(cpfautor, idtrabalho,tipoUsuario)"
-				+ "values (?,?,?)";
-
 		try {
+			super.open();
+			String sql = "insert into sara.submissao"  
+					+ "(cpfautor, idtrabalho,tipoUsuario)"
+					+ "values (?,?,?)";
+
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.getConnection().setAutoCommit(false);
+			
 			stmt.setString(1, submissao.getAutor().getCpf());
 			stmt.setInt(2, submissao.getTrabalho().getIdTrabalho());
 			stmt.setString(3, submissao.getTipoAutor().toString());
 
 			stmt.execute();
+			stmt.getConnection().commit();
+			stmt.getConnection().setAutoCommit(true);
 			stmt.close();
-			super.close();
 
 		} catch (SQLException e) {
+			try {
+				super.getConnection().rollback();
+				super.getConnection().setAutoCommit(true);
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public List<Submissao> read(){
 		
 		super.open();
-		String sql = "select * from sara.Submissao";
+		String sql = "select * from sara.submissao";
 
 		try{
 			List<Submissao> submissoes = new ArrayList<Submissao>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 
 			while(rs.next()){
@@ -63,11 +75,13 @@ public class DAOSubmissao extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return submissoes;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 		public List<Usuario> getAutores(int idTrabalho){
@@ -79,7 +93,7 @@ public class DAOSubmissao extends DAO {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			while(rs.next()){
 				Usuario autor= new Usuario();
 				autor.setCpf(rs.getString("cpfautor"));				
@@ -88,13 +102,91 @@ public class DAOSubmissao extends DAO {
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return autores;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
+		public List<Usuario> getCoAutores(int idTrabalho){
+			
+			super.open();
+			String sql = "select * from sara.submissao where idtrabalho=? and tipousuario = ? ";
+			try{
+				List<Usuario> autores = new ArrayList<Usuario>();
+				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+				stmt.setInt(1, idTrabalho);
+				stmt.setString(2, "COAUTOR");
+				ResultSet rs = stmt.executeQuery();
+				super.close();
+				while(rs.next()){
+					Usuario autor= new Usuario();
+					autor.setCpf(rs.getString("cpfautor"));				
+					autores.add(autor);
+				}
+
+				rs.close();
+				stmt.close();
+				
+				return autores;
+
+			}catch(SQLException e){
+				throw new RuntimeException(e);
+			}finally {
+				super.close();
+			}
+		}
+		public Usuario getOrientador(int idTrabalho) {
+			super.open();
+			String sql ="select * from sara.submissao where idtrabalho = ? and tipousuario= ? ";
+			try{
+				Usuario autor=null ;
+				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+				stmt.setInt(1, idTrabalho);
+				stmt.setString(2, "ORIENTADOR");
+				ResultSet rs = stmt.executeQuery();
+				super.close();
+				if(rs.next()){
+					autor = Facade.pegarUsuario(rs.getString("cpfautor"));
+				}
+				rs.close();
+				stmt.close();
+				
+				return autor;
+			}catch (Exception e) {
+				// TODO: handle exception
+			}finally {
+				super.close();
+			}
+			return null;
+		}	
+		public Usuario getAutorPrincipal(int idTrabalho) {
+			super.open();
+			String sql ="select * from sara.submissao where idtrabalho = ? and tipousuario= ? ";
+			try{
+				Usuario autor=null ;
+				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+				stmt.setInt(1, idTrabalho);
+				stmt.setString(2, "AUTOR");
+				ResultSet rs = stmt.executeQuery();
+				super.close();
+				if(rs.next()){
+					autor = Facade.pegarUsuario(rs.getString("cpfautor"));
+				}
+				rs.close();
+				stmt.close();
+				
+				return autor;
+			}catch (Exception e) {
+				// TODO: handle exception
+			}finally {
+				super.close();
+			}
+			return null;
+		}
 	
 public List<String> getCPFAutores(int idTrabalho){
 		
@@ -105,31 +197,33 @@ public List<String> getCPFAutores(int idTrabalho){
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			ResultSet rs = stmt.executeQuery();			
-
+			super.close();
 			while(rs.next()){
 				autores.add(rs.getString("cpfautor"));
 			}
 
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return autores;
 
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public Submissao getSubmissao(int idtrabalho){
 		
 		super.open();
-		String sql = "select * from sara.Submissao where idtrabalho = ?";
+		String sql = "select * from sara.submissao where idtrabalho = ?";
 
 		try{
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idtrabalho);			
 			ResultSet rs = stmt.executeQuery();
-
+			super.close();
 			if(rs.next()){
 				Submissao submissao = new Submissao();
 				submissao.setAutor(Facade.pegarUsuario(rs.getString("cpfautor")));
@@ -138,20 +232,22 @@ public List<String> getCPFAutores(int idTrabalho){
 				
 				rs.close();
 				stmt.close();
-				super.close();
+				
 				return submissao;
 			}else{
 				return null;
 			}
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
 	public void update(Submissao submissao){
 		
 		super.open();
-		String sql = "update sara.Submissao set cpfautor = ?, idtrabalho = ? " 
+		String sql = "update sara.submissao set cpfautor = ?, idtrabalho = ? " 
 				+ " where idtrabalho = ?";
 
 		try {
@@ -161,10 +257,12 @@ public List<String> getCPFAutores(int idTrabalho){
 			stmt.setString(3, submissao.getTipoAutor().toString());
 			stmt.execute();
 			stmt.close();
-			super.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
 
@@ -172,7 +270,7 @@ public List<String> getCPFAutores(int idTrabalho){
 	public void delete(Submissao submissao){
 		
 		super.open();
-		String sql = "delete from sara.Submissao where idtrabalho = ?";
+		String sql = "delete from sara.submissao where idtrabalho = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -189,17 +287,19 @@ public List<String> getCPFAutores(int idTrabalho){
 	public void delete(int idTrabalho){
 		
 		super.open();
-		String sql = "delete from sara.Submissao where idtrabalho = ?";
+		String sql = "delete from sara.submissao where idtrabalho = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idTrabalho);
 			stmt.execute();
 			stmt.close();
-			super.close();
+		
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 
 	}
@@ -212,6 +312,7 @@ public List<String> getCPFAutores(int idTrabalho){
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, idAutor);			
 			ResultSet rs = stmt.executeQuery();
+			super.close();
 			ArrayList<Trabalho> submissoes = new ArrayList<Trabalho>();
 			Trabalho trabalho = new Trabalho();
 			while(rs.next()){
@@ -220,10 +321,13 @@ public List<String> getCPFAutores(int idTrabalho){
 			}
 			rs.close();
 			stmt.close();
-			super.close();
+			
 			return submissoes;
 		}catch(SQLException e){
 			throw new RuntimeException(e);
+		}finally {
+			super.close();
 		}
 	}
+
 }

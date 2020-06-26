@@ -15,6 +15,8 @@ public class Evento {
 	private LocalDate dataInicial;
 	private LocalDate dataFinal;
 	private List<Trilha> trilhas;
+	private boolean divulgada;
+	private TipoEvento descriEvento;
 
 	public int getIdEvento() {
 		return idEvento;
@@ -69,5 +71,31 @@ public class Evento {
 	}
 	public void setDataFinal(LocalDate dataFinal) {
 		this.dataFinal = dataFinal;
+	}
+	/**
+	 * @return the divulgada
+	 */
+	public boolean getDivulgada() {
+		return divulgada;
+	}
+	/**
+	 * @param divulgada the divulgada to set
+	 */
+	public void setDivulgada(boolean divulgada) {
+		this.divulgada = divulgada;
+	}
+	
+	public boolean isCoordenador(Usuario u) {
+		for (Usuario t:this.coordenadores) {
+			if(t.getCpf().equals(u.getCpf()))
+				return true;
+		}
+		return false;
+	}
+	public TipoEvento getDescriEvento() {
+		return descriEvento;
+	}
+	public void setDescriEvento(TipoEvento descriEvento) {
+		this.descriEvento = descriEvento;
 	}
 }

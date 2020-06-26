@@ -5,9 +5,13 @@
      	<%
      	
      		String idEvento = request.getParameter("idEvento");
+     		if(idEvento == null){
+     			response.sendRedirect("indexAutor.jsp");
+     		}     		
+     	
      		DAOEvento daoEvento = new DAOEvento();
      		DAOTrilha daoTrilha = new DAOTrilha();
-     		Evento evento = (daoEvento.getEvento(Integer.parseInt(idEvento)));
+     		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
      		evento.setTrilhas(daoTrilha.readById(evento.getIdEvento()));
 	        
      		session.setAttribute("usuarioSara", usuario);
@@ -19,7 +23,7 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Trilhas Coordenadas </h3>
+					<h3 class="page-header"><i class="fa fa-table"></i> Trilhas Coordenadas - Evento <%=evento.getNome() %> </h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
 						<li><i class="icon_document_alt"></i>Trilhas Coordenadas</li>
@@ -39,7 +43,18 @@
 		<% } 
 			session.setAttribute("feedbackSucesso", null);	
 		%>
-              
+ 			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>             
               <div class="row">
                   <div class="col-lg-12">
                       <section class="panel">
@@ -77,7 +92,7 @@
 			                   		</form>
 			                   </td>
 			                   <% 
-						            if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){
+						            if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO) || usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)	){
 			        			%>
 			        			<!--  
 			        			<td>
@@ -112,7 +127,7 @@
               </div>
               
                <%
-					if(usuario.getTipo().equals(NivelUsuario.COORDENADOR_EVENTO)){ %>
+					if(evento.isCoordenador(usuario) || usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)){ %>
 		    	
 		    			<table class="table table-striped table-advance table-hover">
 			    <tr>		
@@ -140,20 +155,43 @@
 						    <button class="btn btn-primary" type = "submit">Gerar Relatório Final</button>
 						</form>
 					</td>
+					<td>	     
+						<form action="GerarRelatorio" method="post" >
+				        	<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento">
+				        	<input type="hidden" value="relatorioAceito" name="tipoRelatorio">
+						    <button class="btn btn-primary" type = "submit">Gerar Relatório de Aceitos</button>
+						</form>
+					</td>
+					</tr>
+				<tr>
 					<td>
 						<form action="relacaoDeTrabalhos.jsp" method="post" > 
 				        	<select name="statusTrabalho" class="form-control">
-  								<option value="<%= StatusTrabalho.ENVIADO.toString()%>">Enviado</option>
-  								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Em Avaliação</option>
-  								<option value="<%= StatusTrabalho.ACEITO.toString()%>">Aceito</option>
-  								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Rejeitado</option>
-  								<option value="<%= StatusTrabalho.SUBMISSAO_FINAL.toString()%>">Submissao Final</option>
-  								<option value="<%= StatusTrabalho.ACEITO_FINAL.toString()%>">Aceito Final</option>
+				        	<%for (StatusTrabalho e : StatusTrabalho.values()){%>
+				        	<option value="<%=e.ENVIADO.toString()%>"><%=e.getDescricao()%></option>
+<%--   								<option value="<%= StatusTrabalho.ENVIADO.toString()%>">Enviado</option> --%>
+<%--   								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Em Avaliação</option> --%>
+<%--   								<option value="<%= StatusTrabalho.ACEITO.toString()%>">Aceito</option> --%>
+<%--   								<option value="<%= StatusTrabalho.EM_AVALIACAO.toString()%>">Rejeitado</option> --%>
+<%--   								<option value="<%= StatusTrabalho.SUBMISSAO_FINAL.toString()%>">Submissao Final</option> --%>
+<%--   								<option value="<%= StatusTrabalho.ACEITO_FINAL.toString()%>">Aceito Final</option> --%>
+							<%} %>
 							</select>
 							<br>
 							<button class="btn btn-primary" type = "submit">Relação de Trabalhos</button>
 						</form>
 					</td>
+					<td><form action="Distribuir" method="post">
+			                   			<input type="hidden" value="<%=evento.getIdEvento()%>" name="idEvento">
+			                   			<button class="btn btn-primary" type="submit">Distribuir Todos os Trabalhos</button>
+			                   		</form>
+			      	</td>
+			      	<td><form action="Distribuir" method="post">
+			                   			<input type="hidden" value="<%=evento.getIdEvento()%>" name="idEvento">
+			                   			<input type="hidden" value="recurso" name="tipo">
+			                   			<button class="btn btn-primary" type="submit">Distribuir Todos os Trabalhos do Recurso</button>
+			                   		</form>
+			      	</td>
 				</tr>
 			</table> 
 		    

@@ -6,21 +6,6 @@
 			Trilha trilha = (Trilha) session.getAttribute("trilha");
 			trilha = new DAOTrilha().getTrilha(trilha.getIdTrilha());
     		session.setAttribute("trilha", trilha);
-    		if (! Facade.isCoordenador(trilha.getEvento().getIdEvento(), usuario.getCpf())){
-          		%>
-          		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
-    			<script>
-    				function permissao(){
-    					alert('Você não possue permissão para acessar está área!!!!');
-    					var myVar = setInterval(redirect, 1000);
-    				}
-    				function redirect(){
-    					windows.location.href = 'indexAutor.jsp';
-    				}
-    			</script>      		
-          		<% 
-          		response.sendRedirect("indexAutor.jsp");
-          	}
 		%>   
       <!--main content start-->
       <section id="main-content">
@@ -34,6 +19,18 @@
 					</ol>
 				</div>
 			</div>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+				<div class="alert alert-success" role="alert">	
+					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+				</div>
+			<%} %>
+			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+				<div class="alert alert-danger" role="alert">
+					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+				</div>
+			<%} %>			
       
       				<!-- Form validations -->
 				<div class="row">
@@ -46,26 +43,7 @@
 							            
 							            				
 										<div class="form-validate form-horizontal" id="feedback_form">
-										
-											<%
-								        	if(trilha.getCriterioTrilha() == null){ %>
-								    			
-								    			<center><h2><b>Critério Trilha</b></h2></center>
-								    				
-												<div class="form-group ">
-													<label for="cemail" class="control-label col-lg-2">Nome 
-														<span class="required">*</span>
-													</label>
-													<div class="col-lg-6">
-														<input class="form-control " id="subject" type="text"
-															name="nomeCriterioTrilha" required />
-													</div>
-												</div>								    				
-								    				
-								    		<%} %>
-								
 											<center><h2><b>Critério</b></h2></center>
-											    		
 											<div class="form-group">
 												<label for="ccomment" class="control-label col-lg-2">Descrição
 													<span class="required">*</span>

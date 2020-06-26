@@ -6,23 +6,33 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.swing.text.MaskFormatter;
+
 import org.apache.http.params.CoreConnectionPNames;
 
+import br.com.n2s.sara.dao.DAO;
 import br.com.n2s.sara.dao.DAOAvaliaTrabalho;
 import br.com.n2s.sara.dao.DAOAvaliaTrilha;
+import br.com.n2s.sara.dao.DAOCoordenacaoEvento;
 import br.com.n2s.sara.dao.DAOEvento;
 import br.com.n2s.sara.dao.DAOPeriodo;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.dao.DAOUsuario;
 import br.com.n2s.sara.dao.DAOUsuarioSemCadastro;
+import br.com.n2s.sara.model.AvaliaTrabalho;
 import br.com.n2s.sara.model.AvaliaTrilha;
+import br.com.n2s.sara.model.CoordenacaoEvento;
+import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Evento;
+import br.com.n2s.sara.model.Item;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Periodo;
+import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
@@ -31,6 +41,7 @@ import dao.PessoaDAO;
 import model.Email;
 import model.Pessoa;
 import util.Constantes;
+import java.util.List;
 
 
 
@@ -99,7 +110,7 @@ public class Facade {
 	
 	public static ArrayList<Periodo> atualizarPeriodos(Trilha t) {
 		DAOPeriodo daoPeriodo = new DAOPeriodo();
-		ArrayList<Periodo> periodos = (ArrayList<Periodo>) daoPeriodo.readById(t.getIdTrilha());
+		ArrayList<Periodo> periodos = (ArrayList<Periodo>) daoPeriodo.readByIdTrilha(t.getIdTrilha());
 		return periodos;
 	}
 	public static boolean dataValida(Periodo p) {
@@ -110,7 +121,7 @@ public class Facade {
 	
 	public static Periodo periodoAtual(Trilha t) {
 		Periodo atual = null;
-		t.setPeriodos((ArrayList) new DAOPeriodo().readById(t.getIdTrilha()));
+		t.setPeriodos((ArrayList) new DAOPeriodo().readByIdTrilha(t.getIdTrilha()));
 		for (Periodo p : t.getPeriodos()) {
 			LocalDate.now();
 			if ( (LocalDate.now().isBefore(p.getDataFinal()) || LocalDate.now().isEqual(p.getDataFinal())) && 
@@ -125,13 +136,38 @@ public class Facade {
 		return atual;
 	}
 	
+	public static boolean periodoAtual(Trilha t, DescricaoPeriodo p) {
+		Periodo atual = null;
+		t.setPeriodos((ArrayList) new DAOPeriodo().readByIdTrilha(t.getIdTrilha()));
+		for (Periodo pi : t.getPeriodos()) {
+			LocalDate.now();
+			if ( (LocalDate.now().isBefore(pi.getDataFinal()) || LocalDate.now().isEqual(pi.getDataFinal())) && 
+					(LocalDate.now().isAfter(pi.getDataInicial()) || LocalDate.now().isEqual(pi.getDataInicial())) ){
+				if (pi.getDescricao().equals(p))
+					return true;
+			}else{
+				if(pi.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL)) {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	
 	public static void EnviarEmail(Trabalho t) {
+		ArrayList<Usuario> autores = new ArrayList<Usuario>();
 		if(t != null) {
+			if(t.getAutor()!=null)
+				autores.add(t.getAutor());
 			String msg = "";
-			t.getAutores().add(t.getAutor());
+			//t.getAutores().add(t.getAutor());
 			Email e = new Email();
-			if (!t.getAutores().isEmpty()) {
-				for (Usuario u : t.getAutores()){
+			if (!t.getAutores().isEmpty() || t.getAutores().size()>0) {
+				autores.addAll(t.getAutores());
+			}
+				for (Usuario u : autores){
 					msg = "Prezado "+u.getNome() +",\r\n" + 
 							"\r\n" + 
 							"\r\n" + 
@@ -140,13 +176,13 @@ public class Facade {
 							"\r\n" + 
 							"E-mail automático, não responda.\r\n" + 
 							"\r\n" + 
-							"Sistema SARA -  Submissção Avaliação e Revisãoo de Artigos\r\n" + 
-							"Por: Núcleo de Soluçõees em Software - N2S\r\n" + 
+							"Sistema SARA -  Submissão Avaliação e Revisão de Artigos\r\n" + 
+							"Por: Núcleo de Soluções em Software - N2S\r\n" + 
 							"\r\n" + 
-							"Núcleo de Soluçõees em Software- N2S";
-					e.sendEmail("SubmissÃ£o de trabalho - SARA- Submissão, Avaliação e Revisão de Artigos", msg, u.getEmail(), u.getNome());
+							"Núcleo de Soluções em Software- N2S";
+					e.sendEmail("Submissão de trabalho - SARA- Submissão, Avaliação e Revisão de Artigos", msg, u.getEmail(), u.getNome());
 				}
-			}
+			
 		}
 		
 	}
@@ -195,6 +231,111 @@ public class Facade {
 			}
 		}			
 		return false;
+	}
+	
+	public static Evento pegarEventoPeloId(int idEvento) {
+		DAOEvento daoEvento = new DAOEvento();
+		DAOCoordenacaoEvento daoCoorEvento = new DAOCoordenacaoEvento();
+		DAOTrilha daoTrilha = new DAOTrilha();
+		Evento evento = daoEvento.getEvento(idEvento);
+		if (evento!=null) {
+			evento.setCoordenadores(daoCoorEvento.ListarCoordenadores(idEvento));
+			evento.setTrilhas(daoTrilha.readById(idEvento));
+		}	
+		return evento;
+	}
+	
+	public static Integer getQuantidadePessoasPorNome(String nome) {
+		DAOUsuario daoUsuario = new DAOUsuario();
+		DAOUsuarioSemCadastro daoUsuarioS = new DAOUsuarioSemCadastro();
+		int i;
+		i = daoUsuario.getQuantidadePorNome(nome);
+		//i += daoUsuarioS.getQuantidadePorNome(nome);
+		
+		return i;
+	}
+	
+	public static List<Usuario> buscarPessoasPorNome (String nome, int inicio, int fim){
+		List<Usuario> usuarios = null;
+		DAOUsuario daoUsuario = new DAOUsuario();
+		usuarios = daoUsuario.buscarPorNome(nome, inicio, fim);
+		return usuarios;
+	}
+	
+	public static List<Evento> pegarEventosCoordenandos(Usuario usuario){
+		ArrayList<Evento> eventos = new ArrayList<Evento>();
+		List<CoordenacaoEvento> lista = new DAOCoordenacaoEvento().read(usuario.getCpf());
+		for(CoordenacaoEvento l : lista) {			
+			Evento e = pegarEventoPeloId(l.getEvento().getIdEvento());
+			eventos.add(e);
+		}
+		return eventos;
+	}
+	public static Float calcularNota(AvaliaTrabalho av) {
+		float nota=0;
+		float peso=0;
+		for (Item i : av.getItens()) {
+			nota = nota + i.getPeso() * i.getCriterio().getPeso();
+			peso = peso + i.getCriterio().getPeso();
+		}
+		nota = nota / peso;
+		return nota;
+	}
+	public static Float calcularNota( ArrayList<AvaliaTrabalho> avaliacoes) {
+		float nota=0;
+		for (AvaliaTrabalho av : avaliacoes) {
+			if(av.getStatus().toString().equals(StatusTrabalho.EM_AVALIACAO.toString())) {
+				continue;
+			}else {
+				nota=nota+calcularNota(av);
+			}
+		}	
+		nota=nota / avaliacoes.size();
+		return nota;
+	}
+	
+	public static Float calcularNotaRelatorioEstagio( ArrayList<AvaliaTrabalho> avaliacoes) {
+		float nota=0;
+		for (AvaliaTrabalho av : avaliacoes) {
+			if(av.getStatus().toString().equals(StatusTrabalho.EM_AVALIACAO.toString())) {
+				continue;
+			}else {
+				nota=nota+av.getNota();
+			}
+		}	
+		nota=nota / avaliacoes.size();
+		return nota;
+	}
+	
+	public static List<Item> ordenar(Criterio c){
+		ArrayList<Item> itens = c.getItens();
+		
+		return itens;
+	}
+	
+	public static boolean isAvaliador(Trabalho t, String cpf) {
+		ArrayList<AvaliaTrabalho> avaliacoes = (ArrayList<AvaliaTrabalho>) new DAOAvaliaTrabalho().read(t);
+		if(avaliacoes == null) {
+			return false;
+		}else {
+		for (AvaliaTrabalho av : avaliacoes) {
+			if(cpf.equals(av.getAvaliador().getCpf())) {
+				return true;
+			}
+		}
+		return false;	
+		}	
+	}
+	
+	public static void adicionarAvaliadores (ArrayList<Usuario> avaliadores, Trabalho t) {
+		if (avaliadores!=null) {
+			for (Usuario u : avaliadores) {
+				AvaliaTrabalho av = new AvaliaTrabalho();
+				av.setAvaliador(u);
+				av.setTrabalho(t);
+				av.setStatus(StatusTrabalho.EM_AVALIACAO);
+			}
+		}
 	}
 
 }
