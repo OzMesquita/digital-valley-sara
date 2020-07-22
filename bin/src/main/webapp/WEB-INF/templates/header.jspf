@@ -1,0 +1,138 @@
+<%@page import="br.com.n2s.sara.model.NivelUsuario"%>
+<%@page import="br.com.n2s.sara.model.Usuario"%>
+<%@page import="br.com.n2s.sara.util.*" %>
+<%-- <%@page errorPage="../error.jsp" %> --%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>SARA</title>
+
+    <!-- Bootstrap CSS -->    
+    <link href="<%=Constantes.getCSS_URL()%>bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="<%=Constantes.getCSS_URL()%>bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="<%=Constantes.getCSS_URL()%>elegant-icons-style.css" rel="stylesheet" />
+    <link href="<%=Constantes.getCSS_URL()%>font-awesome.min.css" rel="stylesheet" />    
+    <!-- full calendar css-->
+    <link href="<%=Constantes.getASSETS_URL()%>fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+	<link href="<%=Constantes.getASSETS_URL()%>fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+    <!-- easy pie chart-->
+    <link href="<%=Constantes.getASSETS_URL()%>jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="<%=Constantes.getCSS_URL()%>owl.carousel.css" type="text/css">
+	<link href="<%=Constantes.getCSS_URL()%>jquery-jvectormap-1.2.2.css" rel="stylesheet">
+    <!-- Custom styles -->
+	<link rel="stylesheet" href="<%=Constantes.getCSS_URL()%>fullcalendar.css">
+	<link href="<%=Constantes.getCSS_URL()%>widgets.css" rel="stylesheet">
+    <link href="<%=Constantes.getCSS_URL()%>style.css" rel="stylesheet">
+    <link href="<%=Constantes.getCSS_URL()%>style-responsive.css" rel="stylesheet" />
+	<link href="<%=Constantes.getCSS_URL()%>xcharts.min.css" rel=" stylesheet">	
+	<link href="<%=Constantes.getCSS_URL()%>jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <!-- =======================================================
+        Theme Name: NiceAdmin
+        Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+        Author: BootstrapMade
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head>
+<body>
+    <%Usuario usuario = (Usuario) session.getAttribute("usuarioSara"); %>
+  <!-- container section start -->
+  <section id="container" class="">
+     
+      
+        <header class="header dark-bg">
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+            </div>
+
+            <!--logo start-->
+            <a href="indexAutor.jsp" class="logo">SARA</a>
+            <!--logo end-->
+
+            <div class="top-nav notification-row">                
+                <!-- notificatoin dropdown start-->
+                <ul class="nav pull-right top-menu">
+                    
+                    <!-- alert notification end-->
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <img alt="" src="img/avatar1_small.jpg">
+                            </span>
+                            <span class="username"><%= usuario.getNome()%></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <div class="log-arrow-up"></div>
+                            <li>
+                                <a id="guardiao" href="http://n2s.russas.ufc.br<%=Constantes.getAppGuardiaoUrl()%>">Guardião</a>
+                            </li>
+                            <li>
+                                <a id="sair" href="http://n2s.russas.ufc.br<%=Constantes.getAppGuardiaoUrl()%>/logout">Sair</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!-- notificatoin dropdown end-->
+            </div>
+      </header>
+      <!--header end-->
+
+          <!--sidebar start-->
+    <aside>
+			<div id="sidebar" class="nav-collapse ">
+				<!-- sidebar menu start-->
+				<ul class="sidebar-menu">
+					<li class="active"><a class="" href="indexAutor.jsp"> <i
+							class="icon_house_alt"></i> <span>Home</span>
+					</a>
+					<%if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)) {%>
+					<li class="sub-menu">
+						<a href="javascript:;" class=""> 
+							<i class="icon_pencil"></i> <span>Administrador</span> <span class="menu-arrow arrow_carrot-right"></span>
+						</a>
+							<ul class="sub">
+								<li><a class="" href="adm/formCadastroEvento.jsp">Criar Evento</a></li>
+								<li><a class="" href="ListarUsuarios">Alterar Permissões</a></li>
+							</ul></li>
+					<%} %>
+					<li><a class="" href="eventosCoordenados.jsp"> <i
+							class="icon_tools"></i> <span>Gerenciar</span>
+
+					</a></li>
+					
+
+					<li><a class="" href="avaliacao.jsp"> <i
+							class="icon_document_alt"></i> <span>Avaliar</span>
+
+					</a></li>		
+					<li><a class="" href="trabalhosAutor.jsp"> <i
+							class="icon_documents_alt"></i> <span>Meus Trabalhos</span>
+
+					</a></li>
+				</ul>
+				<div class="align-bottom">
+					<p>SARA v2.7</p>
+				</div>
+				<!-- sidebar menu end-->
+			</div>
+		</aside>
+      <!--sidebar end-->
