@@ -73,10 +73,9 @@ public class DAOEvento extends DAO {
 				evento.setLocalizacao(rs.getString("localizacao"));
 				evento.setDataInicial(rs.getDate("dataInicial").toLocalDate());
 				evento.setDataFinal(rs.getDate("dataFinal").toLocalDate());
-				evento.setDivulgada(rs.getBoolean("divulgada"));
-				evento.setDescriEvento(  TipoEvento.valueOf(rs.getString("tipo_evento")));
+				// evento.setDivulgada(rs.getBoolean("divulgada"));
+				// evento.setDescriEvento(  TipoEvento.valueOf(rs.getString("tipo_evento")));
 				eventos.add(evento);
-
 			}
 
 			rs.close();
