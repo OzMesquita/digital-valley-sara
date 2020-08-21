@@ -324,7 +324,7 @@ public class DAOAvaliaTrabalho extends DAO {
 		public void updatePerAvaliador(AvaliaTrabalho avaliaTrabalho){
 
 		super.open();
-		String sql = "update sara.avaliatrabalho set  idtrabalho = ?, feedback = ?, status = ?" 
+		String sql = "update sara.avaliatrabalho set  idtrabalho = ?, feedback = ?, status = ?, nota=?"  
 				+ " where idTrabalho = ? and idavaliador = ?";
 
 		try {
@@ -333,7 +333,6 @@ public class DAOAvaliaTrabalho extends DAO {
 			stmt.setString(2, avaliaTrabalho.getFeedback());
 			stmt.setString(3, avaliaTrabalho.getStatus().toString());
 			stmt.setFloat(4, avaliaTrabalho.getNota());
-			
 			stmt.setInt(5, avaliaTrabalho.getTrabalho().getIdTrabalho());
 			stmt.setString(6, avaliaTrabalho.getAvaliador().getCpf());
 			stmt.execute();
