@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,7 @@ import br.com.n2s.sara.dao.DAOUsuario;
 import br.com.n2s.sara.model.CoordenacaoEvento;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
+import br.com.n2s.sara.model.TipoEvento;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.util.Constantes;
 
@@ -38,7 +40,8 @@ public class CadastrarEvento extends HttpServlet {
 		String localizacao = request.getParameter("localizacao");
 		LocalDate dataInicial = LocalDate.parse(request.getParameter("dataInicial"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		LocalDate dataFinal = LocalDate.parse(request.getParameter("dataFinal"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		
+		String tipoEvento = request.getParameter("tipoEvento");
+				
 		Evento evento = new Evento();
 		evento.setNome(nome);
 		evento.setDescricao(descricao);
@@ -47,6 +50,12 @@ public class CadastrarEvento extends HttpServlet {
 		evento.setDataInicial(dataInicial);
 		evento.setDataFinal(dataFinal);
 		evento.setDivulgada(false);
+		
+		if (tipoEvento.equals("encontrosUniversitarios")) {
+			evento.setDescriEvento(TipoEvento.EU);
+		}else {
+			evento.setDescriEvento(TipoEvento.ESTAGIO);
+		}
 		
 		DAOEvento daoEvento = new DAOEvento();
 		evento = daoEvento.create(evento);
@@ -65,8 +74,8 @@ public class CadastrarEvento extends HttpServlet {
 		daoCoordEvento.create(coordEvento);
 
 		session.setAttribute("evento", evento);
-		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso ao cadastar evento!");
-		response.sendRedirect("gerenciarTrilhasCoordenadas.jsp");
+		session.setAttribute(Constantes.getSESSION_MGS(), "Evento cadastrado com sucesso!");
+		response.sendRedirect("../eventosCoordenados.jsp");
 		}catch (Exception e) {
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao cadastrar o Evento: "+e.getMessage());
 		}

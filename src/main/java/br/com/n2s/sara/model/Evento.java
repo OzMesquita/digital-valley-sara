@@ -98,4 +98,12 @@ public class Evento {
 	public void setDescriEvento(TipoEvento descriEvento) {
 		this.descriEvento = descriEvento;
 	}
+	@Override
+	public String toString() {
+		return "\n\nEvento [idEvento=" + idEvento + ", coordenadores=" + coordenadores + ", nome=" + nome + ", descricao="
+				+ descricao + ", site=" + site + ", localizacao=" + localizacao + ", dataInicial=" + dataInicial
+				+ ", dataFinal=" + dataFinal + ", trilhas=" + trilhas + ", divulgada=" + divulgada + ", descriEvento="
+				+ descriEvento + "]";
+	}
+	
 }

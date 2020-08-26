@@ -20,8 +20,8 @@ public class DAOEvento extends DAO {
 		super.open();
 
 		String sql = "insert into sara.Evento"  
-				+ "(nome, descricao, site, localizacao, dataInicial, dataFinal, divulgada,tipo_evento)"
-				+ "values (?,?,?,?,?,?,?)";
+				+ "(nome, descricao, site, localizacao, dataInicial, dataFinal, divulgada, tipo_evento)"
+				+ "values (?,?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = null;
