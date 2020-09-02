@@ -14,14 +14,15 @@ import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.TipoEvento;
 
 public class DAOEvento extends DAO {
-	public DAOEvento(){}
+	public DAOEvento() {
+	}
 
-	public Evento create(Evento evento){
+	public Evento create(Evento evento) {
 		super.open();
 
-		String sql = "insert into sara.Evento"  
-				+ "(nome, descricao, site, localizacao, dataInicial, dataFinal, divulgada, tipo_evento)"
-				+ "values (?,?,?,?,?,?,?,?)";
+		String sql = "insert into sara.Evento"
+				+ "(nome, descricao, site, localizacao, dataInicial, dataFinal, divulgada, tipo_evento, excluido)"
+				+ "values (?,?,?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = null;
@@ -34,7 +35,8 @@ public class DAOEvento extends DAO {
 			stmt.setDate(6, Date.valueOf(evento.getDataFinal()));
 			stmt.setBoolean(7, evento.getDivulgada());
 			stmt.setString(8, evento.getDescriEvento().toString());
-			
+			stmt.setBoolean(9, evento.getExcluido());
+
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			super.close();
@@ -47,22 +49,22 @@ public class DAOEvento extends DAO {
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public List<Evento> read(){
+	public List<Evento> read() {
 		super.open();
 
 		String sql = "select * from sara.Evento";
 
-		try{
+		try {
 			List<Evento> eventos = new ArrayList<Evento>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
-			while(rs.next()){
+			while (rs.next()) {
 
 				Evento evento = new Evento();
 
@@ -74,31 +76,36 @@ public class DAOEvento extends DAO {
 				evento.setDataInicial(rs.getDate("dataInicial").toLocalDate());
 				evento.setDataFinal(rs.getDate("dataFinal").toLocalDate());
 				evento.setDivulgada(rs.getBoolean("divulgada"));
-				evento.setDescriEvento(  TipoEvento.valueOf(rs.getString("tipo_evento")));
-				eventos.add(evento);
+				evento.setDescriEvento(TipoEvento.valueOf(rs.getString("tipo_evento")));
+				evento.setExcluido(rs.getBoolean("excluido"));
+
+				if (!evento.getExcluido()) {
+					eventos.add(evento);
+				}
 			}
 
 			rs.close();
 			stmt.close();
+
 			return eventos;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public Evento getEvento(int idEvento){
+	public Evento getEvento(int idEvento) {
 		super.open();
 		String sql = "select * from sara.Evento where idEvento = ?";
 
-		try{
+		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idEvento);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
-			if(rs.next()){
+			if (rs.next()) {
 				Evento evento = new Evento();
 				evento.setIdEvento(rs.getInt("idEvento"));
 				evento.setNome(rs.getString("nome"));
@@ -108,52 +115,74 @@ public class DAOEvento extends DAO {
 				evento.setDataInicial(rs.getDate("dataInicial").toLocalDate());
 				evento.setDataFinal(rs.getDate("dataFinal").toLocalDate());
 				evento.setDivulgada(rs.getBoolean("divulgada"));
-				evento.setDescriEvento(  TipoEvento.valueOf(rs.getString("tipo_evento")));
-				
+				evento.setDescriEvento(TipoEvento.valueOf(rs.getString("tipo_evento")));
+				evento.setExcluido(rs.getBoolean("excluido"));
+
 				rs.close();
 				stmt.close();
 				return evento;
-			}else{
+			} else {
 				return null;
 			}
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public void update(Evento evento){
+	public void update(Evento evento) {
 
 		super.open();
-		String sql = "update sara.Evento set nome = ?, descricao = ?, " 
-				+ "site = ?, localizacao = ?, dataInicial = ?, dataFinal = ?,divulgada=?,tipo_evento=? where idEvento = ?";
+		String sql = "update sara.Evento set nome = ?, descricao = ?, "
+				+ "site = ?, localizacao = ?, dataInicial = ?, dataFinal = ?, divulgada = ?, tipo_evento = ?, excluido = ? where idEvento = ?";
 
 		try {
 
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
-			stmt.setString(2, evento.getNome());
-			stmt.setString(3, evento.getDescricao());
-			stmt.setString(4, evento.getSite());
-			stmt.setString(5, evento.getLocalizacao());
-			stmt.setDate(6, Date.valueOf(evento.getDataInicial()));
-			stmt.setDate(7, Date.valueOf(evento.getDataFinal()));
-			stmt.setBoolean(8, evento.getDivulgada());
-			stmt.setString(9, evento.getDescriEvento().toString());
+			stmt.setString(1, evento.getNome());
+			stmt.setString(2, evento.getDescricao());
+			stmt.setString(3, evento.getSite());
+			stmt.setString(4, evento.getLocalizacao());
+			stmt.setDate(5, Date.valueOf(evento.getDataInicial()));
+			stmt.setDate(6, Date.valueOf(evento.getDataFinal()));
+			stmt.setBoolean(7, evento.getDivulgada());
+			stmt.setString(8, evento.getDescriEvento().toString());
+			stmt.setBoolean(9, evento.getExcluido());
 			stmt.setInt(10, evento.getIdEvento());
-			
+
 			stmt.execute();
 			stmt.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
+	public void updateExclusaoEvento(Evento evento) {
 
-	public void delete(int idEvento){
+		super.open();
+		String sql = "update sara.Evento set excluido = ? where idEvento = ?";
+
+		try {
+
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setBoolean(1, evento.getExcluido());
+			stmt.setInt(2, evento.getIdEvento());
+
+			stmt.execute();
+			stmt.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			super.close();
+		}
+	}
+
+	public void delete(int idEvento) {
 		super.open();
 		String sql = "delete from sara.Evento where idEvento = ?";
 
@@ -165,7 +194,7 @@ public class DAOEvento extends DAO {
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}

@@ -208,13 +208,15 @@ public class DAOCoordenacaoEvento extends DAO {
 
 		super.open(); 
 		String sql = "update sara.coordenacaoevento set cpfCoordenador = ?, idEvento = ? " 
-				+ " where cpfCoordenador = ?";
-
+				+ " where cpfCoordenador = (select cpfCoordenador from sara.coordenacaoevento where idEvento = ?) "
+				+ "and idEvento = ?";
+	
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
 			stmt.setInt(2, coordenacaoEvento.getEvento().getIdEvento());
-			stmt.setString(3, coordenacaoEvento.getCoordenador().getCpf());
+			stmt.setInt(3, coordenacaoEvento.getEvento().getIdEvento());
+			stmt.setInt(4, coordenacaoEvento.getEvento().getIdEvento());
 
 			stmt.execute();
 			stmt.close();

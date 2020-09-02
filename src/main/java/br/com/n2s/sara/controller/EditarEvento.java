@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,13 +24,17 @@ import br.com.n2s.sara.util.Constantes;
 /**
  * Servlet implementation class CadastrarEvento
  */
-public class CadastrarEvento extends HttpServlet {
+public class EditarEvento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
 		try {
+			DAOEvento daoEvento = new DAOEvento();	
+			DAOUsuario daoUsuario = new DAOUsuario();
+			Evento evento =  (Evento) session.getAttribute("evento");
+			
 		String nome = request.getParameter("nome");
 		String cpfCoordenador = request.getParameter("cpfCoordenador").replaceAll("[.-]", "");
 		String site = request.getParameter("site");
@@ -42,7 +44,6 @@ public class CadastrarEvento extends HttpServlet {
 		LocalDate dataFinal = LocalDate.parse(request.getParameter("dataFinal"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		String tipoEvento = request.getParameter("tipoEvento");
 		
-		Evento evento = new Evento();
 		evento.setNome(nome);
 		evento.setDescricao(descricao);
 		evento.setLocalizacao(localizacao);
@@ -58,12 +59,7 @@ public class CadastrarEvento extends HttpServlet {
 			evento.setDescriEvento(TipoEvento.ESTAGIO);
 		}
 		
-		DAOEvento daoEvento = new DAOEvento();
-		evento = daoEvento.create(evento);
-		
-		DAOUsuario daoUsuario = new DAOUsuario();
 		Usuario usuario = daoUsuario.getUsuario(cpfCoordenador);
-		
 		if( usuario.getTipo().equals(NivelUsuario.AUTOR) || usuario.getTipo().equals(NivelUsuario.USUARIO) || usuario.getTipo().equals(NivelUsuario.COORDENADOR_TRILHA)) {
 			usuario.setTipo(NivelUsuario.COORDENADOR_EVENTO);
 			daoUsuario.update(usuario);
@@ -71,14 +67,19 @@ public class CadastrarEvento extends HttpServlet {
 		CoordenacaoEvento coordEvento = new CoordenacaoEvento();
 		coordEvento.setCoordenador(usuario);
 		coordEvento.setEvento(evento);
+
 		DAOCoordenacaoEvento daoCoordEvento = new DAOCoordenacaoEvento();
-		daoCoordEvento.create(coordEvento);
+		daoCoordEvento.update(coordEvento);
 
 		session.setAttribute("evento", evento);
-		session.setAttribute(Constantes.getSESSION_MGS(), "Evento cadastrado com sucesso!");
-		response.sendRedirect("../eventosCoordenados.jsp");
+		daoEvento.update(evento);
+		session.setAttribute(Constantes.getSESSION_MGS(), "Evento alterado com sucesso!");
+		response.sendRedirect("eventosCoordenados.jsp");
 		}catch (Exception e) {
-			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao cadastrar o Evento: "+e.getMessage());
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao alterar o Evento: "+e.getMessage());
 		}
+		
+
 	}
+
 }

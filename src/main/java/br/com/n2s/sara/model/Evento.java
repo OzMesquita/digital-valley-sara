@@ -17,6 +17,7 @@ public class Evento {
 	private List<Trilha> trilhas;
 	private boolean divulgada;
 	private TipoEvento descriEvento;
+	private boolean excluido;
 
 	public int getIdEvento() {
 		return idEvento;
@@ -72,6 +73,12 @@ public class Evento {
 	public void setDataFinal(LocalDate dataFinal) {
 		this.dataFinal = dataFinal;
 	}
+	public boolean getExcluido() {
+		return excluido;
+	}
+	public void setExcluido(boolean excluido) {
+		this.excluido = excluido;
+	}
 	/**
 	 * @return the divulgada
 	 */
@@ -100,10 +107,10 @@ public class Evento {
 	}
 	@Override
 	public String toString() {
-		return "\n\nEvento [idEvento=" + idEvento + ", coordenadores=" + coordenadores + ", nome=" + nome + ", descricao="
+		return "Evento [idEvento=" + idEvento + ", coordenadores=" + coordenadores + ", nome=" + nome + ", descricao="
 				+ descricao + ", site=" + site + ", localizacao=" + localizacao + ", dataInicial=" + dataInicial
 				+ ", dataFinal=" + dataFinal + ", trilhas=" + trilhas + ", divulgada=" + divulgada + ", descriEvento="
-				+ descriEvento + "]";
+				+ descriEvento + ", excluido=" + excluido + "]";
 	}
-	
+
 }

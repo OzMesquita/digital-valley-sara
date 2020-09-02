@@ -1,25 +1,50 @@
-<%@page import="br.com.n2s.sara.model.Usuario"%>
-<%@page import="br.com.n2s.sara.model.NivelUsuario"%>
+<%@page import="java.util.List"%>
+<%@page import="br.com.n2s.sara.dao.DAOEvento"%>
+<%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
+<%@ page import="br.com.n2s.sara.model.*"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 <%
-	if (!usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)) {
-	response.sendRedirect("indexAutor.jsp");
-}
+	String idEvento = request.getParameter("idEvento");
+	if (idEvento == null) {
+		response.sendRedirect("indexAutor.jsp");
+	}
+	
+	DAOEvento daoEvento = new DAOEvento();
+	Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
+	
+	session.setAttribute("usuarioSara", usuario);
+	session.setAttribute("evento", evento);
 %>
+
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper">
 		<div class="row">
 			<div class="col-lg-12">
 				<h3 class="page-header">
-					<i class="fa fa-table"></i>Cadastro de Eventos
+					<i class="fa fa-table"></i> Evento:
+					<%=evento.getNome()%>
 				</h3>
 				<ol class="breadcrumb">
 					<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-					<li><i class="icon_document_alt"></i>Cadastro de Eventos</li>
+					<li><i class="icon_document_alt"></i>Editar Evento</li>
 				</ol>
 			</div>
 		</div>
+
+		<!-- page start-->
+
+		<%
+			if (session.getAttribute("feedbackSucesso") != null) {
+		%>
+		<div class="alert alert-success" role="alert">
+			<%=session.getAttribute("feedbackSucesso")%>
+		</div>
+
+		<%
+			}
+		session.setAttribute("feedbackSucesso", null);
+		%>
 		<%
 			if (session.getAttribute(Constantes.getSESSION_MGS()) != null) {
 		%>
@@ -32,7 +57,6 @@
 		<%
 			}
 		%>
-
 		<%
 			if (session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null) {
 		%>
@@ -45,15 +69,16 @@
 		<%
 			}
 		%>
+
 		<!-- Form validations -->
 		<div class="row">
 			<div class="col-lg-12">
 				<section class="panel">
-					<header class="panel-heading"> Formulário de Cadastro de
-						Eventos </header>
+					<header class="panel-heading"> Formulário de Edição do
+						Evento </header>
 					<div class="panel-body">
 						<div class="form">
-							<form action="CadastrarEvento" method="post" id="formEnviar">
+							<form action="EditarEvento" method="post" id="formEnviar">
 								<div class="form-validate form-horizontal" id="feedback_form">
 									<div class="form-group ">
 										<label for="cemail" class="control-label col-lg-2">Nome
@@ -61,7 +86,7 @@
 										</label>
 										<div class="col-lg-6">
 											<input class="form-control " id="nome" type="text"
-												name="nome" required />
+												name="nome" required value="<%=evento.getNome()%>" />
 										</div>
 									</div>
 
@@ -74,7 +99,15 @@
 												onkeypress="this.value=Cpf(this.value)"
 												onblur="validarCPF(this.value);" id="cpf" type="text"
 												name="cpfCoordenador"
-												pattern="^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$" required />
+												pattern="^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$" required
+												<%										
+													String cpfUsuario = "";
+													/* for (Evento eventoC : eventos) { */
+													for (int i = 0; i < evento.getCoordenadores().size(); i++) {
+														 cpfUsuario = evento.getCoordenadores().get(i).getCpf();
+													}
+												%>
+												value="<%=cpfUsuario%>" />
 										</div>
 									</div>
 
@@ -84,7 +117,7 @@
 										</label>
 										<div class="col-lg-6">
 											<input class="form-control " id="site" type="text"
-												name="site" />
+												name="site" value="<%=evento.getSite()%>" />
 										</div>
 									</div>
 
@@ -94,7 +127,8 @@
 										</label>
 										<div class="col-lg-6">
 											<input class="form-control " id="localizacao" type="text"
-												name="localizacao" required />
+												name="localizacao" required
+												value="<%=evento.getLocalizacao()%>" />
 										</div>
 									</div>
 
@@ -104,7 +138,8 @@
 										</label>
 										<div class="col-lg-6">
 											<input class="form-control " id="data" type="date"
-												name="dataInicial" required />
+												name="dataInicial" required
+												value="<%=evento.getDataInicial()%>" />
 										</div>
 									</div>
 
@@ -114,10 +149,9 @@
 										</label>
 										<div class="col-lg-6">
 											<input class="form-control " id="dataFinal" type="date"
-												name="dataFinal" required />
+												name="dataFinal" required value="<%=evento.getDataFinal()%>" />
 										</div>
 									</div>
-
 
 									<div class="form-group">
 										<label for="ccomment" class="control-label col-lg-2">Descrição
@@ -125,7 +159,7 @@
 										</label>
 										<div class="col-lg-10">
 											<input class="form-control " id="descricao"
-												name="descricao" required></input>
+												name="descricao" required value="<%=evento.getDescricao()%>"></input>
 										</div>
 									</div>
 									<div class="form-group">
@@ -134,50 +168,51 @@
 										</label>
 										<div class="col-lg-10">
 											<input type="radio" id="encontrosUniversitarios"
-												name="tipoEvento" value="encontrosUniversitarios" required>
-											Encontros Universitários <br> <input type="radio"
-												id="relatorioEstagio" name="tipoEvento"
-												value="relatorioEstagio"> Relatório de Estágio
+												name="tipoEvento" value="<%=evento.getDescriEvento()%>"
+												required> Encontros Universitários <br> <input
+												type="radio" id="relatorioEstagio" name="tipoEvento"> Relatório de
+											Estágio
 										</div>
 									</div>
 
 									<div class="form-group">
 										<div class="col-lg-offset-2 col-lg-10">
 											<button id="sucesso" class="btn btn-primary" type="submit"
-												onclick="">Salvar</button>
-											<!-- onclick="validation();">Salvar Evento</button> -->
+												onclick="">Salvar Evento</button>
 										</div>
 									</div>
 								</div>
 							</form>
 						</div>
-
 					</div>
 				</section>
 			</div>
 		</div>
+		<!-- page end-->
 	</section>
 </section>
+<!-- container section start -->
+
 
 <script
 	src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script type="text/javascript" src="../../js/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mask.min.js"></script>
 <script type="text/javascript">
 	$("#cpf").mask("000.000.000-09");
 </script>
-<script src="../../js/jquery.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 <!-- nice scroll -->
-<script src="../../js/jquery.scrollTo.min.js"></script>
-<script src="../../js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="../js/jquery.scrollTo.min.js"></script>
+<script src="../js/jquery.nicescroll.js" type="text/javascript"></script>
 <!-- jquery validate js -->
-<script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 
 <!-- custom form validation script for this page-->
-<!-- <script src="../../js/form-validation-script.js"></script> -->
+<!-- <script src="../js/form-validation-script.js"></script> -->
 <!--custome script for all page-->
-<script src="../../js/scripts.js"></script>
-<script src="../../SweetAlert/sweetalert.min.js"></script>
+<script src="../js/scripts.js"></script>
+<script src="../SweetAlert/sweetalert.min.js"></script>
 
 <script type="text/javascript">
 	function Cpf(v) {
@@ -253,5 +288,6 @@
 
 			});
 </script>
+
 </body>
 </html>
