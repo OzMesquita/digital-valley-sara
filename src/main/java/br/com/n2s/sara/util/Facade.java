@@ -267,7 +267,9 @@ public class Facade {
 		List<CoordenacaoEvento> lista = new DAOCoordenacaoEvento().read(usuario.getCpf());
 		for(CoordenacaoEvento l : lista) {			
 			Evento e = pegarEventoPeloId(l.getEvento().getIdEvento());
-			eventos.add(e);
+			if(!e.getExcluido()) {				
+				eventos.add(e);
+			}
 		}
 		return eventos;
 	}
