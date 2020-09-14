@@ -137,6 +137,14 @@
   	<servlet-name>SalvarRelatorio</servlet-name>
   	<servlet-class>br.com.n2s.sara.controller.SalvarRelatorio</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>EditarPermissaoUsuario</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.EditarPermissaoUsuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditarPermissaoUsuario</servlet-name>
+    <url-pattern>/webapp/jsp/adm/EditarPermissaoUsuario</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Aval</servlet-name>
     <url-pattern>/webapp/jsp/Aval</url-pattern>
@@ -260,7 +268,7 @@
   <servlet-mapping>
   	<servlet-name>SalvarRelatorio</servlet-name>
   	<url-pattern>/webapp/jsp/SalvarRelatorio</url-pattern>
-  </servlet-mapping>	
+  </servlet-mapping>
   <filter>
     <filter-name>FiltroAutenticado</filter-name>
     <filter-class>br.com.n2s.sara.filter.AutenticadoFiltro</filter-class>

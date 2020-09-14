@@ -10,15 +10,14 @@ import java.util.List;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.Usuario;
 
-public class DAOUsuario extends DAO{
-	public DAOUsuario(){}
+public class DAOUsuario extends DAO {
+	public DAOUsuario() {
+	}
 
-	public void create(Usuario usuario){
-		
-		super.open(); 
-		String sql = "insert into sara.usuario"  
-				+ "(cpf, nome, sobrenome, email, tipo)"
-				+ "values (?,?,?,?,?)";
+	public void create(Usuario usuario) {
+
+		super.open();
+		String sql = "insert into sara.usuario" + "(cpf, nome, sobrenome, email, tipo)" + "values (?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -30,26 +29,25 @@ public class DAOUsuario extends DAO{
 
 			stmt.execute();
 			stmt.close();
-			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public List<Usuario> read(){
-		
+	public List<Usuario> read() {
+
 		super.open();
 		String sql = "select * from sara.usuario";
 
-		try{
+		try {
 			List<Usuario> usuarios = new ArrayList<Usuario>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
-			while(rs.next()){
+			while (rs.next()) {
 
 				Usuario usuario = new Usuario();
 				usuario.setCpf(rs.getString("cpf"));
@@ -62,28 +60,28 @@ public class DAOUsuario extends DAO{
 
 			rs.close();
 			stmt.close();
-			
+
 			return usuarios;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
-	
-	public List<Usuario> readByTipo(String tipo){
-		
+
+	public List<Usuario> readByTipo(String tipo) {
+
 		super.open();
 		String sql = "select * from sara.usuario where tipo = ?";
 
-		try{
+		try {
 			List<Usuario> usuarios = new ArrayList<Usuario>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, tipo);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
-			while(rs.next()){
+			while (rs.next()) {
 
 				Usuario usuario = new Usuario();
 				usuario.setCpf(rs.getString("cpf"));
@@ -96,27 +94,27 @@ public class DAOUsuario extends DAO{
 
 			rs.close();
 			stmt.close();
-			
+
 			return usuarios;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public Usuario getUsuario(String cpf){
-		
-		super.open(); 
+	public Usuario getUsuario(String cpf) {
+
+		super.open();
 		String sql = "select * from sara.usuario where cpf = ?";
 
-		try{
+		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpf);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
-			if(rs.next()){
+			if (rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario.setCpf(rs.getString("cpf"));
 				usuario.setNome(rs.getString("nome"));
@@ -126,24 +124,22 @@ public class DAOUsuario extends DAO{
 
 				rs.close();
 				stmt.close();
-				
+
 				return usuario;
-			}else{
+			} else {
 				return null;
 			}
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
-	
 
+	public void update(Usuario usuario) {
 
-	public void update(Usuario usuario){
-		
 		super.open();
-		String sql = "update sara.usuario set cpf = ?, nome = ?, sobrenome = ?, email = ?, tipo = ? " 
+		String sql = "update sara.usuario set cpf = ?, nome = ?, sobrenome = ?, email = ?, tipo = ? "
 				+ " where cpf = ?";
 
 		try {
@@ -154,22 +150,38 @@ public class DAOUsuario extends DAO{
 			stmt.setString(4, usuario.getEmail());
 			stmt.setString(5, usuario.getTipo().toString());
 			stmt.setString(6, usuario.getCpf());
-			
+
 			stmt.execute();
 			stmt.close();
-			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	
-	public void delete(String cpf){
-		
-		super.open(); 
+	public void updatePermissao(Usuario usuario) {
+		super.open();
+		String sql = "update sara.usuario set tipo = ? where cpf = ?";
+
+		try {
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setString(1, usuario.getTipo().toString());
+			stmt.setString(2, usuario.getCpf());
+
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			super.close();
+		}
+	}
+
+	public void delete(String cpf) {
+
+		super.open();
 		String sql = "delete from sara.usuario where cpf = ?";
 
 		try {
@@ -177,15 +189,15 @@ public class DAOUsuario extends DAO{
 			stmt.setString(1, cpf);
 			stmt.execute();
 			stmt.close();
-			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 
 	}
+
 	public Integer getQuantidadePorNome(String nome) {
 		super.open();
 		String SQL = "SELECT COUNT(*) AS quantidade FROM sara.usuario WHERE nome ILIKE ?";
@@ -208,6 +220,7 @@ public class DAOUsuario extends DAO{
 			super.close();
 		}
 	}
+
 	public List<Usuario> buscarPorNome(String nome, int inicio, int fim) {
 		super.open();
 		String SQL = "SELECT * FROM sara.usuario WHERE nome ILIKE ? ORDER BY nome ASC LIMIT ? OFFSET ?";

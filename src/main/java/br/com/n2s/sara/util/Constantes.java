@@ -21,6 +21,7 @@ public class Constantes {
 	private static String APP_JS_URL;
 	private static String APP_IMG_URL;
 	private static String APP_CSS_URL;
+	private static String APP_JSP_URL;
 	private Constantes() {
 		//não deve ter nada aqui
 	}
@@ -42,6 +43,7 @@ public class Constantes {
 		APP_JS_URL = dotEnv.get("APP_JS_URL");
 		APP_IMG_URL = dotEnv.get("APP_IMG_URL");
 		APP_CSS_URL = dotEnv.get("APP_CSS_URL");
+		APP_JSP_URL = dotEnv.get("APP_JSP_URL");
 	}
 	
 	public static String getASSETS_URL() {
@@ -50,6 +52,10 @@ public class Constantes {
 	
 	public static String getCSS_URL() {
 		return APP_CSS_URL;
+	}
+	
+	public static String getJSP_URL() {
+		return APP_JSP_URL;
 	}
 	
 	public static String getJS_URL() {

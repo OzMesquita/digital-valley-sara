@@ -18,6 +18,7 @@ import br.com.n2s.sara.model.*;
 /**
  * Servlet implementation class ListarUsuarios
  */
+@WebServlet("/ListarUsuarios")
 public class ListarUsuarios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -61,6 +62,7 @@ public class ListarUsuarios extends HttpServlet {
 					requestDispatcher.forward(request, response);
 		}catch (Exception e) {
 			request.getSession().setAttribute(Constantes.getSESSION_MGS_ERROR(), e.getMessage());
+			response.sendRedirect("adm/listarUsuarios.jsp");
 		}
 		
 	}
