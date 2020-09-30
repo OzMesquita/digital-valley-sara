@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import br.com.n2s.sara.dao.DAOItem;
 import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.Item;
+import br.com.n2s.sara.util.Constantes;
 
 /**
  * Servlet implementation class AdicionarItemCriterio
@@ -32,6 +33,7 @@ public class AdicionarItemCriterio extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		try {
 		Criterio criterio = (Criterio) session.getAttribute("criterio");
 		
 		String descricaoItem = request.getParameter("descricaoItem");
@@ -44,8 +46,12 @@ public class AdicionarItemCriterio extends HttpServlet {
 		
 		new DAOItem().create(item);
 		
-		response.sendRedirect("eventosCoordenados.jsp");
-		
+		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a alteração do criterio!");
+		response.sendRedirect("gerenciarCriteriosTrilha.jsp");
+		}catch (Exception e) {
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a edição do critério ");
+			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
+		}
 		
 	}
 

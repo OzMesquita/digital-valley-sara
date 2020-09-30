@@ -15,6 +15,7 @@ import br.com.n2s.sara.dao.DAOCriterio;
 import br.com.n2s.sara.dao.DAOItem;
 import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.Item;
+import br.com.n2s.sara.util.Constantes;
 
 /**
  * Servlet implementation class EditarCriterio
@@ -30,11 +31,17 @@ public class RemoverItemCriterio extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
+		try {
 		int idItem = Integer.parseInt(request.getParameter("idItem"));
 		new DAOItem().delete(idItem);
 		
-		response.sendRedirect("eventosCoordenados.jsp");
+		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a remoção do item!");
+		response.sendRedirect("gerenciarCriteriosTrilha.jsp");
+		}catch (Exception e) {
+			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a remoção do item!");
+		}
 	}
 
 }

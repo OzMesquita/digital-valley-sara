@@ -19,76 +19,79 @@
       	%>
       <!--main content start-->
       <section id="main-content">
-          <section class="wrapper">
-		  <div class="row">
-				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Gerenciar Critério</h3>
-					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Gerenciar Critério</li>
-					</ol>
-				</div>
+	<section class="wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h3 class="page-header">
+					<i class="fa fa-table"></i> Gerenciar Critério
+				</h3>
+				<ol class="breadcrumb">
+					<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
+					<li><i class="icon_document_alt"></i>Gerenciar Critério</li>
+				</ol>
 			</div>
-			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
-				<div class="alert alert-success" role="alert">	
-					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
-					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
-				</div>
-			<%} %>
-			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
-				<div class="alert alert-danger" role="alert">
-					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
-					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
-				</div>
-			<%} %>      
-      <!-- page start-->
-              
-              <div class="row">
-                  <div class="col-lg-12">
-                      <section class="panel">
-                          <header class="panel-heading">
-                             Gerenciar Critério
-                          </header>
-                          
-                          <table class="table table-striped table-advance table-hover">
-                           <tbody>
-                              <tr>                               
-                                 <th><i class="icon_documents_alt"></i> Coordenador</th>
-                                 <th><i class="icon_document_alt"></i> CPF </th>
-                                 <th></th>
-                              </tr>
-							
+		</div>
+		<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+		<div class="alert alert-success" role="alert">
+			<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+			<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+		</div>
+		<%} %>
+		<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+		<div class="alert alert-danger" role="alert">
+			<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+			<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+		</div>
+		<%} %>
+		<!-- page start-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<section class="panel">
+					<header class="panel-heading"> Gerenciar Critério </header>
+
+					<table class="table table-striped table-advance table-hover">
+						<tbody>
+							<tr>
+								<th><i class="icon_documents_alt"></i> Descrição</th>
+								<th><i class="icon_document_alt"></i> Nota</th>
+								<th></th>
+							</tr>
+
 							<%
 								for (int i = 0; i < itensCriterio.size(); i++){
 							%>
-							  
-									<tr>
-										<td><%= itensCriterio.get(i).getDescricao() %></td>
-										<td><%= itensCriterio.get(i).getPeso() %></td>
-									 	<td><form action="RemoverItemCriterio" method="post" onsubmit="return confirm('Deseja remover este item do critério?');"> 
-							                	<input type="hidden" value="<%=itensCriterio.get(i).getIdItem()%>" name="idItem"> 
-							                	<button class="btn btn-primary" type = "submit">Remover Item</button>
-							             	</form> 
-							        	</td>
-							       	</tr>
-							
-							<% } %>	
 
-                         </tbody>
-                        </table>
-                      </section>
-                  </div>
-              </div>
-              <!-- page end-->
-			
-			
-		  <center> 
-		  	<form action="adicionarItemCriterio.jsp" method="post">
-				<button class="btn btn-primary" type = "submit">Adicionar Item</button> 
-       		 </form> 
-		  </center>
-		
-  </section>
+							<tr>
+								<td><%= itensCriterio.get(i).getDescricao() %></td>
+								<td><%= itensCriterio.get(i).getPeso() %></td>
+								<td><form action="RemoverItemCriterio" method="post"
+										onsubmit="return confirm('Deseja remover este item do critério?');">
+										<input type="hidden"
+											value="<%=itensCriterio.get(i).getIdItem()%>" name="idItem">
+										<button class="btn btn-primary" type="submit">Remover Item</button>
+									</form></td>
+							</tr>
+
+							<% } %>
+
+						</tbody>
+					</table>
+				</section>
+			</div>
+		</div>
+		<!-- page end-->
+
+
+		<center>
+			<form action="adicionarItemCriterio.jsp" method="post">
+				<button class="btn btn-primary" type="submit">Adicionar
+					Item</button>
+			</form>
+		</center>
+
+	</section>
+</section>
 
   <!-- container section start -->    
     
@@ -132,89 +135,3 @@
 	<script src="../js/sparklines.js"></script>	
 	<script src="../js/charts.js"></script>
 	<script src="../js/jquery.slimscroll.min.js"></script>
-  <script>
-
-      //knob
-      $(function() {
-        $(".knob").knob({
-          'draw' : function () { 
-            $(this.i).val(this.cv + '%')
-          }
-        })
-      });
-
-      //carousel
-      $(document).ready(function() {
-          $("#owl-slider").owlCarousel({
-              navigation : true,
-              slideSpeed : 300,
-              paginationSpeed : 400,
-              singleItem : true
-
-          });
-      });
-
-      //custom select box
-
-      $(function(){
-          $('select.styled').customSelect();
-      });
-	  
-	  /* ---------- Map ---------- */
-	$(function(){
-	  $('#map').vectorMap({
-	    map: 'world_mill_en',
-	    series: {
-	      regions: [{
-	        values: gdpData,
-	        scale: ['#000', '#000'],
-	        normalizeFunction: 'polynomial'
-	      }]
-	    },
-		backgroundColor: '#eef3f7',
-	    onLabelShow: function(e, el, code){
-	      el.html(el.html()+' (GDP - '+gdpData[code]+')');
-	    }
-	  });
-	});
-		
-	$(function () {
-        var data = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-            {
-                label: "My First dataset",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-                label: "My Second dataset",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
-            }
-            ]
-        };
-   
-        var option = {
-        responsive: true,
-        };
-   
-        // Get the context of the canvas element we want to select
-        var ctx = document.getElementById("teste").getContext('2d');
-        var myLineChart = new Chart(ctx).Line(data, option); //'Line' defines type of the chart.
-    });
-
-  </script>    
-
-</body>
-</html>
