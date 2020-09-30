@@ -137,6 +137,10 @@
   	<servlet-name>SalvarRelatorio</servlet-name>
   	<servlet-class>br.com.n2s.sara.controller.SalvarRelatorio</servlet-class>
   </servlet>
+    <servlet>
+    <servlet-name>AdicionarCriterioTrilha</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.AdicionarCriterioTrilha</servlet-class>
+  </servlet>
   <servlet>
     <servlet-name>EditarPermissaoUsuario</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.EditarPermissaoUsuario</servlet-class>
@@ -152,6 +156,10 @@
   <servlet-mapping>
     <servlet-name>ListarUsuarios</servlet-name>
     <url-pattern>/webapp/jsp/ListarUsuarios</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>AdicionarCriterioTrilha</servlet-name>
+    <url-pattern>/webapp/jsp/AdicionarCriterioTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CadastrarAvaliador</servlet-name>
