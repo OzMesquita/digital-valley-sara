@@ -45,6 +45,15 @@
 										<div class="form-validate form-horizontal" id="feedback_form">
 											<center><h2><b>Critério</b></h2></center>
 											<div class="form-group">
+												<label for="ccomment" class="control-label col-lg-2">Nome
+													<span class="required">*</span>
+												</label>
+												<div class="col-lg-10">
+													<textarea class="form-control " id="ccomment"
+														name="nomeCriterio" required></textarea>
+												</div>
+											</div>
+											<div class="form-group">
 												<label for="ccomment" class="control-label col-lg-2">Descrição
 													<span class="required">*</span>
 												</label>
@@ -120,7 +129,7 @@
 	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 
 	<!-- custom form validation script for this page-->
-	<script src="../js/form-validation-script.js"></script>
+	<!-- <script src="../js/form-validation-script.js"></script> -->
 	<!--custome script for all page-->
 	<script src="../js/scripts.js"></script>
 	<script src="../SweetAlert/sweetalert.min.js"></script>
@@ -139,5 +148,3 @@
 
             });
     </script>
-</body>
-</html>

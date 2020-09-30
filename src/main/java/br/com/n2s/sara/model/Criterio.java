@@ -10,6 +10,7 @@ public class Criterio {
 	private CriterioTrilha criterioTrilha;
 	private ArrayList<Item> itens;
 	private String nome;
+	private boolean padrao;
 	
 	public int getIdCriterio() {
 		return idCriterio;
@@ -46,6 +47,12 @@ public class Criterio {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public boolean isPadrao() {
+		return padrao;
+	}
+	public void setPadrao(boolean padrao) {
+		this.padrao = padrao;
 	}
 	
 }

@@ -29,6 +29,7 @@ public class RemoverCriterio extends HttpServlet {
 		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a remoção do critério!");
 		response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 		}catch (Exception e) {
+			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a remoção do critério!");
 		}
 	}

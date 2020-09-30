@@ -45,20 +45,23 @@ public class AdicionarCriterio extends HttpServlet {
 
 		trilha = (Trilha) session.getAttribute("trilha");
 
+		String nomeCriterio = request.getParameter("nomeCriterio");
 		String descricaoCriterio = request.getParameter("descricaoCriterio");
 		int pesoCriterio = Integer.parseInt(request.getParameter("pesoCriterio"));
 		
+		criterio.setNome(nomeCriterio);
 		criterio.setDescricao(descricaoCriterio);
 		criterio.setPeso(pesoCriterio);
+		criterio.setPadrao(true);
 		
 		criterio.setCriterioTrilha(trilha.getCriterioTrilha());
 		
 		new DAOCriterio().create(criterio);
 		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a adição do criterio!");
-		response.sendRedirect("eventosCoordenados.jsp");
+		response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 		}catch (Exception e) {
-			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante o cadastro do critério!\n Erro: "+e.getMessage());
-			response.sendRedirect("adicionarCriterio.jsp");
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante o cadastro do critério!");
+			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 		}
 
 		

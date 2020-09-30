@@ -12,47 +12,45 @@ import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.Item;
 
 public class DAOCriterio extends DAO {
-	
 
-	public DAOCriterio(){}
+	public DAOCriterio() {
+	}
 
-	public void create(Criterio criterio){
-		
+	public void create(Criterio criterio) {
+
 		super.open();
-		String sql = "insert into sara.criterio"  
-				+ "(descricao, peso,nome)"
-				+ "values (?,?,?)";
+		String sql = "insert into sara.criterio" + "(descricao, peso,nome,padrao)" + "values (?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, criterio.getDescricao());
 			stmt.setInt(2, criterio.getPeso());
 			stmt.setString(3, criterio.getNome());
-			
+			stmt.setBoolean(4, criterio.isPadrao());
+
 			stmt.execute();
 			stmt.close();
-			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public List<Criterio> read(){
-		
+	public List<Criterio> read() {
+
 		super.open();
 		String sql = "select * from sara.criterio";
 
-		try{
+		try {
 			List<Criterio> criterios = new ArrayList<Criterio>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
 			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
 
-			while(rs.next()){
+			while (rs.next()) {
 
 				Criterio criterio = new Criterio();
 
@@ -60,27 +58,29 @@ public class DAOCriterio extends DAO {
 				criterio.setDescricao(rs.getString("descricao"));
 				criterio.setPeso(rs.getInt("peso"));
 				criterio.setNome(rs.getString("nome"));
+				criterio.setPadrao(rs.getBoolean("padrao"));
 				criterios.add(criterio);
 
 			}
 
 			rs.close();
 			stmt.close();
-			
+
 			return criterios;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
-	public List<Criterio> ListarCriteiosPadrao(){
-		
+
+	public List<Criterio> ListarCriteiosPadrao() {
+
 		super.open();
 		String sql = "select * from sara.criterio where padrao = ?";
 
-		try{
+		try {
 			List<Criterio> criterios = new ArrayList<Criterio>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setBoolean(1, true);
@@ -88,7 +88,7 @@ public class DAOCriterio extends DAO {
 			super.close();
 			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
 
-			while(rs.next()){
+			while (rs.next()) {
 
 				Criterio criterio = new Criterio();
 
@@ -96,59 +96,61 @@ public class DAOCriterio extends DAO {
 				criterio.setDescricao(rs.getString("descricao"));
 				criterio.setPeso(rs.getInt("peso"));
 				criterio.setNome(rs.getString("nome"));
+				criterio.setPadrao(rs.getBoolean("padrao"));
 				criterios.add(criterio);
 
 			}
 
 			rs.close();
 			stmt.close();
-			
+
 			return criterios;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public Criterio getCriterio(int idCriterio){
-		
+	public Criterio getCriterio(int idCriterio) {
+
 		super.open();
 		String sql = "select * from sara.criterio where idCriterio = ?";
 
-		try{
+		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, idCriterio);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
 			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
 
-			if(rs.next()){
-				
+			if (rs.next()) {
+
 				Criterio criterio = new Criterio();
 
 				criterio.setIdCriterio(rs.getInt("idCriterio"));
 				criterio.setDescricao(rs.getString("descricao"));
 				criterio.setPeso(rs.getInt("peso"));
 				criterio.setNome(rs.getString("nome"));
-				criterio.setItens( (ArrayList<Item>) new DAOItem().readById(idCriterio));
+				criterio.setPadrao(rs.getBoolean("padrao"));
+				criterio.setItens((ArrayList<Item>) new DAOItem().readById(idCriterio));
 				rs.close();
 				stmt.close();
 				for (Item i : criterio.getItens()) {
 					i.setCriterio(criterio);
 				}
 				return criterio;
-			}else{
+			} else {
 				return null;
 			}
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
-	
+
 	/*
 	 * public List<Criterio> obterCriteriosPorTrilha(int idCriterioTrilha){
 	 * 
@@ -174,40 +176,40 @@ public class DAOCriterio extends DAO {
 	 * 
 	 * }
 	 * 
-	 * rs.close(); stmt.close();  return criterios;
+	 * rs.close(); stmt.close(); return criterios;
 	 * 
 	 * }catch(SQLException e){ throw new RuntimeException(e); } }
 	 */
 
-	public void update(Criterio criterio){
-		
+	public void update(Criterio criterio) {
+
 		super.open();
-		String sql = "update sara.criterio set descricao = ?, peso = ?, nome = ? where idCriterio = ?";
-				
+		String sql = "update sara.criterio set descricao = ?, peso = ?, nome = ?, padrao = ? where idCriterio = ?";
+
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, criterio.getDescricao());
 			stmt.setInt(2, criterio.getPeso());
 			stmt.setString(3, criterio.getNome());
 			stmt.setInt(4, criterio.getIdCriterio());
-			
+			stmt.setBoolean(5, criterio.isPadrao());
+
 			stmt.execute();
 			stmt.close();
-			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
-	
-	public int getLastId(){
-		
+
+	public int getLastId() {
+
 		super.open();
 		String sql = "Select max(idCriterio) from sara.criterio";
-		
-		try{
+
+		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);
 			super.close();
@@ -216,19 +218,18 @@ public class DAOCriterio extends DAO {
 
 			stmt.close();
 			rs.close();
-			
+
 			return lastId;
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
+	public void delete(Criterio criterio) {
 
-	public void delete(Criterio criterio){
-		
 		super.open();
 		String sql = "delete from sara.criterio where idCriterio = ?";
 
@@ -237,11 +238,10 @@ public class DAOCriterio extends DAO {
 			stmt.setInt(1, criterio.getIdCriterio());
 			stmt.execute();
 			stmt.close();
-			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
