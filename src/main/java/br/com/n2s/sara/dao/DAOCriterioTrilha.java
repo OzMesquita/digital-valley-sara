@@ -38,6 +38,23 @@ public class DAOCriterioTrilha extends DAO {
 			super.close();
 		}
 	}
+	public void createCriTrilha(CriterioTrilha ct){
+		super.open();
+		String sql = "INSERT INTO sara.criteriotrilha(fktrilha, fkcriterio)VALUES (?,?)";
+		try {
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, ct.getTrilha().getIdTrilha());
+			stmt.setInt(2, ct.getCriterio().getIdCriterio());
+
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+	}
 
 	public List<Criterio> getCriterioPorTrilha(Trilha t){
 		super.open();
@@ -178,7 +195,5 @@ public class DAOCriterioTrilha extends DAO {
 		}finally {
 			super.close();
 		}
-	}
-	
-	
+	}	
 }
