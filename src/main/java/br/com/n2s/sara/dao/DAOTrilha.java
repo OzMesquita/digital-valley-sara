@@ -169,8 +169,10 @@ public List<Trilha> readById(int id){
 
 	public void update(Trilha trilha){
 		super.open();
-		String sql = "update sara.trilha set nome = ?, descricao = ?, idEvento = ?, "
-				+ "idCriterioTrilha = ? where idTrilha = ?";
+		String sql = "update sara.trilha set nome = ?, descricao = ?, idEvento = ? "
+				+ " where idTrilha = ?";
+//		String sql = "update sara.trilha set nome = ?, descricao = ?, idEvento = ?, "
+//				+ "idCriterioTrilha = ? where idTrilha = ?";
 
 
 		try {
@@ -178,7 +180,7 @@ public List<Trilha> readById(int id){
 			stmt.setString(1, trilha.getNome());
 			stmt.setString(2, trilha.getDescricao());
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
-			stmt.setInt(5, trilha.getIdTrilha());
+			stmt.setInt(4, trilha.getIdTrilha());
 			
 
 			stmt.execute();

@@ -46,11 +46,11 @@ public class Trilha {
 	public void setEvento(Evento evento) {
 		this.evento = evento;
 	}
-	@Deprecated
+	
 	public CriterioTrilha getCriterioTrilha() {
 		return criterioTrilha;
 	}
-	@Deprecated
+	
 	public void setCriterioTrilha(CriterioTrilha criterioTrilha) {
 		this.criterioTrilha = criterioTrilha;
 	}
