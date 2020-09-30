@@ -47,17 +47,15 @@ public class RemoverTrilha extends HttpServlet {
 			}
 		}
 		
-		
 		String feedbackSucesso = "Trilha removida com sucesso!";
 		session.setAttribute("evento", evento);
-		session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
-		
-		
-		response.sendRedirect("gerenciarTrilhasCoordenadas.jsp");
+		response.sendRedirect("eventosCoordenados.jsp");
+		session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);		
 	}catch (Exception e) {
-		// TODO: handle exception
+		response.sendRedirect("eventosCoordenados.jsp");
 		session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a remoção da trilha!");
 	}
+	
 	}
 	
 }

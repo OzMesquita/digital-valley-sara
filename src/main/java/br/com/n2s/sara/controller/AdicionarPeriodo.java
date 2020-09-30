@@ -44,8 +44,8 @@ public class AdicionarPeriodo extends HttpServlet {
 		
 		response.sendRedirect("gerenciarPeriodosTrilha.jsp");
 		}catch (Exception e) {
-			session.setAttribute(Constantes.getSESSION_MGS_ERROR()+e.getMessage(), "Erro durante o cadastro do periodo!");
 			response.sendRedirect("indexAutor.jsp");
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante o cadastro do periodo!");
 		}
 	}
 

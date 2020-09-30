@@ -78,6 +78,7 @@ public class CadastrarEvento extends HttpServlet {
 		session.setAttribute(Constantes.getSESSION_MGS(), "Evento cadastrado com sucesso!");
 		response.sendRedirect("../eventosCoordenados.jsp");
 		}catch (Exception e) {
+			response.sendRedirect("../eventosCoordenados.jsp");
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao cadastrar o Evento: "+e.getMessage());
 		}
 	}
