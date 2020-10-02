@@ -15,23 +15,22 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h3 class="page-header">
-					<i class="fa fa-table"></i> Critérios de Avaliação
+					<i class="fa fa-table"></i> Critérios de Avaliação da Trilha atual
 				</h3>
 				<ol class="breadcrumb">
 					<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-					<li><i class="icon_document_alt"></i>Critérios de Avaliação</li>
+					<li><i class="icon_document_alt"></i>Critérios de Avaliação da Trilha atual</li>
 				</ol>
 			</div>
 		</div>
 
 		<!-- page start-->
 		<%
-			Trilha trilha = (Trilha) session.getAttribute("trilha");
+		Trilha trilha = (Trilha) session.getAttribute("trilha");
 		session.setAttribute("trilha", trilha);
-		DAOCriterio daoCriterio = new DAOCriterio();
-		List<Criterio> listaCriterio = daoCriterio.read();
-		//DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
-		//List<Criterio> listaCriterioTrilha = daoCriterioTrilha.getCriterioPorTrilha(trilha);
+		
+		DAOCriterioTrilha daoCriterioTrilha = new DAOCriterioTrilha();
+		List<Criterio> listaCriterioTrilha = daoCriterioTrilha.getCriterioPorTrilha(trilha);
 		%>
 
 		<%
@@ -61,12 +60,11 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<section class="panel">
-					<header class="panel-heading">Lista com Todos os Critérios </header>
-
+					<header class="panel-heading">Lista de Critérios desta Trilha </header>
 					<table class="table table-striped table-advance table-hover">
 						<tbody>
 							<tr>
-								<th><i class="icon_documents_alt"></i> Critérios</th>
+								<th><i class="icon_documents_alt"></i> Critério</th>
 								<th><i class="icon_balance"></i> Descrição</th>
 								<th><i class="icon_balance"></i> Peso</th>
 								<th></th>
@@ -74,57 +72,27 @@
 							</tr>
 
 							<%
-								for (int i = 0; i < listaCriterio.size(); i++) {
+								for (int i = 0; i < listaCriterioTrilha.size(); i++) {
 							%>
 							<tr>
-								<td><%=listaCriterio.get(i).getNome()%></td>
-								<td><%=listaCriterio.get(i).getDescricao()%></td>
-								<td><%=listaCriterio.get(i).getPeso()%></td>
-								<td><form action="AdicionarCriterioTrilha" method="post"
-										id="formEnviar">
-										<input type="hidden"
-											value="<%=listaCriterio.get(i).getIdCriterio()%>"
-											name="idCriterio">
-										<button class="btn btn-primary" type="submit">Adicionar
-											a trilha</button>
-									</form></td>
-								<td><form action="editarCriterio.jsp" method="post">
-										<input type="hidden"
-											value="<%=listaCriterio.get(i).getIdCriterio()%>"
-											name="idCriterio">
-										<button class="btn btn-primary" type="submit">Alterar dados</button>
-									</form></td>
-
-								<td><form action="RemoverCriterio" method="post"
-										id="formRemover"
-										onsubmit="return confirm('Deseja remover este critério?');">
-										<input type="hidden"
-											value="<%=listaCriterio.get(i).getIdCriterio()%>"
-											name="idCriterio">
-										<button class="btn btn-primary" type="submit">Remover</button>
-									</form></td>
-							</tr>
+								<td><%=listaCriterioTrilha.get(i).getNome()%></td>
+								<td><%=listaCriterioTrilha.get(i).getDescricao()%></td>
+								<td><%=listaCriterioTrilha.get(i).getPeso()%></td>
 							<%
-							}
+								}
 							%>
+
 						</tbody>
 					</table>
-
 				</section>
 			</div>
 		</div>
 
 		<center>
 			<div class="row">
-				<div class="col-sm-6">
-					<form action="listarCriteriosTrilha.jsp" method="post">
-						<button class="btn btn-primary" type="submit" name="addCri">Listar Critérios da Trilha Atual</button>
-					</form>
-				</div>
-				<div class="col-sm-6">
-					<form action="adicionarCriterio.jsp" method="post">
-						<button class="btn btn-primary" type="submit" name="addCri">Adicionar
-							Novo Critério</button>
+				<div class="col-lg-12">
+					<form action="gerenciarCriteriosTrilha.jsp" method="post">
+						<button class="btn btn-primary" type="submit" name="voltar">Voltar</button>
 					</form>
 				</div>
 			</div>

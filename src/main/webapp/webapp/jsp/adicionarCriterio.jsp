@@ -55,11 +55,11 @@
 											</div>
 											<div class="form-group">
 												<label for="ccomment" class="control-label col-lg-2">Descrição
-													<span class="required">*</span>
+													
 												</label>
 												<div class="col-lg-10">
 													<textarea class="form-control " id="ccomment"
-														name="descricaoCriterio" required></textarea>
+														name="descricaoCriterio"></textarea>
 												</div>
 											</div>
 
@@ -75,7 +75,7 @@
 
 											<div class="form-group">
 												<div class="col-lg-offset-2 col-lg-10">
-													<button id = "sucesso" class="btn btn-primary" type="submit"onclick = "validation();">Salvar</button>
+													<button id = "sucesso" class="btn btn-primary" type="submit">Salvar</button>
 												</div>
 											</div>
 										</div>
