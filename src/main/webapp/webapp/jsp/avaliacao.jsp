@@ -53,7 +53,7 @@
                           <table class="table table-striped table-advance table-hover">
                            <tbody>
                               <tr>                               
-                                 <th><i class="icon_documents_alt"></i> Título do Trabalho</th>
+                                 <th><i class="icon_documents_alt"></i> Tï¿½tulo do Trabalho</th>
                                  
                                  <th></th>
                                  <th></th>
@@ -93,7 +93,8 @@
 			                   </td>
 			                   
 			               </tr>
-			        		 <%}if (Facade.periodoAtual(trilha, DescricaoPeriodo.AVALIACAO)){%>
+							 <%}
+							  if (false){%>
 			        		 	<tr>
 			                   
 			                   <td><%= trabalhos.get(i).getTitulo() %> </td> 

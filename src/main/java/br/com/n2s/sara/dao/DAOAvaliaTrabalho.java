@@ -324,7 +324,7 @@ public class DAOAvaliaTrabalho extends DAO {
 		public void updatePerAvaliador(AvaliaTrabalho avaliaTrabalho){
 
 		super.open();
-		String sql = "update sara.avaliatrabalho set  idtrabalho = ?, feedback = ?, status = ?" 
+		String sql = "update sara.avaliatrabalho set  idtrabalho = ?, feedback = ?, status = ?, nota=?" 
 				+ " where idTrabalho = ? and idavaliador = ?";
 
 		try {
