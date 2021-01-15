@@ -6,9 +6,9 @@
 		int idTrabalho = Integer.parseInt(request.getParameter("idTrabalho"));
 		Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
 		session.setAttribute("trabalho", trabalho);
-		if (!Facade.isAvaliador(trabalho.getIdTrabalho(), usuario.getCpf())){
+		/*if (!Facade.isAvaliador(trabalho.getIdTrabalho(), usuario.getCpf())){
 			response.sendRedirect("indexAutor.jsp");
-		}
+		}*/
     %> 
 			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
 				<div class="alert alert-success" role="alert">	
