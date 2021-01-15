@@ -72,7 +72,7 @@
 			                   
 			                   <td><%= trabalhos.get(i).getTitulo() %> </td> 
 				                   <%if (trabalhos.get(i).getTrilha().getEvento().getDescriEvento().toString().equals(TipoEvento.EU.toString())){%>
-				                   <td> <form action="avaliarTrabalho.jsp" method="post"> 
+				                   <td> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
 				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
 				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
 				                       </form> 
