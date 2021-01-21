@@ -61,9 +61,17 @@
     <servlet-name>RemoverCriterio</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.RemoverCriterio</servlet-class>
   </servlet>
+    <servlet>
+    <servlet-name>RemoverEvento</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.RemoverEvento</servlet-class>
+  </servlet>
   <servlet>
     <servlet-name>CadastrarEvento</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.CadastrarEvento</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>EditarEvento</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.EditarEvento</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>RemoverCoordenadorTrilha</servlet-name>
@@ -129,6 +137,18 @@
   	<servlet-name>SalvarRelatorio</servlet-name>
   	<servlet-class>br.com.n2s.sara.controller.SalvarRelatorio</servlet-class>
   </servlet>
+    <servlet>
+    <servlet-name>AdicionarCriterioTrilha</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.AdicionarCriterioTrilha</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>EditarPermissaoUsuario</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.EditarPermissaoUsuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditarPermissaoUsuario</servlet-name>
+    <url-pattern>/webapp/jsp/adm/EditarPermissaoUsuario</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Aval</servlet-name>
     <url-pattern>/webapp/jsp/Aval</url-pattern>
@@ -136,6 +156,10 @@
   <servlet-mapping>
     <servlet-name>ListarUsuarios</servlet-name>
     <url-pattern>/webapp/jsp/ListarUsuarios</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>AdicionarCriterioTrilha</servlet-name>
+    <url-pattern>/webapp/jsp/AdicionarCriterioTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CadastrarAvaliador</servlet-name>
@@ -190,6 +214,10 @@
     <url-pattern>/webapp/jsp/RemoverCoordenadorTrilha</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>RemoverEvento</servlet-name>
+    <url-pattern>/webapp/jsp/RemoverEvento</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>SalvarArquivo</servlet-name>
     <url-pattern>/webapp/jsp/SalvarArquivo</url-pattern>
   </servlet-mapping>
@@ -238,13 +266,17 @@
     <url-pattern>/webapp/jsp/adm/CadastrarEvento</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>EditarEvento</servlet-name>
+    <url-pattern>/webapp/jsp/EditarEvento</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>SalvarAvaliacaoArtigo</servlet-name>
     <url-pattern>/webapp/jsp/SalvarAvaliacaoArtigo</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>SalvarRelatorio</servlet-name>
   	<url-pattern>/webapp/jsp/SalvarRelatorio</url-pattern>
-  </servlet-mapping>	
+  </servlet-mapping>
   <filter>
     <filter-name>FiltroAutenticado</filter-name>
     <filter-class>br.com.n2s.sara.filter.AutenticadoFiltro</filter-class>

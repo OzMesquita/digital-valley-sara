@@ -37,7 +37,10 @@ h1,h2,h3,h4,h5{
 label{
 
     font-weight: 300;   
+}
 
+#margem {
+	margin: 30px 30px 30px 0 ;
 }
 
 ul li {
@@ -970,7 +973,7 @@ ul.sidebar-menu li.active a i {
 
 #main-content {
 
-    margin-left: 200px;
+    margin-left: 210px;
 
 }
 
@@ -1038,14 +1041,11 @@ ul.sidebar-menu li.active a i {
 
     display: inline-block;
 
-    margin-top: 60px;
-
     padding: 15px;
 
     width: 100%;
 
 }
-
 
 
 a.logo {

@@ -45,11 +45,14 @@
 							        	<form action="AdicionarPeriodo" method="POST">
 							            		<p>Tipo: <select name="descricao">
 												<option value="SUBMISSAO_MANUSCRITO">Período de Submissão</option>
+												<option value="AVAL">Período de Aval do orientador</option>
 												<option value="AVALIACAO">Período de Avaliaçâo</option>
 												<option value="SUBMISSAO_FINAL">Período de Submissôes Finais</option>
 												<option value="RESULTADO_FINAL">Divulgaçâo de Resultados</option>
+												<option value="RECURSO">Período de Solicitação de Recurso</option>
+												<option value="AVALIACAO_RECURSO">Período de Avaliação de recurso</option>
 												</select>
-							            			
+												
 							            		<p>Data de Inicio: <input type="date" name="dataInicial" required> </p>
 							            		<p>Data de Fim: <input type="date" name="dataFinal" required> </p>
 							            		<input type="submit" value="Adicionar">

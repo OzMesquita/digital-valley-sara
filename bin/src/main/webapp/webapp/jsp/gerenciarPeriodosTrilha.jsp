@@ -4,7 +4,7 @@
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.model.Trilha"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
-<
+<%@page import="java.time.format.DateTimeFormatter" %>
      	<%
      		DAOPeriodo daoPeriodo = new DAOPeriodo();
      		Trilha trilha = (Trilha) session.getAttribute("trilha");
@@ -13,98 +13,99 @@
    		%>
        <!--main content start-->
       <section id="main-content">
-          <section class="wrapper">
-		  <div class="row">
-				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Gerenciar Períodos</h3>
-					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Gerenciar Períodos</li>
-					</ol>
-				</div>
+	<section class="wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h3 class="page-header">
+					<i class="fa fa-table"></i> Gerenciar Períodos
+				</h3>
+				<ol class="breadcrumb">
+					<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
+					<li><i class="icon_document_alt"></i>Gerenciar Períodos</li>
+				</ol>
 			</div>
-			
-			<% 
+		</div>
+
+		<% 
 			
 			if ( session.getAttribute("feedbackSucesso") != null){ %>
-				<div class="alert alert-success" role="alert">
-  					<%= session.getAttribute("feedbackSucesso") %>
-				</div>
-				
-			<% } 
+		<div class="alert alert-success" role="alert">
+			<%= session.getAttribute("feedbackSucesso") %>
+		</div>
+
+		<% } 
 				session.setAttribute("feedbackSucesso", null);	
 			%>
-      
-      <!-- page start-->
- 			<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
-				<div class="alert alert-success" role="alert">	
-					<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
-					<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
-				</div>
-			<%} %>
-			<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
-				<div class="alert alert-danger" role="alert">
-					<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
-					<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
-				</div>
-			<%} %>             
-              <div class="row">
-                  <div class="col-lg-12">
-                      <section class="panel">
-                          <header class="panel-heading">
-                              Gerenciar Períodos
-                          </header>
-                          
-                          <table class="table table-striped table-advance table-hover">
-                           <tbody>
-                              <tr>                               
-                                 <th><i class="icon_documents_alt"></i> Período</th>
-                                 <th><i class="icon_document_alt"></i> Data Início</th>
-                                 <th><i class="icon_documents_alt"></i> Data Fim</th>
-                              	 <th></th>
-                              	 <th></th>
-                              </tr>
-							
-							 <%
-							 	for(int i = 0; i < periodos.size(); i++){
-            						
-           					 %>
-							  
-									<tr>
-					                   <td><%=periodos.get(i).getDescricao().toString() %></td>
-                					   <td><%=periodos.get(i).getDataInicial() %></td>
-                					   <td><%=periodos.get(i).getDataFinal() %></td>
-									  <td>
-					                    <form action="editarPeriodo.jsp" method="post">
-					                    	<input type="hidden" value="<%=periodos.get(i).getIdPeriodo()%>" name="idPeriodo">
-					                    	<button class="btn btn-primary" type = "submit">Alterar</button>
-					                    </form>
-						                </td>
-						                <td>
-						                    <form action="RemoverPeriodo" method="post" onsubmit="return confirm('Deseja remover este período?');">
-						                    	<input type="hidden" value="<%=periodos.get(i).getIdPeriodo()%>" name="idPeriodo">
-						                    	<button class="btn btn-primary" type = "submit">Remover</button>
-						                    </form>
-						                </td>
-							       	</tr>
-							
-							<% } %>	
 
-                         </tbody>
-                        </table>
-                      </section>
-                  </div>
-              </div>
-              <!-- page end-->
-			
-			
-		  <center> 
-		  	<form action="adicionarPeriodo.jsp" method="post">
-		  		<button class="btn btn-primary" type = "submit">Adicionar Período</button> 
-       		 </form>
-       	  </center>
-		
-  </section>
+		<!-- page start-->
+		<%if(session.getAttribute(Constantes.getSESSION_MGS()) != null){ %>
+		<div class="alert alert-success" role="alert">
+			<%=session.getAttribute(Constantes.getSESSION_MGS()) %>
+			<%session.setAttribute(Constantes.getSESSION_MGS(), null); %>
+		</div>
+		<%} %>
+		<%if(session.getAttribute(Constantes.getSESSION_MGS_ERROR()) != null){ %>
+		<div class="alert alert-danger" role="alert">
+			<%=session.getAttribute(Constantes.getSESSION_MGS_ERROR()) %>
+			<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
+		</div>
+		<%} %>
+		<div class="row">
+			<div class="col-lg-12">
+				<section class="panel">
+					<header class="panel-heading"> Gerenciar Períodos </header>
+
+					<table class="table table-striped table-advance table-hover">
+						<tbody>
+							<tr>
+								<th><i class="icon_documents_alt"></i> Período</th>
+								<th><i class="icon_document_alt"></i> Data Início</th>
+								<th><i class="icon_documents_alt"></i> Data Fim</th>
+								<th></th>
+								<th></th>
+							</tr>
+
+							<%
+							 	for(int i = 0; i < periodos.size(); i++){
+							 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+           					 %>
+
+							<tr>
+								<td><%=periodos.get(i).getDescricao().toString() %></td>
+								<td><%= formatter.format(periodos.get(i).getDataInicial())%></td>
+								<td><%=formatter.format(periodos.get(i).getDataFinal())%></td>
+								<td>
+									<form action="editarPeriodo.jsp" method="post">
+										<input type="hidden"
+											value="<%=periodos.get(i).getIdPeriodo()%>" name="idPeriodo">
+										<button class="btn btn-primary" type="submit">Alterar</button>
+									</form>
+								</td>
+								<td>
+									<form action="RemoverPeriodo" method="post"
+										onsubmit="return confirm('Deseja remover este período?');">
+										<input type="hidden"
+											value="<%=periodos.get(i).getIdPeriodo()%>" name="idPeriodo">
+										<button class="btn btn-primary" type="submit">Remover</button>
+									</form>
+								</td>
+							</tr>
+							<% } %>
+						</tbody>
+					</table>
+				</section>
+			</div>
+		</div>
+		<!-- page end-->
+
+		<center>
+			<form action="adicionarPeriodo.jsp" method="post">
+				<button class="btn btn-primary" type="submit">Adicionar
+					Período</button>
+			</form>
+		</center>
+	</section>
+</section>
   <!-- container section start -->    
     
     <!-- javascripts -->
@@ -147,89 +148,4 @@
 	<script src="../js/sparklines.js"></script>	
 	<script src="../js/charts.js"></script>
 	<script src="../js/jquery.slimscroll.min.js"></script>
-  <script>
 
-      //knob
-      $(function() {
-        $(".knob").knob({
-          'draw' : function () { 
-            $(this.i).val(this.cv + '%')
-          }
-        })
-      });
-
-      //carousel
-      $(document).ready(function() {
-          $("#owl-slider").owlCarousel({
-              navigation : true,
-              slideSpeed : 300,
-              paginationSpeed : 400,
-              singleItem : true
-
-          });
-      });
-
-      //custom select box
-
-      $(function(){
-          $('select.styled').customSelect();
-      });
-	  
-	  /* ---------- Map ---------- */
-	$(function(){
-	  $('#map').vectorMap({
-	    map: 'world_mill_en',
-	    series: {
-	      regions: [{
-	        values: gdpData,
-	        scale: ['#000', '#000'],
-	        normalizeFunction: 'polynomial'
-	      }]
-	    },
-		backgroundColor: '#eef3f7',
-	    onLabelShow: function(e, el, code){
-	      el.html(el.html()+' (GDP - '+gdpData[code]+')');
-	    }
-	  });
-	});
-		
-	$(function () {
-        var data = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-            {
-                label: "My First dataset",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-                label: "My Second dataset",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
-            }
-            ]
-        };
-   
-        var option = {
-        responsive: true,
-        };
-   
-        // Get the context of the canvas element we want to select
-        var ctx = document.getElementById("teste").getContext('2d');
-        var myLineChart = new Chart(ctx).Line(data, option); //'Line' defines type of the chart.
-    });
-
-  </script>
-     
-    </body>
-</html>
