@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.n2s.sara.dao.DAOAvaliaEvento;
 import br.com.n2s.sara.dao.DAOAvaliaTrabalho;
 import br.com.n2s.sara.dao.DAOAvaliaTrilha;
 import br.com.n2s.sara.dao.DAOEvento;
@@ -40,15 +41,21 @@ public class Distribuir extends HttpServlet {
 			trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
 			if( (trilha==null || trilha.getAvaliadores()==null)) {
 				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Trilha invï¿½lida");
-				response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");	
+				response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
 			}
-			if (trilha.getAvaliadores().size()<0) {
+			if (trilha.getAvaliadores().size() < 1) {
 				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores invï¿½lida!");
+				response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
 			}
-			 av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorTrilhaComOrientador(trilha, trilha.getQtdCorrecoes());
+			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorTrilhaComOrientador(trilha, trilha.getQtdCorrecoes());
 		}else if(request.getParameter("idEvento") != null && request.getParameter("tipo") == null ){
 			Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
-			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorEventoComOrientador(evento, 1);
+			ArrayList<Usuario> avaliadores = (ArrayList<Usuario>) new DAOAvaliaEvento().buscarPorEvento(evento.getIdEvento());
+			if (avaliadores.size() < 1) {
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores inválida!");
+			} else {
+				av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorEventoComOrientador(evento, 1);
+			}
 		}else if (request.getParameter("idEvento") != null && request.getParameter("tipo") != null) {
 			Evento evento = new DAOEvento().getEvento(Integer.parseInt(request.getParameter("idEvento")));
 			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorEventoComStatus(evento, 1, StatusTrabalho.ENVIADO);
