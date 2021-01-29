@@ -40,11 +40,11 @@ public class Distribuir extends HttpServlet {
 		if (request.getParameter("idTrilha") != null) {	
 			trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
 			if( (trilha==null || trilha.getAvaliadores()==null)) {
-				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Trilha invï¿½lida");
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Trilha inválida");
 				response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
 			}
 			if (trilha.getAvaliadores().size() < 1) {
-				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores invï¿½lida!");
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Quantia de avaliadores inválida!");
 				response.sendRedirect("Sara/webapp/jsp/indexAutor.jsp");
 			}
 			av = (ArrayList<AvaliaTrabalho>) InterfaceAlgoritmo.distribuPorTrilhaComOrientador(trilha, trilha.getQtdCorrecoes());

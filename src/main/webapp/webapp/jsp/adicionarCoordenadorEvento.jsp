@@ -10,7 +10,7 @@
       		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
 			<script>
 				function permissao(){
-					alert('Você não possue permissão para acessar está área!!!!');
+					alert('Você não possui permissão para acessar está área!!!!');
 					var myVar = setInterval(redirect, 1000);
 				}
 				function redirect(){
