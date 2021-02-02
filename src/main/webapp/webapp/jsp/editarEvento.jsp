@@ -99,7 +99,8 @@
 												onkeypress="this.value=Cpf(this.value)"
 												onblur="validarCPF(this.value);" id="cpf" type="text"
 												name="cpfCoordenador"
-												pattern="^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$" required
+												pattern="^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$"
+												placeholder="111.111.111-11" required
 												<%										
 													String cpfUsuario = "";
 													/* for (Evento eventoC : eventos) { */
