@@ -69,7 +69,7 @@ public class AdicionarAvaliador extends HttpServlet {
 				response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
 			}else {
 				
-				String feedbackSucesso = "Avaliador adicionado com sucesso!";
+				String feedbackSucesso = "Avaliador já adicionado!";
 				session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
 				response.sendRedirect("gerenciarAvaliadoresTrilha.jsp");
 			}
