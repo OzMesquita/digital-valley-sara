@@ -104,7 +104,7 @@
 										</label>
 										<div class="col-lg-6">
 											<input class="form-control " id="data" type="date"
-												name="dataInicial" required />
+												name="dataInicial" placeholder="AAAA-MM-DD" required />
 										</div>
 									</div>
 
@@ -114,7 +114,7 @@
 										</label>
 										<div class="col-lg-6">
 											<input class="form-control " id="dataFinal" type="date"
-												name="dataFinal" required />
+												name="dataFinal" placeholder="AAAA-MM-DD" required />
 										</div>
 									</div>
 

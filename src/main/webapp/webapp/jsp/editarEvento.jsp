@@ -138,7 +138,7 @@
 										</label>
 										<div class="col-lg-6">
 											<input class="form-control " id="data" type="date"
-												name="dataInicial" placeholder="2021-01-01" required
+												name="dataInicial" placeholder="AAAA-MM-DD" required
 												value="<%=evento.getDataInicial()%>" />
 										</div>
 									</div>
@@ -149,7 +149,7 @@
 										</label>
 										<div class="col-lg-6">
 											<input class="form-control " id="dataFinal" type="date"
-												name="dataFinal" placeholder="2021-01-01" required value="<%=evento.getDataFinal()%>" />
+												name="dataFinal" placeholder="AAAA-MM-DD" required value="<%=evento.getDataFinal()%>" />
 										</div>
 									</div>
 
