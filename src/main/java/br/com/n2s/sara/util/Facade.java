@@ -211,10 +211,12 @@ public class Facade {
 		return false;
 	}
 	public static boolean isCoordenador(int idEvento, String cpf) {
-		Evento evento = new Evento();
-		evento = new DAOEvento().getEvento(idEvento);
+		// Evento evento = new Evento();
+		// evento = new DAOEvento().getEvento(idEvento);
+		DAOCoordenacaoEvento evento = new DAOCoordenacaoEvento();
+		List<Usuario> listaCoordenadores = evento.ListarCoordenadores(idEvento);
 		if (evento != null) {
-			for (Usuario u : evento.getCoordenadores()) {
+			for (Usuario u : listaCoordenadores) {
 				if (u.getCpf() != null && u.getCpf().equals(cpf))
 					return true;
 			}

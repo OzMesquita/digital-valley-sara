@@ -1,7 +1,7 @@
 package br.com.n2s.sara.model;
 
 public class CoordenacaoEvento {
-	// Está classe será descontinuada e excluida,favor não utilizar.
+	// Esta classe será descontinuada e excluida, favor não utilizar.
 
 	@Deprecated
 	private Usuario coordenador;
