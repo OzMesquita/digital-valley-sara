@@ -5,7 +5,7 @@
       <%
 		Evento evento = (Evento) session.getAttribute("evento");
 		evento = Facade.pegarEventoPeloId(evento.getIdEvento());
-      	if (! Facade.isCoordenador(evento.getIdEvento(), usuario.getCpf())){
+      	if (!Facade.isCoordenador(evento.getIdEvento(), usuario.getCpf())){
       		%>
       		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
 			<script>

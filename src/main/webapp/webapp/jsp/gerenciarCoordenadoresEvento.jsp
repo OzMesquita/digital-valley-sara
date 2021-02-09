@@ -84,6 +84,7 @@
 										<td><%= daoUsuario.getUsuario(lista.get(i).getCoordenador().getCpf()).getCpf() %></td>
 									 	<td><form action="RemoverCoordenadorEvento" method="post" onsubmit="return confirm('Deseja remover este Coordenador?');"> 
 							                	<input type="hidden" value="<%=lista.get(i).getCoordenador().getCpf()%>" name="cpfCoordenador"> 
+							                	<input type="hidden" value="<%=lista.get(i).getEvento().getIdEvento()%>" name="idEvento">
 							                	<button class="btn btn-primary" type = "submit">Remover Coordenador</button>
 							             	</form> 
 							        	</td>

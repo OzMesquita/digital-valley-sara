@@ -23,17 +23,24 @@ public class RemoverCoordenadorEvento extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String cpfCoordenador = request.getParameter("cpfCoordenador");
+		int idEvento = Integer.parseInt(request.getParameter("idEvento"));
 		try {
-		DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
-		CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
-		coordenacaoEvento = daoCoordenacaoEvento.getCoordenacaoEvento(cpfCoordenador);
-		
-		daoCoordenacaoEvento.delete(coordenacaoEvento);
-		
-		String feedbackSucesso = "Coordenador removido com sucesso!";
-		session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
-		
-		response.sendRedirect("gerenciarCoordenadoresEvento.jsp");
+			DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
+			CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
+			coordenacaoEvento = daoCoordenacaoEvento.getCoordenacaoEvento(cpfCoordenador);
+			
+			// O número de coordenadores não pode ficar menor que 1
+			if (daoCoordenacaoEvento.ListarCoordenadores(idEvento).size() <= 1) {
+				String feedbackNaoZero = "Deve haver pelo menos um coordenador no evento.";
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), feedbackNaoZero);
+			} else {
+				daoCoordenacaoEvento.delete(coordenacaoEvento);
+				
+				String feedbackSucesso = "Coordenador removido com sucesso!";
+				session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
+			}
+			
+			response.sendRedirect("gerenciarCoordenadoresEvento.jsp");
 		}catch (Exception e) {
 			session.setAttribute(Constantes.getSESSION_MGS(), "Erro ao remover o coordenador do evento!");
 		}
