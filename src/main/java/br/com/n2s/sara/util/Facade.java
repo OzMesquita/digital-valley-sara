@@ -211,8 +211,6 @@ public class Facade {
 		return false;
 	}
 	public static boolean isCoordenador(int idEvento, String cpf) {
-		// Evento evento = new Evento();
-		// evento = new DAOEvento().getEvento(idEvento);
 		DAOCoordenacaoEvento evento = new DAOCoordenacaoEvento();
 		List<Usuario> listaCoordenadores = evento.ListarCoordenadores(idEvento);
 		if (evento != null) {
@@ -221,6 +219,16 @@ public class Facade {
 					return true;
 			}
 		}			
+		return false;
+	}
+	public static boolean isAdmin(String cpf) {
+		DAOUsuario usuario = new DAOUsuario();
+		List<Usuario> admins = usuario.readByTipo("ADMINISTRADOR");
+		for (Usuario u : admins) {
+			if (u.getCpf() != null && u.getCpf().equals(cpf)) {
+				return true;
+			}
+		}
 		return false;
 	}
 	public static boolean isCoordenadorTrilha(int idTrilha, String cpf) {
