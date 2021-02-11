@@ -63,6 +63,13 @@
 									            <p><textarea name="resumo" cols="80" rows="15" maxlength="5000"></textarea> </p>
 									            <p>Palavras-chave: (Separe como ponto e vírgula)</p>
 									            <p><input type="text" name="palavras_chave" size="80"></p>
+									            <p>*Selecione a forma de apresentação do seu resumo nos Encontros Universitários:</p>
+									            <p>
+									            	<input type="radio" id="poster" name="apresentacao" value="POSTER" required>
+									            	<label for="aceito" style="margin-right: 25px;">Apresentação via pôster</label>
+									            	<input type="radio" id="oral" name="apresentacao" value="ORAL">
+									            	<label for="recusado">Apresentação oral</label>
+									            </p>
 									            								            
 						     					<br/>
 												<label>*Anexar Trabalho:</label>

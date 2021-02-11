@@ -20,6 +20,7 @@ import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.util.Facade;
+import model.TipoApresentacao;
 
 public class DAOTrabalho extends DAO {
 
@@ -131,6 +132,11 @@ public class DAOTrabalho extends DAO {
 				trabalho.setEndereco(rs.getString("endereco"));
 				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));
 				trabalho.setEnderecoInicial(rs.getString("endereco_ini"));
+				
+				if(rs.getString("tipo_apresentacao") != null) {
+					trabalho.setTipoApresentacao(TipoApresentacao.valueOf(rs.getString("tipo_apresentacao")));
+				}
+				
 				rs.close();
 				stmt.close();
 				ArrayList autores = (ArrayList<Usuario>) new DAOSubmissao().getCoAutores(trabalho.getIdTrabalho());
@@ -153,11 +159,20 @@ public class DAOTrabalho extends DAO {
 	public void update(Trabalho trabalho){
 		
 		super.open();
-		String sql = "update sara.trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?, endereco_ini=?"
-				+ " where idTrabalho  = ?";
-
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("update sara.trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?, endereco_ini=?");
+		
+		if(trabalho.getTipoApresentacao() != null) {
+			sb.append(", tipo_apresentacao=? ");
+		}
+		
+		sb.append(" where idTrabalho  = ?");
+	
 		try {
-			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			
+			PreparedStatement stmt = super.getConnection().prepareStatement(sb.toString());
 
 			stmt.setString(1, trabalho.getTitulo());
 			stmt.setString(2, trabalho.getPalavrasChaves());
@@ -166,14 +181,20 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(5, trabalho.getEndereco());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 			stmt.setString(7, trabalho.getEnderecoInicial());
-			stmt.setInt(8, trabalho.getIdTrabalho());
-			
 
+			if(trabalho.getTipoApresentacao() != null) {
+				stmt.setString(8, trabalho.getTipoApresentacao().name());
+				stmt.setInt(9, trabalho.getIdTrabalho());
+			}else {
+				stmt.setInt(8, trabalho.getIdTrabalho());
+			}
+			
 			stmt.execute();
 			stmt.close();
 			
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}finally {
 			super.close();

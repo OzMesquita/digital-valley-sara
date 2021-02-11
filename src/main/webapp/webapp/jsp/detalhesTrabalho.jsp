@@ -22,10 +22,10 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-table"></i> Submiss√£o</h3>
+					<h3 class="page-header"><i class="fa fa-table"></i> Submiss„o</h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Submiss√£o</li>
+						<li><i class="icon_document_alt"></i>Submiss„o</li>
 					</ol>
 				</div>
 			</div>
@@ -54,10 +54,10 @@
 				                    
 				                   	<tr>
 				                    	<td>
-									        <form action="submissaoFinal.jsp" id="form" method="post" >
+									        <form action="submissaoFinal.jsp" id="form" method="post" style="margin-bottom: 5px;" >
 									         	
 									         	
-									         	<h4>TÌtulo:</h4>
+									         	<h4>TÌtulo</h4>
 									         	<p><%= trabalho.getTitulo() %></p>
 									            
 									            <% if (!trabalho.getResumo().equals("")) { %>
@@ -98,17 +98,17 @@
 									            <br><br>
 									            </form>
 									            <form action="DownloadTrabalho" method="post">
-	               					 	<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="inicial" name="opcaoDownload">  
-	                  							<button class="btn btn-primary" type = "submit">Download da vers„o inicial do Trabalho</button>
-	               					 		</form>
+	               					 				<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="inicial" name="opcaoDownload">  
+	                  								<button class="btn btn-primary" type = "submit" style="min-width: 350px;">Download da vers„o inicial do Trabalho</button>
+	               					 			</form>
 	               					 		
 	               					 		<% if(trabalho.getEndereco()!=null){%>
 	               					 		
-								        	<form action="DownloadTrabalho" method="post" >                  					 
-	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="AAAAAA" name="opcaoDownload"> 
-	                  							<button class="btn btn-primary" type = "submit">Download vers„o final do Trabalho</button>
-	               					 		</form>
-	               					 		<br>
+									        	<form action="DownloadTrabalho" method="post" style="margin-top: 5px;" >                  					 
+		                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="AAAAAA" name="opcaoDownload"> 
+		                  							<button class="btn btn-primary" type = "submit" style="min-width: 350px;">Download vers„o final do Trabalho</button>
+		               					 		</form>
+	               					 			<br>
 	               					 		<%} %>
 	               					 		<% 
 	               					 		if(atual.getDescricao()==DescricaoPeriodo.RECURSO && (trabalho.getStatus()==StatusTrabalho.REJEITADO 

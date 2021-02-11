@@ -51,13 +51,13 @@
 				                       <th><h2><%= trabalho.getTrilha().getDescricao() %></h2> </th>
 				                    </tr>
 				                    <tr>
-				                    	<h2>Critï¿½rio Inicial</h2>
-				                    	<p>O resumo estï¿½ identificado? (Caso esteja identificado, o resumo deve ser rejeitado)</p>
+				                    	<h2>Critério Inicial</h2>
+				                    	<p>O resumo está identificado? (Caso esteja identificado, o resumo deve ser rejeitado)</p>
 				                    	<div class="input-group form-row">
 				                 			<div class="input-group-prepend col">
     											<div class="input-group-text col">	    											
-					                    	 	 		<button onclick="ativa()">Resumo Nï¿½O estï¿½ identificado</button>					                    	 	 		     	  										
-	  													<button onclick="desativa()">Resumo estï¿½ identificado</button>	  												
+					                    	 	 		<button onclick="ativa()">Resumo NÃO está identificado</button>					                    	 	 		     	  										
+	  													<button onclick="desativa()">Resumo está identificado</button>	  												
   												</div>
   											</div>	
 				                    </tr>
@@ -84,7 +84,7 @@
 				                   	<%} %>
 				                   	<tr>
 				                   		<br><br><br>
-				                   		<p>*Descreva abaixo suas consideraï¿½ï¿½es sobre o trabalho:</p> 
+				                   		<p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
 									    <p><textarea id="feed" name="feedback" cols="30" rows="5" maxlength="5000" required></textarea></p>
 				                   	</tr>
 	                       </tbody>
@@ -92,7 +92,7 @@
 	                   
 	                   
                      </section>
-                     	<button type="submit" onclick="myFunction();" class="btn btn-primary">Enviar Avaliaï¿½ï¿½o</button>
+                     	<button type="submit" onclick="myFunction();" class="btn btn-primary">Enviar Avaliação</button>
                      </form>
                   </div>
               </div>
@@ -145,7 +145,7 @@
 									}
 								}
 						  		
-				alert("A nota para o trabalho ï¿½: "+nota/cont);
+				alert("A nota para o trabalho é: "+nota/cont);
 			}
 		</script>
     
