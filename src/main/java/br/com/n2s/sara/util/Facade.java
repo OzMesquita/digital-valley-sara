@@ -221,7 +221,7 @@ public class Facade {
 		}			
 		return false;
 	}
-	public static boolean isAdmin(String cpf) {
+	public static boolean isAdministrador(String cpf) {
 		DAOUsuario usuario = new DAOUsuario();
 		List<Usuario> admins = usuario.readByTipo("ADMINISTRADOR");
 		for (Usuario u : admins) {
