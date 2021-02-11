@@ -100,11 +100,11 @@
               <!-- page end-->
 			
 			
-		  <center> 
-		  	<form action="adicionarCoordenadorEvento.jsp" method="post">
+		<center> 
+			<form action="adicionarCoordenadorEvento.jsp" method="post">
 				<button class="btn btn-primary" type = "submit" href = "adicionarCoordenadorEvento.jsp">Adicionar Coordenador</button> 
-       		 </form> 
-		  </center>
+			</form> 
+		</center>
 		
   </section>
   <!-- container section start -->    
