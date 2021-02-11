@@ -1,30 +1,28 @@
+<html>
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Evento"%>
 <%@page import="br.com.n2s.sara.model.CoordenacaoEvento"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
-      <%
-		Evento evento = (Evento) session.getAttribute("evento");
-		evento = Facade.pegarEventoPeloId(evento.getIdEvento());
-      	if (!Facade.isCoordenador(evento.getIdEvento(), usuario.getCpf())){
-      		%>
-      		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
-			<script>
-				function permissao(){
-					alert('Você não possui permissão para acessar está área!!!!');
-					var myVar = setInterval(redirect, 1000);
-				}
-				function redirect(){
-					windows.location.href = 'indexAutor.jsp';
-				}
-			</script>      		
-      		<% 
-      		response.sendRedirect("indexAutor.jsp");
-      	}
-      %>
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
-		  <div class="row">
+<body>
+<%
+Evento evento = (Evento) session.getAttribute("evento");
+evento = Facade.pegarEventoPeloId(evento.getIdEvento());
+if (!Facade.isCoordenador(evento.getIdEvento(), usuario.getCpf())) {
+	%>
+	<script>
+	function permissao() {
+		alert('Você não possui permissão para acessar está área!!!!');
+		window.location.href = 'indexAutor.jsp';
+	}
+	permissao();
+	</script>
+	<%
+}
+%>
+	<!--main content start-->
+	<section id="main-content">
+		<section class="wrapper">
+			<div class="row">
 				<div class="col-lg-12">
 					<h3 class="page-header"><i class="fa fa-table"></i>Adicionar Coordenador</h3>
 					<ol class="breadcrumb">
@@ -46,38 +44,39 @@
 				</div>
 			<%} %>
       
-      				<!-- Form validations -->
-				<div class="row">
-					<div class="col-lg-12">
-						<section class="panel">
-							<header class="panel-heading"> Formulário de Adição de Coordenadores </header>
-							<div class="panel-body">
-								<div class="form">
-									<form action="AdicionarCoordenadorEvento" method="post" id = "formEnviar">
-										<div class="form-validate form-horizontal" id="feedback_form">
-											<div class="form-group ">
-												<label for="cemail" class="control-label col-lg-2">CPF 
-													<span class="required">*</span>
-												</label>
-												<div class="col-lg-6">
-													<input class="form-control " id="subject" type="text"
-														name="cpfCoordenador" required />
-												</div>
-											</div>
-
-											<div class="form-group">
-												<div class="col-lg-offset-2 col-lg-10">
-													<button id = "sucesso" class="btn btn-primary" type="submit"onclick = "validation();">Adicionar</button>
-												</div>
+      		<!-- Form validations -->
+			<div class="row">
+				<div class="col-lg-12">
+					<section class="panel">
+						<header class="panel-heading"> Formulário de Adição de Coordenadores </header>
+						<div class="panel-body">
+							<div class="form">
+								<form action="AdicionarCoordenadorEvento" method="post" id = "formEnviar">
+									<div class="form-validate form-horizontal" id="feedback_form">
+										<div class="form-group ">
+											<label for="cemail" class="control-label col-lg-2">CPF 
+												<span class="required">*</span>
+											</label>
+											<div class="col-lg-6">
+												<input class="form-control " id="subject" type="text"
+													name="cpfCoordenador" required />
 											</div>
 										</div>
-									</form>
-								</div>
 
+										<div class="form-group">
+											<div class="col-lg-offset-2 col-lg-10">
+												<button id = "sucesso" class="btn btn-primary" type="submit"onclick = "validation();">Adicionar</button>
+											</div>
+										</div>
+									</div>
+								</form>
 							</div>
-						</section>
-					</div>
+						</div>
+					</section>
 				</div>
+			</div>
+		</section>
+	</section>
 	
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 	<script type="text/javascript" src = "../js/jquery.mask.min.js"/></script>
