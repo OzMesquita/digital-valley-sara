@@ -97,11 +97,12 @@
 									            <% }  %>
 									            <br><br>
 									            </form>
+									        <% if(trabalho.getEnderecoInicial()!=null){%>   
 									            <form action="DownloadTrabalho" method="post">
 	               					 				<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="inicial" name="opcaoDownload">  
 	                  								<button class="btn btn-primary" type = "submit" style="min-width: 350px;">Download da versão inicial do Trabalho</button>
 	               					 			</form>
-	               					 		
+	               					 		<%} %>
 	               					 		<% if(trabalho.getEndereco()!=null){%>
 	               					 		
 									        	<form action="DownloadTrabalho" method="post" style="margin-top: 5px;" >                  					 

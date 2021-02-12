@@ -1,4 +1,4 @@
-package br.com.n2s.sara.controller;
+	package br.com.n2s.sara.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.util.Constantes;
-import model.TipoApresentacao;
+import br.com.n2s.sara.model.TipoApresentacao;;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB

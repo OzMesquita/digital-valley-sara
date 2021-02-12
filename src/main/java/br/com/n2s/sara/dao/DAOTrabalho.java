@@ -20,7 +20,7 @@ import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
 import br.com.n2s.sara.util.Facade;
-import model.TipoApresentacao;
+import br.com.n2s.sara.model.TipoApresentacao;;
 
 public class DAOTrabalho extends DAO {
 

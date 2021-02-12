@@ -2,8 +2,6 @@ package br.com.n2s.sara.model;
 
 import java.util.ArrayList;
 
-import model.TipoApresentacao;
-
 public class Trabalho {
 
 	private int idTrabalho;
