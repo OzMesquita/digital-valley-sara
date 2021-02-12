@@ -115,14 +115,14 @@ session.setAttribute("evento", evento);
 										</label>
 										<div class="col-lg-2">
 											<input class="form-control " id="subject" type="date"
-												name="dataInicial-<%=+i%>" required />
+												name="dataInicial-<%=+i%>" placeholder="AAAA-MM-DD" required />
 										</div>
 										<label for="cemail" class=" col-lg-2">Data Final <span
 											class="required">*</span>
 										</label>
 										<div class="col-lg-2">
 											<input class="form-control " id="subject" type="date"
-												name="dataFinal-<%=+j%>" required />
+												name="dataFinal-<%=+j%>" placeholder="AAAA-MM-DD" required />
 										</div>
 									</div>
 									<%
