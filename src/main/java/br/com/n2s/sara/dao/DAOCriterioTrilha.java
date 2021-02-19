@@ -67,7 +67,7 @@ public class DAOCriterioTrilha extends DAO {
 			ArrayList<Criterio> criterios = new ArrayList<Criterio>();
 			while(rs.next()) {
 				Criterio c = new DAOCriterio().getCriterio(rs.getInt("fkcriterio"));
-				criterios.add(c);				
+				criterios.add(c);
 			}
 			return criterios;
 		}catch(SQLException e){
