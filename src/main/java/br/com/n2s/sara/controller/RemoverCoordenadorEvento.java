@@ -27,9 +27,11 @@ public class RemoverCoordenadorEvento extends HttpServlet {
 		try {
 			DAOCoordenacaoEvento daoCoordenacaoEvento = new DAOCoordenacaoEvento();
 			CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
-			coordenacaoEvento = daoCoordenacaoEvento.getCoordenacaoEvento(cpfCoordenador);
+			coordenacaoEvento = daoCoordenacaoEvento.getCoordenacaoEvento(cpfCoordenador, idEvento);
+			//coordenacaoEvento = daoCoordenacaoEvento.getCoordenacaoEvento(cpfCoordenador);
+
 			
-			// O número de coordenadores não pode ficar menor que 1
+			// O nï¿½mero de coordenadores nï¿½o pode ficar menor que 1
 			if (daoCoordenacaoEvento.ListarCoordenadores(idEvento).size() <= 1) {
 				String feedbackNaoZero = "Deve haver pelo menos um coordenador no evento.";
 				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), feedbackNaoZero);

@@ -12,14 +12,13 @@ import br.com.n2s.sara.model.Usuario;
 
 public class DAOCoordenacaoEvento extends DAO {
 
-	public DAOCoordenacaoEvento() {}
+	public DAOCoordenacaoEvento() {
+	}
 
-	public void create(CoordenacaoEvento coordenacaoEvento){
+	public void create(CoordenacaoEvento coordenacaoEvento) {
 
 		super.open();
-		String sql = "insert into sara.coordenacaoevento"  
-				+ "(cpfCoordenador, idEvento)"
-				+ "values (?,?)";
+		String sql = "insert into sara.coordenacaoevento" + "(cpfCoordenador, idEvento)" + "values (?,?)";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -28,21 +27,20 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public List<CoordenacaoEvento> read(){
+	public List<CoordenacaoEvento> read() {
 
-		super.open(); 
+		super.open();
 		String sql = "select * from sara.coordenacaoevento";
 
-		try{
+		try {
 
 			List<CoordenacaoEvento> coordenacoes = new ArrayList<CoordenacaoEvento>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -51,7 +49,7 @@ public class DAOCoordenacaoEvento extends DAO {
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOEvento eventoController = new DAOEvento();
 
-			while(rs.next()){
+			while (rs.next()) {
 
 				CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
 				coordenacaoEvento.setCoordenador(usuarioController.getUsuario(rs.getString("cpfCoordenador")));
@@ -61,22 +59,22 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			rs.close();
 			stmt.close();
-			
+
 			return coordenacoes;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public List<CoordenacaoEvento> read(String cpfCoordenador){
-		
+	public List<CoordenacaoEvento> read(String cpfCoordenador) {
+
 		super.open();
 		String sql = "select * from sara.coordenacaoevento where cpfCoordenador = ?";
 
-		try{
+		try {
 
 			List<CoordenacaoEvento> coordenacoes = new ArrayList<CoordenacaoEvento>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -86,7 +84,7 @@ public class DAOCoordenacaoEvento extends DAO {
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOEvento eventoController = new DAOEvento();
 
-			while(rs.next()){
+			while (rs.next()) {
 
 				CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
 				coordenacaoEvento.setCoordenador(usuarioController.getUsuario(rs.getString("cpfCoordenador")));
@@ -96,22 +94,22 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			rs.close();
 			stmt.close();
-			
+
 			return coordenacoes;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
-	
-	public List<CoordenacaoEvento> read(int idEvento){
+
+	public List<CoordenacaoEvento> read(int idEvento) {
 
 		super.open();
 		String sql = "select * from sara.coordenacaoevento where idEvento = ?";
 
-		try{
+		try {
 
 			List<CoordenacaoEvento> coordenacoes = new ArrayList<CoordenacaoEvento>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -121,7 +119,7 @@ public class DAOCoordenacaoEvento extends DAO {
 			DAOUsuario usuarioController = new DAOUsuario();
 			DAOEvento eventoController = new DAOEvento();
 
-			while(rs.next()){
+			while (rs.next()) {
 
 				CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
 				coordenacaoEvento.setCoordenador(usuarioController.getUsuario(rs.getString("cpfCoordenador")));
@@ -131,21 +129,22 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			rs.close();
 			stmt.close();
-			
+
 			return coordenacoes;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
-	public List<Usuario> ListarCoordenadores(int idEvento){
+
+	public List<Usuario> ListarCoordenadores(int idEvento) {
 
 		super.open();
 		String sql = "select * from sara.coordenacaoevento where idEvento = ?";
 
-		try{
+		try {
 
 			List<Usuario> coordenacoes = new ArrayList<Usuario>();
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
@@ -154,7 +153,7 @@ public class DAOCoordenacaoEvento extends DAO {
 			super.close();
 			DAOUsuario usuarioController = new DAOUsuario();
 
-			while(rs.next()){
+			while (rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario = usuarioController.getUsuario(rs.getString("cpfCoordenador"));
 				coordenacoes.add(usuario);
@@ -162,29 +161,29 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			rs.close();
 			stmt.close();
-			
+
 			return coordenacoes;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
-	
-	public CoordenacaoEvento getCoordenacaoEvento(String cpfCoordenador){
+
+	public CoordenacaoEvento getCoordenacaoEvento(String cpfCoordenador) {
 
 		super.open();
 		String sql = "select * from sara.coordenacaoevento where cpfCoordenador = ?";
 		DAOUsuario usuarioController = new DAOUsuario();
 		DAOEvento eventoController = new DAOEvento();
 
-		try{
+		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, cpfCoordenador);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
-			if(rs.next()){
+			if (rs.next()) {
 
 				CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
 				coordenacaoEvento.setCoordenador(usuarioController.getUsuario(rs.getString("cpfCoordenador")));
@@ -192,25 +191,60 @@ public class DAOCoordenacaoEvento extends DAO {
 
 				rs.close();
 				stmt.close();
-				
+
 				return coordenacaoEvento;
-			}else{
+			} else {
 				return null;
 			}
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-	public void update(CoordenacaoEvento coordenacaoEvento){
+	public CoordenacaoEvento getCoordenacaoEvento(String cpfCoordenador, int idEvento) {
 
-		super.open(); 
-		String sql = "update sara.coordenacaoevento set cpfCoordenador = ?, idEvento = ? " 
+		super.open();
+		String sql = "select * from sara.coordenacaoevento where cpfCoordenador = ? and idEvento = ?";
+		DAOUsuario usuarioController = new DAOUsuario();
+		DAOEvento eventoController = new DAOEvento();
+
+		try {
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setString(1, cpfCoordenador);
+			stmt.setInt(2, idEvento);
+
+			ResultSet rs = stmt.executeQuery();
+			super.close();
+			if (rs.next()) {
+
+				CoordenacaoEvento coordenacaoEvento = new CoordenacaoEvento();
+				coordenacaoEvento.setCoordenador(usuarioController.getUsuario(rs.getString("cpfCoordenador")));
+				coordenacaoEvento.setEvento(eventoController.getEvento(rs.getInt("idEvento")));
+
+				rs.close();
+				stmt.close();
+
+				return coordenacaoEvento;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			throw new RuntimeException(e);
+		} finally {
+			super.close();
+		}
+	}
+
+	public void update(CoordenacaoEvento coordenacaoEvento) {
+
+		super.open();
+		String sql = "update sara.coordenacaoevento set cpfCoordenador = ?, idEvento = ? "
 				+ " where cpfCoordenador = (select cpfCoordenador from sara.coordenacaoevento where idEvento = ?) "
 				+ "and idEvento = ?";
-	
+
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
@@ -220,17 +254,15 @@ public class DAOCoordenacaoEvento extends DAO {
 
 			stmt.execute();
 			stmt.close();
-			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 	}
 
-
-	public void delete(CoordenacaoEvento coordenacaoEvento){
+	public void delete(CoordenacaoEvento coordenacaoEvento) {
 
 		super.open();
 		String sql = "delete from sara.coordenacaoevento where cpfCoordenador = ?";
@@ -240,11 +272,10 @@ public class DAOCoordenacaoEvento extends DAO {
 			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
 			stmt.execute();
 			stmt.close();
-			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}finally {
+		} finally {
 			super.close();
 		}
 
