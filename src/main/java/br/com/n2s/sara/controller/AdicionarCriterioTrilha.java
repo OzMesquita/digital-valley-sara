@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -48,13 +49,26 @@ public class AdicionarCriterioTrilha extends HttpServlet {
 			DAOCriterio daoCriterio = new DAOCriterio();
 			Criterio criterio = daoCriterio.getCriterio(idCriterio);
 			
-			criTrilha.setCriterio(criterio);
-			criTrilha.setTrilha(trilha);		
-			daoCriTrilha.createCriTrilha(criTrilha);
-	
-			String feedbackSucesso = "Criterio adicionado a trilha com sucesso!";
-			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
-			session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
+			List<Criterio> listaCriterios = daoCriTrilha.getCriterioPorTrilha(trilha);
+			boolean existe = false;
+			for (Criterio c : listaCriterios) {
+				if (c.getIdCriterio() == criterio.getIdCriterio()) {
+					existe = true;
+				}
+			}
+			if (existe) {
+				String feedbackExiste = "Esse critério já foi adicionado à trilha.";
+				response.sendRedirect("gerenciarCriteriosTrilha.jsp");
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), feedbackExiste);
+			} else {
+				criTrilha.setCriterio(criterio);
+				criTrilha.setTrilha(trilha);		
+				daoCriTrilha.createCriTrilha(criTrilha);
+				
+				String feedbackSucesso = "Criterio adicionado a trilha com sucesso!";
+				response.sendRedirect("gerenciarCriteriosTrilha.jsp");
+				session.setAttribute(Constantes.getSESSION_MGS(), feedbackSucesso);
+			}
 		} catch (Exception e) {
 			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(),
