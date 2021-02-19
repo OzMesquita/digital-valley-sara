@@ -22,8 +22,8 @@
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper">
-		<div class="row">
-			<div class="col-lg-12">
+		<!--<div class="row"> -->
+			<!--<div class="col-lg-12">-->
 				<h3 class="page-header">
 					<i class="fa fa-table"></i> Trilhas Coordenadas - Evento
 					<%=evento.getNome() %>
@@ -32,8 +32,8 @@
 					<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
 					<li><i class="icon_document_alt"></i>Trilhas Coordenadas</li>
 				</ol>
-			</div>
-		</div>
+			<!--</div>-->
+		<!--</div> -->
 
 		<!-- page start-->
 
@@ -59,8 +59,8 @@
 			<%session.setAttribute(Constantes.getSESSION_MGS_ERROR(), null); %>
 		</div>
 		<%} %>
-		<div class="row">
-			<div class="col-lg-12">
+		<!--<div class="row"> -->
+			<!--<div class="col-lg-12"> -->
 				<section class="panel">
 					<header class="panel-heading"> Trilhas Coordenadas </header>
 
@@ -135,8 +135,8 @@
 						</tbody>
 					</table>
 				</section>
-			</div>
-		</div>
+			<!--</div> -->
+		<!--</div> -->
 
 		<%
 					if(evento.isCoordenador(usuario) || usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)){ %>

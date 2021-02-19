@@ -35,51 +35,50 @@ public class EditarEvento extends HttpServlet {
 			DAOUsuario daoUsuario = new DAOUsuario();
 			Evento evento =  (Evento) session.getAttribute("evento");
 			
-		String nome = request.getParameter("nome");
-		String cpfCoordenador = request.getParameter("cpfCoordenador").replaceAll("[.-]", "");
-		String site = request.getParameter("site");
-		String descricao = request.getParameter("descricao");
-		String localizacao = request.getParameter("localizacao");
-		LocalDate dataInicial = LocalDate.parse(request.getParameter("dataInicial"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		LocalDate dataFinal = LocalDate.parse(request.getParameter("dataFinal"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		String tipoEvento = request.getParameter("tipoEvento");
-		
-		evento.setNome(nome);
-		evento.setDescricao(descricao);
-		evento.setLocalizacao(localizacao);
-		evento.setSite(site);
-		evento.setDataInicial(dataInicial);
-		evento.setDataFinal(dataFinal);
-		evento.setDivulgada(false);
-		evento.setExcluido(false);
-		
-		if (tipoEvento.equals("encontrosUniversitarios")) {
-			evento.setDescriEvento(TipoEvento.EU);
-		}else {
-			evento.setDescriEvento(TipoEvento.ESTAGIO);
-		}
-		
-		Usuario usuario = daoUsuario.getUsuario(cpfCoordenador);
-		if( usuario.getTipo().equals(NivelUsuario.AUTOR) || usuario.getTipo().equals(NivelUsuario.USUARIO) || usuario.getTipo().equals(NivelUsuario.COORDENADOR_TRILHA)) {
-			usuario.setTipo(NivelUsuario.COORDENADOR_EVENTO);
-			daoUsuario.update(usuario);
-		}
-		CoordenacaoEvento coordEvento = new CoordenacaoEvento();
-		coordEvento.setCoordenador(usuario);
-		coordEvento.setEvento(evento);
+			String nome = request.getParameter("nome");
+			String cpfCoordenador = request.getParameter("cpfCoordenador").replaceAll("[.-]", "");
+			String site = request.getParameter("site");
+			String descricao = request.getParameter("descricao");
+			String localizacao = request.getParameter("localizacao");
+			LocalDate dataInicial = LocalDate.parse(request.getParameter("dataInicial"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			LocalDate dataFinal = LocalDate.parse(request.getParameter("dataFinal"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			String tipoEvento = request.getParameter("tipoEvento");
+			
+			evento.setNome(nome);
+			evento.setDescricao(descricao);
+			evento.setLocalizacao(localizacao);
+			evento.setSite(site);
+			evento.setDataInicial(dataInicial);
+			evento.setDataFinal(dataFinal);
+			evento.setDivulgada(false);
+			evento.setExcluido(false);
+			
+			System.out.println("Variáveis definidas.");
+			
+			if (tipoEvento.equals("encontrosUniversitarios")) {
+				evento.setDescriEvento(TipoEvento.EU);
+			}else {
+				evento.setDescriEvento(TipoEvento.ESTAGIO);
+			}
+			
+			Usuario usuario = daoUsuario.getUsuario(cpfCoordenador);
+			if( usuario.getTipo().equals(NivelUsuario.AUTOR) || usuario.getTipo().equals(NivelUsuario.USUARIO) || usuario.getTipo().equals(NivelUsuario.COORDENADOR_TRILHA)) {
+				usuario.setTipo(NivelUsuario.COORDENADOR_EVENTO);
+				daoUsuario.update(usuario);
+			}
+			CoordenacaoEvento coordEvento = new CoordenacaoEvento();
+			coordEvento.setCoordenador(usuario);
+			coordEvento.setEvento(evento);
+			
+			DAOCoordenacaoEvento daoCoordEvento = new DAOCoordenacaoEvento();
+			daoCoordEvento.update(coordEvento);
 
-		DAOCoordenacaoEvento daoCoordEvento = new DAOCoordenacaoEvento();
-		daoCoordEvento.update(coordEvento);
-
-		session.setAttribute("evento", evento);
-		daoEvento.update(evento);
-		session.setAttribute(Constantes.getSESSION_MGS(), "Evento alterado com sucesso!");
-		response.sendRedirect("eventosCoordenados.jsp");
-		}catch (Exception e) {
+			session.setAttribute("evento", evento);
+			daoEvento.update(evento);
+			session.setAttribute(Constantes.getSESSION_MGS(), "Evento alterado com sucesso!");
+			response.sendRedirect("eventosCoordenados.jsp");
+		} catch (Exception e) {
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao alterar o Evento: "+e.getMessage());
 		}
-		
-
 	}
-
 }
