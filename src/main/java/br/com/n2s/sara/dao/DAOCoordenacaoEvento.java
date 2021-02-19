@@ -265,11 +265,12 @@ public class DAOCoordenacaoEvento extends DAO {
 	public void delete(CoordenacaoEvento coordenacaoEvento) {
 
 		super.open();
-		String sql = "delete from sara.coordenacaoevento where cpfCoordenador = ?";
+		String sql = "delete from sara.coordenacaoevento where cpfCoordenador = ? and idEvento = ?";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setString(1, coordenacaoEvento.getCoordenador().getCpf());
+			stmt.setInt(2, coordenacaoEvento.getEvento().getIdEvento());
 			stmt.execute();
 			stmt.close();
 
