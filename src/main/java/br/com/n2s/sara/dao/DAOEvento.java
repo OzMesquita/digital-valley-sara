@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Evento;
@@ -81,6 +82,55 @@ public class DAOEvento extends DAO {
 
 				if (!evento.getExcluido()) {
 					eventos.add(evento);
+				}
+			}
+
+			rs.close();
+			stmt.close();
+
+			return eventos;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			super.close();
+		}
+	}
+	
+	/*
+	 * Esse método faz o mesmo que o método acima (listar os eventos), mas, ao invés de listar todos os eventos,
+	 * ele lista apenas os eventos que estão ativos.
+	 */
+	public List<Evento> readAtivo() {
+		super.open();
+
+		String sql = "select * from sara.Evento";
+
+		try {
+			List<Evento> eventos = new ArrayList<Evento>();
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			LocalDate hoje = LocalDate.now();
+			super.close();
+			while (rs.next()) {
+
+				Evento evento = new Evento();
+
+				evento.setIdEvento(rs.getInt("idEvento"));
+				evento.setNome(rs.getString("nome"));
+				evento.setDescricao(rs.getString("descricao"));
+				evento.setSite(rs.getString("site"));
+				evento.setLocalizacao(rs.getString("localizacao"));
+				evento.setDataInicial(rs.getDate("dataInicial").toLocalDate());
+				evento.setDataFinal(rs.getDate("dataFinal").toLocalDate());
+				evento.setDivulgada(rs.getBoolean("divulgada"));
+				evento.setDescriEvento(TipoEvento.valueOf(rs.getString("tipo_evento")));
+				evento.setExcluido(rs.getBoolean("excluido"));
+
+				if (!evento.getExcluido()) {
+					if ((hoje.isAfter(evento.getDataInicial())) && (hoje.isBefore(evento.getDataFinal()))) {
+						eventos.add(evento);
+					}
 				}
 			}
 

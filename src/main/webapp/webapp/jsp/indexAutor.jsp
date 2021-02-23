@@ -86,7 +86,7 @@
                               <%
                               	 
                               	DAOEvento daoEvento = new DAOEvento();
-                              	List<Evento> eventos = daoEvento.read();
+                              	List<Evento> eventos = daoEvento.readAtivo();
                                 
                               	 
                               	 for(Evento evento : eventos){ 
