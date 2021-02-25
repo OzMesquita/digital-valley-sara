@@ -61,6 +61,10 @@
     <servlet-name>RemoverCriterio</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.RemoverCriterio</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>RemoverCriterioListado</servlet-name>
+    <servlet-class>br.com.n2s.sara.controller.RemoverCriterioListado</servlet-class>
+  </servlet>
     <servlet>
     <servlet-name>RemoverEvento</servlet-name>
     <servlet-class>br.com.n2s.sara.controller.RemoverEvento</servlet-class>
@@ -208,6 +212,10 @@
   <servlet-mapping>
     <servlet-name>RemoverCriterio</servlet-name>
     <url-pattern>/webapp/jsp/RemoverCriterio</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RemoverCriterioListado</servlet-name>
+    <url-pattern>/webapp/jsp/RemoverCriterioListado</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>RemoverCoordenadorTrilha</servlet-name>
