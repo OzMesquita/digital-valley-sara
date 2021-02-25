@@ -78,6 +78,17 @@
 								<td><%=listaCriterioTrilha.get(i).getNome()%></td>
 								<td><%=listaCriterioTrilha.get(i).getDescricao()%></td>
 								<td><%=listaCriterioTrilha.get(i).getPeso()%></td>
+								<td><form action="RemoverCriterioListado" method="post"
+										id="formEnviar"
+										onsubmit="return confirm('Deseja remover este critério?');">
+										<input type="hidden"
+											value="<%= trilha.getIdTrilha()%>"
+											name="idTrilha">
+										<input type="hidden"
+											value="<%= listaCriterioTrilha.get(i).getIdCriterio()%>"
+											name="idCriterio">
+										<button class="btn btn-primary" type="submit">Remover</button>
+									</form></td>
 							<%
 								}
 							%>
