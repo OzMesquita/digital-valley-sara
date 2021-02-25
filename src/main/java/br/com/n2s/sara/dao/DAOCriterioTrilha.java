@@ -77,6 +77,27 @@ public class DAOCriterioTrilha extends DAO {
 		}
 	}
 	
+	public List<Criterio> getCriterioPorIdTrilha(int idTrilha){
+		super.open();
+		String sql = "select * from sara.criteriotrilha where fktrilha = ?";
+		try{
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, idTrilha);
+			ResultSet rs = stmt.executeQuery();
+			super.close();
+			ArrayList<Criterio> criterios = new ArrayList<Criterio>();
+			while(rs.next()) {
+				Criterio c = new DAOCriterio().getCriterio(rs.getInt("fkcriterio"));
+				criterios.add(c);
+			}
+			return criterios;
+		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+	}
+	
 	public void delete(Criterio c, Trilha t) {
 		super.open();
 		String sql = "delete from sara.criteriotrilha where fktrilha = ? and fkcriterio = ?";
