@@ -26,11 +26,11 @@ public class RemoverCriterio extends HttpServlet {
 		DAOCriterio daoCriterio = new DAOCriterio();
 		Criterio criterio = daoCriterio.getCriterio(idCriterio);
 		daoCriterio.delete(criterio);
-		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a remoção do critério!");
+		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a remoï¿½ï¿½o do critï¿½rio!");
 		response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 		}catch (Exception e) {
 			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
-			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a remoção do critério!");
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a remoÃ§Ã£o do critÃ©rio! CritÃ©rio presente na lista de critÃ©rios da trilha");
 		}
 	}
 
