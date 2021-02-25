@@ -7483,13 +7483,15 @@ ul.amounts li {
 
 
 
-.table-advance tr td {
+table.table-advance tr td {
 
-    vertical-align: middle !important;
+    vertical-align: middle;
 
 }
 
-
+table.table-advance tr td.table-bottom {
+	vertical-align: bottom;
+}
 
 .no-border {
 

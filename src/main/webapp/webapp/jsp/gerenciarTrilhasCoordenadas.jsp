@@ -201,13 +201,13 @@
 							Trabalhos</button>
 					</form>
 				</td>
-				<td><form action="Distribuir" method="post">
+				<td class="table-bottom"><form action="Distribuir" method="post">
 						<input type="hidden" value="<%=evento.getIdEvento()%>"
 							name="idEvento">
 						<button class="btn btn-primary" type="submit">Distribuir
 							Todos os Trabalhos</button>
 					</form></td>
-				<td><form action="Distribuir" method="post">
+				<td class="table-bottom"><form action="Distribuir" method="post">
 						<input type="hidden" value="<%=evento.getIdEvento()%>"
 							name="idEvento"> <input type="hidden" value="recurso"
 							name="tipo">
