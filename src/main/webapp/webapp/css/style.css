@@ -392,309 +392,170 @@ ul.sidebar-menu li a{
 }
 
 ul.sidebar-menu li.active a, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-
-    background: #2e3b46;
-
-    color: #fff;
-
-    display: block;
-
-    /*border-radius: 4px;
-
-    -webkit-border-radius: 4px;*/
-
-    -webkit-transition: all 0.3s ease;
-
-    -moz-transition: all 0.3s ease;
-
-    -o-transition: all 0.3s ease;
-
-    -ms-transition: all 0.3s ease;
-
-    transition: all 0.3s ease;        
-
+	background: #2e3b46;
+	color: #fff;
+	display: block;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	transition: all 0.3s ease;        
 }
 
 ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-
-    border-bottom: 1px solid #d0d8df;
-
+	border-bottom: 1px solid #d0d8df;
 }
 
-/*ul.sidebar-menu li.active a,*/ ul.sidebar-menu .sub-menu li.active a{
-
-    border-bottom: 1px solid #d0d8df;   
-
+ul.sidebar-menu .sub-menu li.active a{
+	border-bottom: 1px solid #d0d8df;
 }
-
-
 
 ul.sidebar-menu li a i {
-
-    font-size: 18px;
-
-    padding-right: 6px;
-
-    /*color: #688a7e;*/
-
+	font-size: 18px;
+	padding-right: 6px;
 }
-
-
 
 ul.sidebar-menu li a:hover i, ul.sidebar-menu li a:focus i {
-
-    color: #fff;
-
+	color: #fff;
 }
-
-
 
 ul.sidebar-menu li.active a i {
-
-    color: #fff;
-
+	color: #fff;
 }
 
-
-
-
-
 #sidebar ul > li > a .arrow {
-
-    border-bottom: 4px solid transparent;
-
-    border-left: 4px solid #A0A0A0;
-
-    border-top: 4px solid transparent;
-
-    float: right;
-
-    height: 0;
-
-    margin-right: 10px;
-
-    margin-top: 6px;
-
-    width: 0;
-
+	border-bottom: 4px solid transparent;
+	border-left: 4px solid #A0A0A0;
+	border-top: 4px solid transparent;
+	float: right;
+	height: 0;
+	margin-right: 10px;
+	margin-top: 6px;
+	width: 0;
 }
 
 #sidebar ul > li > a .menu-arrow { 
-
-    float: right;    
-
-    margin-right: 8px;
-
-    margin-top: 6px;    
-
+	float: right;    
+	margin-right: 8px;
+	margin-top: 6px;
 }
 
 #sidebar > ul > li > a .arrow.open {
-
-    border-left: 4px solid transparent;
-
-    border-right: 4px solid transparent;
-
-    border-top: 5px solid #A0A0A0;
-
-    float: right;
-
-    height: 0;
-
-    margin-right: 10px;
-
-    margin-top: 8px;
-
-    width: 0;
-
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-top: 5px solid #A0A0A0;
+	float: right;
+	height: 0;
+	margin-right: 10px;
+	margin-top: 8px;
+	width: 0;
 }
-
-
 
 #sidebar ul > li.active > a .arrow, #sidebar ul > li > a:hover .arrow, #sidebar ul > li > a:focus .arrow {
-
-    float: right;
-
-    margin-top: 6px;
-
-    margin-right: 10px;
-
-    width: 0;
-
-    height: 0;
-
-    border-left: 4px solid #d0d8df;
-
-    border-top: 4px solid transparent;
-
-    border-bottom: 4px solid transparent;
-
+	float: right;
+	margin-top: 6px;
+	margin-right: 10px;
+	width: 0;
+	height: 0;
+	border-left: 4px solid #d0d8df;
+	border-top: 4px solid transparent;
+	border-bottom: 4px solid transparent;
 }
-
-
 
 #sidebar > ul > li.active > a .arrow.open, #sidebar > ul > li > a:hover .arrow.open, #sidebar > ul > li > a:focus .arrow.open {
-
-    float: right;
-
-    margin-top: 8px;
-
-    margin-right: 10px;
-
-    width: 0;
-
-    height: 0;
-
-    border-top: 5px solid #d0d8df;
-
-    border-left: 4px solid transparent;
-
-    border-right: 4px solid transparent;
-
+	float: right;
+	margin-top: 8px;
+	margin-right: 10px;
+	width: 0;
+	height: 0;
+	border-top: 5px solid #d0d8df;
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
 }
 
-
-
 .mail-info, .mail-info:hover {
-
-    margin: 3px 6px 0 0;
-
-    font-size: 11px;
-
+	margin: 3px 6px 0 0;
+	font-size: 11px;
 }
 
 /*profile status bubbly*/
 
 .online-profile li a i {
-
-    position: relative;
-
-    left: -12px;
-
-    top: -10px;
-
+	position: relative;
+	left: -12px;
+	top: -10px;
 }
 
 .online-profile li a span i {
-
-    position: relative;    
-
-    top: 10px;
-
+	position: relative;
+	top: 10px;
 }
 
 /*chat-*/
 
-
-
 .chat-online-profile li a i {
-
-    position: relative;
-
-    left: -12px;
-
-    top: -10px;
-
+	position: relative;
+	left: -12px;
+	top: -10px;
 }
 
 .chat-online-profile li a span i {
-
-    position: relative;    
-
-    top: 10px;
-
+	position: relative;
+	top: 10px;
 }
 
 .chat-online-profile li a{
-
-    border-bottom: 1px solid #D7D7D7;
-
+	border-bottom: 1px solid #D7D7D7;
 }
 
 .chat-online-profile li a:hover, .chat-online-profile li a:focus, .chat-online-profile li a:active{
-
-    background: #eeeeee !important;
-
-    border-bottom: 1px solid #688a7e !important;
-
+	background: #eeeeee !important;
+	border-bottom: 1px solid #688a7e !important;
 }
 
 .chat-online-profile li a:hover span i,.chat-online-profile li a:focus span i,.chat-online-profile li a:active span i{
-
-    color: #688a7e;
-
+	color: #688a7e;
 }
 
 .right-chat-panel{
-
-    max-height: 600px;
-
+	max-height: 600px;
 }
 
 .compose-mail{
-
-    width: 95%;
-
-    font-size: 16px;
-
-    border-radius: 0;
-
+	width: 95%;
+	font-size: 16px;
+	border-radius: 0;
 }
 
 /*main content*/
 
-
-
 #main-content {
-
-    margin-left: 210px;
-
+	margin-left: 210px;
 }
 
-
-
 .header, .footer {
-
-    min-height: 60px;
-
-    padding: 0 15px;
-
+	min-height: 60px;
+	padding: 0 15px;
 }
 
 .box1 {
-
-    font-size: 16px;
-
-    display: inline-block;
-
-    width: 25%;
-
-    padding: .25em .5em;
-
-    margin: 20px 10px 0 0;
-
+	font-size: 16px;
+	display: inline-block;
+	width: 25%;
+	padding: .25em .5em;
+	margin: 20px 10px 0 0;
 }
 
 .header {
-
-    position: fixed;
-
-    left: 0;
-
-    right: 0;
-
-    z-index: 1002;
-
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: 1002;
 }
 
-
-
-.white-bg {    
-
-    background: rgba(255,255,255,0.9);
-
-    border-bottom: 1px solid #f1f2f7;
-
+.white-bg {
+	background: rgba(255,255,255,0.9);
+	border-bottom: 1px solid #f1f2f7;
 }
 
 .dark-bg {    
@@ -1412,19 +1273,12 @@ div[data-role="editor-toolbar"] {
 
 
 .log-arrow-up {
-
-    background: url("../img/arrow-up.png") no-repeat;
-
-    width: 20px;
-
-    height: 11px;
-
-    position: absolute;
-
-    right: 20px;
-
-    top: -10px;
-
+	background: url("../img/arrow-up.png") no-repeat;
+	width: 20px;
+	height: 11px;
+	position: absolute;
+	right: 20px;
+	top: -10px;
 }
 
 /*----*/
