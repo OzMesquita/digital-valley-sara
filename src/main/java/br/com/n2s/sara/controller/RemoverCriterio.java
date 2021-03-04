@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.n2s.sara.dao.DAOCriterio;
+import br.com.n2s.sara.dao.DAOCriteriosAvaliados;
 import br.com.n2s.sara.util.Constantes;
 import br.com.n2s.sara.model.Criterio;
 
@@ -25,9 +26,19 @@ public class RemoverCriterio extends HttpServlet {
 		int idCriterio = Integer.parseInt(request.getParameter("idCriterio"));
 		DAOCriterio daoCriterio = new DAOCriterio();
 		Criterio criterio = daoCriterio.getCriterio(idCriterio);
-		daoCriterio.delete(criterio);
-		session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a remo��o do crit�rio!");
-		response.sendRedirect("gerenciarCriteriosTrilha.jsp");
+		
+		DAOCriteriosAvaliados daoCriCriteriosAvaliados = new DAOCriteriosAvaliados();
+		if (daoCriCriteriosAvaliados.exist(idCriterio, criterio)) {
+			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(),
+					"Erro durante a remoção do critério. Critério já foi avaliado!");
+		} else {
+			daoCriterio.delete(criterio);
+			session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a remo��o do crit�rio!");
+			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
+		}
+		
+		
 		}catch (Exception e) {
 			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a remoção do critério! Critério presente na lista de critérios da trilha");
