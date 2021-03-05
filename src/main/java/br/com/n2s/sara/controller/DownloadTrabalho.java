@@ -54,7 +54,7 @@ public class DownloadTrabalho extends HttpServlet {
 			Files.copy(path, output);
 		} catch (Exception e) {
 			System.out.println(e);
-			response.sendRedirect("avaliacao.jsp");
+			response.sendRedirect("trabalhosAutor.jsp");
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante download de arquivo!");
 		}
 
