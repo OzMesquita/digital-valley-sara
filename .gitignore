@@ -9,3 +9,4 @@
 .settings/org.eclipse.jdt.core.prefs
 .settings/org.eclipse.wst.common.project.facet.core.xml
 /bin/
+.settings/org.eclipse.wst.common.component
