@@ -558,141 +558,77 @@ ul.sidebar-menu li.active a i {
 	border-bottom: 1px solid #f1f2f7;
 }
 
-.dark-bg {    
-
-    background: rgba(54,66,74,1);
-
-    border-bottom: 1px solid #f1f2f7;
-
+.dark-bg {
+	background: rgba(54,66,74,1);
+	border-bottom: 1px solid #f1f2f7;
 }
 
 .panel-content{
-
-    padding: 10px;
-
+	padding: 10px;
 }
 
 .wrapper {
-
-    display: inline-block;
-
-    padding: 15px;
-
-    width: 100%;
-
+	display: inline-block;
+	padding: 15px;
+	width: 100%;
 }
 
-
 a.logo {
-
-    font-size: 22px;
-
-    font-weight: 300;
-
-    color: #fed189;
-
-    float: left;
-
-    margin-top: 15px;
-
-    text-transform: uppercase;
-
+	font-size: 22px;
+	font-weight: 300;
+	color: #fed189;
+	float: left;
+	margin-top: 15px;
+	text-transform: uppercase;
 }
 
 input.btn {
-
-     border: 1px solid #e7e7e7;
-
-    padding: 5px 10px;
-
-    display: inline-block;
-
-    background: #ffffff;
-
-    color: #688a7e;
-
-    border-radius: 0px !important;
-
-    -webkit-border-radius: 0px !important;    
-
-
-
-
+	border: 1px solid #e7e7e7;
+	padding: 5px 10px;
+	display: inline-block;
+	background: #ffffff;
+	color: #688a7e;
+	border-radius: 0px !important;
+	-webkit-border-radius: 0px !important;    
 }
-
-
 
 a.logo:hover, a.logo:focus {
-
-    text-decoration: none;
-
-    outline: none;
-
+	text-decoration: none;
+	outline: none;
 }
-
-
 
 a.logo span {
-
-    color: #688a7e;
-
+	color: #688a7e;
 }
-
-
-
-
 
 /*notification*/
 
-
-
 #top_menu .nav > li, ul.top-menu > li {
-
-    float: left;
-
+	float: left;
 }
 
 .search-row {
-
-    float: left;
-
-    margin-top: 15px;
-
-    margin-left: 16px;
-
+	float: left;
+	margin-top: 15px;
+	margin-left: 16px;
 }
 
 .notification-row {
-
-    float: right;
-
-    margin-top: 15px;
-
-    margin-left: 65px;
-
+	float: right;
+	margin-top: 15px;
+	margin-left: 65px;
 }
 
 #task_notificatoin_bar, #mail_notificatoin_bar, #alert_notificatoin_bar{
-
-    margin-top: 7px;
-
+	margin-top: 7px;
 }
-
-
 
 ul.top-menu > li > a {
-
-    color: #fed189;
-
-    font-size: 18px;    
-
-    padding: 2px 6px;
-
-    margin-right: 15px;
-
+	color: #fed189;
+	font-size: 18px;
+	padding: 2px 6px;
+	margin-right: 15px;
 }
-
-
 
 ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {    
 
