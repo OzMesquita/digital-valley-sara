@@ -6,7 +6,7 @@
 <%@page import="br.com.n2s.sara.dao.DAOEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page import="br.com.n2s.sara.model.*" %>
+<%@page import="br.com.n2s.sara.model.*" %>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 <% 
 	int idTrabalho = Integer.parseInt(request.getParameter("idTrabalho")); 	
@@ -96,41 +96,38 @@
 										<br>
 									<%} %>
 	               					<% if(atual.getDescricao()==DescricaoPeriodo.RECURSO && (trabalho.getStatus()==StatusTrabalho.REJEITADO 
-										|| trabalho.getStatus()==StatusTrabalho.REJEITADO_ORIENTADOR)){%>
-											<form action="paginaDeSubmissao.jsp" method="post" onsubmit="return confirm('Deseja reenviar este trabalho?');"> 
-												<input type="hidden" value="<%= trabalho.getTrilha().getIdTrilha()%>" name="idTrilha">
-			                   						<input type="hidden" value="<%= trabalho.getTrilha().getEvento().getIdEvento()%>" name="idEvento"> 
-			                   						<input type="hidden" value="<%= trabalho.getIdTrabalho()%>" name="idTrabalho">  
-			                  						<button class="btn btn-primary" type = "submit">Recurso</button>
-               					 				</form> 	
-	               					 		<%}%>
-	               					 		<%if( trabalho.getOrientador()!=null
-	               					 				&& usuario.getCpf().equals(trabalho.getOrientador().getCpf())
-	               					 				&& trabalho.getStatus()==StatusTrabalho.ENVIADO 
-	               					 				&& (atual.getDescricao()==DescricaoPeriodo.AVAL || atual.getDescricao()==DescricaoPeriodo.SUBMISSAO_MANUSCRITO ) ) {%>
-	               					 			<h2>Aval do orientador:</h2>
-	               					 			<p>O trabalho pode seguir para avaliação?</p>
-	               					 			<form action="Aval" method="post">
-	               					 				<input type="radio" id="aceito" name="resultado" value="aceito" required><label for="aceito">Aceito</label>
-	               					 				<input type="radio" id="recusado" name="resultado" value="recusado"><label for="recusado">Recusado</label>
-	               					 				<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
-	               					 				<input type="submit" name="Avaliar" value="Avaliar">
-	               					 			</form>	
-	               					 		<%} %>
-								        	<form action="ApagarTrabalho" method="post" >                  					 
-	                   							<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
-	                   						</form>	 
-				                   		</td>
-				                   </tr>
-	                       </tbody>
-	                   </table>
-                     </section>
-                  </div>
-              </div>
-         </section>
-         
-              <!-- page end-->
-  </section>
+									|| trabalho.getStatus()==StatusTrabalho.REJEITADO_ORIENTADOR)){%>
+										<form action="paginaDeSubmissao.jsp" method="post" onsubmit="return confirm('Deseja reenviar este trabalho?');"> 
+											<input type="hidden" value="<%= trabalho.getTrilha().getIdTrilha()%>" name="idTrilha">
+											<input type="hidden" value="<%= trabalho.getTrilha().getEvento().getIdEvento()%>" name="idEvento"> 
+											<input type="hidden" value="<%= trabalho.getIdTrabalho()%>" name="idTrabalho">  
+											<button class="btn btn-primary" type = "submit">Recurso</button>
+               					 		</form> 	
+									<%}%>
+									<%if( trabalho.getOrientador()!=null
+									&& usuario.getCpf().equals(trabalho.getOrientador().getCpf())
+									&& trabalho.getStatus()==StatusTrabalho.ENVIADO 
+									&& (atual.getDescricao()==DescricaoPeriodo.AVAL || atual.getDescricao()==DescricaoPeriodo.SUBMISSAO_MANUSCRITO ) ) {%>
+										<h2>Aval do orientador:</h2>
+										<p>O trabalho pode seguir para avaliação?</p>
+										<form action="Aval" method="post">
+											<input type="radio" id="aceito" name="resultado" value="aceito" required><label for="aceito">Aceito</label>
+											<input type="radio" id="recusado" name="resultado" value="recusado"><label for="recusado">Recusado</label>
+											<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
+											<input type="submit" name="Avaliar" value="Avaliar">
+										</form>	
+									<%} %>
+									<form action="ApagarTrabalho" method="post" >                  					 
+										<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
+									</form>	 
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+			</div>
+		</div>
+	</section>
 </section>
 </body>
 </html>
