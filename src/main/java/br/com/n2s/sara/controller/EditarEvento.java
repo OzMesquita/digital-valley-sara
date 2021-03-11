@@ -53,8 +53,6 @@ public class EditarEvento extends HttpServlet {
 			evento.setDivulgada(false);
 			evento.setExcluido(false);
 			
-			System.out.println("Variáveis definidas.");
-			
 			if (tipoEvento.equals("encontrosUniversitarios")) {
 				evento.setDescriEvento(TipoEvento.EU);
 			}else {
