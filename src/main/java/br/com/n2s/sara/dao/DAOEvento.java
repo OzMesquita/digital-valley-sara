@@ -128,7 +128,8 @@ public class DAOEvento extends DAO {
 				evento.setExcluido(rs.getBoolean("excluido"));
 
 				if (!evento.getExcluido()) {
-					if ((hoje.isAfter(evento.getDataInicial())) && (hoje.isBefore(evento.getDataFinal()))) {
+					if ((hoje.isAfter(evento.getDataInicial()) || hoje.isEqual(evento.getDataInicial()))
+							&& (hoje.isBefore(evento.getDataFinal()) || hoje.isEqual(evento.getDataFinal()))) {
 						eventos.add(evento);
 					}
 				}
