@@ -2,8 +2,10 @@ package br.com.n2s.sara;
 
 import br.com.n2s.sara.dao.DAOCriterio;
 import br.com.n2s.sara.dao.DAOCriterioTrilha;
+import br.com.n2s.sara.dao.DAOItem;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.Criterio;
+import br.com.n2s.sara.model.Item;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.util.Constantes;
 import junit.framework.Test;
@@ -45,6 +47,29 @@ public class AppTest extends TestCase {
 		
 		System.out.println();
 
+	}
+	
+	@org.junit.Test
+	public void testEdidarItem() {
+		
+		try {
+			DAOItem daoItem = new DAOItem();
+			Item item = daoItem.getItem(135);
+			
+			int idItem = 135;
+			String descricao = "Teste de funcionalidade";
+			int peso = 3;
+
+			item.setIdItem(idItem);
+			item.setPeso(peso);
+			item.setDescricao(descricao);
+			
+			daoItem.editar(item);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		
 	}
 
 	/**

@@ -204,6 +204,28 @@ public class DAOItem extends DAO{
 		}
 	}
 
+	public void editar(Item item){
+
+		super.open();
+		String sql = "update sara.item set descricao = ?, nota = ?"
+				+ " where idItem = ?";
+
+		try {
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setString(1, item.getDescricao());
+			stmt.setInt(2, item.getPeso());
+			stmt.setInt(3, item.getIdItem());
+
+			stmt.execute();
+			stmt.close();
+			
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+	}
 
 	public void delete(Item item){
 
