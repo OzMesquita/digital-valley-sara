@@ -76,7 +76,9 @@ public class EditarEvento extends HttpServlet {
 			session.setAttribute(Constantes.getSESSION_MGS(), "Evento alterado com sucesso!");
 			response.sendRedirect("eventosCoordenados.jsp");
 		} catch (Exception e) {
-			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao alterar o Evento: "+e.getMessage());
+			System.out.println("Erro ao alterar o Evento: "+e.getMessage());
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao alterar o Evento");
+			response.sendRedirect("eventosCoordenados.jsp");
 		}
 	}
 }

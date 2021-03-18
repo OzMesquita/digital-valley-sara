@@ -114,23 +114,23 @@ public class DAOUsuario extends DAO {
 			stmt.setString(1, cpf);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
-			if (rs.next()) {
-				Usuario usuario = new Usuario();
+			Usuario usuario = new Usuario();
+			while (rs.next()) {
+
 				usuario.setCpf(rs.getString("cpf"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setSobrenome(rs.getString("sobrenome"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setTipo(NivelUsuario.valueOf(rs.getString("tipo")));
 
-				rs.close();
-				stmt.close();
-
-				return usuario;
-			} else {
-				return null;
 			}
+			rs.close();
+			stmt.close();
+
+			return usuario;
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
+			throw new RuntimeException("Falha ao buscar registro de pessoa, erro: " + e.getMessage());
 		} finally {
 			super.close();
 		}
