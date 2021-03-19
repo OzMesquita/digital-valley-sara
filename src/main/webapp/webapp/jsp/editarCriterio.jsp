@@ -83,6 +83,7 @@
 										<button class="btn btn-primary" type="submit">Remover
 											Item</button>
 									</form></td>
+								<!-- 
 								<td><form action="editarCriterio.jsp" method="post"
 										onsubmit="return confirm('Deseja editar este item do critério?');">
 										<input type="hidden"
@@ -90,6 +91,7 @@
 										<button class="btn btn-primary" type="submit">Editar
 											Item</button>
 									</form></td>
+								-->
 							</tr>
 
 							<%

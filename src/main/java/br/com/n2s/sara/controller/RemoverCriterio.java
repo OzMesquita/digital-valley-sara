@@ -24,6 +24,8 @@ public class RemoverCriterio extends HttpServlet {
 		HttpSession session = request.getSession();
 		try {
 		int idCriterio = Integer.parseInt(request.getParameter("idCriterio"));
+		int idTrilha = Integer.parseInt(request.getParameter("idTrilha"));
+
 		DAOCriterio daoCriterio = new DAOCriterio();
 		Criterio criterio = daoCriterio.getCriterio(idCriterio);
 		
@@ -33,13 +35,15 @@ public class RemoverCriterio extends HttpServlet {
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(),
 					"Erro durante a remoção do critério. Critério já foi avaliado!");
 		} else {
-			daoCriterio.delete(criterio);
+			
+			daoCriterio.delete(criterio,idTrilha);
 			session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso durante a remo��o do crit�rio!");
 			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 		}
 		
 		
 		}catch (Exception e) {
+			System.out.println(e.getLocalizedMessage());
 			response.sendRedirect("gerenciarCriteriosTrilha.jsp");
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a remoção do critério! Critério presente na lista de critérios da trilha");
 		}
