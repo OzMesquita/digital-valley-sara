@@ -114,6 +114,23 @@ public class DAOCriterioTrilha extends DAO {
 			super.close();
 		}
 	}
+	
+	public void delete(Criterio c, int idTrilha) {
+		super.open();
+		String sql = "delete from sara.criteriotrilha where fktrilha = ? and fkcriterio = ?";
+		try {
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, idTrilha);
+			stmt.setInt(2, c.getIdCriterio());
+			stmt.execute();
+			stmt.close();
+			
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally {
+			super.close();
+		}
+	}
 
 	@Deprecated
 	public List<CriterioTrilha> read(){

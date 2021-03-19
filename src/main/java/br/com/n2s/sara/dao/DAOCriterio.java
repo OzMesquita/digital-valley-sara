@@ -234,6 +234,30 @@ public class DAOCriterio extends DAO {
 		String sql = "delete from sara.criterio where idCriterio = ?";
 
 		try {
+			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
+			criterioTrilhaController.delete(criterio, criterio.getCriterioTrilha().getTrilha());
+			
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, criterio.getIdCriterio());
+			stmt.execute();
+			stmt.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			super.close();
+		}
+	}
+	
+	public void delete(Criterio criterio, int idTrilha) {
+
+		super.open();
+		String sql = "delete from sara.criterio where idCriterio = ?";
+
+		try {
+			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
+			criterioTrilhaController.delete(criterio, idTrilha);
+			
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 			stmt.setInt(1, criterio.getIdCriterio());
 			stmt.execute();
