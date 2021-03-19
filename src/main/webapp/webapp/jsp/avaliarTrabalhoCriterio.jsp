@@ -99,13 +99,15 @@
 				                   		<p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
 									    <p><textarea id="feed" name="feedback" cols="30" rows="5" maxlength="5000" required></textarea></p>
 				                   	</tr>
+				                   	<button type="submit" onclick="myFunction();" class="btn btn-primary">Enviar Avaliação</button>
+				                   	
+				              </form>
+				                   	
 	                       </tbody>
 	                   </table>
 	                   
 	                   
                      </section>
-                     	<button type="submit" onclick="myFunction();" class="btn btn-primary">Enviar Avaliação</button>
-                     </form>
                   </div>
               </div>
          </section>
