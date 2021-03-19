@@ -101,6 +101,9 @@
 										<input type="hidden"
 											value="<%=listaCriterio.get(i).getIdCriterio()%>"
 											name="idCriterio">
+										<input type="hidden"
+											value="<%=trilha.getIdTrilha()%>"
+											name="idTrilha">
 										<button class="btn btn-primary" type="submit">Remover</button>
 									</form></td>
 							</tr>
