@@ -6,7 +6,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
 <%
-	Trilha trilha = (Trilha) session.getAttribute("trilha");
+Trilha trilha = (Trilha) session.getAttribute("trilha");
 String idPeriodo = request.getParameter("idPeriodo");
 Periodo periodo = new DAOPeriodo().getPeriodo(Integer.parseInt(idPeriodo));
 session.setAttribute("periodo", periodo);
@@ -76,10 +76,10 @@ String dia_atual = time.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 											Recursos</option>
 									</select>
 								<p>
-									Data de Inicio: <input type="date" name="dataInicial" required>
+									Data de Inicio: <input type="date" name="dataInicial" value=<%=periodo.getDataInicial()%> required>
 								</p>
 								<p>
-									Data de Fim: <input type="date" name="dataFinal" required>
+									Data de Fim: <input type="date" name="dataFinal" value=<%=periodo.getDataFinal()%> required>
 								</p>
 								<input type="submit" value="Alterar">
 							</form>

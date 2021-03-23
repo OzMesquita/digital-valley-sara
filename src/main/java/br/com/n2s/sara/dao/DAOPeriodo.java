@@ -131,8 +131,8 @@ public class DAOPeriodo extends DAO {
 
 				Periodo periodo = new Periodo();
 				periodo.setIdPeriodo(rs.getInt("idPeriodo"));
-				periodo.setDataFinal((rs.getDate("dataInicial").toLocalDate())); //toLocalDate()
-				periodo.setDataInicial((rs.getDate("dataFinal").toLocalDate()));
+				periodo.setDataInicial((rs.getDate("dataInicial").toLocalDate())); //toLocalDate()
+				periodo.setDataFinal((rs.getDate("dataFinal").toLocalDate()));
 				periodo.setDescricao(DescricaoPeriodo.valueOf(rs.getString("descricao")));
 				periodo.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));
 				
