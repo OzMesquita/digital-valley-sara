@@ -101,14 +101,7 @@
 												name="cpfCoordenador"
 												pattern="^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$"
 												placeholder="111.111.111-11" required
-												<%										
-													String cpfUsuario = "";
-													/* for (Evento eventoC : eventos) { */
-													for (int i = 0; i < evento.getCoordenadores().size(); i++) {
-														 cpfUsuario = evento.getCoordenadores().get(i).getCpf();
-													}
-												%>
-												value="<%=cpfUsuario%>" />
+												value="<%=evento.getCoordenadores().get(0).getCpf()%>">
 										</div>
 									</div>
 
@@ -168,11 +161,9 @@
 											do Evento <span class="required">*</span>
 										</label>
 										<div class="col-lg-10">
-											<input type="radio" id="encontrosUniversitarios"
-												name="tipoEvento" value="<%=evento.getDescriEvento()%>"
-												required> Encontros Universitários <br> <input
-												type="radio" id="relatorioEstagio" name="tipoEvento"> Relatório de
-											Estágio
+											<input type="radio" value="encontrosUniversitarios" name="tipoEvento" checked required> Encontros Universitários
+											<br>
+											<input type="radio" value="relatorioEstagio" name="tipoEvento"> Relatório de Estágio
 										</div>
 									</div>
 
