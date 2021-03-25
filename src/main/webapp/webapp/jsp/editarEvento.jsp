@@ -161,9 +161,15 @@
 											do Evento <span class="required">*</span>
 										</label>
 										<div class="col-lg-10">
-											<input type="radio" value="encontrosUniversitarios" name="tipoEvento" checked required> Encontros Universitários
-											<br>
-											<input type="radio" value="relatorioEstagio" name="tipoEvento"> Relatório de Estágio
+											<% if (evento.getDescriEvento() == TipoEvento.EU) { %>
+												<input type="radio" value="encontrosUniversitarios" name="tipoEvento" checked required> Encontros Universitários
+												<br>
+												<input type="radio" value="relatorioEstagio" name="tipoEvento"> Relatório de Estágio
+											<% } else { %>
+												<input type="radio" value="encontrosUniversitarios" name="tipoEvento" required> Encontros Universitários
+												<br>
+												<input type="radio" value="relatorioEstagio" name="tipoEvento" checked> Relatório de Estágio
+											<% } %>
 										</div>
 									</div>
 
