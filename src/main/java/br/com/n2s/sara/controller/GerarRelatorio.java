@@ -72,7 +72,7 @@ public class GerarRelatorio extends HttpServlet {
 				image.scaleAbsoluteWidth(90);
 				image.scaleAbsoluteHeight(60);
 				document.add(image);
-				Paragraph cabecalho = new Paragraph("UNIVERSIDADE FEDERAL DO CEAR√Å \n"
+				Paragraph cabecalho = new Paragraph("UNIVERSIDADE FEDERAL DO CEAR¡ \n"
 						+ "CAMPUS RUSSAS \n\n" + evento.getNome() + "\n\n\n");
 				cabecalho.setAlignment(Paragraph.ALIGN_CENTER);
 				document.add(cabecalho);
@@ -309,7 +309,7 @@ public class GerarRelatorio extends HttpServlet {
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a gera√É¬ß√É¬£o de relat√É¬≥rio");
+				session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a geraÁ„o de relatÛrio");
 			}			
 
 		}
