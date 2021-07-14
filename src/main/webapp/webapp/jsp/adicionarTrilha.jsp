@@ -3,12 +3,13 @@
 <%@page import="br.com.n2s.sara.model.Usuario"%>
 <%@page import="br.com.n2s.sara.model.Evento"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
-
 <%
 	Evento evento = (Evento) session.getAttribute("evento");
-evento = Facade.pegarEventoPeloId(evento.getIdEvento());
-session.setAttribute("evento", evento);
+    evento = Facade.pegarEventoPeloId(evento.getIdEvento());
+    session.setAttribute("evento", evento);
+    session.setAttribute("idEventoAdicionarTrilha", evento.getIdEvento());
 %>
+
 
 <!--main content start-->
 <section id="main-content">
@@ -20,6 +21,8 @@ session.setAttribute("evento", evento);
 				</h3>
 				<ol class="breadcrumb">
 					<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
+					<li><i class="icon_document_alt"></i><a href="eventosCoordenados.jsp">Eventos Coordenados</a></li>
+					<li><i class="icon_document_alt"></i><a href="gerenciarTrilhasCoordenadas.jsp">Trilhas Coordenadas</a></li>
 					<li><i class="icon_document_alt"></i>Adicionar Trilha</li>
 				</ol>
 			</div>
@@ -79,8 +82,7 @@ session.setAttribute("evento", evento);
 									</div>
 									<div class="form-group">
 										<div class="col-lg-12">
-											<label for="qtd">Quantia de correções <span
-												class="required">*</span>
+											<label for="qtd">Quantidade de correções <span class="required">*</span>
 											</label> <select required="required" name="correcoes" id="qtd">
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -90,8 +92,7 @@ session.setAttribute("evento", evento);
 											</select>
 										</div>
 										<div class="col-lg-12">
-											<label for="peso">Peso dos trabalhos <span
-												class="required">*</span>
+											<label for="peso">Peso dos trabalhos <span class="required">*</span>
 											</label> <select name="peso" required="required" id="peso">
 												<option value="1">1</option>
 												<option value="2">2</option>

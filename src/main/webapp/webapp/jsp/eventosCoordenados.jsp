@@ -69,10 +69,10 @@ if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)) {
 								<th><i class="icon_documents_alt"></i> Evento</th>
 								<th><i class="icon_pin"></i> Local</th>
 								<th><i class="icon_calendar"></i> Data</th>
-								<th>Editar Trilhas</th>
+								<th style="text-align: center;">Editar Trilhas</th>
 								<% if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)){ %>
-								<th>Editar Evento</th>
-								<th>Excluir Evento</th>
+								<th style="text-align: center;">Editar Evento</th>
+								<th style="text-align: center;">Excluir Evento</th>
 								<% } %>
 							</tr>
 
@@ -86,7 +86,7 @@ if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)) {
 								<td><%=evento.getLocalizacao()%></td>
 								<td><%=formatter.format(evento.getDataInicial())%></td>
 
-								<td><form action="gerenciarTrilhasCoordenadas.jsp"
+								<td style="text-align: center;"><form action="gerenciarTrilhasCoordenadas.jsp"
 										method="post">
 										<input type="hidden" value="<%=evento.getIdEvento()%>"
 											name="idEvento">
@@ -96,14 +96,14 @@ if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)) {
 									</form></td>
 
 								<% if (usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)){ %>
-								<td><form action="editarEvento.jsp" method="post">
+								<td style="text-align: center;"><form action="editarEvento.jsp" method="post">
 										<input type="hidden" value="<%=evento.getIdEvento()%>"
 											name="idEvento">
 										<button class="btn btn-primary" type="submit">
 											<i class="icon_pencil"></i>
 										</button>
 									</form></td>
-								<td><form action="RemoverEvento" method="post"
+								<td style="text-align: center;"><form action="RemoverEvento" method="post"
 										onsubmit="return confirm('Deseja remover este evento?');"
 										method="post">
 										<input type="hidden" value="<%=evento.getIdEvento()%>"

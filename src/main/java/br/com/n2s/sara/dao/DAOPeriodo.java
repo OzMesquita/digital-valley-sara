@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Periodo;
+import br.com.n2s.sara.model.Trilha;
 
 public class DAOPeriodo extends DAO {
 
@@ -111,6 +112,42 @@ public class DAOPeriodo extends DAO {
 		}catch(SQLException e){
 			throw new RuntimeException(e);
 		}finally {
+			super.close();
+		}
+	}
+	
+	public List<Periodo> readByIdTrilha(Trilha trilha) { // read()
+
+		super.open();
+		String sql = "select * from sara.periodo where idtrilha = ?";
+
+		try {
+			List<Periodo> periodos = new ArrayList<Periodo>();
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setInt(1, trilha.getIdTrilha());
+			ResultSet rs = stmt.executeQuery();
+			super.close();
+			
+			while (rs.next()) {
+
+				Periodo periodo = new Periodo();
+				periodo.setIdPeriodo(rs.getInt("idPeriodo"));
+				periodo.setDataInicial((rs.getDate("dataInicial").toLocalDate()));
+				periodo.setDataFinal((rs.getDate("dataFinal").toLocalDate()));
+				periodo.setDescricao(DescricaoPeriodo.valueOf(rs.getString("descricao")));
+				periodo.setTrilha(trilha);
+
+				periodos.add(periodo);
+			}
+
+			rs.close();
+			stmt.close();
+
+			return periodos;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
 			super.close();
 		}
 	}

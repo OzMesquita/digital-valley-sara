@@ -146,7 +146,52 @@ public class DAOEvento extends DAO {
 			super.close();
 		}
 	}
+	
+	public List<Evento> readInativos() {
+		super.open();
 
+		String sql = "SELECT * FROM sara.Evento WHERE not (? BETWEEN datainicial and datafinal) AND excluido = false";
+
+		try {
+			
+			List<Evento> eventos = new ArrayList<Evento>();
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			stmt.setDate(1, Date.valueOf(LocalDate.now()));
+			//stmt.setDate(2, Date.valueOf(LocalDate.now()));
+			//stmt.setDate(3, Date.valueOf(LocalDate.now()));
+			ResultSet rs = stmt.executeQuery();
+			super.close();
+			while (rs.next()) {
+
+				Evento evento = new Evento();
+
+				evento.setIdEvento(rs.getInt("idEvento"));
+				evento.setNome(rs.getString("nome"));
+				evento.setDescricao(rs.getString("descricao"));
+				evento.setSite(rs.getString("site"));
+				evento.setLocalizacao(rs.getString("localizacao"));
+				evento.setDataInicial(rs.getDate("dataInicial").toLocalDate());
+				evento.setDataFinal(rs.getDate("dataFinal").toLocalDate());
+				evento.setDivulgada(rs.getBoolean("divulgada"));
+				evento.setDescriEvento(TipoEvento.valueOf(rs.getString("tipo_evento")));
+				evento.setExcluido(rs.getBoolean("excluido"));
+				
+				eventos.add(evento);
+					
+			}
+
+			rs.close();
+			stmt.close();
+
+			return eventos;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			super.close();
+		}
+	}
+	
 	public Evento getEvento(int idEvento) {
 		super.open();
 		String sql = "select * from sara.Evento where idEvento = ?";

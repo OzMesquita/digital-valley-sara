@@ -6,40 +6,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.time.format.DateTimeFormatter" %>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
-
-<!-- 
-
-   
-   
-		   _    _____         _
-		   \`,""   ,'7"r-..__/ \
-		  ,'\ `, ,',','    _/   \
-		 /   \  7 / /     (   \ |
-		J     \/ j  L______\  / |
-		L   __JF"""/""\"\_,    /
-		L,-"| O|  f O |  L_  _/
-		F   \_ /  \__/   `-  j|
-			.-'    `"""    ,' |          _..====.._
-			\__/         r"_  A        ,' _..---.._`,
-			 `-.______,,-L// / \  ___,' ,'_..:::.. `,`,
-					  j   / / / 7"    `-<""=:'  '':. \ \
-					 /   <,' /  F  . i , \   `,    :T W I
-					 |    \,'  /    >X<  |     \   :| | L
-					 |     `._/    ' ! ` |      I  :| |  G
-					  \           \     /       |  :H T  |
-					 __>-.__   __,-\   |        |  S P   |
-					/     /|   | \  \  \_       | 'A R   |
-				   /   __/ |   |  L  L   \      K./ /    L
-				  /   |    |   4  I  I    |    E./ /   ,'
-				 J    \    I    L F  I    |    // / _,'
-		_________|     |   F    |J   F    |   //_/-'
-		\   __   |    /   J     |/  J     |  /="
-		\\  \_\  \__,' \  F     |   F     |
-		\\\_____________\/      F__/      F
-		 \\|  HTML for  |_____/  (______/
-		  \/__Dummies___/
-
- -->
       
       <!--main content start-->
       <section id="main-content">
@@ -49,7 +15,7 @@
 					<h3 class="page-header"><i class="fa fa-table"></i> Eventos Abertos</h3>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-						<li><i class="icon_document_alt"></i>Eventos Abertos</li>
+						<li><i class="icon_document_alt"></i>Eventos</li>
 					</ol>
 				</div>
 			</div>
@@ -93,11 +59,11 @@
                               	 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");%>
                                       
                                       <tr>
-                                         <td><%= evento.getNome() %> </td>
-                   						 <td><%= evento.getLocalizacao()%> </td>
-                                         <td><%= formatter.format(evento.getDataInicial()) %> </td>
+                                         <td style="width: 50%;"><%= evento.getNome() %> </td>
+                   						 <td style="width: 20%;"><%= evento.getLocalizacao()%> </td>
+                                         <td style="width: 20%;"><%= formatter.format(evento.getDataInicial()) %> </td>
                                          <%-- <%if (evento.getDataFinal().isAfter(LocalDate.now()) || evento.getDataFinal().isEqual(LocalDate.now())){%> --%>
-                                         <td><form action="paginaDeEventos.jsp" method="post"> 
+                                         <td style="width: 10%;"><form action="paginaDeEventos.jsp" method="post"> 
                            					<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento"> 
                           					<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
                        					 </form> 
@@ -111,6 +77,49 @@
                            </tbody>
                         </table>
                       </section>
+                      
+                      <section class="panel">
+                          <header class="panel-heading">
+                              Eventos Fora de Período
+                          </header>
+                          
+                          <table class="table table-striped table-advance table-hover">
+                           <tbody>
+                              <tr>                               
+                                 <th><i class="icon_documents_alt"></i> Evento</th>
+                                 <th><i class="icon_pin"></i> Local</th>
+                                 <th><i class="icon_calendar"></i> Data</th>
+                                 <th></th>
+                              </tr>
+                              
+                              <%
+                              	 
+                              	List<Evento> eventosInativos = daoEvento.readInativos();
+                                
+                              	 
+                              	 for(Evento evento : eventosInativos){ 
+                              	 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");%>
+                                      
+                                      <tr>
+                                         <td style="width: 50%;"><%= evento.getNome() %> </td>
+                   						 <td style="width: 20%;"><%= evento.getLocalizacao()%> </td>
+                                         <td style="width: 20%;"><%= formatter.format(evento.getDataInicial()) %> </td>
+                                         <%-- <%if (evento.getDataFinal().isAfter(LocalDate.now()) || evento.getDataFinal().isEqual(LocalDate.now())){%> --%>
+                                         <td style="width: 10%;"><form action="paginaDeEventos.jsp" method="post"> 
+                           					<input type="hidden" value="<%= evento.getIdEvento()%>" name="idEvento"> 
+                          					<button class="btn btn-primary" type = "submit"><i class="icon_zoom-in"></i></button>
+                       					 </form> 
+                       					 <%-- <%} %> --%>
+                   						</td>
+                                      </tr>                              			 
+                              <% }
+                                 
+                              %>
+                                 
+                           </tbody>
+                        </table>
+                      </section>
+                      
                   </div>
               </div>
               <!-- page end-->

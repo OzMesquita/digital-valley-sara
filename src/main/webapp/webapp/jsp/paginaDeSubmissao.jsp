@@ -1,9 +1,12 @@
+<%@page import="java.util.List"%>
+<%@page import="br.com.n2s.sara.dao.DAOUsuario"%>
 <%@page import="br.com.n2s.sara.dao.DAOEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page import="br.com.n2s.sara.model.*" %>
+<%@page import="br.com.n2s.sara.model.*" %>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	
 	<% 
 		DAOEvento daoEvento = new DAOEvento();
 		DAOTrilha daoTrilha = new DAOTrilha();
@@ -12,8 +15,11 @@
 		if (idEvento == null || idTrilha == null){
 			response.sendRedirect("indexAutor.jsp");	
 		}else{		
-		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
-		Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(idTrilha));
+			Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
+			Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(idTrilha));
+			DAOUsuario daoUsuario = new DAOUsuario();
+			List<Usuario> listaUsuario = daoUsuario.readLeve();
+			List<Usuario> listaCoautores = new ArrayList<Usuario>();
 		
     %>
       <!--main content start-->
@@ -48,57 +54,88 @@
                           <header class="panel-heading">
                               Submissão
                           </header>
-                        <table class="table table-striped table-advance table-hover">
+                        <table class="table table-striped table-advance">
 	                        <tbody>
 				                    <tr>                               
 				                       <th><h2><%= trilha.getDescricao() %></h2> </th>
 				                    </tr>
-				                   	<tr>
-				                    	<td>				                    	
+				                   	<tr style="background-color: #F9F9F9;">
+				                    	<td >				                    	
 									        <form action="SalvarArquivo" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
 									            <input type="hidden" name="trilha" value="<%=trilha.getIdTrilha()%>" />
 									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
-									            <p>*Título:</p>
+									            <p><b>*Título:</b></p>
 									            <p><input type="text" onblur="this.value=value.toUpperCase()" required="required" name="titulo" size="80"></p>
-									            <p>Resumo/Abstract (Opcional):</p> 
-									            <p><textarea name="resumo" cols="80" rows="15" maxlength="5000"></textarea> </p>
-									            <p>Palavras-chave: (Separe como ponto e vírgula)</p>
+									            <p><b>*Resumo/Abstract:</b></p> 
+									            <p><textarea name="resumo" cols="80" rows="15" maxlength="5000" required="required"></textarea> </p>
+									            <p><b>Palavras-chave: (Separe como ponto e vírgula)</b></p>
 									            <p><input type="text" name="palavras_chave" size="80"></p>
 									            
-									            <!-- Verificacao  -->
+									            <p><b>*Selecione a forma de apresentação do seu resumo nos Encontros Universitários:</b></p>
+									            <p>
+									            	<input type="radio" id="poster" name="tipoApresentacao" value="POSTER" required>
+									            	<label for="poster" style="margin-right: 25px;">Apresentação via pôster</label>
+									            	<input type="radio" id="oral" name="tipoApresentacao" value="ORAL">
+									            	<label for="oral">Apresentação oral</label>
+									            </p>
 									            
-									            <p>Autor Principal</p>
-									            Nome: <input type="text" value="<%=usuario.getNome()%>" disabled="disabled" name="autor" />
-												Email: <input type="text" value="<%=usuario.getEmail() %>" name="autor" disabled="disabled"/>
-												CPF: <input type="text" id="cpf" name="cpf" size="14" value="<%=usuario.getCpf()%>" disabled="disabled">
-												<br/>
-												<br/>
-												Adicione seu orientador abaixo. 
-												<br/>
-												<br/>
-									            <div id="divAutorBase">
-														Nome: <input type="text" name="nomeAutor" required="required"/>
-														Email: <input type="text" name="emailAutor" required="required" />
-														CPF: <input type="text" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)" onblur="validarCPF(this.value);"  required="required" name="cpfAutor">
-														<input type="button" value="Remover" onclick="autorList.remove(this.parentNode)" />
-														</br>
+									            <p><b>*Selecione seu orientador abaixo:</b></p> 
+												<div>
+													<select name="usuarioOrientador" required="required">  
+														<option value="">Selecione</option>
+	 													<c:forEach var="usuarioOrientador" items="<%= listaUsuario %>">  
+	    													<option value="${usuarioOrientador}">${usuarioOrientador.nome}</option>  
+	  													</c:forEach>  
+													</select>
 												</div>
-												Adicione os co-autores:
+												<br/>
+									            
+									            <p><b>Autor Principal:</b></p>
+									            <p>
+										            Nome: <input type="text" value="<%=usuario.getNome()%>" disabled="disabled" name="autor" />
+													Email: <input type="text" value="<%=usuario.getEmail() %>" name="autor" disabled="disabled"/>
+													CPF: <input type="text" id="cpf" name="cpf" size="14" value="<%=usuario.getCpf()%>" disabled="disabled">
+												</p>
+												
+												<p><b>Co-autores:</b></p>
+												<div id="divUsuarioCoautor">
+													<select id="selectCoautor" name="usuarioCoautor">  
+														<option value="">Selecione</option>
+	 													<c:forEach var="usuarioCoautor" items="<%= listaUsuario %>">  
+	    													<option value="${usuarioCoautor}">${usuarioCoautor.nome}</option>  
+	  													</c:forEach>  
+													</select>
+													 <button type="button" onclick="autorList.insert()" class="btn-sm btn-primary">Adicionar Co-Autor</button>
+												</div>
+												
+									            <div id="divAutorBase" style="visibility: hidden;">
+														Nome: <input id="nomeCoAutor" type="text" name="nomeAutor" required="required" readonly="readonly" />
+														Email: <input id="emailCoAutor" type="text" name="emailAutor" required="required" readonly="readonly" />
+														<input id="cpfCoAutor" type="hidden" id="cpf" maxlength="14" onkeypress="this.value=Cpf(this.value)" onblur="validarCPF(this.value);"  required="required" name="cpfAutor">
+														<button type="button" onclick="autorList.remove(this.parentNode)"  class="btn-sm btn-primary">
+															<i class="icon_trash"></i>
+														</button>
+												</div>
+											
 											    <div id="divAutorList" >
 											    </div>
-											    <input type="button" value="Adicionar Co-Autor" onclick="autorList.insert()" />
-						     					<br/>
+											    
 						     					
 						     					<%if (request.getParameter("idTrabalho") != null){%>
 						     						<input type="hidden" value="<%=request.getParameter("idTrabalho")%>" name="idTrabalho">
 						     					<%}%>
 						     					<br/>
-												<label>*Anexar Trabalho:</label>
+												<p><b>*Anexar Trabalho:</b></p>
 												
-								         		<input type="file" accept=".pdf" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
+												<label for="file_Input" class="btn-sm btn-primary">
+   													 <i class="fa fa-cloud-upload"></i> Upload de Arquivo
+												</label>
+												<input type="file" accept=".pdf" id="file_Input" required="required" onChange="tamanho();" name="trabalho" style="display: none;">
+												<span id='file-name'></span>
+								         		
 								         		<br/>
 								         		<p style="font-size: 9; color:red;">(*)Campos Obrigatórios</p>
-								          		<input type="submit" onsubmit="verificacao();" value="Enviar">
+								          		<button type="submit" onsubmit="verificacao();" class="btn-sm btn-primary">Enviar</button>
 								        	</form>
 				                   		</td>
 				                   </tr>
@@ -119,6 +156,14 @@
     
     <!-- verificação geral -->
     <script  type="text/javascript">
+    	 
+    	 var $input = document.getElementById('file_Input'),
+   		 $fileName = document.getElementById('file-name');
+   		
+   		 $input.addEventListener('change', function(){
+   		 	$fileName.textContent = this.value;
+   		 });	
+    
     	function verificacao(){
     		var cpfs = document.getElementById("cpf");
     		for (var i=0;i <cpfs.length;i++){
@@ -288,17 +333,34 @@
 	    {
 	        this.divAutorList = document.getElementById('divAutorList');
 	        this.divAutorBase = document.getElementById('divAutorBase');
+	        //alert(document.getElementById('selectCoautor').value);
 	    },
 	    
 	    'insert': function()
 	    {
-	        var newDiv = this.divAutorBase.cloneNode(true);
+	        
+	    	var coautores = document.getElementById('selectCoautor').value.split(":");;
+	    	
+	    	if(coautores == ''){
+	    		alert("Selecione um coautor");
+	    		return;
+	    	}
+	    	
+	    	var divAutorBase = document.getElementById('divAutorBase');
+	    	
+	    	var newDiv = divAutorBase.cloneNode(true);
+	    	newDiv.style.visibility='visible';
+	    	newDiv.style.marginTop = '10px';
+	    	
 	        for (var i=0;i<newDiv.getElementsByTagName('input').length;i++){
-	        	if (newDiv.getElementsByTagName('input')[i].type == "text"){
-	        		newDiv.getElementsByTagName('input')[i].value='';
-	        	}
-	        }
-	        this.divAutorList.appendChild(newDiv);
+	        	newDiv.querySelector("#nomeCoAutor").value = coautores[1];
+	        	newDiv.querySelector("#cpfCoAutor").value = coautores[0];
+	        	newDiv.querySelector("#emailCoAutor").value = coautores[2];
+		    }
+	        
+	        document.getElementById('selectCoautor').value = '';
+	        
+	        this.divAutorList.appendChild(newDiv); 
 	    },
 	    
 	    'remove': function(el)

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.TimeZone;
 
@@ -24,6 +26,7 @@ import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.StatusTrabalho;
+import br.com.n2s.sara.model.TipoApresentacao;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
@@ -57,27 +60,34 @@ public class SalvarArquivo extends HttpServlet {
 		trabalho.setPalavrasChaves(request.getParameter("palavras_chave"));
 		trabalho.setResumo(request.getParameter("resumo"));
 		trabalho.setStatus(StatusTrabalho.ENVIADO);
-		//Aqui ele estï¿½ pegando a lista de Autores do trabalho
+		trabalho.setTipoApresentacao(TipoApresentacao.valueOf(request.getParameter("tipoApresentacao")));
+		
+		
+		String usuarioOrientadorString = request.getParameter("usuarioOrientador");
+		String[] usuarioOrientadorFields = usuarioOrientadorString.split(":");
+		Usuario orientador = new Usuario();
+		orientador.setCpf(usuarioOrientadorFields[0]);
+		orientador.setEmail(usuarioOrientadorFields[2]);
+		orientador.setSobrenome("");
+		orientador.setNome(usuarioOrientadorFields[1]);
+		trabalho.setOrientador(orientador);
+		
+		
+		
+		//Aqui ele esta pegando a lista de Autores do trabalho
 		ArrayList <br.com.n2s.sara.model.Usuario> autores = new ArrayList();
 			String [] nomesAutores = request.getParameterValues("nomeAutor");
 			String [] emailAutores = request.getParameterValues("emailAutor");
 			String [] cpfAutores = request.getParameterValues("cpfAutor");
 		if (nomesAutores != null && emailAutores != null && cpfAutores != null) {
-			if (!(nomesAutores[0].isEmpty() || cpfAutores[0].isEmpty() || emailAutores[0].isEmpty()) ) {
-				Usuario orientador = new Usuario();
-				orientador.setCpf(nomesAutores[0]);
-				orientador.setEmail(emailAutores[0]);
-				orientador.setSobrenome("");
-				orientador.setCpf(cpfAutores[0].replaceAll("[.-]", ""));
-				trabalho.setOrientador(orientador);
-			}
-			for (int i=1;i<nomesAutores.length;i++) {
+
+			for (int i=0;i<nomesAutores.length;i++) {
 				if ( nomesAutores[i].isEmpty() || cpfAutores[i].isEmpty() || emailAutores[i].isEmpty() ) {
 					continue;
 				}
 				boolean teste = false;
 				for (Usuario u : autores) {
-					if (u.getCpf().equals(cpfAutores[i].replaceAll("[.-]", ""))) { 
+					if (u.getCpf().equals(cpfAutores[i])) { 
 						teste = true;
 						break;
 					}else {
@@ -87,7 +97,7 @@ public class SalvarArquivo extends HttpServlet {
 				if(!teste) {
 					Usuario autor= new Usuario();
 					autor.setNome(nomesAutores[i]);
-					autor.setCpf(cpfAutores[i].replaceAll("[.-]", ""));
+					autor.setCpf(cpfAutores[i]);
 					autor.setEmail(emailAutores[i]);
 					autor.setSobrenome(" ");
 					autor.setTipo(NivelUsuario.AUTOR);
@@ -96,7 +106,7 @@ public class SalvarArquivo extends HttpServlet {
 			}			
 		}
 		trabalho.setAutores(autores);
-		//Aqui estï¿½ tratando do arquivo
+		//Aqui está tratando do arquivo
 		File dir = new File(util.Constantes.getArticlesDir()+File.separator+nomeEvento.getIdEvento()+File.separator+nomeTrilha.getIdTrilha()+File.separator);
 		
 		if( !dir.isDirectory() ){
@@ -105,7 +115,7 @@ public class SalvarArquivo extends HttpServlet {
 		
 	    for(Part part: request.getParts()){    	           	
 	        
-	        //Isso Ã© para pegar a data/hora de maneira interessante
+	        //Isso é para pegar a data/hora de maneira interessante
 	    	Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Brazil/East"));
 	    	int ano = calendar.get(Calendar.YEAR);
 	    	int mes = calendar.get(Calendar.MONTH); // O mï¿½s vai de 0 a 11.
@@ -127,7 +137,7 @@ public class SalvarArquivo extends HttpServlet {
         trabalho.setIdTrabalho(daoTrabalho.create(trabalho));      
         Facade.EnviarEmail(trabalho);
         
-        // Essas linhas sÃ³ serÃ£o executadas caso aja alguma substituiÃ§Ã£o
+        // Essas linhas só seraão executadas caso aja alguma substituição
         
         if(request.getParameter("idTrabalho") != null) {
         	int idTrabalho = Integer.parseInt(request.getParameter("idTrabalho"));

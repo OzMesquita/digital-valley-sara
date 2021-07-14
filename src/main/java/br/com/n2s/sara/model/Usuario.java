@@ -38,4 +38,11 @@ public class Usuario {
 	public void setTipo(NivelUsuario tipo) {
 		this.tipo = tipo;
 	}
+	@Override
+	public String toString() {
+		return cpf +":"+ nome +":"+ email;
+	}
+	
+	
+	
 }

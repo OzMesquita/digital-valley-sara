@@ -2,21 +2,30 @@
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@ page import="br.com.n2s.sara.model.*"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
+
 <%
      	
      		String idEvento = request.getParameter("idEvento");
-     		if(idEvento == null){
+			Integer idEventoTrilha = (Integer)session.getAttribute("idEventoAdicionarTrilha");
+	
+     		if(idEvento == null && idEventoTrilha == null){
      			response.sendRedirect("indexAutor.jsp");
      		}else{     		
      	
-     		DAOEvento daoEvento = new DAOEvento();
-     		DAOTrilha daoTrilha = new DAOTrilha();
-     	     		
-     		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
-     		evento.setTrilhas(daoTrilha.readById(evento.getIdEvento()));
-	        
-     		session.setAttribute("usuarioSara", usuario);
-	        session.setAttribute("evento", evento);
+	     		DAOEvento daoEvento = new DAOEvento();
+	     		DAOTrilha daoTrilha = new DAOTrilha();
+	     	    
+	     		Evento evento;
+	     		
+	     		if(idEvento != null){
+	     			evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
+	     		}else{
+	     			evento = Facade.pegarEventoPeloId(idEventoTrilha);
+	     		}
+	     		evento.setTrilhas(daoTrilha.readById(evento.getIdEvento()));
+		        
+	     		session.setAttribute("usuarioSara", usuario);
+		        session.setAttribute("evento", evento);
      	%>
 
 <!--main content start-->
@@ -30,6 +39,7 @@
 				</h3>
 				<ol class="breadcrumb">
 					<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
+					<li><i class="icon_document_alt"></i><a href="eventosCoordenados.jsp">Eventos Coordenados</a></li>
 					<li><i class="icon_document_alt"></i>Trilhas Coordenadas</li>
 				</ol>
 			<!--</div>-->

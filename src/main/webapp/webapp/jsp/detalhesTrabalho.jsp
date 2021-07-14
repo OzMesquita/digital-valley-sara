@@ -22,10 +22,10 @@
 	<section class="wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<h3 class="page-header"><i class="fa fa-table"></i> SubmissÃ£o</h3>
+				<h3 class="page-header"><i class="fa fa-table"></i>Submissão</h3>
 				<ol class="breadcrumb">
 					<li><i class="fa fa-home"></i><a href="indexAutor.jsp">Home</a></li>
-					<li><i class="icon_document_alt"></i>SubmissÃ£o</li>
+					<li><i class="icon_document_alt"></i>Submissão</li>
 				</ol>
 			</div>
 		</div>
@@ -54,27 +54,28 @@
 							<tr>
 								<td>
 									<form action="submissaoFinal.jsp" id="form" method="post" >
-										<h4>Título:</h4>
+										<h5>Título:</h5>
 										<p><%= trabalho.getTitulo() %></p>
 										<% if (!trabalho.getResumo().equals("")) { %>
-											<h4>Resumo/Abstract</h4>
+											<h5>Resumo/Abstract</h5>
 											<p> <textarea cols="100" rows="10" disabled="disabled"><%= trabalho.getResumo()%></textarea></p>
 										<%}%>
 										<% if (!trabalho.getPalavrasChaves().equals("")) { %>
-											<h4>Palavras-chave</h4> 
+											<h5>Palavras-chave:</h5> 
 											<p> <input type="text" size="100" value="<%= trabalho.getPalavrasChaves() %>" disabled="disabled"></p>
 										<% } %>
 										<%if (trabalho.getAutores() != null && trabalho.getAutores().size()>0){ %>
-											<h4>Coautor(es)</h4>
+											<h5>Coautor(es):</h5>
 											<%for(Usuario u : trabalho.getAutores()){ %> 
 												<%-- <p> <input type="text" size="100" value="<%= u.getNome() %>" disabled="disabled"></p> --%>
 											<%}
 										}%>
 										<%if (avaliaTrabalho != null) {%>									           	
-											<h4>Feedback do Avaliador</h4>
+											<h5>Feedback do Avaliador:</h5>
 											<p> <textarea cols="100" rows="10" disabled="disabled"><%= avaliaTrabalho.getFeedback()%></textarea></p>
 										<%}%>
-										<h4>Status: <%= trabalho.getStatus() %> </h4> 
+										<h5>Status: <%= trabalho.getStatus().getDescricao() %> </h5>
+										<h5>Tipo Apresentação: <%= trabalho.getTipoApresentacao()!=null?trabalho.getTipoApresentacao().getLabel():"Não informado" %> </h5> 
 										<% if (atual!=null && atual.getDescricao() == DescricaoPeriodo.SUBMISSAO_FINAL) 
 											if ( trabalho.getStatus()==StatusTrabalho.ACEITO || trabalho.getStatus()==StatusTrabalho.ACEITO_FINAL) { %>
 												<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
@@ -108,13 +109,15 @@
 									&& usuario.getCpf().equals(trabalho.getOrientador().getCpf())
 									&& trabalho.getStatus()==StatusTrabalho.ENVIADO 
 									&& (atual.getDescricao()==DescricaoPeriodo.AVAL || atual.getDescricao()==DescricaoPeriodo.SUBMISSAO_MANUSCRITO ) ) {%>
-										<h2>Aval do orientador:</h2>
+										<p style="margin-top: 10px;">Aval do orientador:<p>
 										<p>O trabalho pode seguir para avaliação?</p>
 										<form action="Aval" method="post">
-											<input type="radio" id="aceito" name="resultado" value="aceito" required><label for="aceito">Aceito</label>
+											<input type="radio" id="aceito" name="resultado" value="aceito" required style="margin-right: 10px;"><label for="aceito" style="margin-right: 25px;">Aceito</label>
 											<input type="radio" id="recusado" name="resultado" value="recusado"><label for="recusado">Recusado</label>
-											<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 
-											<input type="submit" name="Avaliar" value="Avaliar">
+											<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho">
+											</br> 
+											<button class="btn btn-primary" type="submit">Avaliar</button>
+											<!-- <input type="submit" name="Avaliar" value="Avaliar" class="btn btn-primary"/> -->
 										</form>	
 									<%} %>
 									<form action="ApagarTrabalho" method="post" >                  					 

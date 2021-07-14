@@ -16,7 +16,7 @@
 			//session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro ao carregar o evento!");
 			response.sendRedirect("indexAutor.jsp");
 		}else{
-			Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(idEvento));
+			Evento evento = Facade.pegarEventoPeloIdLeve(Integer.parseInt(idEvento));
     		session.setAttribute("evento", evento);
 		
     %>
@@ -69,11 +69,12 @@
                                   
                                  %>
                                  
+                                 
                                  <tr>
                                      
                                      <td><%= evento.getTrilhas().get(i).getNome() %> </td> 
                                      <td><%= evento.getTrilhas().get(i).getDescricao() %></td>
-                                     <% evento.getTrilhas().get(i).setPeriodos(Facade.atualizarPeriodos(evento.getTrilhas().get(i))); %> 
+                                     <%-- <% evento.getTrilhas().get(i).setPeriodos(Facade.atualizarPeriodos(evento.getTrilhas().get(i))); %> --%> 
                                      <% Periodo atual = Facade.periodoAtual(evento.getTrilhas().get(i));
                                      String periodoSubmissao = "";
                                      if (atual==null ||atual.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL)){

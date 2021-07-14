@@ -121,8 +121,25 @@ public class Facade {
 	
 	public static Periodo periodoAtual(Trilha t) {
 		Periodo atual = null;
-		t.setPeriodos((ArrayList) new DAOPeriodo().readByIdTrilha(t.getIdTrilha()));
+		t.setPeriodos((ArrayList) new DAOPeriodo().readByIdTrilha(t));
 		for (Periodo p : t.getPeriodos()) {
+			LocalDate.now();
+			if ( (LocalDate.now().isBefore(p.getDataFinal()) || LocalDate.now().isEqual(p.getDataFinal())) && 
+					(LocalDate.now().isAfter(p.getDataInicial()) || LocalDate.now().isEqual(p.getDataInicial())) ){
+				atual = p;
+			}else{
+				if(p.getDescricao().equals(DescricaoPeriodo.RESULTADO_FINAL)) {
+					atual=p;
+				}
+			}
+		}
+		return atual;
+	}
+	
+	public static Periodo periodoAtualLeve(Trilha trilha) {
+		Periodo atual = null;
+		trilha.setPeriodos((ArrayList) new DAOPeriodo().readByIdTrilha(trilha));
+		for (Periodo p : trilha.getPeriodos()) {
 			LocalDate.now();
 			if ( (LocalDate.now().isBefore(p.getDataFinal()) || LocalDate.now().isEqual(p.getDataFinal())) && 
 					(LocalDate.now().isAfter(p.getDataInicial()) || LocalDate.now().isEqual(p.getDataInicial())) ){
@@ -251,7 +268,22 @@ public class Facade {
 		if (evento!=null) {
 			evento.setCoordenadores(daoCoorEvento.ListarCoordenadores(idEvento));
 			evento.setTrilhas(daoTrilha.readById(idEvento));
+			
 		}	
+		return evento;
+	}
+	
+	public static Evento pegarEventoPeloIdLeve(int idEvento) {
+		
+		DAOEvento daoEvento = new DAOEvento();
+		DAOCoordenacaoEvento daoCoorEvento = new DAOCoordenacaoEvento();
+		DAOTrilha daoTrilha = new DAOTrilha();
+		
+		Evento evento = daoEvento.getEvento(idEvento);
+		
+		evento.setTrilhas(daoTrilha.readByIdLeve(evento));
+		
+		
 		return evento;
 	}
 	

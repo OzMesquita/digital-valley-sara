@@ -85,7 +85,6 @@ public class DAOItem extends DAO{
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
-			DAOCriterio daoCriterio = new DAOCriterio();
 
 			while(rs.next()){
 

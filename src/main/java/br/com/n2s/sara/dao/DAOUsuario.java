@@ -1,6 +1,5 @@
 package br.com.n2s.sara.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,6 +69,39 @@ public class DAOUsuario extends DAO {
 		}
 	}
 
+	
+	public List<Usuario> readLeve() {
+
+		super.open();
+		String sql = " SELECT cpf, nome, email FROM sara.usuario ORDER BY nome ";
+
+		try {
+			List<Usuario> usuarios = new ArrayList<Usuario>();
+			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			super.close();
+			while (rs.next()) {
+
+				Usuario usuario = new Usuario();
+				usuario.setCpf(rs.getString("cpf"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setEmail(rs.getString("email"));
+				usuarios.add(usuario);
+			
+			}
+
+			rs.close();
+			stmt.close();
+
+			return usuarios;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			super.close();
+		}
+	}
+	
 	public List<Usuario> readByTipo(String tipo) {
 
 		super.open();

@@ -49,6 +49,7 @@
                                  <th><i class="icon_documents_alt"></i> Evento</th>
                                  <th><i class="icon_documents_alt"></i> Trilha</th>
                                  <th><i class="icon_documents_alt"></i> Título</th>
+                                 <th><i class="icon_documents_alt"></i> Tipo Apresentação</th>
                                  <th><i class="icon_pin"></i> Status</th>
                                  <th><i class="icon_cogs"></i> Ação</th>
                               </tr>
@@ -59,7 +60,8 @@
                               <tr>
                               	<td><%=t.getTrilha().getEvento().getNome()%></td>
                               	<td><%=t.getTrilha().getNome() %></td>
-                              	<td><%=t.getTitulo() %></td>
+                              	<td style="width: 30%"><%=t.getTitulo() %></td>
+                              	<td><%=t.getTipoApresentacao().getLabel() %></td>
                               	<td><%=t.getStatus().toString()%></td>
                               	<td><% Periodo atual = Facade.periodoAtual(t.getTrilha());
                               			if(atual != null){
@@ -69,7 +71,7 @@
                    						<input type="hidden" value="<%= t.getTrilha().getIdTrilha()%>" name="idTrilha">
                    						<input type="hidden" value="<%= t.getTrilha().getEvento().getIdEvento()%>" name="idEvento"> 
                    						<input type="hidden" value="<%= t.getIdTrabalho()%>" name="idTrabalho">  
-                  						<button class="btn btn-primary" type = "submit">Substituir</button>
+                  						<button class="btn btn-primary" type = "submit" style="margin-bottom: 5px;width: 100px;">Substituir</button>
                					 	</form><%}}}%> 
                					 		<%--
                					 		<form action="DownloadTrabalho" method="post" >                  					 
@@ -79,10 +81,9 @@
                					 		 --%>
 	               					 	<form action="detalhesTrabalho.jsp" method="post" >                  					 
 	                   						<input type="hidden" value="<%= t.getIdTrabalho()%>" name="idTrabalho">  
-	                  						<button class="btn btn-primary" type = "submit">Detalhes</button>
+	                  						<button class="btn btn-primary" type = "submit" style="width: 100px;">Detalhes</button>
 	               					 	</form>
-	               					 	
-               					 	<br>
+
                               	</tr>
                               <%}} %>                                 
                            </tbody>

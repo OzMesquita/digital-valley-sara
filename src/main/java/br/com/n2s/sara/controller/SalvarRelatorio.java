@@ -25,6 +25,7 @@ import br.com.n2s.sara.model.AvaliaTrabalho;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.StatusTrabalho;
+import br.com.n2s.sara.model.TipoApresentacao;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;

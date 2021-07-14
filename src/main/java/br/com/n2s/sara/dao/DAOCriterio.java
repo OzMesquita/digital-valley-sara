@@ -123,8 +123,7 @@ public class DAOCriterio extends DAO {
 			stmt.setInt(1, idCriterio);
 			ResultSet rs = stmt.executeQuery();
 			super.close();
-			DAOCriterioTrilha criterioTrilhaController = new DAOCriterioTrilha();
-
+	
 			if (rs.next()) {
 
 				Criterio criterio = new Criterio();

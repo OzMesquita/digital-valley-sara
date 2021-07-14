@@ -15,6 +15,7 @@ import javax.naming.spi.DirStateFactory.Result;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.Submissao;
+import br.com.n2s.sara.model.TipoApresentacao;
 import br.com.n2s.sara.model.TipoAutor;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.model.Trilha;
@@ -30,8 +31,8 @@ public class DAOTrabalho extends DAO {
 		try {
 			super.open();
 			String sql = "insert into sara.trabalho"  
-					+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha, endereco_ini)"
-					+ "values (?,?,?,?,?,?,?)";
+					+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha, endereco_ini, tipo_apresentacao)"
+					+ "values (?,?,?,?,?,?,?,?)";
 
 			PreparedStatement stmt = null;
 			stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -43,6 +44,7 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(5, trabalho.getEndereco());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 			stmt.setString(7, trabalho.getEnderecoInicial());
+			stmt.setString(8, trabalho.getTipoApresentacao().name());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			int idTrabalho= 0 ;
@@ -131,6 +133,11 @@ public class DAOTrabalho extends DAO {
 				trabalho.setEndereco(rs.getString("endereco"));
 				trabalho.setTrilha(daoTrilha.getTrilha(rs.getInt("idTrilha")));
 				trabalho.setEnderecoInicial(rs.getString("endereco_ini"));
+				
+				if(rs.getString("tipo_apresentacao") != null) {
+					trabalho.setTipoApresentacao(TipoApresentacao.valueOf(rs.getString("tipo_apresentacao")));
+				}
+				
 				rs.close();
 				stmt.close();
 				ArrayList autores = (ArrayList<Usuario>) new DAOSubmissao().getCoAutores(trabalho.getIdTrabalho());
@@ -153,12 +160,19 @@ public class DAOTrabalho extends DAO {
 	public void update(Trabalho trabalho){
 		
 		super.open();
-		String sql = "update sara.trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?, endereco_ini=?"
-				+ " where idTrabalho  = ?";
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("update sara.trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?, endereco_ini=?");
+
+		if(trabalho.getTipoApresentacao() != null) {
+			sb.append(", tipo_apresentacao=? ");
+		}
+
+		sb.append(" where idTrabalho  = ?");
 
 		try {
-			PreparedStatement stmt = super.getConnection().prepareStatement(sql);
-
+			PreparedStatement stmt = super.getConnection().prepareStatement(sb.toString());
+			
 			stmt.setString(1, trabalho.getTitulo());
 			stmt.setString(2, trabalho.getPalavrasChaves());
 			stmt.setString(3, trabalho.getResumo());
@@ -166,9 +180,14 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(5, trabalho.getEndereco());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 			stmt.setString(7, trabalho.getEnderecoInicial());
-			stmt.setInt(8, trabalho.getIdTrabalho());
 			
-
+			if(trabalho.getTipoApresentacao() != null) {
+				stmt.setString(8, trabalho.getTipoApresentacao().name());
+				stmt.setInt(9, trabalho.getIdTrabalho());
+			}else {
+				stmt.setInt(8, trabalho.getIdTrabalho());
+			}
+			
 			stmt.execute();
 			stmt.close();
 			
