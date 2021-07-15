@@ -76,8 +76,12 @@
 										<%}%>
 										<h5>Status: <%= trabalho.getStatus().getDescricao() %> </h5>
 										<h5>Tipo Apresentação: <%= trabalho.getTipoApresentacao()!=null?trabalho.getTipoApresentacao().getLabel():"Não informado" %> </h5> 
-										<% if (atual!=null && atual.getDescricao() == DescricaoPeriodo.SUBMISSAO_FINAL) 
-											if ( trabalho.getStatus()==StatusTrabalho.ACEITO || trabalho.getStatus()==StatusTrabalho.ACEITO_FINAL) { %>
+										
+										
+										<% 
+										// PERIODO DE SUBMISSAO FINAL
+										if (atual!=null && atual.getDescricao() == DescricaoPeriodo.SUBMISSAO_FINAL) 
+											if ( (trabalho.getStatus()==StatusTrabalho.ACEITO || trabalho.getStatus()==StatusTrabalho.ACEITO_FINAL) ) { %>
 												<input type="hidden" name="idTrilha" value="<%= trabalho.getTrilha().getIdTrilha() %>" />
 												<input type="hidden" name="idEvento" value="<%= trabalho.getTrilha().getEvento().getIdEvento() %>" />
 												<input type="hidden" name="idTrabalho" value="<%= trabalho.getIdTrabalho()%>" />
@@ -87,16 +91,19 @@
 									</form>
 									<form action="DownloadTrabalho" method="post">
 										<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="inicial" name="opcaoDownload">  
-											<button class="btn btn-primary" type = "submit">Download da versão inicial do Trabalho</button>
+											<button class="btn btn-primary" type = "submit" style="width: 300px;">Download da versão inicial do Trabalho</button>
 									</form>
 									<% if(trabalho.getEndereco()!=null){%>
-										<form action="DownloadTrabalho" method="post" >                  					 
+										<form action="DownloadTrabalho" method="post" style="margin-top: 10px;">                  					 
 											<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"><input type="hidden" value="AAAAAA" name="opcaoDownload"> 
-												<button class="btn btn-primary" type = "submit">Download versão final do Trabalho</button>
+												<button class="btn btn-primary" type = "submit" style="width: 300px;">Download da versão final do Trabalho</button>
 										</form>
 										<br>
 									<%} %>
-	               					<% if(atual.getDescricao()==DescricaoPeriodo.RECURSO && (trabalho.getStatus()==StatusTrabalho.REJEITADO 
+									
+	               					<% 
+	               					// PERIODO DE RECURSO
+	               					if(atual.getDescricao()==DescricaoPeriodo.RECURSO && (trabalho.getStatus()==StatusTrabalho.REJEITADO 
 									|| trabalho.getStatus()==StatusTrabalho.REJEITADO_ORIENTADOR)){%>
 										<form action="paginaDeSubmissao.jsp" method="post" onsubmit="return confirm('Deseja reenviar este trabalho?');"> 
 											<input type="hidden" value="<%= trabalho.getTrilha().getIdTrilha()%>" name="idTrilha">

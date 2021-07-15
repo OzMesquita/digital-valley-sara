@@ -12,6 +12,7 @@ import java.util.List;
 import br.com.n2s.sara.model.Criterio;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.Periodo;
+import br.com.n2s.sara.model.TipoApresentacao;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.model.Usuario;
 
@@ -22,8 +23,8 @@ public class DAOTrilha extends DAO {
 
 	public Trilha create(Trilha trilha) {
 		super.open();
-		String sql = "insert into sara.trilha" + "(nome, descricao, idEvento, qtdcorrecoes, peso)"
-				+ "values (?,?,?,?,?)";
+		String sql = "insert into sara.trilha" + "(nome, descricao, idEvento, qtdcorrecoes, peso, tipo_apresentacao)"
+				+ "values (?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -32,6 +33,7 @@ public class DAOTrilha extends DAO {
 			stmt.setInt(3, trilha.getEvento().getIdEvento());
 			stmt.setInt(4, trilha.getQtdCorrecoes());
 			stmt.setInt(5, trilha.getPeso());
+			stmt.setString(6, trilha.getTipoApresentacao().name());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			int id = 0;
@@ -75,6 +77,7 @@ public class DAOTrilha extends DAO {
 						(ArrayList<Usuario>) new DAOCoordenacaoTrilha().readByIdTrilha(trilha.getIdTrilha()));
 				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
 				trilha.setPeso(rs.getInt("peso"));
+				trilha.setTipoApresentacao(rs.getString("tipo_apresentacao")!=null?TipoApresentacao.valueOf(rs.getString("tipo_apresentacao")):null);
 
 				trilhas.add(trilha);
 
@@ -111,6 +114,7 @@ public class DAOTrilha extends DAO {
 				trilha.setEvento(evento);
 				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
 				trilha.setPeso(rs.getInt("peso"));
+				trilha.setTipoApresentacao(rs.getString("tipo_apresentacao")!=null?TipoApresentacao.valueOf(rs.getString("tipo_apresentacao")):null);
 
 				trilhas.add(trilha);
 
@@ -148,8 +152,8 @@ public class DAOTrilha extends DAO {
 				trilha.setDescricao(rs.getString("descricao"));
 				trilha.setEvento(daoEvento.getEvento(rs.getInt("idEvento")));
 				trilha.setCriterios((ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
-				// trilha.setCriterios(new ArrayList<Criterio>());
-
+			
+				trilha.setTipoApresentacao(rs.getString("tipo_apresentacao")!=null?TipoApresentacao.valueOf(rs.getString("tipo_apresentacao")):null);
 				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
 				trilha.setPeso(rs.getInt("peso"));
 				trilhas.add(trilha);
@@ -193,6 +197,8 @@ public class DAOTrilha extends DAO {
 				trilha.setCriterios((ArrayList<Criterio>) new DAOCriterioTrilha().getCriterioPorTrilha(trilha));
 				trilha.setQtdCorrecoes(rs.getInt("qtdCorrecoes"));
 				trilha.setPeso(rs.getInt("peso"));
+				trilha.setTipoApresentacao(rs.getString("tipo_apresentacao")!=null?TipoApresentacao.valueOf(rs.getString("tipo_apresentacao")):null);
+
 				rs.close();
 				stmt.close();
 

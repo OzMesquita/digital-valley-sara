@@ -60,8 +60,14 @@ public class SalvarArquivo extends HttpServlet {
 		trabalho.setPalavrasChaves(request.getParameter("palavras_chave"));
 		trabalho.setResumo(request.getParameter("resumo"));
 		trabalho.setStatus(StatusTrabalho.ENVIADO);
-		trabalho.setTipoApresentacao(TipoApresentacao.valueOf(request.getParameter("tipoApresentacao")));
 		
+		if(nomeTrilha.getTipoApresentacao() != null && nomeTrilha.getTipoApresentacao().equals(TipoApresentacao.TODAS)) {
+			trabalho.setTipoApresentacao(TipoApresentacao.valueOf(request.getParameter("tipoApresentacao")));
+		}
+		
+		if(nomeTrilha.getTipoApresentacao() != null && !nomeTrilha.getTipoApresentacao().equals(TipoApresentacao.TODAS)) {
+			trabalho.setTipoApresentacao(nomeTrilha.getTipoApresentacao());
+		}
 		
 		String usuarioOrientadorString = request.getParameter("usuarioOrientador");
 		String[] usuarioOrientadorFields = usuarioOrientadorString.split(":");
@@ -71,8 +77,6 @@ public class SalvarArquivo extends HttpServlet {
 		orientador.setSobrenome("");
 		orientador.setNome(usuarioOrientadorFields[1]);
 		trabalho.setOrientador(orientador);
-		
-		
 		
 		//Aqui ele esta pegando a lista de Autores do trabalho
 		ArrayList <br.com.n2s.sara.model.Usuario> autores = new ArrayList();

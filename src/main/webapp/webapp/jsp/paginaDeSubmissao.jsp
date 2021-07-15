@@ -66,18 +66,27 @@
 									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
 									            <p><b>*Título:</b></p>
 									            <p><input type="text" onblur="this.value=value.toUpperCase()" required="required" name="titulo" size="80"></p>
-									            <p><b>*Resumo/Abstract:</b></p> 
+									            <p><b>*Resumo/Abstract: (De acordo com o trabalho enviado)</b></p> 
 									            <p><textarea name="resumo" cols="80" rows="15" maxlength="5000" required="required"></textarea> </p>
 									            <p><b>Palavras-chave: (Separe como ponto e vírgula)</b></p>
 									            <p><input type="text" name="palavras_chave" size="80"></p>
 									            
-									            <p><b>*Selecione a forma de apresentação do seu resumo nos Encontros Universitários:</b></p>
-									            <p>
-									            	<input type="radio" id="poster" name="tipoApresentacao" value="POSTER" required>
-									            	<label for="poster" style="margin-right: 25px;">Apresentação via pôster</label>
-									            	<input type="radio" id="oral" name="tipoApresentacao" value="ORAL">
-									            	<label for="oral">Apresentação oral</label>
-									            </p>
+									            <% if(trilha.getTipoApresentacao()!= null && trilha.getTipoApresentacao().name() == "TODAS"){ %>
+										            <p><b>*Selecione a forma de apresentação do seu resumo nos Encontros Universitários:</b></p>
+										            <p>
+										            	<input type="radio" id="poster" name="tipoApresentacao" value="POSTER" required>
+										            	<label for="poster" style="margin-right: 25px;">Apresentação via pôster</label>
+										            	<input type="radio" id="oral" name="tipoApresentacao" value="ORAL">
+										            	<label for="oral">Apresentação oral</label>
+										            </p>
+									            <% } %>
+									            
+									            <% if(trilha.getTipoApresentacao()!= null && trilha.getTipoApresentacao().name() != "TODAS"){ %>
+										            <p><b>*Forma de apresentação obrigatória do seu resumo nos Encontros Universitários:</b></p>
+										            <p>
+										            	<input type="text" disabled="disabled" id="tipoApresentacao" name="tipoApresentacao" value="<%= trilha.getTipoApresentacao().getLabel() %>" />
+										            </p>
+									            <% } %>
 									            
 									            <p><b>*Selecione seu orientador abaixo:</b></p> 
 												<div>

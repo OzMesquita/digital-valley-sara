@@ -46,11 +46,16 @@ public class SalvarAvaliacao extends HttpServlet {
 		AvaliaTrabalho avaliaTrabalho = new DAOAvaliaTrabalho().getAvaliaTrabalho(trabalho.getIdTrabalho());
 		avaliaTrabalho.setFeedback(feedback);
 		avaliaTrabalho.setNota(nota);
-		if (nota>=7)
+		if (nota>=7) {
 			avaliaTrabalho.setStatus(StatusTrabalho.ACEITO_FINAL);
-		else
+			trabalho.setStatus(StatusTrabalho.ACEITO);
+		}else {
 			avaliaTrabalho.setStatus(StatusTrabalho.REJEITADO);
+			trabalho.setStatus(StatusTrabalho.REJEITADO);
+		}
+			
 		new DAOAvaliaTrabalho().update(avaliaTrabalho);
+		new DAOTrabalho().update(trabalho);
 		response.sendRedirect("avaliacao.jsp");
 		
 	}

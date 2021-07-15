@@ -15,6 +15,7 @@ public class Trilha {
 	private ArrayList<Criterio> criterios;
 	private int qtdCorrecoes;
 	private int peso;
+	private TipoApresentacao tipoApresentacao;
 	
 	public int getIdTrilha() {
 		return idTrilha;
@@ -83,6 +84,12 @@ public class Trilha {
 	}
 	public void setPeso(int peso) {
 		this.peso = peso;
+	}
+	public TipoApresentacao getTipoApresentacao() {
+		return tipoApresentacao;
+	}
+	public void setTipoApresentacao(TipoApresentacao tipoApresentacao) {
+		this.tipoApresentacao = tipoApresentacao;
 	}
 	
 }

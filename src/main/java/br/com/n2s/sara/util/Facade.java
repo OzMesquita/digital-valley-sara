@@ -227,6 +227,16 @@ public class Facade {
 			return true;
 		return false;
 	}
+	
+	public static boolean isAvaliadorTrabalho(int idTrabalho, String cpf) {
+		
+		AvaliaTrabalho avaliaTrabalho =  new DAOAvaliaTrabalho().getAvaliaTrabalho(idTrabalho, cpf);
+		if (avaliaTrabalho != null)
+			return true;
+		return false;
+		
+	}
+	
 	public static boolean isCoordenador(int idEvento, String cpf) {
 		DAOCoordenacaoEvento evento = new DAOCoordenacaoEvento();
 		List<Usuario> listaCoordenadores = evento.ListarCoordenadores(idEvento);

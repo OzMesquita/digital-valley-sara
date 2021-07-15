@@ -6,11 +6,25 @@
 <%@page import="br.com.n2s.sara.util.Constantes"%>
      
 	<% 
-		DAOEvento daoEvento = new DAOEvento();
-		DAOTrilha daoTrilha = new DAOTrilha();
-		Evento evento = Facade.pegarEventoPeloId(Integer.parseInt(request.getParameter("idEvento")));
-		Trilha trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
-        
+		
+	DAOEvento daoEvento = new DAOEvento();
+	DAOTrilha daoTrilha = new DAOTrilha();
+	Evento evento = null;
+	Trilha trilha = null;
+	Trabalho trabalho = null;
+		
+		try{
+			
+			evento = Facade.pegarEventoPeloId(Integer.parseInt(request.getParameter("idEvento")));
+			trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
+			trabalho = new DAOTrabalho().getTrabalho(Integer.parseInt(request.getParameter("idTrabalho")));                              
+	        
+		}catch(Throwable e){
+    
+			response.sendRedirect("indexAutor.jsp");	
+			
+		}
+		
     %>
        
       <!--main content start-->
@@ -45,40 +59,53 @@
                           <header class="panel-heading">
                               Submissão
                           </header>
-                        <table class="table table-striped table-advance table-hover">
+                        <table class="table table-striped table-advance">
 	                        <tbody>
 				                    <tr>
-				                    <%Trabalho trabalho = new DAOTrabalho().getTrabalho(Integer.parseInt(request.getParameter("idTrabalho")));  %>                               
 				                       <th><h2>Submissão final para o trabalho <%= trabalho.getTitulo() %></h2> </th>
 				                    </tr>
-				                   	<tr>
+				                   	<tr style="background-color: #F9F9F9;">
 				                    	<td>				                    	
 									        <form action="Submissao" id="form" method="post" onsubmit="return Validate(this);" enctype="multipart/form-data">
 									            <input type="hidden" name="trilha" value="<%=trilha.getIdTrilha()%>" />
 									            <input type="hidden" name="evento" value="<%=trilha.getEvento().getIdEvento()%>" />
 									            <input type="hidden" name="idTrabalho" value="<%=request.getParameter("idTrabalho") %>">
-									            <p>*Título:</p>
+									            <p><b>*Título:</b></p>
 									            <p><input type="text" onblur="this.value=value.toUpperCase()" required="required" name="titulo" size="80"></p>
-									            <p>Resumo/Abstract (Opcional):</p> 
+									            <p><b>*Resumo/Abstract: (De acordo com o trabalho enviado)</b></p> 
 									            <p><textarea name="resumo" cols="80" rows="15" maxlength="5000"></textarea> </p>
-									            <p>Palavras-chave: (Separe como ponto e vírgula)</p>
+									            <p><b>Palavras-chave: (Separe como ponto e vírgula)</b></p>
 									            <p><input type="text" name="palavras_chave" size="80"></p>
 
-												<p>*Selecione a forma de apresentação do seu resumo nos Encontros Universitários:</p>
-									            <p>
-									            	<input type="radio" id="poster" name="apresentacao" value="POSTER" required>
-									            	<label for="poster" style="margin-right: 25px;">Apresentação via pôster</label>
-									            	<input type="radio" id="oral" name="apresentacao" value="ORAL">
-									            	<label for="oral">Apresentação oral</label>
-									            </p>
+												 <% if(trilha.getTipoApresentacao()!= null && trilha.getTipoApresentacao().name() == "TODAS"){ %>
+										            <p><b>*Selecione a forma de apresentação do seu resumo nos Encontros Universitários:</b></p>
+										            <p>
+										            	<input type="radio" id="poster" name="tipoApresentacao" value="POSTER" required>
+										            	<label for="poster" style="margin-right: 25px;">Apresentação via pôster</label>
+										            	<input type="radio" id="oral" name="tipoApresentacao" value="ORAL">
+										            	<label for="oral">Apresentação oral</label>
+										            </p>
+									            <% } %>
+									            
+									            <% if(trilha.getTipoApresentacao()!= null && trilha.getTipoApresentacao().name() != "TODAS"){ %>
+										            <p><b>*Forma de apresentação obrigatória do seu resumo nos Encontros Universitários:</b></p>
+										            <p>
+										            	<input type="text" disabled="disabled" id="tipoApresentacao" name="tipoApresentacao" value="<%= trilha.getTipoApresentacao().getLabel() %>" />
+										            </p>
+									            <% } %>
 									            								            
 						     					<br/>
-												<label>*Anexar Trabalho:</label>
+												<p><b>*Anexar Trabalho:</b></p>
 												
-								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho">
+												<label for="file_Input" class="btn-sm btn-primary">
+   													 <i class="fa fa-cloud-upload"></i> Upload de Arquivo
+												</label>
+								         		<input type="file" id="file_Input" required="required" onChange="tamanho();" name="trabalho" style="display: none;">
+								         		<span id='file-name'></span>
+								         		
 								         		<br/>
 								         		<p style="font-size: 9; color:red;">(*)Campos Obrigatórios</p>
-								          		<input type="submit" onsubmit="verificacao();" value="Enviar">
+								          		<button type="submit" onsubmit="verificacao();" class="btn-sm btn-primary">Enviar</button>
 								        	</form>
 				                   		</td>
 				                   </tr>

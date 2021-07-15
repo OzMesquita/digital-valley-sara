@@ -72,13 +72,20 @@
 		<!--<div class="row"> -->
 			<!--<div class="col-lg-12"> -->
 				<section class="panel">
+					
+					<form action="adicionarTrilha.jsp" method="post" style="padding: 10px; background-color: #EEEEEE;">
+						<button class="btn btn-primary" type="submit">Adicionar
+							Trilha</button>
+					</form>
+					
 					<header class="panel-heading"> Trilhas Coordenadas </header>
-
+					
 					<table class="table table-striped table-advance table-hover">
 						<tbody>
 							<tr>
 								<th><i class="icon_documents_alt"></i> Trilha</th>
 								<th><i class="icon_document_alt"></i> Descrição</th>
+								<th><i class="icon_document_alt"></i> Tipo Apresentação</th>
 								<th></th>
 								<th></th>
 								<th></th>
@@ -93,6 +100,7 @@
 
 								<td><%= evento.getTrilhas().get(i).getNome() %></td>
 								<td><%= evento.getTrilhas().get(i).getDescricao() %></td>
+								<td><%= evento.getTrilhas().get(i).getTipoApresentacao()!= null?evento.getTrilhas().get(i).getTipoApresentacao().getLabel():"Não informado" %></td>
 								<td>
 									<form action="gerenciarTrilha.jsp" method="post">
 										<input type="hidden"
@@ -151,44 +159,37 @@
 		<%
 					if(evento.isCoordenador(usuario) || usuario.getTipo().equals(NivelUsuario.ADMINISTRADOR)){ %>
 
-		<table class="table table-striped table-advance table-hover">
+		<table class="table table-striped table-advance">
 			<tr>
-				<td>
-					<form action="adicionarTrilha.jsp" method="post">
-						<button class="btn btn-primary" type="submit">Adicionar
-							Trilha</button>
-					</form>
-				</td>
-				<td>
+				
+				<td style="background-color: #EEEEEE;">
+					<label><b>Ações:</b></label>
 					<form action="gerenciarCoordenadoresEvento.jsp" method="post">
-						<button class="btn btn-primary" type="submit">Gerenciar
+						<button class="btn btn-primary" type="submit" style="width: 300px;">Gerenciar
 							Coordenadores do Evento</button>
 					</form>
-				</td>
-				<td>
+					</br>
 					<form action="GerarRelatorio" method="post">
 						<input type="hidden" value="<%= evento.getIdEvento()%>"
 							name="idEvento"> <input type="hidden"
 							value="relatorioInicial" name="tipoRelatorio">
-						<button class="btn btn-primary" type="submit">Gerar
+						<button class="btn btn-primary" type="submit" style="width: 300px;">Gerar
 							Relatório de Trabalhos Submetidos</button>
 					</form>
-				</td>
-				<td>
+					</br>
 					<form action="GerarRelatorio" method="post">
 						<input type="hidden" value="<%= evento.getIdEvento()%>"
 							name="idEvento"> <input type="hidden"
 							value="relatorioFinal" name="tipoRelatorio">
-						<button class="btn btn-primary" type="submit">Gerar
+						<button class="btn btn-primary" type="submit" style="width: 300px;">Gerar
 							Relatório Final</button>
 					</form>
-				</td>
-				<td>
+					</br>
 					<form action="GerarRelatorio" method="post">
 						<input type="hidden" value="<%= evento.getIdEvento()%>"
 							name="idEvento"> <input type="hidden"
 							value="relatorioAceito" name="tipoRelatorio">
-						<button class="btn btn-primary" type="submit">Gerar
+						<button class="btn btn-primary" type="submit" style="width: 300px;">Gerar
 							Relatório de Aceitos</button>
 					</form>
 				</td>
@@ -196,7 +197,7 @@
 			<tr>
 				<td>
 					<form action="relacaoDeTrabalhos.jsp" method="post">
-						<select name="statusTrabalho" class="form-control">
+						<select name="statusTrabalho" class="form-control" style="width: 300px;">
 							<%for (StatusTrabalho e : StatusTrabalho.values()){%>
 							<option value="<%=e.ENVIADO.toString()%>"><%=e.getDescricao()%></option>
 							<%--   								<option value="<%= StatusTrabalho.ENVIADO.toString()%>">Enviado</option> --%>
@@ -207,23 +208,25 @@
 							<%--   								<option value="<%= StatusTrabalho.ACEITO_FINAL.toString()%>">Aceito Final</option> --%>
 							<%} %>
 						</select> <br>
-						<button class="btn btn-primary" type="submit">Relação de
+						<button class="btn btn-primary" type="submit" style="width: 300px;">Relação de
 							Trabalhos</button>
 					</form>
-				</td>
-				<td class="table-bottom"><form action="Distribuir" method="post">
+					</br>
+					<form action="Distribuir" method="post">
 						<input type="hidden" value="<%=evento.getIdEvento()%>"
 							name="idEvento">
-						<button class="btn btn-primary" type="submit">Distribuir
+						<button class="btn btn-primary" type="submit" style="width: 300px;">Distribuir
 							Todos os Trabalhos</button>
-					</form></td>
-				<td class="table-bottom"><form action="Distribuir" method="post">
-						<input type="hidden" value="<%=evento.getIdEvento()%>"
-							name="idEvento"> <input type="hidden" value="recurso"
-							name="tipo">
-						<button class="btn btn-primary" type="submit">Distribuir
-							Todos os Trabalhos do Recurso</button>
-					</form></td>
+					</form>
+					</br>
+					<form action="Distribuir" method="post">
+							<input type="hidden" value="<%=evento.getIdEvento()%>"
+								name="idEvento"> <input type="hidden" value="recurso"
+								name="tipo">
+							<button class="btn btn-primary" type="submit" style="width: 300px;">Distribuir
+								Todos os Trabalhos do Recurso</button>
+					</form>
+				</td>
 			</tr>
 		</table>
 

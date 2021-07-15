@@ -24,6 +24,7 @@ import br.com.n2s.sara.util.Facade;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
 import br.com.n2s.sara.model.StatusTrabalho;
+import br.com.n2s.sara.model.TipoApresentacao;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.dao.DAOEvento;
 import br.com.n2s.sara.dao.DAOSubmissao;
@@ -40,21 +41,30 @@ public class Submissao extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Usuario userLogado = (Usuario) session.getAttribute("usuarioSara");
 		try {
-		int idTrilha = Integer.parseInt(request.getParameter("trilha"));
-		int idEvento = Integer.parseInt(request.getParameter("evento"));
-		Trilha nomeTrilha = new DAOTrilha().getTrilha(idTrilha);
-		Evento nomeEvento = new DAOEvento().getEvento(idEvento);
-		String endereco=null;
-			br.com.n2s.sara.model.Trabalho trabalho = new Trabalho();
+			DAOTrabalho daoTrabalho = new DAOTrabalho();
+			
+			int idTrilha = Integer.parseInt(request.getParameter("trilha"));
+			int idEvento = Integer.parseInt(request.getParameter("evento"));
+			Trilha nomeTrilha = new DAOTrilha().getTrilha(idTrilha);
+			Evento nomeEvento = new DAOEvento().getEvento(idEvento);
+			String endereco=null;
+			Trabalho trabalho = new DAOTrabalho().getTrabalho(Integer.parseInt(request.getParameter("idTrabalho")));
 	        trabalho.setTrilha(nomeTrilha);
-	        trabalho.setIdTrabalho(Integer.parseInt(request.getParameter("idTrabalho")));
-			trabalho.setTitulo(request.getParameter("titulo").toUpperCase());
+	        trabalho.setTitulo(request.getParameter("titulo").toUpperCase());
 			trabalho.setPalavrasChaves(request.getParameter("palavras_chave"));
 			trabalho.setResumo(request.getParameter("resumo"));
 			trabalho.setStatus(StatusTrabalho.ACEITO_FINAL);
-			//Aqui estï¿½ tratando do arquivo
+			
+			if(nomeTrilha.getTipoApresentacao() != null && nomeTrilha.getTipoApresentacao().equals(TipoApresentacao.TODAS)) {
+				trabalho.setTipoApresentacao(TipoApresentacao.valueOf(request.getParameter("tipoApresentacao")));
+			}
+			
+			if(nomeTrilha.getTipoApresentacao() != null && !nomeTrilha.getTipoApresentacao().equals(TipoApresentacao.TODAS)) {
+				trabalho.setTipoApresentacao(nomeTrilha.getTipoApresentacao());
+			}
+			
+			//Aqui está tratando do arquivo
 			File dir = new File(util.Constantes.getArticlesDir()+File.separator+nomeEvento.getIdEvento()+File.separator+nomeTrilha.getIdTrilha()+File.separator+"versaoFinal"+File.separator);
 			
 			if( !dir.isDirectory() ){
@@ -83,10 +93,10 @@ public class Submissao extends HttpServlet {
 		    
 		     
 	        trabalho.setEndereco(endereco);
-	        DAOTrabalho daoTrabalho = new DAOTrabalho();
+	       
 	        daoTrabalho.update(trabalho);      
 		 
-	        session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso ao submeter o trabalho!Boa sorte!");
+	        session.setAttribute(Constantes.getSESSION_MGS(), "Sucesso ao submeter o trabalho! Boa sorte!");
         response.sendRedirect("indexAutor.jsp");
 		}catch (Exception e) {
 			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante a submissão do trabalho!");

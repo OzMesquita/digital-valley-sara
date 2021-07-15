@@ -17,6 +17,7 @@ import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.DescricaoPeriodo;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.Periodo;
+import br.com.n2s.sara.model.TipoApresentacao;
 import br.com.n2s.sara.model.Trilha;
 import br.com.n2s.sara.util.Constantes;
 
@@ -42,6 +43,7 @@ public class AdicionarTrilha extends HttpServlet {
 			trilha.setEvento(evento);
 			trilha.setQtdCorrecoes(Integer.parseInt(request.getParameter("correcoes")));
 			trilha.setPeso(Integer.parseInt(request.getParameter("peso")));
+			trilha.setTipoApresentacao(TipoApresentacao.valueOf(request.getParameter("tipoApresentacao")));
 			trilha = daoTrilha.create(trilha);
 
 			ArrayList<Periodo> p = new ArrayList<Periodo>();

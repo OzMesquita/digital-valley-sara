@@ -7,7 +7,7 @@
 		Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
 		session.setAttribute("trabalho", trabalho);
 
-	if (! Facade.isAvaliador(trabalho.getIdTrabalho(), usuario.getCpf())){
+	if (! Facade.isAvaliadorTrabalho(trabalho.getIdTrabalho(), usuario.getCpf())){
           		%>
           		<iframe onload="permissao()" src="/adicionarCoordenadorEvento.jsp"></iframe>
     			<script>
@@ -56,24 +56,24 @@
                           <header class="panel-heading">
                               Avaliar Trabalho
                           </header>
-                        <table class="table table-striped table-advance table-hover">
+                        <table class="table table-striped table-advance ">
 	                        <tbody>
 				                    <tr>                               
 				                       <th><h2><%= trabalho.getTrilha().getDescricao() %></h2> </th>
 				                    </tr>
 				                   	<tr>
-				                    	<td>
+				                    	<td style="background-color: #F9F9F9;">
 									        <form action="SalvarAvaliacao" method="post">
 									           
-									            <p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
+									            <p>*Considerações sobre o trabalho:</p> 
 									            <p><textarea name="feedback" cols="80" rows="15" maxlength="5000" required></textarea></p>
-									            <p>*Descreva a nota para o trabalho</p>
+									            <p>*Nota para o trabalho</p>
 									            <input type="number" maxlength="10" min="0" name="nota">
-									            <p>Decisão final sobre o trabalho:</p>
+									            <p style="margin-top: 10px;">*Decisão final sobre o trabalho:</p>
 									            <input type="radio" name="status" value="aceitar" required> Aceitar<br>
   												<input type="radio" name="status" value="rejeitar" required> Rejeitar<br>
   												<br>
-  												<input type="submit" value="Enviar Avaliação">
+  												<button type="submit" class="btn-sm btn-primary" >Enviar Avaliação</button>
 								        	</form>
 				                   		</td>
 				                   </tr>

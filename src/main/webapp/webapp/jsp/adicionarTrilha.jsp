@@ -82,7 +82,7 @@
 									</div>
 									<div class="form-group">
 										<div class="col-lg-12">
-											<label for="qtd">Quantidade de correções <span class="required">*</span>
+											<label for="qtd" style="width: 180px;">Quantidade de correções <span class="required">*</span>
 											</label> <select required="required" name="correcoes" id="qtd">
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -92,7 +92,7 @@
 											</select>
 										</div>
 										<div class="col-lg-12">
-											<label for="peso">Peso dos trabalhos <span class="required">*</span>
+											<label for="peso" style="width: 180px;">Peso dos trabalhos <span class="required">*</span>
 											</label> <select name="peso" required="required" id="peso">
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -102,6 +102,17 @@
 											</select>
 
 										</div>
+										<div class="col-lg-12">
+											<label for="tipoApresentacao" style="width: 180px;">Tipo Apresentação <span class="required">*</span>
+											</label> <select name="tipoApresentacao" required="required" id="tipoApresentacao">
+												<option value="TODAS">Todas</option>
+												<option value="POSTER">Pôster</option>
+												<option value="ORAL">Oral</option>
+											</select>
+
+										</div>
+										
+										
 									</div>
 									<!-- ENTÃO TEMOS QUE ADICIONAR AS COISAS QUE FALTAM -->
 									<%

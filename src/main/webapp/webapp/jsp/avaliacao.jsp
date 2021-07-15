@@ -10,6 +10,7 @@
 <%@page import="br.com.n2s.sara.model.Periodo"%>
 <%@page import="br.com.n2s.sara.model.DescricaoPeriodo"%>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
      	<%
      		List<Trabalho> trabalhos = new DAOAvaliaTrabalho().readAvaliacao(usuario.getCpf());
@@ -49,7 +50,7 @@
                           <header class="panel-heading">
                               Trabalhos para Avaliar
                           </header>
-                          
+                           
                           <table class="table table-striped table-advance table-hover">
                            <tbody>
                               <tr>                               
@@ -74,7 +75,7 @@
 				                   <%if (trabalhos.get(i).getTrilha().getEvento().getDescriEvento().toString().equals(TipoEvento.EU.toString())){%>
 				                   <td> <form action="avaliarTrabalho.jsp" method="post"> 
 				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
-				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
+				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho Encontro</button>
 				                       </form> 
 				                   </td>
 				                   <%}else {%>
@@ -93,6 +94,7 @@
 			                   </td>
 			                   
 			               </tr>
+			      		  <%--
 			        		 <%}if (Facade.periodoAtual(trilha, DescricaoPeriodo.AVALIACAO)){%>
 			        		 	<tr>
 			                   
@@ -118,8 +120,10 @@
 				                   </form> 
 			                   </td>
 			                   
-			               </tr>			        		 
+			               </tr>
+			               --%>			        		 
 			        		 <%} %>
+			        		  
 							    <% 
 							        }
 							    %>
