@@ -18,7 +18,9 @@ public class Trabalho {
 	private Usuario orientador;
 	private String endereco;// Substitui versao final
 	private TipoApresentacao tipoApresentacao;
-
+	private SessaoTematica sessaoTematica;
+	
+	
 	public Usuario getOrientador() {
 		return orientador;
 	}
@@ -113,6 +115,14 @@ public class Trabalho {
 
 	public void setTipoApresentacao(TipoApresentacao tipoApresentacao) {
 		this.tipoApresentacao = tipoApresentacao;
+	}
+
+	public SessaoTematica getSessaoTematica() {
+		return sessaoTematica;
+	}
+
+	public void setSessaoTematica(SessaoTematica sessaoTematica) {
+		this.sessaoTematica = sessaoTematica;
 	}
 	
 }

@@ -116,6 +116,8 @@ public class DAOSubmissao extends DAO {
 			super.open();
 			String sql = "select * from sara.submissao where idtrabalho=? and tipousuario = ? ";
 			try{
+				
+				DAOUsuario daoUsuario = new DAOUsuario();
 				List<Usuario> autores = new ArrayList<Usuario>();
 				PreparedStatement stmt = super.getConnection().prepareStatement(sql);
 				stmt.setInt(1, idTrabalho);
@@ -123,8 +125,7 @@ public class DAOSubmissao extends DAO {
 				ResultSet rs = stmt.executeQuery();
 				super.close();
 				while(rs.next()){
-					Usuario autor= new Usuario();
-					autor.setCpf(rs.getString("cpfautor"));				
+					Usuario autor = daoUsuario.getUsuario(rs.getString("cpfautor"));
 					autores.add(autor);
 				}
 

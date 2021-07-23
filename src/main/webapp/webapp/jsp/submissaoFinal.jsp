@@ -1,29 +1,36 @@
+<%@page import="java.util.List"%>
+<%@page import="br.com.n2s.sara.dao.DAOSessaoTematica"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrabalho"%>
 <%@page import="br.com.n2s.sara.dao.DAOEvento"%>
 <%@page import="br.com.n2s.sara.dao.DAOTrilha"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page import="br.com.n2s.sara.model.*" %>
+<%@page import="br.com.n2s.sara.model.*" %>
 <%@page import="br.com.n2s.sara.util.Constantes"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
      
 	<% 
 		
 	DAOEvento daoEvento = new DAOEvento();
 	DAOTrilha daoTrilha = new DAOTrilha();
+	DAOSessaoTematica daoSessaoTematica = new DAOSessaoTematica();
 	Evento evento = null;
 	Trilha trilha = null;
 	Trabalho trabalho = null;
-		
+	
 		try{
 			
 			evento = Facade.pegarEventoPeloId(Integer.parseInt(request.getParameter("idEvento")));
 			trilha = daoTrilha.getTrilha(Integer.parseInt(request.getParameter("idTrilha")));
-			trabalho = new DAOTrabalho().getTrabalho(Integer.parseInt(request.getParameter("idTrabalho")));                              
+			trabalho = new DAOTrabalho().getTrabalho(Integer.parseInt(request.getParameter("idTrabalho"))); 
+			
 	        
 		}catch(Throwable e){
     
 			response.sendRedirect("indexAutor.jsp");	
 			
 		}
+		
+		List<SessaoTematica> listaSessao = daoSessaoTematica.getAllByEvento(evento);
 		
     %>
        
@@ -53,16 +60,20 @@
 			<%} %>     
       <!-- page start-->
               
+              
               <div class="row">
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Submissão
+                              Submissão Final
                           </header>
                         <table class="table table-striped table-advance">
 	                        <tbody>
 				                    <tr>
-				                       <th><h2>Submissão final para o trabalho <%= trabalho.getTitulo() %></h2> </th>
+					                    <td>
+					                    	<h5>Título:</h5>
+											<p><b><%= trabalho.getTitulo() %></p><p><b>
+										</td>
 				                    </tr>
 				                   	<tr style="background-color: #F9F9F9;">
 				                    	<td>				                    	
@@ -93,6 +104,16 @@
 										            	<input type="text" disabled="disabled" id="tipoApresentacao" name="tipoApresentacao" value="<%= trilha.getTipoApresentacao().getLabel() %>" />
 										            </p>
 									            <% } %>
+									            
+									            <p><b>*Sessão temática:</b></p> 
+												<div>
+													<select name="sessaoTematica" required="required" style="width: 550px;">  
+														<option value="">Selecione</option>
+	 													<c:forEach var="sessaoTematica" items="<%= listaSessao %>">  
+	    													<option value="${sessaoTematica.id}">${sessaoTematica.nome}</option>  
+	  													</c:forEach>  
+													</select>
+												</div>
 									            								            
 						     					<br/>
 												<p><b>*Anexar Trabalho:</b></p>

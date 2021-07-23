@@ -50,46 +50,51 @@
       <!-- page start-->
               
               <div class="row">
-                  <div class="col-lg-12">
-                      <section class="panel">
+                  <div class="col-lg-12" style="background-color: #EEEEEE !important;">
+                      <section class="panel" style="background-color: #EEEEEE !important;">
                           <header class="panel-heading">
-                              Avaliar Trabalho
+                              <h2>Avaliar Trabalho</h2>
                           </header>
                         <table class="table table-striped table-advance table-hover">
-	                        <tbody>
 	                        <form method="post" onsubmit="myFunction();" action="SalvarAvaliacaoArtigo">
 	                        <input type="hidden" value="<%=trabalho.getIdTrabalho() %>" name="t-a" >
-				                    <tr>                               
-				                       <th><h2><%= trabalho.getTrilha().getDescricao() %></h2> </th>
+				            
+	                        <tbody>
+	                                <tr>
+	                                   <h3><b>Trilha</b></h3> <%= trabalho.getTrilha().getDescricao() %>
+				                       <h3><b>Trabalho</b></h3> <%= trabalho.getTitulo() %>
 				                    </tr>
 				                    <tr>
-				                    	<h2>Critério Inicial</h2>
+				                    	<hr>
+				                    	<h3><b>Critério Inicial</b></h3>
 				                    	<p>O resumo está identificado? (Caso esteja identificado, o resumo deve ser rejeitado)</p>
 				                    	<div class="input-group form-row">
 				                 			<div class="input-group-prepend col">
     											<div class="input-group-text col">	    											
-					                    	 	 		<button onclick="ativa()">Resumo NÃO está identificado</button>					                    	 	 		     	  										
-	  													<button onclick="desativa()">Resumo está identificado</button>	  												
+					                    	 	 		<button onclick="ativa()" class="btn-sm btn-primary">Resumo NÃO está identificado</button>					                    	 	 		     	  										
+	  													<button onclick="desativa()" class="btn-sm btn-primary">Resumo está identificado</button>	  												
   												</div>
   											</div>	
+  										</div>
+  										<hr style="border-top: 3px solid #bbb;">	
 				                    </tr>
 				                    <%for(Criterio c :trabalho.getTrilha().getCriterios()) {%>
 				                    <tr>
-				                   		<h2><%=c.getNome()%></h2>
+				                   		<h3><b><%=c.getNome()%></b></h3>
 				                   		<p><%=c.getDescricao()%></p>
 				                   		<div class="input-group form-row">
 				                 			<div class="input-group-prepend col">
     											<div class="input-group-text col">
-				                   		<%for(Item i : c.getItens()) {%>
-												<div id=nota>
-    											<label class="radio-inline">
-    											<%=i.getDescricao()%> Nota: <%=i.getPeso()%>
-    											<input type="radio" class="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>" required>
-    											<input type="hidden" class="radio-nota" value="<%=i.getPeso()%>">
-    											</label>
-    											</div>
-				                   		<%} %>
-				                   			</div>
+				                   		
+							                   		<%for(Item i : c.getItens()) {%>
+															<div id=nota>
+				    											<label class="radio-inline">
+				    											<input type="radio" class="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>" required /><%=i.getDescricao()%> Nota: <%=i.getPeso()%>
+				    											<input type="hidden" class="radio-nota" value="<%=i.getPeso()%>" style="width: 0px;height: 0px;"/>
+																</label>
+			    											</div>
+							                   		<%} %>
+				                   				</div>
   											</div>
 				                   		</div>
 				                   	</tr>
@@ -97,7 +102,7 @@
 				                   	<tr>
 				                   		<br><br><br>
 				                   		<p>*Descreva abaixo suas considerações sobre o trabalho:</p> 
-									    <p><textarea id="feed" name="feedback" cols="30" rows="5" maxlength="5000" required></textarea></p>
+									    <p><textarea id="feed" name="feedback" cols="60" rows="5" maxlength="5000" required></textarea></p>
 				                   	</tr>
 				                   	<button type="submit" onclick="myFunction();" class="btn btn-primary">Enviar Avaliação</button>
 				                   	

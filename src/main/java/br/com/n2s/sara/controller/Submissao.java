@@ -23,10 +23,12 @@ import br.com.n2s.sara.util.Constantes;
 import br.com.n2s.sara.util.Facade;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
+import br.com.n2s.sara.model.SessaoTematica;
 import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.TipoApresentacao;
 import br.com.n2s.sara.model.Trabalho;
 import br.com.n2s.sara.dao.DAOEvento;
+import br.com.n2s.sara.dao.DAOSessaoTematica;
 import br.com.n2s.sara.dao.DAOSubmissao;
 import br.com.n2s.sara.dao.DAOTrabalho;
 
@@ -42,19 +44,27 @@ public class Submissao extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
+			
 			DAOTrabalho daoTrabalho = new DAOTrabalho();
+			DAOSessaoTematica daoSessaoTematica = new DAOSessaoTematica();
 			
 			int idTrilha = Integer.parseInt(request.getParameter("trilha"));
 			int idEvento = Integer.parseInt(request.getParameter("evento"));
+			int idSessao = Integer.parseInt(request.getParameter("sessaoTematica"));
+			
 			Trilha nomeTrilha = new DAOTrilha().getTrilha(idTrilha);
 			Evento nomeEvento = new DAOEvento().getEvento(idEvento);
 			String endereco=null;
 			Trabalho trabalho = new DAOTrabalho().getTrabalho(Integer.parseInt(request.getParameter("idTrabalho")));
-	        trabalho.setTrilha(nomeTrilha);
+			SessaoTematica sessaoTematica = daoSessaoTematica.getById(idSessao);
+			
+			trabalho.setTrilha(nomeTrilha);
 	        trabalho.setTitulo(request.getParameter("titulo").toUpperCase());
 			trabalho.setPalavrasChaves(request.getParameter("palavras_chave"));
 			trabalho.setResumo(request.getParameter("resumo"));
 			trabalho.setStatus(StatusTrabalho.ACEITO_FINAL);
+			trabalho.setSessaoTematica(sessaoTematica);
+			
 			
 			if(nomeTrilha.getTipoApresentacao() != null && nomeTrilha.getTipoApresentacao().equals(TipoApresentacao.TODAS)) {
 				trabalho.setTipoApresentacao(TipoApresentacao.valueOf(request.getParameter("tipoApresentacao")));

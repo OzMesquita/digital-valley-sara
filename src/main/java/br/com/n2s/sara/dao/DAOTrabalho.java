@@ -31,8 +31,8 @@ public class DAOTrabalho extends DAO {
 		try {
 			super.open();
 			String sql = "insert into sara.trabalho"  
-					+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha, endereco_ini, tipo_apresentacao)"
-					+ "values (?,?,?,?,?,?,?,?)";
+					+ "(titulo, palavraschaves, resumo, status, endereco, idtrilha, endereco_ini, tipo_apresentacao, id_sessao_tematica)"
+					+ "values (?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement stmt = null;
 			stmt = super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -45,6 +45,8 @@ public class DAOTrabalho extends DAO {
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 			stmt.setString(7, trabalho.getEnderecoInicial());
 			stmt.setString(8, trabalho.getTipoApresentacao().name());
+			stmt.setInt(9, trabalho.getSessaoTematica().getId());
+			
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			int idTrabalho= 0 ;
@@ -63,6 +65,7 @@ public class DAOTrabalho extends DAO {
 					super.getConnection().rollback();
 					super.getConnection().setAutoCommit(true);
 				} catch (Exception e2) {
+					super.close();
 					// TODO: handle exception
 				}
 					throw new RuntimeException(e);
@@ -123,6 +126,7 @@ public class DAOTrabalho extends DAO {
 			ResultSet rs = stmt.executeQuery();
 			super.close();
 			DAOTrilha daoTrilha = new DAOTrilha();
+			DAOSessaoTematica daoSessaoTematica = new DAOSessaoTematica();
 			if(rs.next()) {	
 				Trabalho trabalho = new Trabalho();
 				trabalho.setIdTrabalho(rs.getInt("idTrabalho"));
@@ -136,6 +140,10 @@ public class DAOTrabalho extends DAO {
 				
 				if(rs.getString("tipo_apresentacao") != null) {
 					trabalho.setTipoApresentacao(TipoApresentacao.valueOf(rs.getString("tipo_apresentacao")));
+				}
+				
+				if(rs.getInt("id_sessao_tematica") != 0) {
+					trabalho.setSessaoTematica(daoSessaoTematica.getById(rs.getInt("id_sessao_tematica")));
 				}
 				
 				rs.close();
@@ -162,10 +170,14 @@ public class DAOTrabalho extends DAO {
 		super.open();
 		StringBuilder sb = new StringBuilder();
 
-		sb.append("update sara.trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?, endereco_ini=?");
+		sb.append("update sara.trabalho set titulo = ?, palavrasChaves = ?, resumo = ?, status = ?, endereco = ?, idTrilha = ?, endereco_ini=? ");
 
 		if(trabalho.getTipoApresentacao() != null) {
 			sb.append(", tipo_apresentacao=? ");
+		}
+		
+		if(trabalho.getSessaoTematica() != null) {
+			sb.append(", id_sessao_tematica=? ");
 		}
 
 		sb.append(" where idTrabalho  = ?");
@@ -180,10 +192,13 @@ public class DAOTrabalho extends DAO {
 			stmt.setString(5, trabalho.getEndereco());
 			stmt.setInt(6, trabalho.getTrilha().getIdTrilha());
 			stmt.setString(7, trabalho.getEnderecoInicial());
+			//stmt.setString(8, trabalho.getEndereco());
 			
-			if(trabalho.getTipoApresentacao() != null) {
+			if(trabalho.getTipoApresentacao() != null && trabalho.getSessaoTematica() != null) {
 				stmt.setString(8, trabalho.getTipoApresentacao().name());
-				stmt.setInt(9, trabalho.getIdTrabalho());
+				stmt.setInt(9, trabalho.getSessaoTematica().getId());
+				stmt.setInt(10, trabalho.getIdTrabalho());
+				
 			}else {
 				stmt.setInt(8, trabalho.getIdTrabalho());
 			}

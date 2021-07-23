@@ -46,54 +46,46 @@ public class SalvarAvaliacaoArtigo extends HttpServlet {
 			String feedback = request.getParameter("feedback");
 			Usuario avaliador =(Usuario) session.getAttribute("usuarioSara");
 			int idTrabalho = Integer.parseInt(request.getParameter("t-a"));
-			Trabalho trabalho = new DAOTrabalho().getTrabalho(idTrabalho);
-			AvaliaTrabalho av = new DAOAvaliaTrabalho().getAvaliaTrabalho(idTrabalho, avaliador.getCpf());
+			
+			DAOItem daoItem = new DAOItem();
+			DAOTrabalho daoTrabalho = new DAOTrabalho();
+			DAOAvaliaTrabalho daoAvaliatrabalho = new DAOAvaliaTrabalho();
+			
+			Trabalho trabalho = daoTrabalho.getTrabalho(idTrabalho);
+			AvaliaTrabalho av = daoAvaliatrabalho.getAvaliaTrabalho(idTrabalho, avaliador.getCpf());
+			
+			
 			ArrayList<Item> itens = new ArrayList<Item>(); 
 			for (Criterio c : trabalho.getTrilha().getCriterios()) {
 				int idItem = Integer.parseInt(request.getParameter("criterio-"+c.getIdCriterio()));
-				Item item = new DAOItem().getItem(idItem);
+				Item item = daoItem.getItem(idItem);
 				item.setCriterio(c);
 				itens.add(item);
-				new DAOAvaliaTrabalho().updateCriterioAvaliados(av.getId(), item.getIdItem(), c.getIdCriterio());
+				daoAvaliatrabalho.updateCriterioAvaliados(av.getId(), item.getIdItem(), c.getIdCriterio());
 			}
+			
 			av.setItens(itens);
 			av.setNota(Facade.calcularNota(av));
 			av.setFeedback(feedback);
-			new DAOAvaliaTrabalho().updatePerAvaliador(av);
-			/*ArrayList<AvaliaTrabalho> avaliacoes = (ArrayList<AvaliaTrabalho>) new DAOAvaliaTrabalho().read(trabalho);
-			boolean finalizado=false;
-			if (avaliacoes!=null) {
-				for (AvaliaTrabalho avalia : avaliacoes) {
-					if (avalia.getStatus().equals(StatusTrabalho.EM_AVALIACAO)) {
-						finalizado = false;
-						break;
-					}
-				}
-			}*/
-			/*if(finalizado) {
-				if(Facade.calcularNota(avaliacoes)>=6) {
-					trabalho.setStatus(StatusTrabalho.ACEITO);
-					av.setStatus(StatusTrabalho.ACEITO);
-				}else {
-					trabalho.setStatus(StatusTrabalho.REJEITADO);
-					av.setStatus(StatusTrabalho.REJEITADO);
-				}
-				new DAOTrabalho().update(trabalho);
-				new DAOAvaliaTrabalho().update(av);
-			}*/	
-			if(Facade.calcularNota(av)>=6) {
+			daoAvaliatrabalho.updatePerAvaliador(av);
+		
+			Float nota = Facade.calcularNota(av);
+			
+			if(nota >= 6) {
 				trabalho.setStatus(StatusTrabalho.ACEITO);
 				av.setStatus(StatusTrabalho.ACEITO);
 			}else {
 				trabalho.setStatus(StatusTrabalho.REJEITADO);
 				av.setStatus(StatusTrabalho.REJEITADO);
 			}
-			new DAOTrabalho().update(trabalho);
-			new DAOAvaliaTrabalho().update(av);		
-			session.setAttribute(Constantes.getSESSION_MGS(), "Avaliaï¿½ï¿½o realizada com sucesso!");
-			response.sendRedirect("avaliacao.jsp");	
+			daoTrabalho.update(trabalho);
+			daoAvaliatrabalho.update(av);		
+			
+			session.setAttribute(Constantes.getSESSION_MGS(), "Avaliação realizada com sucesso!");
+			response.sendRedirect("avaliacao.jsp");
+			
 		}catch (Exception e) {
-			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante avaliaï¿½ï¿½o");
+			session.setAttribute(Constantes.getSESSION_MGS_ERROR(), "Erro durante avaliação");
 			response.sendRedirect("avaliacao.jsp");	
 			throw new RuntimeException(e);
 		}

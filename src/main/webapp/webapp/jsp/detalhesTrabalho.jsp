@@ -67,8 +67,9 @@
 										<%if (trabalho.getAutores() != null && trabalho.getAutores().size()>0){ %>
 											<h5>Coautor(es):</h5>
 											<%for(Usuario u : trabalho.getAutores()){ %> 
-												<%-- <p> <input type="text" size="100" value="<%= u.getNome() %>" disabled="disabled"></p> --%>
+												<p><%= u.getNome() %></p>
 											<%}
+											
 										}%>
 										<%if (avaliaTrabalho != null) {%>									           	
 											<h5>Feedback do Avaliador:</h5>
@@ -76,6 +77,7 @@
 										<%}%>
 										<h5>Status: <%= trabalho.getStatus().getDescricao() %> </h5>
 										<h5>Tipo Apresentação: <%= trabalho.getTipoApresentacao()!=null?trabalho.getTipoApresentacao().getLabel():"Não informado" %> </h5> 
+										<h5>Sessão Temática: <%= trabalho.getSessaoTematica()!=null?trabalho.getSessaoTematica().getNome():"Não informado" %> </h5> 
 										
 										
 										<% 
@@ -112,20 +114,20 @@
 											<button class="btn btn-primary" type = "submit">Recurso</button>
                					 		</form> 	
 									<%}%>
-									<%if( trabalho.getOrientador()!=null
-									&& usuario.getCpf().equals(trabalho.getOrientador().getCpf())
-									&& trabalho.getStatus()==StatusTrabalho.ENVIADO 
-									&& (atual.getDescricao()==DescricaoPeriodo.AVAL || atual.getDescricao()==DescricaoPeriodo.SUBMISSAO_MANUSCRITO ) ) {%>
-										<p style="margin-top: 10px;">Aval do orientador:<p>
-										<p>O trabalho pode seguir para avaliação?</p>
-										<form action="Aval" method="post">
-											<input type="radio" id="aceito" name="resultado" value="aceito" required style="margin-right: 10px;"><label for="aceito" style="margin-right: 25px;">Aceito</label>
-											<input type="radio" id="recusado" name="resultado" value="recusado"><label for="recusado">Recusado</label>
-											<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho">
-											</br> 
-											<button class="btn btn-primary" type="submit">Avaliar</button>
-											<!-- <input type="submit" name="Avaliar" value="Avaliar" class="btn btn-primary"/> -->
-										</form>	
+									<%
+									if( trabalho.getOrientador()!=null
+										&& usuario.getCpf().equals(trabalho.getOrientador().getCpf())
+										&& trabalho.getStatus()==StatusTrabalho.ENVIADO 
+										&& (atual.getDescricao()==DescricaoPeriodo.AVAL || atual.getDescricao()==DescricaoPeriodo.SUBMISSAO_MANUSCRITO ) ) {%>
+											<p style="margin-top: 10px;">Aval do orientador:<p>
+											<p>O trabalho pode seguir para avaliação?</p>
+											<form action="Aval" method="post">
+												<input type="radio" id="aceito" name="resultado" value="aceito" required style="margin-right: 10px;"><label for="aceito" style="margin-right: 25px;">Aceito</label>
+												<input type="radio" id="recusado" name="resultado" value="recusado"><label for="recusado">Recusado</label>
+												<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho">
+												</br>
+												<button class="btn btn-primary" type="submit" style="margin-top: 20px;">Avaliar</button>
+											</form>	
 									<%} %>
 									<form action="ApagarTrabalho" method="post" >                  					 
 										<input type="hidden" value="<%= trabalho.getIdTrabalho() %>" name="idTrabalho"> 

@@ -1,3 +1,4 @@
+<%@page import="br.com.n2s.sara.dao.DAOSessaoTematica"%>
 <%@page import="java.util.List"%>
 <%@page import="br.com.n2s.sara.dao.DAOUsuario"%>
 <%@page import="br.com.n2s.sara.dao.DAOEvento"%>
@@ -10,6 +11,8 @@
 	<% 
 		DAOEvento daoEvento = new DAOEvento();
 		DAOTrilha daoTrilha = new DAOTrilha();
+		DAOSessaoTematica daoSessaoTematica = new DAOSessaoTematica();
+		
 		String idEvento = request.getParameter("idEvento");
 		String idTrilha = request.getParameter("idTrilha");
 		if (idEvento == null || idTrilha == null){
@@ -20,6 +23,7 @@
 			DAOUsuario daoUsuario = new DAOUsuario();
 			List<Usuario> listaUsuario = daoUsuario.readLeve();
 			List<Usuario> listaCoautores = new ArrayList<Usuario>();
+			List<SessaoTematica> listaSessao = daoSessaoTematica.getAllByEvento(evento);
 		
     %>
       <!--main content start-->
@@ -88,9 +92,19 @@
 										            </p>
 									            <% } %>
 									            
+									            <p><b>*Sessão temática:</b></p> 
+												<div>
+													<select name="sessaoTematica" required="required" style="width: 550px;">  
+														<option value="">Selecione</option>
+	 													<c:forEach var="sessaoTematica" items="<%= listaSessao %>">  
+	    													<option value="${sessaoTematica.id}">${sessaoTematica.nome}</option>  
+	  													</c:forEach>  
+													</select>
+												</div>
+									            <br/>
 									            <p><b>*Selecione seu orientador abaixo:</b></p> 
 												<div>
-													<select name="usuarioOrientador" required="required">  
+													<select name="usuarioOrientador" required="required" style="width: 550px;">  
 														<option value="">Selecione</option>
 	 													<c:forEach var="usuarioOrientador" items="<%= listaUsuario %>">  
 	    													<option value="${usuarioOrientador}">${usuarioOrientador.nome}</option>  
@@ -108,7 +122,7 @@
 												
 												<p><b>Co-autores:</b></p>
 												<div id="divUsuarioCoautor">
-													<select id="selectCoautor" name="usuarioCoautor">  
+													<select id="selectCoautor" name="usuarioCoautor" style="width: 420px;">  
 														<option value="">Selecione</option>
 	 													<c:forEach var="usuarioCoautor" items="<%= listaUsuario %>">  
 	    													<option value="${usuarioCoautor}">${usuarioCoautor.nome}</option>  

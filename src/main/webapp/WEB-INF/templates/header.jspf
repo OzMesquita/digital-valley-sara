@@ -128,10 +128,13 @@
 			</a>
 				<ul class="sub">
 					<!-- <li><a class="" href="CadastrarEvento">Criar -->
-					<li><a class=""
-						href="<%=Constantes.getAdmUrl()%>formCadastroEvento.jsp">Criar
-							Evento
-					</a></li>
+					<li>
+						<a class="" href="<%=Constantes.getAdmUrl()%>formCadastroEvento.jsp">Criar Evento</a>
+					</li>
+					
+					<li>
+						<a class="" href="<%=Constantes.getAdmUrl()%>listarSessoes.jsp">Sessões Temáticas</a>
+					</li>
 					
 					<li><a class=""
 						href="<%=Constantes.getJSP_URL()%>ListarUsuarios">Alterar

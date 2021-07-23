@@ -61,7 +61,7 @@
                               	<td><%=t.getTrilha().getEvento().getNome()%></td>
                               	<td><%=t.getTrilha().getNome() %></td>
                               	<td style="width: 30%"><%=t.getTitulo() %></td>
-                              	<td><%=t.getTipoApresentacao().getLabel() %></td>
+                              	<td><%=t.getTipoApresentacao()!=null?t.getTipoApresentacao().getLabel():"Não infomados" %></td>
                               	<td><%=t.getStatus().toString()%></td>
                               	<td><% Periodo atual = Facade.periodoAtual(t.getTrilha());
                               			if(atual != null){

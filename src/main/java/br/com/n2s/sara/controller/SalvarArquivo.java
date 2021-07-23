@@ -20,11 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.n2s.sara.dao.DAOEvento;
+import br.com.n2s.sara.dao.DAOSessaoTematica;
 import br.com.n2s.sara.dao.DAOSubmissao;
 import br.com.n2s.sara.dao.DAOTrabalho;
 import br.com.n2s.sara.dao.DAOTrilha;
 import br.com.n2s.sara.model.Evento;
 import br.com.n2s.sara.model.NivelUsuario;
+import br.com.n2s.sara.model.SessaoTematica;
 import br.com.n2s.sara.model.StatusTrabalho;
 import br.com.n2s.sara.model.TipoApresentacao;
 import br.com.n2s.sara.model.Trabalho;
@@ -46,13 +48,20 @@ public class SalvarArquivo extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		DAOSessaoTematica daoSessaoTematica = new DAOSessaoTematica();
+		
 		HttpSession session = request.getSession();
 		int idTrilha = Integer.parseInt(request.getParameter("trilha"));
 		int idEvento = Integer.parseInt(request.getParameter("evento"));
+		int idSessao = Integer.parseInt(request.getParameter("sessaoTematica"));
+		
 		Trilha nomeTrilha = new DAOTrilha().getTrilha(idTrilha);
 		Evento nomeEvento = new DAOEvento().getEvento(idEvento);
 		Usuario userLogado = (br.com.n2s.sara.model.Usuario) session.getAttribute("usuarioSara");
+		SessaoTematica sessaoTematica = daoSessaoTematica.getById(idSessao);
 		String endereco=null;
+		
 		br.com.n2s.sara.model.Trabalho trabalho = new Trabalho();
         trabalho.setTrilha(nomeTrilha);
         trabalho.setAutor(userLogado);
@@ -60,6 +69,7 @@ public class SalvarArquivo extends HttpServlet {
 		trabalho.setPalavrasChaves(request.getParameter("palavras_chave"));
 		trabalho.setResumo(request.getParameter("resumo"));
 		trabalho.setStatus(StatusTrabalho.ENVIADO);
+		trabalho.setSessaoTematica(sessaoTematica);
 		
 		if(nomeTrilha.getTipoApresentacao() != null && nomeTrilha.getTipoApresentacao().equals(TipoApresentacao.TODAS)) {
 			trabalho.setTipoApresentacao(TipoApresentacao.valueOf(request.getParameter("tipoApresentacao")));
