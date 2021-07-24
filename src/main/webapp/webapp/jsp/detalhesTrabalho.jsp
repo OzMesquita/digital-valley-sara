@@ -73,7 +73,7 @@
 										}%>
 										<%if (avaliaTrabalho != null) {%>									           	
 											<h5>Feedback do Avaliador:</h5>
-											<p> <textarea cols="100" rows="10" disabled="disabled"><%= avaliaTrabalho.getFeedback()%></textarea></p>
+											<p> <textarea cols="100" rows="10" disabled="disabled"><%= avaliaTrabalho.getFeedback()!=null?avaliaTrabalho.getFeedback():"Ainda não informado"%></textarea></p>
 										<%}%>
 										<h5>Status: <%= trabalho.getStatus().getDescricao() %> </h5>
 										<h5>Tipo Apresentação: <%= trabalho.getTipoApresentacao()!=null?trabalho.getTipoApresentacao().getLabel():"Não informado" %> </h5> 
@@ -107,11 +107,11 @@
 	               					// PERIODO DE RECURSO
 	               					if(atual.getDescricao()==DescricaoPeriodo.RECURSO && (trabalho.getStatus()==StatusTrabalho.REJEITADO 
 									|| trabalho.getStatus()==StatusTrabalho.REJEITADO_ORIENTADOR)){%>
-										<form action="paginaDeSubmissao.jsp" method="post" onsubmit="return confirm('Deseja reenviar este trabalho?');"> 
+										<form action="paginaDeSubmissao.jsp" method="post" onsubmit="return confirm('Deseja reenviar este trabalho?');" style="margin-top: 10px;"> 
 											<input type="hidden" value="<%= trabalho.getTrilha().getIdTrilha()%>" name="idTrilha">
 											<input type="hidden" value="<%= trabalho.getTrilha().getEvento().getIdEvento()%>" name="idEvento"> 
 											<input type="hidden" value="<%= trabalho.getIdTrabalho()%>" name="idTrabalho">  
-											<button class="btn btn-primary" type = "submit">Recurso</button>
+											<button class="btn btn-primary" type = "submit" style="width: 300px;">Reenviar trabalho para recurso</button>
                					 		</form> 	
 									<%}%>
 									<%

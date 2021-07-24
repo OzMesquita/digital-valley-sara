@@ -89,9 +89,11 @@
 							                   		<%for(Item i : c.getItens()) {%>
 															<div id=nota>
 				    											<label class="radio-inline">
-				    											<input type="radio" class="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>" required /><%=i.getDescricao()%> Nota: <%=i.getPeso()%>
-				    											<input type="hidden" class="radio-nota" value="<%=i.getPeso()%>" style="width: 0px;height: 0px;"/>
-																</label>
+					    											<input type="radio" class="radio" name="criterio-<%=c.getIdCriterio()%>" value="<%=i.getIdItem()%>" required />
+					    												<div style="height: 100%;margin-top: 5px;"> <%=i.getDescricao()%> Nota: <%=i.getPeso()%></div>
+					    										</label>
+					    										<input type="hidden" class="radio-nota" value="<%=i.getPeso()%>" style="width: 0px;height: 0px;"/>
+																
 			    											</div>
 							                   		<%} %>
 				                   				</div>

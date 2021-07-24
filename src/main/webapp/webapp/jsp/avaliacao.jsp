@@ -54,7 +54,9 @@
                           <table class="table table-striped table-advance table-hover">
                            <tbody>
                               <tr>                               
+                                 <th><i class="icon_documents_alt"></i> Evento</th>
                                  <th><i class="icon_documents_alt"></i> Título do Trabalho</th>
+                                 <th><i class="icon_documents_alt"></i> Tipo Apresentação</th>
                                  
                                  <th></th>
                                  <th></th>
@@ -70,22 +72,24 @@
 			               		Periodo atual = Facade.periodoAtual(trilha);   
 			               		if (atual!=null && atual.getDescricao() == DescricaoPeriodo.AVALIACAO) {%>
 			               <tr>
-			                   
-			                   <td><%= trabalhos.get(i).getTitulo() %> </td> 
+			                   	<td style="width: 20%;"><%= trabalhos.get(i).getTrilha().getEvento().getNome() %> </td>
+			               		<td style="width: 40%;"><%= trabalhos.get(i).getTitulo() %> </td>
+			               		<td style="width: 20%;"><%= trabalhos.get(i).getTipoApresentacao()!=null?trabalhos.get(i).getTipoApresentacao().getLabel():"Não informado" %> </td>
+			               		 
 				                   <%if (trabalhos.get(i).getTrilha().getEvento().getDescriEvento().toString().equals(TipoEvento.EU.toString())){%>
-				                   <td> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
+				                   <td style="width: 10%;"> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
 				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
 				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho Encontro</button>
 				                       </form> 
 				                   </td>
 				                   <%}else {%>
-				                   	<td> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
+				                   	<td style="width: 10%;"> <form action="avaliarTrabalhoCriterio.jsp" method="post"> 
 				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
 				                           <button class="btn btn-primary" type = "submit"> Avaliar Trabalho</button>
 				                       	</form> 
 				                   </td>
 				                   <%} %>
-			                   <td>
+			                   <td style="width: 10%;">
 				                   <form action="DownloadTrabalho" method="post"> 
 				                           <input type="hidden" value="<%= trabalhos.get(i).getIdTrabalho()%>" name="idTrabalho">
 				                           <input type="hidden" value="inicial" name="opcaoDownload"> 
